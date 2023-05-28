@@ -1,0 +1,204 @@
+:root {
+  --light-mode-bg: #ffffff;
+  --light-mode-text: #000000;
+  --dark-mode-bg: #252525;
+  --dark-mode-text: #F6F6F6;
+}
+
+/* Styles for modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    align-content: space-between;
+    flex-basis: content;
+    max-width: 400px;
+    min-width: 400px;
+    max-height: 600px;
+    min-height: 600px;
+    margin: 0;
+    position: relative;
+  }
+  .modal-content[data-theme="dark"] {
+    background-color: var(--dark-mode-bg);
+    color: var(--dark-mode-text);
+  }
+  
+    .modal-content .headercontainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      align-content: space-between;
+      width: 100%;
+      padding: 0;
+    }
+  
+  span.closeOverlay{
+    align-self:flex-end;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 10px;
+    position: absolute;
+    z-index: 10000;
+    /* position to the top right */
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin-top: 5px;
+    color: white;
+  }
+  /* Optional animation for modal */
+  .modal-content {
+    animation: modalFadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+.modal-content ol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5%;
+  margin-top: 100px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    /* width: fit-content;
+    height: 100%; */
+    z-index: 1;
+}
+
+li.level{
+    font-size: 0.5em;
+    color: #4C7BFE;
+    margin-bottom: 5px;
+}
+
+p.leveltext{
+  font-size: 0.8em;
+  color: black;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5px;
+}
+p.leveltext[data-theme="dark"] {
+  color: var(--dark-mode-text);
+}
+
+.modal-overlay-off{
+    display: none;
+}
+
+section#streak {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    font-size: 50%;
+    margin: auto;
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+#score-btn{
+    background-color:#8CA8FF;
+    border-style: none;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 1em;
+}
+
+#score-value{
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #4C7BFE;
+}
+
+p.streak{
+    font-size: 35px;
+    font-weight: 500;
+    color: #4C7BFE;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #ffffff;
+    position: absolute;
+    /* move it left by half of its own width */
+    transform: translateX(25%);
+    margin-top: 40px;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+}
+
+.dqtext {
+  font-size: 20px;
+}
+
+.streaktext {
+  font-size: 16px;
+}
+
+.infocontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-top: 0;
+  margin-top: 120px;
+  margin-left: 30px;
+}
+
+.headerbg {
+  position: absolute;
+  /* width: 400px;
+  height: 146px; */
+  width: 400px;
+  height: 8%;
+  padding-bottom: 30%;
+  left: 0px;
+  top: 0px;
+  background-image: url("../../public/infoheader.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 5000;
+  border-radius: 4px;
+}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { toPng } from 'html-to-image';
 
@@ -6,7 +6,7 @@ const TwitterReportCard = () => {
   const imageRef = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
 
-  const handleDownload = () => {
+useEffect(() => {
     toPng(imageRef.current).then((dataUrl) => {
       console.log(1, dataUrl);
       const img = new Image();
@@ -16,14 +16,13 @@ const TwitterReportCard = () => {
     //   document.body.appendChild(img);
       setImageUrl(dataUrl);
     });
-  };
+  }, []);
 
   return (
     <div>
       <div ref={imageRef}>
         <p>Hello world!</p>
       </div>
-      <button onClick={handleDownload}>Download Image</button>
       {imageUrl && (
         <>
         <Helmet>

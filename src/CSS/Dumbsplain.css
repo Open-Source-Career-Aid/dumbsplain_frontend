@@ -141,11 +141,12 @@
 /* make text area recognise line breaks and spaces */
 .textarea p {
     white-space: pre-wrap;
+    padding: 0.325em;
 }
 
 .textarea p {
-    padding: .625em;
-    font-size: 0.6em;
+    padding: 2em 1.5em;
+    font-size: 0.5em;
 }
 .textarea p[data-theme='dark'] {
     color: var(--dark-mode-text);
@@ -500,14 +501,17 @@
 }
 
 .mcq-question {
-    font-size: 1.0em;
+    font-size: 0.7em;
     color: #454545;
-    margin-top: 2%;
-    font-weight: 700;
+    margin: 2% 0;
+    font-weight: 500;
+}
+.mcq-question[data-theme='dark'] {
+    color: var(--dark-mode-text);
 }
 
 .mcq-option {
-    font-size: 0.7em;
+    font-size: 0.6em;
     color: #454545;
     margin-top: 1%;
 }
@@ -515,9 +519,44 @@
     color: var(--dark-mode-text);
 }
 
-.mcq-options ol {
+/* .mcq-options ol {
     list-style-type: upper-alpha;
-}
+    padding-left: 5%;
+} */
+
+.mcq-options ol {
+    counter-reset: custom-counter;
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .mcq-options ol li {
+    position: relative;
+    padding-left: 1.5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+.mcq-options ol li::before {
+    counter-increment: custom-counter;
+    content: counter(custom-counter, lower-alpha);
+    position: absolute;
+    left: 0;
+    background-color: #F2F2F2;
+    border-radius: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1.2em;
+    text-align: center;
+    font-size: 0.6em;
+    padding: 4px;
+    color: #8CA8FF;
+  }
+  .mcq-options ol li[data-theme='dark']::before {
+    background-color: black;
+  }
 
 
 /* for anything with min width 600px */

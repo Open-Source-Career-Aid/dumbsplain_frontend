@@ -99,9 +99,11 @@ ul {
 }
 
 li.level{
-    font-size: 0.5em;
+    font-size: 0.45em;
     color: #4C7BFE;
-    margin-bottom: 5px;
+    margin: 5px 0;
+    padding: 0;
+    font-weight: 700;
 }
 
 p.leveltext{
@@ -110,6 +112,7 @@ p.leveltext{
   margin: 0;
   padding: 0;
   margin-bottom: 5px;
+  line-height: 15px;
 }
 p.leveltext[data-theme="dark"] {
   color: var(--dark-mode-text);
@@ -178,12 +181,11 @@ p.streak{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  align-content: space-between;
   width: 100%;
   height: 100%;
   padding-top: 0;
   margin-top: 120px;
-  margin-left: 30px;
+  padding-right: 0;
 }
 
 .headerbg {

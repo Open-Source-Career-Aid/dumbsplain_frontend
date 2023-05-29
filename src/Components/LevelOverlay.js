@@ -4,17 +4,19 @@ import '../CSS/Overlay.css';
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const level = [
-        ['Choose your dumbness level', 'The higher the level, the harder the question.	You can only hit ‘Dumbsplain’ at one level each day, so choose wisely!'],
-        ['Let AI dumbsplain the topic for you', null],
-        ['Answer the generated question', 'You get 1 point for getting the answer right at Just Plain Dumb;	5 points for getting the answer right at Pretentious Professor; 0 points for getting the answer wrong'],
-        ['Reach the highest Dumbness Quotient (DQ) and Longest Streak', 'DQ is your average score over your last 5 plays'],
-        ['Share your results and prove that AI is not the best of you', 'AI gets ready for your next play at midnight']];
+        ['Choose your dumbness level', 'The higher the level, the harder the challenge'],
+        ['Hit Dumbsplain to have AI dumbsplain the topic to you', 'You only get one play each day, so choose wisely!'],
+        ['Respond to the AI challenge', 'You get 1 point for getting the answer right at Just Plain Dumb; 5 points for getting it right at Pretentious Professor; 0 points for getting it wrong'],
+        ['Reach for the highest Dumbness Quotient (DQ) and longest Streak', 'DQ is your average score over your last 7 plays'],
+        ['Share your results and stand up for humankind!', 'AI will be ready for your next play at midnight']];
     const leveltext = level.map((item,index) => {
        return (
-        <li key={index} className="level" >
-            {item[0]}
-            <p className="leveltext" data-theme={theme}>{item[1]}</p>
-        </li>)
+        <>
+            <li key={index} className="level" >
+                {item[0]}
+            </li>
+            <p className="leveltext" data-theme={theme} style={{'font-size': '0.4em'}}>{item[1]}</p>
+        </>)
     });
     const closeOverlay = (e) => {
         e.preventDefault();

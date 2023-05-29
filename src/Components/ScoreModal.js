@@ -1,23 +1,26 @@
 import { useEffect , useState } from "react";
 import getScore from "../Functions/getScore";
 
-export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , setSpecial_id , theme }){
+export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme }){
 
-    const [roundedDQ, setRoundedDQ] = useState(0);
+    const [roundedDQ, setRoundedDQ] = useState(1);
+    const [apicalled, setApicalled] = useState(false);
 
     useEffect(() => {
 
-        if (userdq === null && scoreModal === true) {
+        if (scoreModal === true && apicalled === false) {
 
         async function fetchScore() {
             const score = await getScore();
             setUserdq(score.dq);
             setUserstreak(score.streak);
+            setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.floor(score.dq)+1);
         }
 
         fetchScore();
+        setApicalled(true);
 
         }
         
@@ -48,7 +51,7 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
                     </div>
                     <div className="streaktext" style={{'padding-left':'3em'}}>
                         Max Streak
-                        <p  className="streak">0</p>
+                        <p  className="streak">{maxstreak}</p>
                     </div>
                 </section>
 

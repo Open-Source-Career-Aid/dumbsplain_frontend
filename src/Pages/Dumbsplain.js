@@ -36,8 +36,9 @@ function Dumbsplain( ) {
     const [waitfortomorrow, setWaitfortomorrow] = React.useState(false);
     const [waitingtime, setWaitingtime] = React.useState(0);
     const [score, setScore] = React.useState(null);
-    const [userdq, setUserdq] = React.useState(null);
-    const [userstreak, setUserstreak] = React.useState(null);
+    const [userdq, setUserdq] = React.useState(0);
+    const [userstreak, setUserstreak] = React.useState(0);
+    const [maxstreak, setMaxstreak] = React.useState(0);
     const [theme, setTheme] = React.useState('light');
 
 
@@ -196,6 +197,8 @@ function Dumbsplain( ) {
             setUserstreak={setUserstreak}
             setSpecial_id={setSpecial_id}
             theme={theme}
+            maxstreak={maxstreak}
+            setMaxstreak={setMaxstreak}
             />
             <div className='navbar'>
                 <div className='dumbsplainlogo'></div>

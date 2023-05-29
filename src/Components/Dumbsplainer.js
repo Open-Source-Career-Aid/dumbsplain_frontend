@@ -40,8 +40,10 @@ function getQuestionAndOptions ({ text , theme }) {
 
     return (
         <>
-            <div className='mcq-question'>
-                <p data-theme={theme}> {question} </p>
+            <div className='mcq-question' data-theme={theme}>
+                {/* <p data-theme={theme}>  */}
+                {question} 
+                {/* </p> */}
             </div>
             <div className='mcq-options'>
                 <ol>

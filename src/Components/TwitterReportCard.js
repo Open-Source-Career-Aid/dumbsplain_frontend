@@ -4,6 +4,7 @@ import { toPng } from 'html-to-image';
 
 const TwitterReportCard = () => {
   const imageRef = useRef(null);
+  const [imageUrl, setImageUrl] = useState('');
 
   return (
     <div>

@@ -52,6 +52,16 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
         console.log(e.target.parentNode);
         setScoreModal(false);
     }
+
+    useEffect(() => {
+        // if the user clicks outside of the modal-content, close it
+        window.onclick = function(event) {
+            if (event.target.className === "modal-overlay") {
+                setScoreModal(false);
+            }
+        }
+    }, [setScoreModal]);
+
     return (
         <div className={scoreModal ? "modal-overlay" : "modal-overlay-off"} >
             <main className="modal-content" data-theme={theme} ref={sectionRef}>

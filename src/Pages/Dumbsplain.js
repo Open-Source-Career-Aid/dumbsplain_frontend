@@ -93,6 +93,119 @@ function Dumbsplain( ) {
         }
     }, [infoOverlay]);
 
+    // if dumbness level is selected, get the explanation if enter is pressed
+    useEffect(() => {
+        const enterFunction = (event) => {
+
+            if (event.keyCode === 13) {
+                if (dumbnessLevel !== null) {
+                    event.preventDefault();
+                    // mimic the pressing of the dumbsplain button by calling the handleDumbsplain function
+                    handleDumbsplain(event);
+                }
+            }
+        }
+        window.addEventListener('keydown', enterFunction);
+        return () => {
+            window.removeEventListener('keydown', enterFunction);
+        }
+
+    // eslint-disable-next-line
+    }, [dumbnessLevel]);
+
+    // if explanationloaded is true and quizme is false, get the mcq if enter is pressed
+    useEffect(() => {
+
+        const enterFunction = (event) => {
+
+            if (event.keyCode === 13) {
+                if (explanationloaded === true && quizme === false) {
+                    event.preventDefault();
+                    // mimic the pressing of the quiz me button by calling the handleQuizme function
+                    handleQuizme(event);
+                }
+            }
+        }
+        window.addEventListener('keydown', enterFunction);
+        return () => {
+            window.removeEventListener('keydown', enterFunction);
+        }
+
+    // eslint-disable-next-line
+    }, [explanationloaded]);
+
+    // if explanationloaded is false, set the dumbness level on the press of A, B, C, D, or E respectively
+    useEffect(() => {
+
+        const keyFunction = (event) => {
+
+            if (explanationloaded === false) {
+                if (event.keyCode === 65) {
+                    event.preventDefault();
+                    setDumbnessLevel(1);
+                }
+                else if (event.keyCode === 66) {
+                    event.preventDefault();
+                    setDumbnessLevel(2);
+                }
+                else if (event.keyCode === 67) {
+                    event.preventDefault();
+                    setDumbnessLevel(3);
+                }
+                else if (event.keyCode === 68) {
+                    event.preventDefault();
+                    setDumbnessLevel(4);
+                }
+                else if (event.keyCode === 69) {
+                    event.preventDefault();
+                    setDumbnessLevel(5);
+                }
+            }
+        }
+        window.addEventListener('keydown', keyFunction);
+        return () => {
+            window.removeEventListener('keydown', keyFunction);
+        }
+
+    // eslint-disable-next-line
+    }, [explanationloaded]);
+
+    // if the explanation is loaded quizme is true, and the mcq is loaded, set the selected option on the press of A, B, C, D, or E respectively
+    useEffect(() => {
+
+        const keyFunction = (event) => {
+
+            if (explanationloaded === true && quizme === true && mcqloaded === true) {
+                if (event.keyCode === 65) {
+                    event.preventDefault();
+                    setSelectedoption(0);
+                }
+                else if (event.keyCode === 66) {
+                    event.preventDefault();
+                    setSelectedoption(1);
+                }
+                else if (event.keyCode === 67) {
+                    event.preventDefault();
+                    setSelectedoption(2);
+                }
+                else if (event.keyCode === 68) {
+                    event.preventDefault();
+                    setSelectedoption(3);
+                }
+                else if (event.keyCode === 69) {
+                    event.preventDefault();
+                    setSelectedoption(4);
+                }
+            }
+        }
+        window.addEventListener('keydown', keyFunction);
+        return () => {
+            window.removeEventListener('keydown', keyFunction);
+        }
+
+    // eslint-disable-next-line
+    }, [explanationloaded, quizme, mcqloaded]);
+
     useEffect(() => {
 
         if (waitfortomorrow === true) {

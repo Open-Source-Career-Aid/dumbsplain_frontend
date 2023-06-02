@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../CSS/Overlay.css';
 
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const level = [
-        ['Choose your dumbness level', 'The higher the level, the harder the challenge'],
-        ['Hit Dumbsplain to have AI dumbsplain the topic to you', 'You only get one play each day, so choose wisely!'],
-        ['Respond to the AI challenge', 'You get 1 point for getting the answer right at Just Plain Dumb; 5 points for getting it right at Pretentious Professor; 0 points for getting it wrong'],
-        ['Reach for the highest Dumbness Quotient (DQ) and longest Streak', 'DQ is your average score over your last 7 plays'],
-        ['Share your results and stand up for humankind!', 'AI will be ready for your next play at midnight']];
+        ['Choose your dumbness level', ['The higher the level, the harder the challenge']],
+        ['Hit Dumbsplain to have AI dumbsplain the topic to you', ['You only get one play each day, so choose wisely!']],
+        ['Respond to the AI challenge', ['1 point -> getting it right as ABC', '5 points -> getting it right as CBA']],
+        ['Reach for the highest Dumbness Quotient (DQ) and longest Streak', ['DQ is your average score this week and will reset next Monday']],
+        ['Share your results and stand up for humankind!', ['AI will be ready for your next play at midnight']]];
+    
     const leveltext = level.map((item, index) => {
        return (
         <>
@@ -16,15 +17,29 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
                 <li className="level" >
                     {item[0]}
                 </li>
-                <p className="leveltext" data-theme={theme} style={{'font-size': '0.4em'}}>{item[1]}</p>
+                {item[1].map((item, index) => {
+                    return (
+                    <p key={index} className="leveltext" data-theme={theme} style={{'font-size': '0.4em'}}>{item}</p>
+                    )
+                })}
             </div>
         </>)
     });
+
     const closeOverlay = (e) => {
         e.preventDefault();
         console.log(e.target.parentNode);
         setInfoOverlay(false);
     }
+
+    useEffect(() => {
+        // if the user clicks outside of the modal-content, close it
+        window.onclick = function(event) {
+            if (event.target.className === "modal-overlay") {
+                setInfoOverlay(false);
+            }
+        }
+    }, [setInfoOverlay]);
 
     return(
         <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" }>

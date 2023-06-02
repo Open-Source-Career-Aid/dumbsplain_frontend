@@ -1,6 +1,4 @@
-import { useState } from "react";
 import classNames from "classnames";
-import submitAnswer from "../Functions/submitAnswer";
 
 function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setSpecial_id , score , setScore , theme , correctoption , setCorrectoption }) {
 

@@ -65,6 +65,34 @@ function Dumbsplain( ) {
     // eslint-disable-next-line
     }, []);
 
+    // if esc is pressed and the score modal is open, close the score modal
+    useEffect(() => {
+        const escFunction = (event) => {
+
+            if (event.keyCode === 27) {
+                setScoreModal(false);
+            }
+        }
+        window.addEventListener('keydown', escFunction);
+        return () => {
+            window.removeEventListener('keydown', escFunction);
+        }
+    }, [scoreModal]);
+
+    // if esc is pressed and the info overlay is open, close the info overlay
+    useEffect(() => {
+        const escFunction = (event) => {
+
+            if (event.keyCode === 27) {
+                setInfoOverlay(false);
+            }
+        }
+        window.addEventListener('keydown', escFunction);
+        return () => {
+            window.removeEventListener('keydown', escFunction);
+        }
+    }, [infoOverlay]);
+
     useEffect(() => {
 
         if (waitfortomorrow === true) {

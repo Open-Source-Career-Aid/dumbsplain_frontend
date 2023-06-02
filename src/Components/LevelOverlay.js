@@ -9,13 +9,15 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
         ['Respond to the AI challenge', 'You get 1 point for getting the answer right at Just Plain Dumb; 5 points for getting it right at Pretentious Professor; 0 points for getting it wrong'],
         ['Reach for the highest Dumbness Quotient (DQ) and longest Streak', 'DQ is your average score over your last 7 plays'],
         ['Share your results and stand up for humankind!', 'AI will be ready for your next play at midnight']];
-    const leveltext = level.map((item,index) => {
+    const leveltext = level.map((item, index) => {
        return (
         <>
-            <li key={index} className="level" >
-                {item[0]}
-            </li>
-            <p className="leveltext" data-theme={theme} style={{'font-size': '0.4em'}}>{item[1]}</p>
+            <div key={index}>
+                <li className="level" >
+                    {item[0]}
+                </li>
+                <p className="leveltext" data-theme={theme} style={{'font-size': '0.4em'}}>{item[1]}</p>
+            </div>
         </>)
     });
     const closeOverlay = (e) => {

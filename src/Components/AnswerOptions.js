@@ -2,9 +2,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import submitAnswer from "../Functions/submitAnswer";
 
-function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setSpecial_id , score , setScore , theme }) {
-
-    const [correctoption, setCorrectoption] = useState(null);
+function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setSpecial_id , score , setScore , theme , correctoption , setCorrectoption }) {
 
     const handleOptionclick = (e) => {
         // eslint-disable-next-line
@@ -105,55 +103,40 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
         block: correctoption != null
     });
 
-    const handleAnswersubmit = (e) => {
-        if (selectedoption !== null) {
-            e.preventDefault();
-            async function fetchAnswer() {
-                const answer = await submitAnswer(selectedoption+1);
-                setCorrectoption(answer.correctoption-1);
-                setSpecial_id(answer.special_id);
-                setScore(answer.score);
-            }
-            fetchAnswer();
-        }
-    }
-
     return (
         <>
             <div className={answeroptions}>
                 <div className={option1}
                 onClick={handleOptionclick}
                 value={0}>
+                    <div className="bgcontaineranswer"></div>
                     <div className='answeroptiontext' data-theme={theme}>A</div>
                 </div>
                 <div className={option2}
                 onClick={handleOptionclick}
                 value={1}>
+                    <div className="bgcontaineranswer"></div>
                     <div className='answeroptiontext' data-theme={theme}>B</div>
                 </div>
                 <div className={option3}
                 onClick={handleOptionclick}
                 value={2}>
+                    <div className="bgcontaineranswer"></div>
                     <div className='answeroptiontext' data-theme={theme}>C</div>
                 </div>
                 <div className={option4}
                 onClick={handleOptionclick}
                 value={3}>
+                    <div className="bgcontaineranswer"></div>
                     <div className='answeroptiontext' data-theme={theme}>D</div>
                 </div>
                 <div className={option5}
                 onClick={handleOptionclick}
                 value={4}>
+                    <div className="bgcontaineranswer"></div>
                     <div className='answeroptiontext' data-theme={theme}>E</div>
                 </div>
             </div>
-            { selectedoption !== null && correctoption == null ?
-                <div className='buttoncontainer'>
-                    <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
-                        <div className='dumbsplainbuttontext'>Submit</div>
-                    </div>
-                </div>
-                : null}
         </>
     );
 }

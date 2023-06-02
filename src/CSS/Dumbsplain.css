@@ -25,6 +25,34 @@
     padding-top: 15px;
 }
 
+@media only screen and (min-width: 900px) {
+    .navbar {
+        position: absolute;
+        top: 0;
+        left: 10%;
+        z-index: 1000;
+        width: 80%;
+        padding: 0;
+    }
+
+    .dumbsplainbody {
+        margin-top: 20px;
+        height: 100%;
+    }
+}
+
+.introduction{
+    padding: 0;
+}
+
+@media only screen and (min-width: 900px) {
+
+    .introduction {
+        margin-bottom: 2%;
+    }
+
+}
+
 /* dumbsplainlogo is a class that displays a logo from the public src folder */
 .dumbsplainlogo {
     background-image: url('../../public/dumbsplainlogo.svg');
@@ -41,6 +69,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    padding: 0;
 }
 
 .lightmode {
@@ -109,8 +138,9 @@
 }
 
 .topic {
-    font-size: 1em;
+    font-size: 0.8em;
     color: #4C7BFE;
+    margin-bottom: 15px;
 }
 
 .subtitle {
@@ -158,6 +188,11 @@
     color: var(--dark-mode-text);
 }
 
+.optionscontainer {
+    height: 100%;
+    padding: 0;
+}
+
 .dumbnesslevelscontainer {
     display: flex;
     flex-direction: column;
@@ -166,6 +201,7 @@
     margin: 0;
     padding: 0;
     height: 100%;
+    margin-top: 15px;
 }
 
 .dumbnesslevels {
@@ -176,7 +212,6 @@
     width: 80%;
     margin-bottom: .625em;
     flex-wrap: wrap;
-    height: 100%;
 }
 
 .dumbnesslevels.greyed {
@@ -199,6 +234,7 @@
     border-radius: .3125em;
     z-index: 0;
     max-width: 15%;
+    height: 100%;
     /* padding: auto; */
 }
 .dumbnesslevel:hover {
@@ -246,8 +282,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 8vw;
-    width: 8vw;
+    height: 7vw;
+    width: 7vw;
     position: relative;
     z-index: 2;
 }
@@ -257,8 +293,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 8vw;
-    width: 8vw;
+    height: 7vw;
+    width: 7vw;
     position: relative;
     z-index: 2;
 }
@@ -268,8 +304,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 8vw;
-    width: 8vw;
+    height: 7vw;
+    width: 7vw;
     position: relative;
     z-index: 2;
 }
@@ -279,8 +315,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 8vw;
-    width: 8vw;
+    height: 7vw;
+    width: 7vw;
     position: relative;
     z-index: 2;
 }
@@ -290,8 +326,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 8vw;
-    width: 8vw;
+    height: 7vw;
+    width: 7vw;
     position: relative;
     z-index: 2;
 }
@@ -303,6 +339,8 @@
     position: relative;
     z-index: 2;
     padding: 0;
+    margin-top: 15px;
+    text-align: center;
 }
 .avatarlabel[data-theme='dark'] {
     color: var(--dark-mode-text);
@@ -313,7 +351,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin: 15px;
     padding: 0;
 }
 
@@ -323,7 +361,7 @@
     border-radius: 50vh;
     padding: .325em;
     margin-bottom: .625em;
-    font-weight: 500;
+    font-weight: 700;
 }
 .dumbsplainbutton:hover {
     background-color: #3a6bce;
@@ -351,12 +389,10 @@
     flex-direction: row;
     justify-content: space-between; 
     align-items: center;
-    /* margin-top: .625em; */
-    /* margin-bottom: .625em; */
     flex-wrap: wrap;
     width: 80%;
     height: 100%;
-    /* make all of it unaccessible */
+    margin-bottom: .625em;
 }
 
 .answeroptions.block {

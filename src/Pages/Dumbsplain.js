@@ -12,6 +12,7 @@ import getExplanation from '../Functions/getExplanation';
 import getQuestion from '../Functions/getQuestion';
 import WaitingBox from '../Components/WaitingBox';
 import getWaitingtime from '../Functions/getWaitingtime';
+import submitAnswer from '../Functions/submitAnswer';
 
 function Dumbsplain( ) {
 
@@ -40,6 +41,7 @@ function Dumbsplain( ) {
     const [userstreak, setUserstreak] = React.useState(0);
     const [maxstreak, setMaxstreak] = React.useState(0);
     const [theme, setTheme] = React.useState('light');
+    const [correctoption, setCorrectoption] = React.useState(null);
 
 
     useEffect(() => {
@@ -183,6 +185,19 @@ function Dumbsplain( ) {
         }
     }
 
+    const handleAnswersubmit = (e) => {
+        if (selectedoption !== null) {
+            e.preventDefault();
+            async function fetchAnswer() {
+                const answer = await submitAnswer(selectedoption+1);
+                setCorrectoption(answer.correctoption-1);
+                setSpecial_id(answer.special_id);
+                setScore(answer.score);
+            }
+            fetchAnswer();
+        }
+    }
+
 
     return (
         <div>
@@ -210,74 +225,85 @@ function Dumbsplain( ) {
                     <svg className='leaderboard' onClick={handleOverlay} data-overlay="score"></svg>
                 </div>
             </div>
-            <div className='introduction'>
-                <Header
-                topic={topic}
-                theme={theme}
-                />
-            </div>
-            { waitfortomorrow ? <>
-            <WaitingBox
-                waitingtime={waitingtime}
-                theme={theme}
-                />
-            </> :<>
-            <div className='dumbsplain'>
-                <Dumbsplainer
-                text={currentext}
-                quizme={quizme}
-                theme={theme}
-                />
-            </div>
-            </>
-             }
+            <div className='dumbsplainbody'>
+                <div className='introduction'>
+                    <Header
+                    topic={topic}
+                    theme={theme}
+                    />
+                </div>
+                { waitfortomorrow ? <>
+                <WaitingBox
+                    waitingtime={waitingtime}
+                    theme={theme}
+                    />
+                </> :<>
+                <div className='dumbsplain'>
+                    <Dumbsplainer
+                    text={currentext}
+                    quizme={quizme}
+                    theme={theme}
+                    />
+                </div>
+                </>
+                }
 
-            { !quizme ? 
-            <div className='dumbnesslevelscontainer'>
-                <DumbLevel
-                dumbnessLevel={dumbnessLevel}
-                setDumbnessLevel={setDumbnessLevel}
-                explanationrequested={explanationrequested}
-                waitfortomorrow={waitfortomorrow}
-                theme={theme}
-                />
-            </div>
-            :
-            <div className='answeroptionscontainer'>
-                <AnswerOptions
-                selectedoption={selectedoption}
-                setSelectedoption={setSelectedoption}
-                mcqrequested={mcqrequested}
-                mcqloading={mcqloading}
-                mcqloaded={mcqloaded}
-                setSpecial_id={setSpecial_id}
-                score={score}
-                setScore={setScore}
-                theme={theme}
-                />
-            </div>
-            }
+                <div className='optionscontainer'>
+                    { !quizme ? 
+                    <div className='dumbnesslevelscontainer'>
+                        <DumbLevel
+                        dumbnessLevel={dumbnessLevel}
+                        setDumbnessLevel={setDumbnessLevel}
+                        explanationrequested={explanationrequested}
+                        waitfortomorrow={waitfortomorrow}
+                        theme={theme}
+                        />
+                    </div>
+                    :
+                    <div className='answeroptionscontainer'>
+                        <AnswerOptions
+                        selectedoption={selectedoption}
+                        setSelectedoption={setSelectedoption}
+                        mcqrequested={mcqrequested}
+                        mcqloading={mcqloading}
+                        mcqloaded={mcqloaded}
+                        setSpecial_id={setSpecial_id}
+                        score={score}
+                        setScore={setScore}
+                        theme={theme}
+                        />
+                    </div>
+                    }
+                </div>
 
-            { explanationloaded ?
+                { explanationloaded ?
+                    <>
+                    { !quizme ?
+                    <div className='buttoncontainer'>
+                        <div className='dumbsplainbutton' onClick={handleQuizme}>
+                            <div className='dumbsplainbuttontext'>Quiz Me</div>
+                        </div>
+                    </div>
+                    : null }
+                    </>
+                :
                 <>
-                { !quizme ?
+                { dumbnessLevel !== null ?
                 <div className='buttoncontainer'>
-                    <div className='dumbsplainbutton' onClick={handleQuizme}>
-                        <div className='dumbsplainbuttontext'>Quiz Me</div>
+                    <div className='dumbsplainbutton' onClick={handleDumbsplain}>
+                        <div className='dumbsplainbuttontext'>Challenge me, AI!</div>
+                    </div>
+                </div> 
+                : null }
+                </>}
+                { selectedoption !== null && correctoption == null ?
+                <div className='buttoncontainer'>
+                    <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
+                        <div className='dumbsplainbuttontext'>Submit</div>
                     </div>
                 </div>
-                : null }
-                </>
-            :
-            <>
-            { dumbnessLevel !== null ?
-            <div className='buttoncontainer'>
-                <div className='dumbsplainbutton' onClick={handleDumbsplain}>
-                    <div className='dumbsplainbuttontext'>Dumbsplain</div>
-                </div>
-            </div> 
-            : null }
-             </>}
+                : null}
+            </div>
         </div>
     );
     }

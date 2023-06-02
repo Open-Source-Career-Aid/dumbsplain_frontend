@@ -1,10 +1,30 @@
-import { useEffect , useState } from "react";
+import { useEffect , useState , useRef } from "react";
 import getScore from "../Functions/getScore";
+import { toBlob } from 'html-to-image';
 
 export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme }){
 
     const [roundedDQ, setRoundedDQ] = useState(1);
     const [apicalled, setApicalled] = useState(false);
+    const sectionRef = useRef(null);
+
+    const handleShareClick = () => {
+        toBlob(sectionRef.current)
+        .then((blob) => {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item])
+            .then(() => {
+                console.log('Image copied to clipboard!');
+            })
+            .catch((error) => {
+                console.error('Error copying image to clipboard:', error);
+            });
+        })
+        .catch((error) => {
+            console.error('Error converting HTML to image:', error);
+        });
+    };
+
 
     useEffect(() => {
 
@@ -34,7 +54,7 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
     }
     return (
         <div className={scoreModal ? "modal-overlay" : "modal-overlay-off"} >
-            <main className="modal-content" data-theme={theme}>
+            <main className="modal-content" data-theme={theme} ref={sectionRef}>
                 <div className='headerbg' style={{'opacity':'0.6'}}></div>
                 <span className="closeOverlay" onClick={closeOverlay}>&times;</span>
                 {/*  replace avatar1 with  dummy level */}
@@ -55,7 +75,7 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
                     </div>
                 </section>
 
-                <button id="score-btn" data-theme={theme}>
+                <button id="score-btn" data-theme={theme} onClick={handleShareClick}>
                     <p style={{color:'white', 'font-weight':'600', 'font-size': '15px'}}>
                         Share
                     </p>

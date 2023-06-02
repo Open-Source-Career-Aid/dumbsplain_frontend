@@ -159,6 +159,7 @@
     align-items: center;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 .dumbnesslevels {
@@ -169,6 +170,7 @@
     width: 80%;
     margin-bottom: .625em;
     flex-wrap: wrap;
+    height: 100%;
 }
 
 .dumbnesslevels.greyed {
@@ -191,8 +193,7 @@
     border-radius: .3125em;
     z-index: 0;
     max-width: 15%;
-    padding: auto;
-    max-height: 5%;
+    /* padding: auto; */
 }
 .dumbnesslevel:hover {
     cursor: pointer;
@@ -336,6 +337,7 @@
     flex-wrap: wrap;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 .answeroptions {
@@ -343,10 +345,11 @@
     flex-direction: row;
     justify-content: space-between; 
     align-items: center;
-    margin-top: .625em;
-    margin-bottom: .625em;
+    /* margin-top: .625em; */
+    /* margin-bottom: .625em; */
     flex-wrap: wrap;
     width: 80%;
+    height: 100%;
     /* make all of it unaccessible */
 }
 

@@ -13,20 +13,11 @@ import { BrowserRouter } from "react-router-dom";
 // );
 
 const rootElement = document.getElementById('root');
+// just use hydrate everywhere
 if (rootElement.hasChildNodes()) {
-  hydrate(
-    <BrowserRouter>
-      <App /> 
-    </BrowserRouter>,
-    rootElement
-  );
+  hydrate(<BrowserRouter><App /></BrowserRouter>, rootElement);
 } else {
-  render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
-    rootElement
-  );
+  render(<BrowserRouter><App /></BrowserRouter>, rootElement);
 }
 
 // If you want to start measuring performance in your app, pass a function

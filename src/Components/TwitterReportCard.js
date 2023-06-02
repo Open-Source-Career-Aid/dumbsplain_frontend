@@ -5,6 +5,7 @@ const TwitterReportCard = () => {
   return (
     <div>
       <Helmet>
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nytimes" />
         <meta name="twitter:creator" content="@SarahMaslinNir" />
         <meta name="twitter:title" content="Parade of Fans for Houstons Funeral" />

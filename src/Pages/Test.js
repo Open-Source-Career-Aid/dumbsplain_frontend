@@ -1,9 +1,9 @@
-import TwitterReportCard from "../Components/TwitterReportCard";
+import ReportCard from "../Components/ReportCard";
 
 const Test = () => {
     return (
         <div>
-            <TwitterReportCard />
+            <ReportCard />
         </div>
     );
     }

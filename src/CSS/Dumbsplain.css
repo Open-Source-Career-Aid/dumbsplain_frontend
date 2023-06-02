@@ -39,9 +39,8 @@
 .utilitybuttons {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    width: 20%;
 }
 
 .lightmode {
@@ -49,9 +48,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 1.5em;
-    width: 1.8em;
+    height: 2.8em;
+    width: 3.0em;
     cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
 }
 
 .darkmode {
@@ -59,9 +60,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 1.5em;
-    width: 1.8em;
+    height: 2.8em;
+    width: 3.0em;
     cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
 }
 
 .infobutton {
@@ -69,10 +72,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 1.3em;
-    width: 1.3em;
+    height: 1.6em;
+    width: 1.6em;
     cursor: pointer;
-    margin-left: 15px;
+    padding: 0;
+    margin-left: 5%;
 }
 
 .leaderboard {
@@ -80,9 +84,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 1.3em;
-    width: 1.3em;
+    height: 1.6em;
+    width: 1.6em;
     cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
 }
 
 .header {
@@ -580,18 +586,12 @@
 /* Mobile responsiveness */
 @media only screen and (max-width: 600px) {
 
-    .utilitybuttons {
-        width: 20%;
+    .lightmode {
+        display: none;
     }
 
-    .infobutton {
-        height: 1em;
-        width: 1em;
-    }
-
-    .leaderboard {
-        height: 1em;
-        width: 1em;
+    .darkmode {
+        display: none;
     }
 
     .totd {
@@ -763,18 +763,12 @@
 /* meduim screens mobile responsiveness */
 @media only screen and (min-width: 600px) and (max-width: 900px) {
 
-    .utilitybuttons {
-        width: 12%;
+    .lightmode {
+        display: none;
     }
 
-    .infobutton {
-        height: 1em;
-        width: 1em;
-    }
-
-    .leaderboard {
-        height: 1em;
-        width: 1em;
+    .darkmode {
+        display: none;
     }
 
     .totd {

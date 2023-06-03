@@ -427,7 +427,7 @@ function Dumbsplain( ) {
                     { !quizme ?
                     <div className='buttoncontainer'>
                         <div className='dumbsplainbutton' onClick={handleQuizme}>
-                            <div className='dumbsplainbuttontext'>Quiz Me</div>
+                            <div className='dumbsplainbuttontext'>Challenge me, AI!</div>
                         </div>
                     </div>
                     : null }
@@ -437,7 +437,7 @@ function Dumbsplain( ) {
                 { dumbnessLevel !== null ?
                 <div className='buttoncontainer'>
                     <div className='dumbsplainbutton' onClick={handleDumbsplain}>
-                        <div className='dumbsplainbuttontext'>Challenge me, AI!</div>
+                        <div className='dumbsplainbuttontext'>Dumbsplain</div>
                     </div>
                 </div> 
                 : null }

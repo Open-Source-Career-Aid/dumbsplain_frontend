@@ -33,6 +33,7 @@
         z-index: 1000;
         width: 80%;
         padding: 0;
+        padding-top: 1%;
     }
 
     .dumbsplainbody {
@@ -59,8 +60,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 60px;
-    width: 12%;
+    height: 35px;
+    width: 8%;
     min-width: 150px;
 }
 

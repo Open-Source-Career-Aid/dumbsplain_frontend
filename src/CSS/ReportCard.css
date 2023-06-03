@@ -1,0 +1,165 @@
+.reportcard-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    position: absolute;
+    left: 58px;
+    top: 51px;
+}
+
+.reportcard-header-title {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #4C7BFE;
+    padding: 0;
+}
+
+.reportcard-header-weekday {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #4C7BFE;
+    border-left: 4px;
+    border-left-style: solid;
+    border-left-color: #D9D9D9;
+    font-style: italic;
+    padding: 0;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.reportcard-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.reportcard-body-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reportcard-body-left-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    width: 170px;
+    height: 192px;
+    left: 61px;
+    top: 106px;
+    border: 2px solid #B5E7DE;
+}
+
+.reportcard-body-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reportcard-body-right-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#reportcard-dumbnesslevel {
+    position: absolute;
+    width: 155px;
+    height: 122px;
+    left: 280px;
+    top: 105px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 100px;
+    line-height: 122px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    padding: 0;
+}
+
+#reportcard-dq {
+    position: absolute;
+    width: 84px;
+    height: 61px;
+    left: 452px;
+    top: 154px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 61px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    padding: 0;
+}
+
+.reportcard-updown {
+    background-image: url("../../public/reportup.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    left: 421px;
+    top: 106px; 
+}
+
+.reportcard-streak {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    position: static;
+    z-index: 1;
+}
+
+.reportcard-streakscore {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 55px;
+    line-height: 67px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    padding: 0 10px;
+    font-size: 35px;
+    position: static;
+    z-index: 0;
+    width: auto;
+}
+
+.reportcard-streak-title {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    position: static;
+    padding: 0;
+    width: 60px;
+}

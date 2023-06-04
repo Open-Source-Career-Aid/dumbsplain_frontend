@@ -21,31 +21,6 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     const avatarlabels = ['Just Plain Dumb', 'Not Too Bright', 'Average Joe', 'Smartass', 'Pretentious Professor']
 
-    const dumblevel1 = classNames('dumbnesslevel', {
-        // eslint-disable-next-line
-        selected: dumbnessLevel == 1, greyed: dumbnessLevel != 1 && dumbnessLevel != null
-      });
-
-    const dumblevel2 = classNames('dumbnesslevel', {
-        // eslint-disable-next-line
-        selected: dumbnessLevel == 2, greyed: dumbnessLevel != 2 && dumbnessLevel != null
-      });
-
-    const dumblevel3 = classNames('dumbnesslevel', {
-        // eslint-disable-next-line
-        selected: dumbnessLevel == 3, greyed: dumbnessLevel != 3 && dumbnessLevel != null
-      });
-    
-    const dumblevel4 = classNames('dumbnesslevel', {
-        // eslint-disable-next-line
-        selected: dumbnessLevel == 4, greyed: dumbnessLevel != 4 && dumbnessLevel != null
-      });
-    
-    const dumblevel5 = classNames('dumbnesslevel', {
-        // eslint-disable-next-line
-        selected: dumbnessLevel == 5, greyed: dumbnessLevel != 5 && dumbnessLevel != null
-      });
-
     const dumbnesslevels = classNames('dumbnesslevels', {
         greyed: waitfortomorrow
       });
@@ -62,51 +37,28 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     return (
         <div className={dumbnesslevels}>
-            <div 
-            className={dumblevel1}
-            onClick={handleDumbclick} value={1}>
-                <div className="bgcontainer"></div>
-                {/* avatar */}
-                <div className='avatar1'></div>
-                {/* avatar label */}
-                <div className='avatarlabel' data-theme={theme}>{avatarlabels[0]}</div>
-            </div>
-            <div 
-            className={dumblevel2}
-            onClick={handleDumbclick} value={2}>
-                <div className="bgcontainer"></div>
-                {/* avatar */}
-                <div className='avatar2'></div>
-                {/* avatar label */}
-                <div className='avatarlabel' data-theme={theme}>{avatarlabels[1]}</div>
-            </div>
-            <div 
-            className={dumblevel3}
-            onClick={handleDumbclick} value={3}>
-                <div className="bgcontainer"></div>
-                {/* avatar */}
-                <div className='avatar3'></div>
-                {/* avatar label */}
-                <div className='avatarlabel' data-theme={theme}>{avatarlabels[2]}</div>
-            </div>
-            <div 
-            className={dumblevel4}
-            onClick={handleDumbclick} value={4}>
-                <div className="bgcontainer"></div>
-                {/* avatar */}
-                <div className='avatar4'></div>
-                {/* avatar label */}
-                <div className='avatarlabel' data-theme={theme}>{avatarlabels[3]}</div>
-            </div>
-            <div 
-            className={dumblevel5}
-            onClick={handleDumbclick} value={5}>
-                <div className="bgcontainer"></div>
-                {/* avatar */}
-                <div className='avatar5'></div>
-                {/* avatar label */}
-                <div className='avatarlabel' data-theme={theme}>{avatarlabels[4]}</div>
-            </div>
+
+            {/* map through 1-5 for the dumblevels */}
+
+            {
+                [1,2,3,4,5].map((dumbnesslevel) => {
+                    return (
+                        <div
+                        className={classNames('dumbnesslevel', {
+                            // eslint-disable-next-line
+                            selected: dumbnessLevel == dumbnesslevel, greyed: dumbnessLevel != dumbnesslevel && dumbnessLevel != null
+                            })}
+                        onClick={handleDumbclick} value={dumbnesslevel}>
+                            <div className="bgcontainer"></div>
+                            {/* avatar */}
+                            <div className={`avatar${dumbnesslevel}`}></div>
+                            {/* avatar label */}
+                            <div className='avatarlabel' data-theme={theme}>{avatarlabels[dumbnesslevel-1]}</div>
+                        </div>
+                    )
+                })
+            }
+
             <div className="dumbnesscarousel">
                 <div className="leftarrow" onClick={handleDumbnesscarouselChange} value={-1}></div>
                 <div className="carouseldumbnesslevel">

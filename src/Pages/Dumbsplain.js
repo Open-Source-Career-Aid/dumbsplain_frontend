@@ -42,9 +42,21 @@ function Dumbsplain( ) {
     const [maxstreak, setMaxstreak] = React.useState(0);
     const [theme, setTheme] = React.useState('light');
     const [correctoption, setCorrectoption] = React.useState(null);
+    const [time, setTime] = React.useState(null)
+
+    async function findcurrentTime() {
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let currentTime = hours + ":" + minutes + ":" + seconds;
+        setTime(currentTime);
+    }
 
 
     useEffect(() => {
+        
+        findcurrentTime();
         setCurrentext(placeholder);
         setDumbnessLevel(null);
         setQuizme(false);
@@ -64,6 +76,22 @@ function Dumbsplain( ) {
     
     // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+
+        // if the time is between 7pm and 6am, set the theme to dark
+        if (time !== null) {
+            let timeArray = time.split(':');
+            let hours = parseInt(timeArray[0]);
+            if (hours >= 19 || hours < 6) {
+                setTheme('dark');
+            }
+            else {
+                setTheme('light');
+            }
+        }
+
+    }, [time]);
 
     // if esc is pressed and the score modal is open, close the score modal
     useEffect(() => {

@@ -63,8 +63,23 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                 <div className="leftarrow" onClick={handleDumbnesscarouselChange} value={-1}></div>
                 <div className="carouseldumbnesslevel">
                     <div className="carouselbgcontainer"></div>
-                    <div className={'avatar' + carouseldumbnessLevel}></div>
-                    <div className='avatarlabel'>{avatarlabels[carouseldumbnessLevel-1]}</div>
+                    <div className={'avatar' + carouseldumbnessLevel}
+                    style={{
+                        position: 'absolute',
+                        top: '0',
+                        width: '70%',
+                        height: '70%',
+                        zIndex: '5',
+                    }}
+                    ></div>
+                    <div className='avatarlabel'
+                    style={{
+                        position: 'absolute',
+                        zIndex: '5',
+                        bottom: '5%',
+                        padding: '4% 0',
+                    }}
+                    >{avatarlabels[carouseldumbnessLevel-1]}</div>
                 </div>  
                 <div className="rightarrow" onClick={handleDumbnesscarouselChange} value={1}></div>
             </div>   

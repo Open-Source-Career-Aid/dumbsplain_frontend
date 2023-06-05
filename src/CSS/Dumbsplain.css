@@ -542,8 +542,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 40%;
-    width: 60%;
+    width: 40vw;
+    aspect-ratio: 2/1;
+    padding: 0;
+    overflow: visible;
+    position: relative;
 }
 
 .leftarrow {
@@ -554,6 +557,8 @@
     background-position: center;
     background-size: contain;
     padding: 0 5%;
+    position: absolute;
+    left: 0;
 }
 
 .rightarrow {
@@ -564,6 +569,8 @@
     background-position: center;
     background-size: contain;
     padding: 0 5%;
+    position: absolute;
+    right: 0;
 }
 
 .carouseldumbnesslevel {
@@ -573,6 +580,8 @@
     align-items: center;
     position: relative;
     z-index: 0;
+    width: 60%;
+    aspect-ratio: 5/4;
 }
 
 .carouselbgcontainer {
@@ -583,6 +592,7 @@
     position: absolute;
     z-index: 1;
     border-radius: 10px;
+    width: 100%;
 }
 
 .mcq-question {
@@ -762,12 +772,17 @@
     }
 
     .answeroption {
-        padding: 4% 6%;
-        margin: 1.3%;
+        padding: 3% 1%;
+        margin: 0 2%;
+        overflow: visible;
+    }
+
+    .bgcontaineranswer {
+        width: 90%;
     }
 
     .answeroptiontext {
-        font-size: 0.6em;
+        font-size: 0.8em;
     }
 
     .waitingarea {
@@ -787,31 +802,20 @@
         margin-top: 4%;
     }
 
+    .dumbnesscarousel {
+        overflow: visible;
+    }
+
+    .carouseldumbnesslevel {
+        overflow: visible;
+    }
+
     .waitingtime {
         font-size: 1.2em;
         color: #4C7BFE;
         font-weight: 800;
         text-align: center;
         margin-top: 6%;
-    }
-
-    .carouseldumbnesslevel {
-        /* remove the bg gradient and replace with a solid bg */
-        justify-content: center;
-        align-items: center;
-        margin: .1875em;
-        padding: .1875em;
-        z-index: 0;
-        position: relative;
-    }
-
-    .carouselbgcontainer {
-        position: absolute;
-        height: 75%;
-        width: 70%;
-        bottom: 0;
-        background-color: #8CA8FF;
-        z-index: 1;
     }
 
     .mcq-question {
@@ -940,11 +944,18 @@
     }
 
     .answeroption {
-        padding: 4% 2%;
+        padding: 2% 1%;
+        overflow: visible;
+    }
+
+    .bgcontaineranswer {
+        width: 40%;
+        z-index: 1;
     }
 
     .answeroptiontext {
-        font-size: 0.5em;
+        font-size: 0.8em;
+        margin-top: 25%;
     }
 
     .waitingarea {

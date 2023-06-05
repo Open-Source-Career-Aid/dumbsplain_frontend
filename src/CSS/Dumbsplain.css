@@ -192,7 +192,6 @@
 .optionscontainer {
     height: 100%;
     padding: 0;
-    margin-top: 0.5%;
 }
 
 .dumbnesslevelscontainer {
@@ -214,7 +213,6 @@
     width: 80%;
     margin-bottom: .625em;
     flex-wrap: wrap;
-    height: 100%;
 }
 
 .dumbnesslevels.greyed {
@@ -236,12 +234,9 @@
     padding-bottom: .625em;
     border-radius: .3125em;
     z-index: 0;
-    /* max-width: 15%; */
-    /* height: 150px; */
-    width: 10vw;
-    aspect-ratio: 5/4;
+    max-width: 15%;
+    height: 100%;
     /* padding: auto; */
-    overflow: visible;
 }
 .dumbnesslevel:hover {
     cursor: pointer;
@@ -388,7 +383,6 @@
     margin: 0;
     padding: 0;
     height: 100%;
-    margin-top: 15px;
 }
 
 .answeroptions {
@@ -411,49 +405,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    /* background-color: #4C7BFE; */
-    padding-bottom: .625em;
+    /* fill 75% of the bg-color botton to top */
+    background: rgba(76, 123, 354, 0.1);
+    padding: 3% 5%;
     border-radius: .3125em;
-    z-index: 0;
-    /* max-width: 15%; */
-    /* height: 150px; */
-    width: 10vw;
-    aspect-ratio: 5/4;
-    /* padding: auto; */
+    margin: 1%;
+    margin-top: 3%;
+    margin-bottom: .625em;
+    max-width: 15%;
+    height: 35%;
 }
-
-.bgcontaineranswer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: absolute;
-    z-index: 1;
-    height: 75%;
-    width: 70%;
-    bottom: 0;
-    background-color: #4C7BFE;
-    opacity: 0.1;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
-}
-.answeroption:hover .bgcontaineranswer {
-    background-color: #8CA8FF;
-    opacity: 1;
+.answeroption:hover {
+    background: rgba(76, 123, 354, 0.2);
     cursor: pointer;
 }
-
-.answeroption:hover .answeroptiontext {
-    color: #ffffff;
-    cursor: pointer;
-}
-
 .answeroptiontext {
     font-size: 1em;
     text-align: center;
-    position: relative;
-    z-index: 2;
-    margin-top: 35%;
 }
 .answeroptiontext[data-theme='dark'] {
     color: var(--dark-mode-text);
@@ -468,26 +436,22 @@
     color: black;
 }
 
-.answeroption.selected .bgcontaineranswer {
-    background-color: #8CA8FF;
-    opacity: 1;
-    color: #ffffff;
-}
-.answeroption.selected .answeroptiontext {
+.answeroption.selected {
+    background: #8CA8FF;
     color: #ffffff;
 }
 
-.answeroption.wrong .bgcontaineranswer {
+.answeroption.wrong {
     background: #D65757;
     color: #ffffff;
 }
 
-.answeroption.correct .bgcontaineranswer {
+.answeroption.correct {
     background: #32BCA3;
     color: #ffffff;
 }
 
-.answeroption.correcthighlight .bgcontaineranswer {
+.answeroption.correcthighlight {
     background: #DEFEF8;
 }
 

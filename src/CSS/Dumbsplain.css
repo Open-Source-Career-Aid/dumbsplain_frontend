@@ -241,7 +241,7 @@
     width: 10vw;
     aspect-ratio: 5/4;
     /* padding: auto; */
-    overflow: visible;
+    overflow: hidden;
 }
 .dumbnesslevel:hover {
     cursor: pointer;

@@ -374,6 +374,7 @@ function Dumbsplain( ) {
             width: '100%',
             padding: '0',
             paddingTop: '1%',
+            minheight: '500px',
         }}>
             <div className='bg' data-theme={theme}></div>
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />

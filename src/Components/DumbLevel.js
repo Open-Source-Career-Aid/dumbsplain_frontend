@@ -25,15 +25,15 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
         greyed: waitfortomorrow
       });
 
-    // const handleDumbnesscarouselChange = (e) => {
-    //     if (!explanationrequested) {
-    //         e.preventDefault();
-    //         if (carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')) > 0 && carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')) <= 5) {
-    //             setCarouseldumbnessLevel(carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')));
-    //         }
+    const handleDumbnesscarouselChange = (e) => {
+        if (!explanationrequested) {
+            e.preventDefault();
+            if (carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')) > 0 && carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')) <= 5) {
+                setCarouseldumbnessLevel(carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')));
+            }
 
-    //     }
-    // }
+        }
+    }
 
     return (
         <div className={dumbnesslevels}>
@@ -64,9 +64,33 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                 {
                     [1,2,3,4,5].map((dumbnesslevel) => {
 
-                    <div className="carouseldumbnesslevel">
+                        return (
+                            <div className="carouseldumbnesslevel">
+                                <div className="carouselbgcontainer"></div>
+                                <div className={'avatar' + dumbnesslevel}
+                                style={{
+                                    position: 'absolute',
+                                    top: '0',
+                                    width: '70%',
+                                    height: '70%',
+                                    zIndex: '5',
+                                }}
+                                ></div>
+                                <div className='avatarlabel'
+                                style={{
+                                    position: 'absolute',
+                                    zIndex: '5',
+                                    bottom: '5%',
+                                    padding: '4% 0',
+                                }}
+                                >{avatarlabels[dumbnesslevel-1]}</div>
+                            </div>
+                        )
+                    })
+                }
+                    {/* <div className="carouseldumbnesslevel">
                         <div className="carouselbgcontainer"></div>
-                        <div className={'avatar' + dumbnesslevel}
+                        <div className={'avatar' + carouseldumbnessLevel}
                         style={{
                             position: 'absolute',
                             top: '0',
@@ -82,10 +106,8 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             bottom: '5%',
                             padding: '4% 0',
                         }}
-                        >{avatarlabels[dumbnesslevel-1]}</div>
-                    </div>  
-                }
-                )}
+                        >{avatarlabels[carouseldumbnessLevel-1]}</div>
+                    </div>   */}
                 {/* <div className="rightarrow" onClick={handleDumbnesscarouselChange} value={1}></div> */}
             </div>   
         </div>

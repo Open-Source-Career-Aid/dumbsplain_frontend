@@ -542,11 +542,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 40vw;
-    aspect-ratio: 2/1;
+    width: 100%;
+    height: 20vh;
     padding: 0;
     overflow: visible;
-    position: relative;
+    position: absolute;
+    overflow: hidden;
+    bottom: 20vh;
+    z-index: 1000;
 }
 
 .leftarrow {
@@ -578,10 +581,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
     z-index: 0;
-    width: 60%;
-    aspect-ratio: 5/4;
+    flex-shrink: 0;
 }
 
 .carouselbgcontainer {
@@ -592,7 +593,7 @@
     position: absolute;
     z-index: 1;
     border-radius: 10px;
-    width: 100%;
+    flex-shrink: 0;
 }
 
 .mcq-question {
@@ -670,6 +671,47 @@
 /* Mobile responsiveness */
 @media only screen and (max-width: 600px) {
 
+    .dumbsplainbody {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .buttoncontainer {
+        position: absolute;
+        bottom: 6vh;
+    }
+
+    .carouseldumbnesslevel {
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+        position: relative;
+        width: 150px;
+        height: 120px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .carouselbgcontainer {
+        position: absolute;
+        height: 75%;
+        bottom: 0;
+        background-color: #8CA8FF;
+        z-index: 1;
+        width: 55%;
+        padding: 0 17.5%;
+    }
+
+    .carouselelementscontainer {
+        display: flex;
+        position: relative;
+        width: 100%;
+        padding: 0;
+        /* fade out on left and right edges */
+    }
+
     .lightmode {
         display: none;
     }
@@ -728,32 +770,50 @@
     }
 
     .avatar1 {
-        height: 15vh;
-        width: 50vw;
+        position: absolute;
+        top: 0;
+        width: 70%;
+        height: 70%;
+        z-index: 5;
     }
 
     .avatar2 {
-        height: 15vh;
-        width: 50vw;
+        position: absolute;
+        top: 0;
+        width: 70%;
+        height: 70%;
+        z-index: 5;
     }
-
     .avatar3 {
-        height: 15vh;
-        width: 50vw;
+        position: absolute;
+        top: 0;
+        width: 70%;
+        height: 70%;
+        z-index: 5;
     }
 
     .avatar4 {
-        height: 15vh;
-        width: 50vw;
+        position: absolute;
+        top: 0;
+        width: 70%;
+        height: 70%;
+        z-index: 5;
     }
 
     .avatar5 {
-        height: 15vh;
-        width: 50vw;
+        position: absolute;
+        top: 0;
+        width: 70%;
+        height: 70%;
+        z-index: 5;
     }
 
     .avatarlabel {
-        font-size: 0.4em;
+        position: absolute;
+        z-index: 5;
+        bottom: 6%;
+        padding: 5% 0;
+        font-size: 10px;
     }
 
     div.answeroptions {
@@ -802,14 +862,6 @@
         margin-top: 4%;
     }
 
-    .dumbnesscarousel {
-        overflow: visible;
-    }
-
-    .carouseldumbnesslevel {
-        overflow: visible;
-    }
-
     .waitingtime {
         font-size: 1.2em;
         color: #4C7BFE;
@@ -840,6 +892,25 @@
 
 /* meduim screens mobile responsiveness */
 @media only screen and (min-width: 600px) and (max-width: 900px) {
+
+    .dumbsplainbody {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .buttoncontainer {
+        position: absolute;
+        bottom: 6vh;
+    }
+
+    .carouselelementscontainer {
+        display: flex;
+        position: relative;
+        width: 100%;
+        padding: 0;
+    }
 
     .lightmode {
         display: none;
@@ -899,33 +970,50 @@
     }
 
     .avatar1 {
-        height: 20vh;
-        width: 30vw;
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
     }
 
     .avatar2 {
-        height: 20vh;
-        width: 30vw;
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
     }
     .avatar3 {
-        height: 20vh;
-        width: 30vw;
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
     }
 
     .avatar4 {
-        height: 20vh;
-        width: 30vw;
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
     }
 
     .avatar5 {
-        height: 20vh;
-        width: 30vw;
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
     }
 
     .avatarlabel {
-        font-size: 0.5em;
-        color: #454545;
-        margin-top: .3125em;
+        position: absolute;
+        z-index: 5;
+        bottom: 6%;
+        padding: 5% 0;
+        font-size: 12px;
     }
 
     .dumbnesslevels {
@@ -986,19 +1074,22 @@
     .carouseldumbnesslevel {
         justify-content: center;
         align-items: center;
-        margin: .1875em;
-        padding: .1875em;
         z-index: 0;
         position: relative;
+        width: 200px;
+        height: 160px;
+        padding: 0;
+        margin: 0;
     }
 
     .carouselbgcontainer {
         position: absolute;
         height: 75%;
-        width: 80%;
         bottom: 0;
         background-color: #8CA8FF;
         z-index: 1;
+        width: 55%;
+        padding: 0 17.5%;
     }
 
     .mcq-question {

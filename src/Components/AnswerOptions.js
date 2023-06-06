@@ -75,6 +75,11 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
 
     });
 
+    useEffect(() => {
+        setSelectedoption(carouseldumbnessLevel)
+    // eslint-disable-next-line
+    }, [carouseldumbnessLevel]);
+
     const handleDumbclick = (e) => {
         if (mcqrequested) {
             e.preventDefault();

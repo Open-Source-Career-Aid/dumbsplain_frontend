@@ -284,6 +284,7 @@ function Dumbsplain( ) {
     }, [special_id]);
 
     const handleDumbsplain = (e) => {
+        navigator.vibrate(1000);
         if (dumbnessLevel !== null) {
             e.preventDefault();
             setExplanationrequested(true);
@@ -413,10 +414,7 @@ function Dumbsplain( ) {
                     theme={theme}
                     />
                 </> :<>
-                <div className='dumbsplain'
-                style={{
-                    width: '100%',
-                }}>
+                <div className='dumbsplain'>
                     <Dumbsplainer
                     text={currentext}
                     quizme={quizme}

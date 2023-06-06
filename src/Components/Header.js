@@ -4,7 +4,11 @@ function Header ({ topic , theme }) {
     return (
         <div className='header'>
             <h1 className='totd' data-theme={theme}>TOPIC OF THE DAY</h1>
-            <h1 className='topic' data-theme={theme}>
+            <h1 className='topic' data-theme={theme}
+            style={{
+                textAlign: 'center',
+            }}
+            >
                 {/* {topic} */}
                 Something for you to think about.
             </h1>

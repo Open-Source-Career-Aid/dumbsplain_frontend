@@ -413,7 +413,10 @@ function Dumbsplain( ) {
                     theme={theme}
                     />
                 </> :<>
-                <div className='dumbsplain'>
+                <div className='dumbsplain'
+                style={{
+                    width: '100%',
+                }}>
                     <Dumbsplainer
                     text={currentext}
                     quizme={quizme}

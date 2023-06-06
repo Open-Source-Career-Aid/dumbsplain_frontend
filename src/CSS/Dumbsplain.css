@@ -161,6 +161,7 @@
     align-items: center;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 .textarea {
@@ -705,6 +706,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 0;
+        padding: 0;
+        width: 100%;
     }
 
     .buttoncontainer {
@@ -755,7 +759,7 @@
     }
 
     .topic {
-        font-size: 1.0em;
+        font-size: 0.8em;
     }
 
     .subtitle {
@@ -959,7 +963,7 @@
     }
 
     .topic {
-        font-size: 1.0em;
+        font-size: 0.8em;
     }
 
     .subtitle {

@@ -170,7 +170,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                                         zIndex: 2,
                                         top: '10%',
                                     }}
-                                    >{dumbnesslevel}</div>
+                                    >{String.fromCharCode(64+dumbnesslevel)}</div>
                                     <div className="carouselbgcontainer"></div>
                                 </div>
                             )

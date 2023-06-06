@@ -185,7 +185,6 @@
     height: 300px;
     border: 1px solid #c7c7c7;
     border-radius: .3125em;
-    /* margin-top: .625em; */
     margin-bottom: .625em;
     font-family: 'Roboto', sans-serif;
     resize: none;
@@ -613,6 +612,10 @@
 
 .carouseldumbnesslevel.selected .dumbnessleveltext {
     color: #ffffff;
+}
+
+.dumbnessleveltext[data-theme='dark'] {
+    color: var(--dark-mode-text);
 }
 
 .carouseldumbnesslevel.wrong .carouselbgcontainer {

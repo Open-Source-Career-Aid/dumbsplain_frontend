@@ -139,7 +139,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             onClick={handleDumbclick} value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>
                                 <div className={'avatar' + dumbnesslevel}></div>
-                                <div className='avatarlabel'>{avatarlabels[dumbnesslevel-1]}</div>
+                                <div className='avatarlabel' data-theme={theme}>{avatarlabels[dumbnesslevel-1]}</div>
                             </div>
                         )
                     })

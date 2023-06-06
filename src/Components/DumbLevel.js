@@ -12,27 +12,31 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
     useEffect(() => {
 
         const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
-        const dumbnesscarouselelements = document.getElementsByClassName('carouseldumbnesslevel');
         const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
 
         setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
         setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
 
+        // eslint-disable-next-line
         if (carouseldumbnessLevel == 1) {
             const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2;
             setLocationofelements(initialloc);
+        // eslint-disable-next-line
         } else if (carouseldumbnessLevel == 2) {
             const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth;
             setLocationofelements(initialloc);
         }
+        // eslint-disable-next-line
         else if (carouseldumbnessLevel == 3) {
             const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*2;
             setLocationofelements(initialloc);
         }
+        // eslint-disable-next-line
         else if (carouseldumbnessLevel == 4) {
             const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*3;
             setLocationofelements(initialloc);
         }
+        // eslint-disable-next-line
         else if (carouseldumbnessLevel == 5) {
             const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*4;
             setLocationofelements(initialloc);
@@ -90,16 +94,6 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
         greyed: waitfortomorrow
       });
 
-    const handleDumbnesscarouselChange = (e) => {
-        if (!explanationrequested) {
-            e.preventDefault();
-            if (carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')) > 0 && carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')) <= 5) {
-                setCarouseldumbnessLevel(carouseldumbnessLevel + parseInt(e.currentTarget.getAttribute('value')));
-            }
-
-        }
-    }
-
     return (
         <div className={dumbnesslevels}>
 
@@ -136,10 +130,15 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                     [1,2,3,4,5].map((dumbnesslevel) => {
 
                         return (
-                            <div className="carouseldumbnesslevel" onClick={handleDumbclick} value={dumbnesslevel}>
+                            <div 
+                            className={
+                                classNames('carouseldumbnesslevel', {
+                                    // eslint-disable-next-line
+                                    selected: dumbnessLevel == dumbnesslevel, greyed: dumbnessLevel != dumbnesslevel && dumbnessLevel != null
+                                    })}
+                            onClick={handleDumbclick} value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>
-                                <div className={'avatar' + dumbnesslevel}
-                                ></div>
+                                <div className={'avatar' + dumbnesslevel}></div>
                                 <div className='avatarlabel'>{avatarlabels[dumbnesslevel-1]}</div>
                             </div>
                         )

@@ -585,6 +585,33 @@
     flex-shrink: 0;
 }
 
+.carouseldumbnesslevel.selected .carouselbgcontainer {
+    background-color: #8CA8FF;
+    opacity: 1;
+}
+
+.carouseldumbnesslevel.selected .avatarlabel {
+    color: #ffffff;
+}
+
+.carouseldumbnesslevel.selected .dumbnessleveltext {
+    color: #ffffff;
+}
+
+.carouseldumbnesslevel.wrong .carouselbgcontainer {
+    background-color: #D65757;
+    opacity: 1;
+}
+
+.carouseldumbnesslevel.correct .carouselbgcontainer {
+    background-color: #32BCA3;
+    opacity: 1;
+}
+
+.carouseldumbnesslevel.correcthighlight .carouselbgcontainer {
+    background-color: #DEFEF8;
+}
+
 .carouselbgcontainer {
     display: flex;
     flex-direction: row;
@@ -594,6 +621,8 @@
     z-index: 1;
     border-radius: 10px;
     flex-shrink: 0;
+    background-color: #4C7BFE;
+    opacity: 0.1;
 }
 
 .mcq-question {
@@ -698,7 +727,8 @@
         position: absolute;
         height: 75%;
         bottom: 0;
-        background-color: #8CA8FF;
+        background-color: #4C7BFE;
+        opacity: 0.1;
         z-index: 1;
         width: 55%;
         padding: 0 17.5%;
@@ -816,7 +846,7 @@
         font-size: 10px;
     }
 
-    div.answeroptions {
+    /* div.answeroptions {
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -825,6 +855,10 @@
         margin-top: .625em;
         margin-bottom: .625em;
         flex-wrap: wrap;
+    } */
+
+    .answeroptions {
+        display: none;
     }
 
     .answeroptions.block {
@@ -1013,7 +1047,7 @@
         z-index: 5;
         bottom: 6%;
         padding: 5% 0;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .dumbnesslevels {
@@ -1025,6 +1059,10 @@
         margin-top: .625em;
         margin-bottom: .625em;
         flex-wrap: wrap;
+    }
+
+    .answeroptions {
+        display: none;
     }
 
     .answeroptions.block {
@@ -1086,7 +1124,8 @@
         position: absolute;
         height: 75%;
         bottom: 0;
-        background-color: #8CA8FF;
+        background-color: #4C7BFE;
+        opacity: 0.1;
         z-index: 1;
         width: 55%;
         padding: 0 17.5%;

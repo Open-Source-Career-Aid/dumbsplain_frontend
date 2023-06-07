@@ -63,10 +63,11 @@ function Dumbsplain( { theme , setTheme } ) {
             'headerheight: ', headerheight,
             'interactionheight: ', interactionheight);
 
-        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 80;
+        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 50;
         contentsectionheighttemp = contentsectionheighttemp + 'px';
         console.log('contentsectionheighttemp: ', contentsectionheighttemp);
         setContentsectionheight(contentsectionheighttemp);
+        
     }, []);
 
 

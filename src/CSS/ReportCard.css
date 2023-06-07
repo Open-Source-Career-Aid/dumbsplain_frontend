@@ -34,10 +34,22 @@
     border-left: 4px;
     border-left-style: solid;
     border-left-color: #D9D9D9;
-    font-style: italic;
     padding: 0;
     margin-left: 10px;
     padding-left: 10px;
+}
+
+.weekdayspan {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #F59E6C;
+    padding: 0;
+    margin-right: 10px;
 }
 
 .reportcard-body {
@@ -62,7 +74,7 @@
     height: 192px;
     left: 61px;
     top: 106px;
-    border: 2px solid #B5E7DE;
+    border: 2px solid #D9D9D9;
 }
 
 .reportcard-body-right {
@@ -79,10 +91,10 @@
 
 #reportcard-dumbnesslevel {
     position: absolute;
-    width: 155px;
+    width: 142px;
     height: 122px;
-    left: 280px;
-    top: 105px;
+    left: 371px;
+    top: 99px;
     font-style: normal;
     font-weight: 600;
     font-size: 100px;
@@ -98,8 +110,8 @@
     position: absolute;
     width: 84px;
     height: 61px;
-    left: 452px;
-    top: 154px;
+    left: 274px;
+    top: 148px;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
@@ -120,9 +132,9 @@
     position: absolute;
     width: 50px;
     height: 50px;
+    left: 514px;
+    top: 107px;
     padding: 0;
-    left: 421px;
-    top: 106px; 
 }
 
 .reportcard-streak {
@@ -161,5 +173,66 @@
     align-items: center;
     position: static;
     padding: 0;
-    width: 60px;
+}
+
+.messagefromai {
+    display: flex;
+    flex-direction: column;
+    justify-items: start;
+    position: absolute;
+    width: 553px;
+    height: 128px;
+    left: 61px;
+    top: 335px;
+    padding: 0;
+}
+
+.messagefromai-title {
+    color: #B1B1B1;
+    position: relative;
+    width: auto;
+    height: 17px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+.messagefromai-textbox {
+    box-sizing: border-box;
+    align-items: center;
+    position: relative;
+    width: 553px;
+    height: 103px;
+    border: 2px solid #D9D9D9;
+}
+
+.messagefromai-text {
+    font-family: Gloria Hallelujah;
+    color: #D65757;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    width: 514px;
+    height: 48px;
+    padding: 0;
+    margin-top: 12px;
+}
+
+.messagefromai-link {
+    font-family: Gloria Hallelujah;
+    color: #4C7BFE;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding: 0;
+    text-decoration: none;
 }

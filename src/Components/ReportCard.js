@@ -1,43 +1,43 @@
 import React, { useRef } from 'react';
-import { toBlob } from 'html-to-image';
+// import { toBlob } from 'html-to-image';
 import '../CSS/ReportCard.css';
 
 const ReportCard = () => {
   const sectionRef = useRef(null);
 
-  const handleShareClick = () => {
+  // const handleShareClick = () => {
 
-    if (!('clipboard' in navigator)) {
-      console.error('Clipboard API not supported in this browser');
-      return;
-    }
+  //   if (!('clipboard' in navigator)) {
+  //     console.error('Clipboard API not supported in this browser');
+  //     return;
+  //   }
 
-    navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
-      if (result.state === 'granted' || result.state === 'prompt') {
-        // You have permission to write to the clipboard
-      } else {
-        console.error('No permission to write to the clipboard');
-      }
-    });
+  //   navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+  //     if (result.state === 'granted' || result.state === 'prompt') {
+  //       // You have permission to write to the clipboard
+  //     } else {
+  //       console.error('No permission to write to the clipboard');
+  //     }
+  //   });
 
-    console.log(sectionRef.current);
+  //   console.log(sectionRef.current);
 
-    toBlob(sectionRef.current)
-      .then((blob) => {
-        const item = new ClipboardItem({ 'image/png': blob });
-        console.log(item);
-        navigator.clipboard.write([item])
-          .then(() => {
-            console.log('Image copied to clipboard!');
-          })
-          .catch((error) => {
-            console.error('Error copying image to clipboard:', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error converting HTML to image:', error);
-      });
-  };
+  //   toBlob(sectionRef.current)
+  //     .then((blob) => {
+  //       const item = new ClipboardItem({ 'image/png': blob });
+  //       console.log(item);
+  //       navigator.clipboard.write([item])
+  //         .then(() => {
+  //           console.log('Image copied to clipboard!');
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error copying image to clipboard:', error);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error converting HTML to image:', error);
+  //     });
+  // };
 
   return (
     <section ref={sectionRef}
@@ -46,11 +46,16 @@ const ReportCard = () => {
         padding: '0',
       }
     }>
-      <div className='modal-content-inverted'>
+      <div className='modal-content-inverted'
+      style={{
+        border: '5px solid',
+        borderColor: '#32BCA3',
+      }}
+      >
           <div className='reportcard-header'>
             <div className='reportcard-header-title'>Dumbsplain Diary</div>
-            <div className='reportcard-header-weekday'>Week 1</div>
-            <div className='reportcard-header-weekday'>Day 2</div>
+            <div className='reportcard-header-weekday'><span className='weekdayspan'>Cycle</span> 1</div>
+            <div className='reportcard-header-weekday'><span className='weekdayspan'>Day</span> 2</div>
           </div>
           <div className='reportcard-body'>
             <div className='reportcard-body-left'>
@@ -60,9 +65,9 @@ const ReportCard = () => {
             </div>
             <div className='reportcard-body-right'>
               <div className='reportcard-body-right-row'>
+                <div id='reportcard-dq'>DQ</div>
                 <div id='reportcard-dumbnesslevel'>5.5</div>
                 <div className='reportcard-updown'></div>
-                <div id='reportcard-dq'>DQ</div>
               </div>
               <div className='reportcard-body-right-row'
               style={{
@@ -74,35 +79,37 @@ const ReportCard = () => {
               }}
               >
                 <div className='reportcard-streak'>
-                  <div className='reportcard-streakscore'>365</div>
-                  <div className='reportcard-updown'
+                  <div className='reportcard-streak-title'
                   style={{
-                    position: 'relative',
-                    width: '20px',
-                    height: '20px',
-                    left: '-8px',
-                    top: '-15px',
+                    width: '72px',
                   }}
-                  ></div>
-                  <div className='reportcard-streak-title'>Current Streak</div>
+                  >Current Streak</div>
+                  <div className='reportcard-streakscore'>365</div>
                 </div>
-                <div className='reportcard-streak'>
-                  <div className='reportcard-streakscore'>365</div>
-                  <div className='reportcard-updown'
+                <div className='reportcard-streak'
+                style={{
+                  paddingLeft: '20px',
+                }}
+                >
+                  <div className='reportcard-streak-title'
                   style={{
-                    position: 'relative',
-                    width: '20px',
-                    height: '20px',
-                    left: '-8px',
-                    top: '-15px',
+                    width: '59px',
                   }}
-                  ></div>
-                  <div className='reportcard-streak-title'>Max Streak</div>
+                  >Max Streak</div>
+                  <div className='reportcard-streakscore'>365</div>
                 </div>
               </div>
             </div>
+            <div className='messagefromai'>
+              <div className='messagefromai-title'>MESSAGE FROM AI:</div>
+              <div className='messagefromai-textbox'>
+                <div className='messagefromai-text'>You are doing great! Keep it up! You are doing great! Keep it up! You are doing great! Keep it up!</div>
+                {/* eslint-disable-next-line */}
+                <a href='#' className='messagefromai-link'>Link</a>
+              </div>
+            </div>
           </div>
-        <div className='buttoncontainer'
+        {/* <div className='buttoncontainer'
         style={{
           position: 'absolute',
           bottom: '0',
@@ -115,7 +122,7 @@ const ReportCard = () => {
           >
               <div className='dumbsplainbuttontext'>Share</div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

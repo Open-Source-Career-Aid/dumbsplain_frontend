@@ -42,6 +42,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [maxstreak, setMaxstreak] = React.useState(0);
     const [correctoption, setCorrectoption] = React.useState(null);
     const [time, setTime] = React.useState(null)
+    const [contentsectionheight, setContentsectionheight] = React.useState('40vh');
 
     async function findcurrentTime() {
         let date = new Date();
@@ -51,6 +52,22 @@ function Dumbsplain( { theme , setTheme } ) {
         let currentTime = hours + ":" + minutes + ":" + seconds;
         setTime(currentTime);
     }
+
+    useEffect(() => {
+
+        const windowheight = window.innerHeight;
+        const headerheight = document.querySelector('.headersection').offsetHeight;
+        const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+
+        console.log('windowheight: ', windowheight,
+            'headerheight: ', headerheight,
+            'interactionheight: ', interactionheight);
+
+        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 80;
+        contentsectionheighttemp = contentsectionheighttemp + 'px';
+        console.log('contentsectionheighttemp: ', contentsectionheighttemp);
+        setContentsectionheight(contentsectionheighttemp);
+    }, []);
 
 
     useEffect(() => {
@@ -389,40 +406,63 @@ function Dumbsplain( { theme , setTheme } ) {
             maxstreak={maxstreak}
             setMaxstreak={setMaxstreak}
             />
-            <div className='navbar'>
-                <div className='dumbsplainlogo'></div>
-                <div className='utilitybuttons'>
-                    { theme==='light' ?
-                    <svg className='lightmode' onClick={handleTheme}></svg>
-                    : <svg className='darkmode' onClick={handleTheme}></svg>}
-                    <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
-                    <svg className='leaderboard' onClick={handleOverlay} data-overlay="score"></svg>
+            <section className='headersection'
+            style={{
+                height: 'auto',
+            }}
+            >
+                <div className='navbar'>
+                    <div className='dumbsplainlogo'></div>
+                    <div className='utilitybuttons'>
+                        { theme==='light' ?
+                        <svg className='lightmode' onClick={handleTheme}></svg>
+                        : <svg className='darkmode' onClick={handleTheme}></svg>}
+                        <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
+                        <svg className='leaderboard' onClick={handleOverlay} data-overlay="score"></svg>
+                    </div>
                 </div>
-            </div>
-            <div className='dumbsplainbody'>
                 <div className='introduction'>
                     <Header
                     topic={topic}
                     theme={theme}
                     />
                 </div>
-                { waitfortomorrow ? <>
-                <WaitingBox
-                    waitingtime={waitingtime}
-                    theme={theme}
-                    />
-                </> :<>
-                <div className='dumbsplain'>
-                    <Dumbsplainer
-                    text={currentext}
-                    quizme={quizme}
-                    theme={theme}
-                    />
-                </div>
-                </>
-                }
+            </section>
+            <div className='dumbsplainbody'>
+                <section className='contentsection'
+                style={{
+                    height: `${contentsectionheight}`,
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '0',
+                }}
+                >
+                    { waitfortomorrow ? <>
+                    <WaitingBox
+                        waitingtime={waitingtime}
+                        theme={theme}
+                        />
+                    </> :<>
+                    <div className='dumbsplain'>
+                        <Dumbsplainer
+                        text={currentext}
+                        quizme={quizme}
+                        theme={theme}
+                        />
+                    </div>
+                    </>
+                    }
+                </section>
 
-                <section className='interaction'>
+                <section className='interactionsection'
+                style={{
+                    height: 'auto',
+                    marginTop: '0.625em',
+                }}
+                >
                     <div className='optionscontainer'>
                         { !quizme ? 
                         <div className='dumbnesslevelscontainer'>

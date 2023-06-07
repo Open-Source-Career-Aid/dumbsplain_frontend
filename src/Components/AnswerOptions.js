@@ -137,9 +137,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                         );
                     })
                 }
-            </div>
-
-                <div className="dumbnesscarousel"
+                 <div className="dumbnesscarousel"
                 {...handlers}
                 >
                     <div className="carouselelementscontainer"
@@ -183,6 +181,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                     }
                     </div>
                 </div>   
+            </div>
         </>
     );
 }

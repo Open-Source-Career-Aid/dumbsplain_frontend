@@ -178,6 +178,7 @@
     color: #454545;
     /* make thin */
     font-weight: 300;
+    text-align: center;
 }
 .subtitle[data-theme='dark'] {
     color: var(--dark-mode-text);
@@ -387,7 +388,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+    margin: 0;
     padding: 0;
 }
 
@@ -395,10 +396,15 @@
     background-color: #4C7BFE;
     border: none;
     border-radius: 50vh;
-    padding: .325em;
-    margin-bottom: .625em;
+    padding: .4em 0.8em;
     font-weight: 700;
+    width: 150px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
 }
+
 .dumbsplainbutton:hover {
     background-color: #3a6bce;
     cursor: pointer;
@@ -407,6 +413,7 @@
 .dumbsplainbuttontext {
     font-size: 0.5em;
     color: #ffffff;
+    padding: 0;
 }
 
 .answeroptionscontainer {

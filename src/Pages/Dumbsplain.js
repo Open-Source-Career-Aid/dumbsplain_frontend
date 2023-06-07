@@ -14,7 +14,7 @@ import WaitingBox from '../Components/WaitingBox';
 import getWaitingtime from '../Functions/getWaitingtime';
 import submitAnswer from '../Functions/submitAnswer';
 
-function Dumbsplain( ) {
+function Dumbsplain( { theme , setTheme } ) {
 
     let placeholder = 'Select your dumbness level for an explanation of Topic.';
     const [explanation, setExplanation] = React.useState('explanation text');
@@ -40,7 +40,6 @@ function Dumbsplain( ) {
     const [userdq, setUserdq] = React.useState(0);
     const [userstreak, setUserstreak] = React.useState(0);
     const [maxstreak, setMaxstreak] = React.useState(0);
-    const [theme, setTheme] = React.useState('light');
     const [correctoption, setCorrectoption] = React.useState(null);
     const [time, setTime] = React.useState(null)
 
@@ -90,7 +89,7 @@ function Dumbsplain( ) {
                 setTheme('light');
             }
         }
-
+    // eslint-disable-next-line
     }, [time]);
 
     // if esc is pressed and the score modal is open, close the score modal
@@ -377,7 +376,6 @@ function Dumbsplain( ) {
             paddingTop: '1%',
             minheight: '500px',
         }}>
-            <div className='bg' data-theme={theme}></div>
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <Acheivements
             scoreModal={scoreModal}

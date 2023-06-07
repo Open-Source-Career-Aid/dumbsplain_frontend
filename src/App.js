@@ -2,8 +2,11 @@ import { Route , Routes } from "react-router-dom";
 import Dumbsplain from "./Pages/Dumbsplain";
 import "./CSS/App.css";
 import Test from "./Pages/Test";
+import React from "react";
 
 function App() {
+
+  const [theme, setTheme] = React.useState('light');
 
   return (
       <div className="App"
@@ -17,8 +20,12 @@ function App() {
         padding: "0",
       }}
       >
+        <div className='bg' data-theme={theme}></div>
         <Routes>
-          <Route path="/" element={<Dumbsplain />} />
+          <Route path="/" element={<Dumbsplain
+          theme={theme}
+          setTheme={setTheme}
+           />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>

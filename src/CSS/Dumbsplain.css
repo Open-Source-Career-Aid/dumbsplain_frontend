@@ -730,10 +730,9 @@
     }
 }
 
-/* Mobile responsiveness */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
 
-    .dumbsplainbody {
+     .dumbsplainbody {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -772,6 +771,19 @@
         padding: 0;
         /* fade out on left and right edges */
     }
+
+    .avatarlabel {
+        position: absolute;
+        z-index: 5;
+        bottom: 6%;
+        padding: 5% 0;
+        font-size: 12px;
+    }
+    
+}
+
+/* Mobile responsiveness */
+@media only screen and (max-width: 600px) {
 
     .lightmode {
         display: none;
@@ -868,14 +880,6 @@
         width: 70%;
         height: 70%;
         z-index: 5;
-    }
-
-    .avatarlabel {
-        position: absolute;
-        z-index: 5;
-        bottom: 6%;
-        padding: 5% 0;
-        font-size: 10px;
     }
 
     /* div.answeroptions {
@@ -966,13 +970,6 @@
         align-items: center;
     }
 
-    .carouselelementscontainer {
-        display: flex;
-        position: relative;
-        width: 100%;
-        padding: 0;
-    }
-
     .lightmode {
         display: none;
     }
@@ -1069,14 +1066,6 @@
         z-index: 5;
     }
 
-    .avatarlabel {
-        position: absolute;
-        z-index: 5;
-        bottom: 6%;
-        padding: 5% 0;
-        font-size: 14px;
-    }
-
     .dumbnesslevels {
         display: flex;
         flex-direction: row;
@@ -1136,7 +1125,7 @@
         margin-top: 6%;
     }
 
-    .carouseldumbnesslevel {
+    /* .carouseldumbnesslevel {
         justify-content: center;
         align-items: center;
         z-index: 0;
@@ -1156,7 +1145,7 @@
         z-index: 1;
         width: 55%;
         padding: 0 17.5%;
-    }
+    } */
 
     .mcq-question {
         font-size: 1em;
@@ -1198,15 +1187,25 @@
 @media screen and (max-width: 900px) {
 
     .header {
-        margin-top: 5%;
+        margin-top: 2%;
         width: 80vw;
+    }
+
+    .totd {
+        font-size: 0.4em;
     }
 
     .topic {
         width: 80%;
+        font-size: 0.6em;
     }
 
     .dumbnesslevelscontainer {
+        padding: 0;
+        margin: 0;
+    }
+
+    .answeroptionscontainer {
         padding: 0;
         margin: 0;
     }

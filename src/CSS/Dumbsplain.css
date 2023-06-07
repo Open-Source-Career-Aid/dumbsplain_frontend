@@ -78,6 +78,19 @@
     height: 35px;
     width: 8%;
     min-width: 150px;
+    margin-left: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .dumbsplainlogo {
+        background-image: url('../../public/squarelogo.svg');
+        padding: 0;
+        height: 35px;
+        width: 35px;
+        min-width: 35px;
+    }
+    
 }
 
 .utilitybuttons {

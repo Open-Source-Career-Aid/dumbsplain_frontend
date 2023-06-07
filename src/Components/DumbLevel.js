@@ -54,7 +54,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
             return;
         }
         const newloc = locationofelements - widthofcarouselelement;
-        if (newloc > -widthofcarouselelement*4) {
+        if (newloc > widthofcarouselwindow/2-widthofcarouselelement*5) {
             setLocationofelements(newloc);
             setCarouseldumbnessLevel(carouseldumbnessLevel + 1);
         }

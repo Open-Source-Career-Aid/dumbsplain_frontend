@@ -9,8 +9,8 @@ function Header ({ topic , theme }) {
                 textAlign: 'center',
             }}
             >
-                {/* {topic} */}
-                Something for you to think about.
+                {topic}
+                {/* Something for you to think about. */}
             </h1>
             <h2 className='subtitle' data-theme={theme}>You are dumber than <span style={{color:'#8CA8FF', fontSize:'1em', padding: '0', fontWeight:'700'}}>AI</span>.</h2>
             <h2 className='subtitle' data-theme={theme}>The question is: by how much?</h2>

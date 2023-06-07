@@ -161,29 +161,29 @@ function Dumbsplain( { theme , setTheme } ) {
     // eslint-disable-next-line
     }, [explanationloaded]);
 
-    // if explanationloaded is false, set the dumbness level on the press of A, B, C, D, or E respectively
+    // if explanationloaded is false, set the dumbness level on the press of 1, 2, 3, 4, 5 keys respectively
     useEffect(() => {
 
         const keyFunction = (event) => {
 
             if (explanationloaded === false) {
-                if (event.keyCode === 65) {
+                if (event.keyCode === 49) {
                     event.preventDefault();
                     setDumbnessLevel(1);
                 }
-                else if (event.keyCode === 66) {
+                else if (event.keyCode === 50) {
                     event.preventDefault();
                     setDumbnessLevel(2);
                 }
-                else if (event.keyCode === 67) {
+                else if (event.keyCode === 51) {
                     event.preventDefault();
                     setDumbnessLevel(3);
                 }
-                else if (event.keyCode === 68) {
+                else if (event.keyCode === 52) {
                     event.preventDefault();
                     setDumbnessLevel(4);
                 }
-                else if (event.keyCode === 69) {
+                else if (event.keyCode === 53) {
                     event.preventDefault();
                     setDumbnessLevel(5);
                 }
@@ -203,23 +203,23 @@ function Dumbsplain( { theme , setTheme } ) {
         const keyFunction = (event) => {
 
             if (explanationloaded === true && quizme === true && mcqloaded === true) {
-                if (event.keyCode === 65) {
+                if (event.keyCode === 49) {
                     event.preventDefault();
                     setSelectedoption(0);
                 }
-                else if (event.keyCode === 66) {
+                else if (event.keyCode === 50) {
                     event.preventDefault();
                     setSelectedoption(1);
                 }
-                else if (event.keyCode === 67) {
+                else if (event.keyCode === 51) {
                     event.preventDefault();
                     setSelectedoption(2);
                 }
-                else if (event.keyCode === 68) {
+                else if (event.keyCode === 52) {
                     event.preventDefault();
                     setSelectedoption(3);
                 }
-                else if (event.keyCode === 69) {
+                else if (event.keyCode === 53) {
                     event.preventDefault();
                     setSelectedoption(4);
                 }
@@ -422,61 +422,63 @@ function Dumbsplain( { theme , setTheme } ) {
                 </>
                 }
 
-                <div className='optionscontainer'>
-                    { !quizme ? 
-                    <div className='dumbnesslevelscontainer'>
-                        <DumbLevel
-                        dumbnessLevel={dumbnessLevel}
-                        setDumbnessLevel={setDumbnessLevel}
-                        explanationrequested={explanationrequested}
-                        waitfortomorrow={waitfortomorrow}
-                        theme={theme}
-                        />
+                <section className='interaction'>
+                    <div className='optionscontainer'>
+                        { !quizme ? 
+                        <div className='dumbnesslevelscontainer'>
+                            <DumbLevel
+                            dumbnessLevel={dumbnessLevel}
+                            setDumbnessLevel={setDumbnessLevel}
+                            explanationrequested={explanationrequested}
+                            waitfortomorrow={waitfortomorrow}
+                            theme={theme}
+                            />
+                        </div>
+                        :
+                        <div className='answeroptionscontainer'>
+                            <AnswerOptions
+                            selectedoption={selectedoption}
+                            setSelectedoption={setSelectedoption}
+                            mcqrequested={mcqrequested}
+                            mcqloading={mcqloading}
+                            mcqloaded={mcqloaded}
+                            setSpecial_id={setSpecial_id}
+                            score={score}
+                            setScore={setScore}
+                            theme={theme}
+                            />
+                        </div>
+                        }
                     </div>
-                    :
-                    <div className='answeroptionscontainer'>
-                        <AnswerOptions
-                        selectedoption={selectedoption}
-                        setSelectedoption={setSelectedoption}
-                        mcqrequested={mcqrequested}
-                        mcqloading={mcqloading}
-                        mcqloaded={mcqloaded}
-                        setSpecial_id={setSpecial_id}
-                        score={score}
-                        setScore={setScore}
-                        theme={theme}
-                        />
-                    </div>
-                    }
-                </div>
 
-                { explanationloaded ?
+                    { explanationloaded ?
+                        <>
+                        { !quizme ?
+                        <div className='buttoncontainer'>
+                            <div className='dumbsplainbutton' onClick={handleQuizme}>
+                                <div className='dumbsplainbuttontext'>Challenge me, AI!</div>
+                            </div>
+                        </div>
+                        : null }
+                        </>
+                    :
                     <>
-                    { !quizme ?
+                    { dumbnessLevel !== null ?
                     <div className='buttoncontainer'>
-                        <div className='dumbsplainbutton' onClick={handleQuizme}>
-                            <div className='dumbsplainbuttontext'>Challenge me, AI!</div>
+                        <div className='dumbsplainbutton' onClick={handleDumbsplain}>
+                            <div className='dumbsplainbuttontext'>Dumbsplain</div>
+                        </div>
+                    </div> 
+                    : null }
+                    </>}
+                    { selectedoption !== null && correctoption == null ?
+                    <div className='buttoncontainer'>
+                        <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
+                            <div className='dumbsplainbuttontext'>Submit</div>
                         </div>
                     </div>
-                    : null }
-                    </>
-                :
-                <>
-                { dumbnessLevel !== null ?
-                <div className='buttoncontainer'>
-                    <div className='dumbsplainbutton' onClick={handleDumbsplain}>
-                        <div className='dumbsplainbuttontext'>Dumbsplain</div>
-                    </div>
-                </div> 
-                : null }
-                </>}
-                { selectedoption !== null && correctoption == null ?
-                <div className='buttoncontainer'>
-                    <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
-                        <div className='dumbsplainbuttontext'>Submit</div>
-                    </div>
-                </div>
-                : null}
+                    : null}
+                </section>
             </div>
         </div>
     );

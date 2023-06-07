@@ -132,7 +132,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                             value={item-1}
                             key={item}>
                                 <div className="bgcontaineranswer"></div>
-                                <div className='answeroptiontext' data-theme={theme}>{String.fromCharCode(64+item)}</div>
+                                <div className='answeroptiontext' data-theme={theme}>{item}</div>
                             </div>
                         );
                     })
@@ -175,7 +175,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                                         zIndex: 2,
                                         top: '10%',
                                     }}
-                                    >{String.fromCharCode(64+dumbnesslevel)}</div>
+                                    >{dumbnesslevel}</div>
                                     <div className="carouselbgcontainer"></div>
                                 </div>
                             )

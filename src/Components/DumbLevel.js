@@ -138,8 +138,16 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                     })}
                             onClick={handleDumbclick} value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>
-                                <div className={'avatar' + dumbnesslevel}></div>
-                                <div className='avatarlabel' data-theme={theme}>{avatarlabels[dumbnesslevel-1]}</div>
+                                <div className={'avatar' + dumbnesslevel}
+                                style={{
+                                    zIndex: '50'
+                                }}
+                                ></div>
+                                <div className='avatarlabel' data-theme={theme}
+                                style={{
+                                    zIndex: '50'
+                                }}
+                                >{avatarlabels[dumbnesslevel-1]}</div>
                             </div>
                         )
                     })

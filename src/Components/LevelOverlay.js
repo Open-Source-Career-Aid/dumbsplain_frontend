@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import '../CSS/Overlay.css';
+import OverlayCurve from '../SVGasComponents/overlayCurve';
 
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
@@ -44,7 +45,17 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     return(
         <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" }>
             <div className='modal-content' data-theme={theme}>
-                <div className='headerbg'></div>
+                <OverlayCurve theme={theme}
+                viewBox={'0 0 100% 100%'}
+                styles={{
+                    padding: '0',
+                    position: 'absolute',
+                    left: '0',
+                    top: '0',
+                    width: '100%',
+                    scale: '1.07',
+                }}
+                />
                 <div className='infocontainer'>
                     <div className='headercontainer'>
                         <h1 className='heading'>Dumbsplain Guide</h1>

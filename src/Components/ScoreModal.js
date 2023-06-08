@@ -1,6 +1,7 @@
 import { useEffect , useState , useRef } from "react";
 import getScore from "../Functions/getScore";
 import { toBlob } from 'html-to-image';
+import OverlayCurve from "../SVGasComponents/overlayCurve";
 
 export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme }){
 
@@ -65,7 +66,19 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
     return (
         <div className={scoreModal ? "modal-overlay" : "modal-overlay-off"} >
             <main className="modal-content" data-theme={theme} ref={sectionRef}>
-                <div className='headerbg' style={{'opacity':'0.6'}}></div>
+                {/* <div className='headerbg' style={{'opacity':'0.6'}}></div> */}
+                <OverlayCurve theme={theme}
+                viewBox={'0 0 100% 100%'}
+                styles={{
+                    padding: '0',
+                    position: 'absolute',
+                    left: '0',
+                    top: '0',
+                    width: '100%',
+                    scale: '1.07',
+                    opacity: '0.6'
+                }}
+                />
                 <span className="closeOverlay" onClick={closeOverlay}>&times;</span>
                 {/*  replace avatar1 with  dummy level */}
                 <section className={"avatar"+roundedDQ} style={{ height: '25vh', width: '25vw', position: 'relative', 'z-index': '10000', 'margin-top': '40px' }}></section>

@@ -812,13 +812,13 @@
 /* Mobile responsiveness */
 @media only screen and (max-width: 600px) {
 
-    .lightmode {
+    /* .lightmode {
         display: none;
-    }
+    } */
 
-    .darkmode {
+    /* .darkmode {
         display: none;
-    }
+    } */
 
     .totd {
         font-size: 0.5em;
@@ -974,13 +974,13 @@
         align-items: center;
     }
 
-    .lightmode {
+    /* .lightmode {
         display: none;
-    }
+    } */
 
-    .darkmode {
+    /* .darkmode {
         display: none;
-    }
+    } */
 
     .totd {
         font-size: 0.5em;

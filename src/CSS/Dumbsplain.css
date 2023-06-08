@@ -149,7 +149,7 @@
     margin: 0;
     padding: 0;
     width: 35%;
-    margin-top: 0.325em;
+    margin-top: 0.375em;
 }
 
 .totd {
@@ -161,13 +161,13 @@
 }
 
 .topic {
-    font-size: 0.8em;
+    font-size: 0.675em;
     color: #4C7BFE;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .subtitle {
-    font-size: 0.5em;
+    font-size: 14px;
     color: #454545;
     /* make thin */
     font-weight: 300;
@@ -1168,7 +1168,6 @@
 @media screen and (max-width: 900px) {
 
     .header {
-        margin-top: 2%;
         width: 80vw;
     }
 

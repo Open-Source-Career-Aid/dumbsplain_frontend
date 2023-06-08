@@ -63,11 +63,11 @@ function Dumbsplain( { theme , setTheme } ) {
             'headerheight: ', headerheight,
             'interactionheight: ', interactionheight);
 
-        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 50;
+        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 60;
         contentsectionheighttemp = contentsectionheighttemp + 'px';
         console.log('contentsectionheighttemp: ', contentsectionheighttemp);
         setContentsectionheight(contentsectionheighttemp);
-        
+
     }, []);
 
 
@@ -433,6 +433,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='contentsection'
                 style={{
                     height: `${contentsectionheight}`,
+                    maxHeight: '45vh',
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',

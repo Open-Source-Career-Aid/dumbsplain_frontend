@@ -54,18 +54,16 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
         setScoreModal(false);
     }
 
-    useEffect(() => {
-        // if the user clicks outside of the modal-content, close it
-        window.onclick = function(event) {
-            if (event.target.className === "modal-overlay") {
-                setScoreModal(false);
-            }
+    const handleOverlayClick = (e) => {
+        // close overlay when clicked outside, add a listener to the window
+        if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
+            setScoreModal(false);
         }
-    }, [setScoreModal]);
+    }
 
     return (
-        <div className={scoreModal ? "modal-overlay" : "modal-overlay-off"} >
-            <main className="modal-content" data-theme={theme} ref={sectionRef}>
+        <div className={scoreModal ? "modal-overlay" : "modal-overlay-off"}>
+            <main className="modal-content" data-theme={theme} ref={sectionRef} onClick={handleOverlayClick}>
                 {/* <div className='headerbg' style={{'opacity':'0.6'}}></div> */}
                 <OverlayCurve theme={theme}
                 viewBox={'0 0 100% 100%'}

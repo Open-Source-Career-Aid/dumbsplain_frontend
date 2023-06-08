@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../CSS/Overlay.css';
 import OverlayCurve from '../SVGasComponents/overlayCurve';
-
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const level = [
@@ -33,17 +32,15 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
         setInfoOverlay(false);
     }
 
-    useEffect(() => {
-        // if the user clicks outside of the modal-content, close it
-        window.onclick = function(event) {
-            if (event.target.className === "modal-overlay") {
-                setInfoOverlay(false);
-            }
+    const handleOverlayClick = (e) => {
+        // close overlay when clicked outside, add a listener to the window
+        if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
+            setInfoOverlay(false);
         }
-    }, [setInfoOverlay]);
+    }
 
     return(
-        <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" }>
+        <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" } onClick={handleOverlayClick}>
             <div className='modal-content' data-theme={theme}>
                 <OverlayCurve theme={theme}
                 viewBox={'0 0 100% 100%'}

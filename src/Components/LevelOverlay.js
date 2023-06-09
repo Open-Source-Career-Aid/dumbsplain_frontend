@@ -32,7 +32,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
         setInfoOverlay(false);
     }
 
-    const handleOverlayClick = (e) => {
+    const handleLevelOverlayClick = (e) => {
         // close overlay when clicked outside, add a listener to the window
         if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
             setInfoOverlay(false);
@@ -40,7 +40,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     }
 
     return(
-        <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" } onClick={handleOverlayClick}>
+        <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
             <div className='modal-content' data-theme={theme}>
                 <OverlayCurve theme={theme}
                 viewBox={'0 0 100% 100%'}

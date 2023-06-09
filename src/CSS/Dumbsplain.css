@@ -37,6 +37,17 @@
     padding-top: 15px;
 }
 
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 35%;
+    margin-top: 0.375em;
+}
+
 @media only screen and (min-width: 900px) {
     .navbar {
         position: absolute;
@@ -81,6 +92,16 @@
         height: 35px;
         width: 35px;
         min-width: 35px;
+        margin: 0;
+    }
+
+    .navbar {
+        padding: 0 10px;
+        height: 50px;
+    }
+
+    .header {
+        margin-top: 0.1em;
     }
     
 }
@@ -139,17 +160,6 @@
     cursor: pointer;
     padding: 0;
     margin-left: 5%;
-}
-
-.header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    width: 35%;
-    margin-top: 0.375em;
 }
 
 .totd {

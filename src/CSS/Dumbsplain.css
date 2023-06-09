@@ -949,9 +949,10 @@
         height: 300px;
         border: 1px solid #c7c7c7;
         border-radius: .3125em;
-        margin-top: .625em;
-        margin-bottom: .625em;
+        margin-top: 0;
+        margin-bottom: 0;
         font-family: 'Roboto', sans-serif;
+        padding: 0 5%;
     }
 
     .waitingtext {

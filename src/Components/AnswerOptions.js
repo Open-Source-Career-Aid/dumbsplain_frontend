@@ -11,8 +11,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
 
     useEffect(() => {
 
-        console.log(correctoption);
-        console.log(selectedoption);
+        console.log("look for this answer options:", correctoption, selectedoption)
 
     }, [correctoption, selectedoption]);
 

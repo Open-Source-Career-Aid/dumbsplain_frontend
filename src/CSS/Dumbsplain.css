@@ -505,15 +505,18 @@
 .answeroption.wrong .bgcontaineranswer {
     background: #D65757;
     color: #ffffff;
+    opacity: 1;
 }
 
 .answeroption.correct .bgcontaineranswer {
     background: #32BCA3;
     color: #ffffff;
+    opacity: 1;
 }
 
 .answeroption.correcthighlight .bgcontaineranswer {
     background: #DEFEF8;
+    opacity: 1;
 }
 
 .waitingbox {
@@ -639,6 +642,7 @@
 
 .carouseldumbnesslevel.correcthighlight .carouselbgcontainer {
     background-color: #DEFEF8;
+    opacity: 1;
 }
 
 .carouselbgcontainer {
@@ -798,6 +802,7 @@
 
     .carouselelementscontainer {
         display: flex;
+        flex-direction: row;
         position: relative;
         width: 100%;
         padding: 0;
@@ -805,7 +810,7 @@
     }
 
     .carouselelementscontainer.block {
-        display: block;
+        pointer-events: none;
     }
 
     .avatarlabel {

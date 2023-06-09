@@ -55,6 +55,12 @@ function Dumbsplain( { theme , setTheme } ) {
 
     useEffect(() => {
 
+        console.log("look for this:", correctoption, selectedoption)
+
+    }, [correctoption, selectedoption]);
+
+    useEffect(() => {
+
         const windowheight = window.innerHeight;
         const headerheight = document.querySelector('.headersection').offsetHeight;
         const interactionheight = document.querySelector('.interactionsection').offsetHeight;
@@ -380,7 +386,6 @@ function Dumbsplain( { theme , setTheme } ) {
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
-                console.log(answer.correctoption)
             }
             fetchAnswer();
         }
@@ -490,6 +495,7 @@ function Dumbsplain( { theme , setTheme } ) {
                             score={score}
                             setScore={setScore}
                             theme={theme}
+                            correctoption={correctoption}
                             />
                         </div>
                         }

@@ -207,7 +207,7 @@
 /* make text area recognise line breaks and spaces */
 .textarea p {
     white-space: pre-wrap;
-    padding: 0.325em;
+    padding: 0.325em; 
 }
 
 .textarea p {
@@ -523,6 +523,7 @@
     align-items: center;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 .waitingarea {
@@ -672,10 +673,10 @@
     color: var(--dark-mode-text);
 }
 
-/* .mcq-options ol {
+.mcq-options ol {
     list-style-type: upper-alpha;
     padding-left: 5%;
-} */
+}
 
 .mcq-options ol {
     counter-reset: custom-counter;
@@ -690,6 +691,7 @@
     flex-direction: row;
     align-items: center;
     margin: 10px 0;
+    white-space: pre-wrap;
   }
 
 .mcq-options ol li::before {
@@ -706,11 +708,11 @@
     font-size: 0.6em;
     padding: 4px;
     color: #8CA8FF;
+    top: 2px;
   }
   .mcq-options ol li[data-theme='dark']::before {
     background-color: black;
   }
-
 
 /* for anything with min width 600px */
 @media screen and (min-width: 920px) {
@@ -728,6 +730,11 @@
 @media only screen and (min-width: 920px) and (max-width: 1120px) {
 
     .dumbnesslevel {
+        width: 100px;
+        height: 100px;
+    }
+
+    .answeroption {
         width: 100px;
         height: 100px;
     }
@@ -831,8 +838,9 @@
     }
 
     .textarea {
-        width: 90%;
+        width: 80%;
         height: 300px;
+        padding: 0 5%;
     }
 
     .textarea p {
@@ -943,7 +951,7 @@
     }
 
     .mcq-question {
-        font-size: 1em;
+        font-size: 0.5em;
         color: #454545;
         margin-top: 2%;
         font-weight: 600;
@@ -951,7 +959,7 @@
     }
 
     .mcq-option {
-        font-size: 0.6em;
+        font-size: 0.4em;
         color: #454545;
         margin-top: 1%;
     }
@@ -993,8 +1001,9 @@
     }
 
     .textarea {
-        width: 90%;
+        width: 80%;
         height: 300px;
+        padding: 0 5%;
     }
 
     .textarea p {
@@ -1127,7 +1136,7 @@
     } */
 
     .mcq-question {
-        font-size: 1em;
+        font-size: 0.6em;
         color: #454545;
         margin-top: 2%;
         font-weight: 600;
@@ -1135,7 +1144,7 @@
     }
 
     .mcq-option {
-        font-size: 0.6em;
+        font-size: 0.5em;
         color: #454545;
         margin-top: 1%;
     }

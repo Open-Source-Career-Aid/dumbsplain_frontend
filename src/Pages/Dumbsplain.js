@@ -471,6 +471,8 @@ function Dumbsplain( { theme , setTheme } ) {
                 style={{
                     height: 'auto',
                     marginTop: '0.625em',
+                    marginBottom: '0.625em',
+                    position: 'relative',
                 }}
                 >
                     <div className='optionscontainer'>

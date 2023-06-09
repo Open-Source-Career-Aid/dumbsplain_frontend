@@ -402,11 +402,11 @@
     justify-content: center;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 
 .dumbsplainbutton:hover {
     background-color: #3a6bce;
-    cursor: pointer;
 }
 
 .dumbsplainbuttontext {

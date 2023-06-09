@@ -700,7 +700,7 @@
 
 .mcq-options ol li::before {
     counter-increment: custom-counter;
-    content: counter(custom-counter, lower-alpha);
+    content: counter(custom-counter, decimal);
     position: absolute;
     left: 0;
     background-color: #F2F2F2;

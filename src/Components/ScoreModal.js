@@ -37,7 +37,7 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
             setUserstreak(score.streak);
             setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
-            setRoundedDQ(Math.floor(score.dq)+1);
+            setRoundedDQ(Math.floor(score.dq));
         }
 
         fetchScore();

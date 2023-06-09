@@ -4,7 +4,7 @@ import { useSwipeable } from "react-swipeable";
 
 function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , waitfortomorrow , theme }) {
 
-    const [carouseldumbnessLevel, setCarouseldumbnessLevel] = useState(1);
+    const [carouseldumbnessLevel, setCarouseldumbnessLevel] = useState(0);
     const [locationofelements, setLocationofelements] = useState(0);
     const [widthofcarouselelement, setWidthofcarouselelement] = useState(0);
     const [widthofcarouselwindow, setWidthofcarouselwindow] = useState(0);
@@ -100,7 +100,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
             {/* map through 1-5 for the dumblevels */}
 
             {
-                [1,2,3,4,5].map((dumbnesslevel) => {
+                [1, 2, 3, 4, 5].map((dumbnesslevel) => {
                     return (
                         <div
                         className={classNames('dumbnesslevel', {
@@ -127,7 +127,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                 }}
                 >
                 {
-                    [1,2,3,4,5].map((dumbnesslevel) => {
+                    [1, 2, 3, 4, 5].map((dumbnesslevel) => {
 
                         return (
                             <div 
@@ -138,7 +138,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                     })}
                             onClick={handleDumbclick} value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>
-                                <div className={'avatar' + dumbnesslevel}
+                                <div className={`avatar${dumbnesslevel}`}
                                 style={{
                                     zIndex: '50'
                                 }}

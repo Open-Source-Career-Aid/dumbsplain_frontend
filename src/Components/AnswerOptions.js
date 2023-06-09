@@ -11,6 +11,13 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
 
     useEffect(() => {
 
+        console.log(correctoption);
+        console.log(selectedoption);
+
+    }, [correctoption, selectedoption]);
+
+    useEffect(() => {
+
         const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
         const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
 
@@ -52,6 +59,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
         if (newloc > widthofcarouselwindow/2-widthofcarouselelement*5) {
             setLocationofelements(newloc);
             setCarouseldumbnessLevel(carouseldumbnessLevel + 1);
+            console.log(carouseldumbnessLevel);
         }
     }
 
@@ -102,34 +110,39 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
         block: correctoption != null
     });
 
+    const carouselelementscontainer = classNames('carouselelementscontainer', {
+        // eslint-disable-next-line
+        block: correctoption != null
+    });
+
     return (
         <>
             <div className={answeroptions}>
 
                 {/* map from 1-5 for the answer options */}
                 {
-                    [1,2,3,4,5].map((item) => {
+                    [1, 2, 3, 4, 5].map((item) => {
                         return (
                             <div
                             className={classNames('answeroption', {
 
                                 // eslint-disable-next-line
-                                selected: selectedoption == item-1 && correctoption == null
+                                selected: selectedoption == item && correctoption == null
                             },
                             {
                                 // eslint-disable-next-line
-                                wrong: selectedoption == item-1 && correctoption != null && correctoption != item-1
+                                wrong: selectedoption == item && correctoption != null && correctoption != item
                             },
                             {
                                 // eslint-disable-next-line
-                                correcthighlight: selectedoption != item-1 && correctoption != null && correctoption == item-1
+                                correcthighlight: selectedoption != item && correctoption != null && correctoption == item
                             },
                             {
                                 // eslint-disable-next-line
-                                correct: selectedoption == item-1 && correctoption != null && correctoption == item-1
+                                correct: selectedoption == item && correctoption != null && correctoption == item
                             })}
                             onClick={handleOptionclick}
-                            value={item-1}
+                            value={item}
                             key={item}>
                                 <div className="bgcontaineranswer" key={`${item}1`}></div>
                                 <div className='answeroptiontext' key={`${item}2`} data-theme={theme}>{item}</div>
@@ -140,13 +153,13 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                  <div className="dumbnesscarousel"
                 {...handlers}
                 >
-                    <div className="carouselelementscontainer"
+                    <div className={carouselelementscontainer}
                     style={{
                         transform: `translateX(${locationofelements}px)`,
                     }}
                     >
                     {
-                        [1,2,3,4,5].map((dumbnesslevel) => {
+                        [1, 2, 3, 4, 5].map((dumbnesslevel) => {
 
                             return (
                                 <div 

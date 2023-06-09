@@ -1,8 +1,10 @@
 import { APIURL } from '../config.js'
 
-export default async function getExplanation(selectedoption) {
+export default async function submitAnswer(selectedoption) {
 
     const url = `${APIURL}/api/submitanswer/`
+
+    console.log(selectedoption);
 
     // post request
     const response = await fetch(url, {

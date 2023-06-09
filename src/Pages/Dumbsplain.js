@@ -223,23 +223,23 @@ function Dumbsplain( { theme , setTheme } ) {
             if (explanationloaded === true && quizme === true && mcqloaded === true) {
                 if (event.keyCode === 49) {
                     event.preventDefault();
-                    setSelectedoption(0);
+                    setSelectedoption(1);
                 }
                 else if (event.keyCode === 50) {
                     event.preventDefault();
-                    setSelectedoption(1);
+                    setSelectedoption(2);
                 }
                 else if (event.keyCode === 51) {
                     event.preventDefault();
-                    setSelectedoption(2);
+                    setSelectedoption(3);
                 }
                 else if (event.keyCode === 52) {
                     event.preventDefault();
-                    setSelectedoption(3);
+                    setSelectedoption(4);
                 }
                 else if (event.keyCode === 53) {
                     event.preventDefault();
-                    setSelectedoption(4);
+                    setSelectedoption(5);
                 }
             }
         }
@@ -376,10 +376,11 @@ function Dumbsplain( { theme , setTheme } ) {
         if (selectedoption !== null) {
             e.preventDefault();
             async function fetchAnswer() {
-                const answer = await submitAnswer(selectedoption+1);
-                setCorrectoption(answer.correctoption-1);
+                const answer = await submitAnswer(selectedoption);
+                setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
+                console.log(answer.correctoption)
             }
             fetchAnswer();
         }

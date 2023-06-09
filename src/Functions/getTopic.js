@@ -6,8 +6,6 @@ export default async function getTopic() {
 
     const url = `${APIURL}/api/gettopicname/`
 
-    console.log('Sendingrequest to: ', url)
-
     const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
     const data = await response.json()
 

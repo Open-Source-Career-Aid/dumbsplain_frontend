@@ -804,6 +804,10 @@
         /* fade out on left and right edges */
     }
 
+    .carouselelementscontainer.block {
+        display: block;
+    }
+
     .avatarlabel {
         position: absolute;
         z-index: 5;

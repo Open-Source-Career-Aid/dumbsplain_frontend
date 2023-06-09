@@ -2,8 +2,9 @@ import { useEffect , useState , useRef } from "react";
 import getScore from "../Functions/getScore";
 import { toBlob } from 'html-to-image';
 import OverlayCurve from "../SVGasComponents/overlayCurve";
+import classNames from 'classnames';
 
-export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme }){
+export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested }){
 
     const [roundedDQ, setRoundedDQ] = useState(1);
     const [apicalled, setApicalled] = useState(false);
@@ -37,11 +38,15 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
             setUserstreak(score.streak);
             setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
-            setRoundedDQ(Math.floor(score.dq));
+            setRoundedDQ(Math.round(score.dq));
         }
 
-        fetchScore();
-        setApicalled(true);
+        if (mcqrequested) {
+
+            fetchScore();
+            setApicalled(true);
+
+        }
 
         }
         
@@ -61,6 +66,14 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
         }
     }
 
+    const avatarname = classNames({
+        'avatar1': roundedDQ === 1 || roundedDQ === 0,
+        'avatar2': roundedDQ === 2,
+        'avatar3': roundedDQ === 3,
+        'avatar4': roundedDQ === 4,
+        'avatar5': roundedDQ === 5,
+    });
+
     return (
         <div className={scoreModal ? "modal-overlay" : "modal-overlay-off"}>
             <main className="modal-content" data-theme={theme} ref={sectionRef} onClick={handleScoreOverlayClick}>
@@ -79,7 +92,7 @@ export default  function Acheivements({ scoreModal, setScoreModal , userdq , set
                 />
                 <span className="closeOverlay" onClick={closeOverlay}>&times;</span>
                 {/*  replace avatar1 with  dummy level */}
-                <section className={"avatar"+roundedDQ} style={{ height: '25vh', width: '25vw', position: 'relative', 'z-index': '10000', 'margin-top': '40px' }}></section>
+                <section className={avatarname} style={{ height: '25vh', width: '25vw', position: 'relative', 'z-index': '10000', 'margin-top': '40px' }}></section>
                 <section id="score" style={{position: 'relative', 'z-index': '10000', 'padding': '10% 0' }}>
                     <p className="dqtext">Dumbness Quotient</p>
                     <p id="score-value" style={{textAlign: "center"}}>{userdq}</p>

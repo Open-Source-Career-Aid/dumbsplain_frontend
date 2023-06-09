@@ -407,6 +407,7 @@ function Dumbsplain( { theme , setTheme } ) {
             theme={theme}
             maxstreak={maxstreak}
             setMaxstreak={setMaxstreak}
+            mcqrequested={mcqrequested}
             />
             <section className='headersection'
             style={{

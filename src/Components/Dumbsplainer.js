@@ -3,13 +3,16 @@ import React from 'react';
 // function that takes in a text finds the question surounded by <q> and </q> and 5 options surounded by <o> and </o>
 // and returns an array of the question and the options
 function getQuestionAndOptions ({ text , theme }) {
+
     let question = '';
     let options = [];
     let option = '';
     let optioncount = 0;
     let optionflag = false;
     let questionflag = false;
+
     for (let i = 0; i < text.length; i++) {
+        
         if (text[i] === '<' && text[i + 1] === 'q' && text[i + 2] === '>') {   
             questionflag = true;
             i += 2;

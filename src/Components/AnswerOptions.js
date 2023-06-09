@@ -131,8 +131,8 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                             onClick={handleOptionclick}
                             value={item-1}
                             key={item}>
-                                <div className="bgcontaineranswer"></div>
-                                <div className='answeroptiontext' data-theme={theme}>{item}</div>
+                                <div className="bgcontaineranswer" key={`${item}1`}></div>
+                                <div className='answeroptiontext' key={`${item}2`} data-theme={theme}>{item}</div>
                             </div>
                         );
                     })

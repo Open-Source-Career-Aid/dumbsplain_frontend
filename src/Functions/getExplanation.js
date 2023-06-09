@@ -1,6 +1,8 @@
+import { APIURL } from '../config.js'
+
 export default async function getExplanation(dumbnessLevel) {
 
-    const url = `http://127.0.0.1:8000/api/getexplanation/`
+    const url = `${APIURL}/api/getexplanation/`
 
     // post request
     const response = await fetch(url, {

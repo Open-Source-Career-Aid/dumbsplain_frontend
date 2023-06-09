@@ -1,6 +1,8 @@
+import { APIURL } from '../config.js'
+
 export default async function getWaitingtime() {
 
-    const url = `http://127.0.0.1:8000/api/getwaitingtime/`
+    const url = `${APIURL}/api/getwaitingtime/`
 
     const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
     const data = await response.json()

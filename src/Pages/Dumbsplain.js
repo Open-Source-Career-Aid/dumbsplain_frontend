@@ -19,7 +19,7 @@ function Dumbsplain( { theme , setTheme } ) {
     let placeholder = 'Select your dumbness level for an explanation of Topic.';
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
-    const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
+    const [dumbnessLevel, setDumbnessLevel] = React.useState(null);
     const [currentext, setCurrentext] = React.useState('explaination text');
     const [quizme, setQuizme] = React.useState(false);
     const [explanationloaded, setExplanationloaded] = React.useState(false);
@@ -54,10 +54,11 @@ function Dumbsplain( { theme , setTheme } ) {
     }
 
     useEffect(() => {
-
-        console.log("look for this:", correctoption, selectedoption)
-
-    }, [correctoption, selectedoption]);
+        if (dumbnessLevel !== null) {
+        setCurrentext(placeholder+'\n\nCareful now, you can only pick one level each play!');
+        }
+    // eslint-disable-next-line
+    }, [dumbnessLevel]);
 
     useEffect(() => {
 

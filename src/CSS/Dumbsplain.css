@@ -306,6 +306,12 @@
     color: #ffffff;
 }
 
+.dumbnesslevel.blocked {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
 .avatar1 {
     background-image: url('../../public/dumblevel1.svg');
     background-repeat: no-repeat;
@@ -665,6 +671,12 @@
     opacity: 1;
 }
 
+.carouseldumbnesslevel.blocked {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
 .carouselbgcontainer {
     display: flex;
     flex-direction: row;
@@ -927,11 +939,6 @@
         background: #4C7BFE;
     }
 
-    .dumbnesslevel.greyed {
-        filter: grayscale(100%);
-        opacity: 0.5;
-    }
-
     .avatar1 {
         position: absolute;
         top: 0;
@@ -1088,11 +1095,6 @@
 
     .dumbnesslevel.selected {
         background: #4C7BFE;
-    }
-
-    .dumbnesslevel.greyed {
-        filter: grayscale(100%);
-        opacity: 0.5;
     }
 
     .avatar1 {

@@ -105,7 +105,9 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                         <div
                         className={classNames('dumbnesslevel', {
                             // eslint-disable-next-line
-                            selected: dumbnessLevel == dumbnesslevel, greyed: dumbnessLevel != dumbnesslevel && dumbnessLevel != null
+                            selected: dumbnessLevel == dumbnesslevel,
+                            // eslint-disable-next-line
+                            blocked: dumbnessLevel != dumbnesslevel && explanationrequested==true
                             })}
                         onClick={handleDumbclick} value={dumbnesslevel}>
                             <div className="bgcontainer"></div>
@@ -134,7 +136,9 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             className={
                                 classNames('carouseldumbnesslevel', {
                                     // eslint-disable-next-line
-                                    selected: dumbnessLevel == dumbnesslevel, greyed: dumbnessLevel != dumbnesslevel && dumbnessLevel != null
+                                    selected: dumbnessLevel == dumbnesslevel,
+                                    // eslint-disable-next-line
+                                    blocked: dumbnessLevel != dumbnesslevel && explanationrequested==true
                                     })}
                             onClick={handleDumbclick} value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>

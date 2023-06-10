@@ -4,11 +4,29 @@ import '../CSS/ReportCard.css';
 import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 
-const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setdqincreaseddecreasedorremained }) => {
+const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained }) => {
 
   const sectionRef = useRef(null);
+  const referenceRef = useRef(null);
   const [roundedDQ, setRoundedDQ] = useState(1);
   const [apicalled, setApicalled] = useState(false);
+  const [bordercolor, setBordercolor] = useState('#E8CF7A');
+  // eslint-disable-next-line
+  const [streakwindowwidth, setStreakwindowwidth] = useState('230');
+
+  useEffect(() => {
+
+        if (dqincreaseddecreasedorremained === 0) {
+            setBordercolor('#32BCA3');
+        } else if (dqincreaseddecreasedorremained === 1) {
+            setBordercolor('#E8CF7A');
+        } else if (dqincreaseddecreasedorremained === 2) {
+            setBordercolor('#D65757');
+        }
+
+    // eslint-disable-next-line
+
+  }, [dqincreaseddecreasedorremained]);
 
   useEffect(() => {
 
@@ -21,7 +39,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
-            setdqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
+            setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
         }
 
             fetchScore();
@@ -81,6 +99,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         }
     }
 
+  const updownornone = classNames('reportcard-updown', {
+        'up': dqincreaseddecreasedorremained === 0,
+        'down': dqincreaseddecreasedorremained === 2,
+        'nochange': dqincreaseddecreasedorremained === 1,
+    });
+
   return (
      <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
         <section ref={sectionRef}
@@ -92,7 +116,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           <div className='modal-content-inverted'
           style={{
             border: '5px solid',
-            borderColor: '#32BCA3',
+            borderColor: `${bordercolor}`,
           }}
           >
               <div className='reportcard-header'>
@@ -107,18 +131,76 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   </div>
                 </div>
                 <div className='reportcard-body-right'>
-                  <div className='reportcard-body-right-row'>
-                    <div id='reportcard-dq'>DQ</div>
-                    <div id='reportcard-dumbnesslevel'>{userdq}</div>
-                    <div className='reportcard-updown'></div>
+                  <div className='reportcard-body-right-row'
+                  style={{
+                    position: 'absolute',
+                    top: '100px',
+                    left: '280px',
+                    width: '299px',
+                    height: '104px',
+                    justifyContent: 'space-between',
+                    overflow: 'hidden',
+                    padding: '0',
+                  }}>
+                  <section id='reference-section-for-width-1'
+                  ref={referenceRef}
+                  style={{
+                    position: 'relative',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    padding: '0',
+                    width: '78%',
+                    justifyContent: 'space-between',
+                  }}
+                  >
+                    <div id='reportcard-dq'>
+                      <div className='inner-content'
+                      style={{
+                        position: 'absolute',
+                        bottom: '0',
+                        fontSize: '1em',
+                        lineHeight: '1em',
+                        overflow: 'hidden',
+                        padding: '0',
+                        textAlign: 'left',
+                      }}
+                      >
+                        DQ
+                      </div>
+                    </div>
+                    <div id='reportcard-dumbnesslevel'
+                    // style={{
+                    //   marginLeft: '10px',
+                    // }}
+                    >
+                      <div className='inner-content'
+                      style={{
+                        position: 'absolute',
+                        bottom: '0',
+                        fontSize: '0.8em',
+                        lineHeight: '0.8em',
+                        overflow: 'hidden',
+                        padding: '0'
+                      }}
+                      >
+                        {userdq}
+                      </div>
+                    </div>
+                    </section>
+                    <div className={updownornone}></div>
                   </div>
                   <div className='reportcard-body-right-row'
                   style={{
                     position: 'absolute',
-                    width:' 367px',
+                    width:`${streakwindowwidth}px`,
                     height: '104px',
-                    left: '253px',
-                    top: '219px'
+                    left: '280px',
+                    top: '219px',
+                    padding: '0',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                   }}
                   >
                     <div className='reportcard-streak'>

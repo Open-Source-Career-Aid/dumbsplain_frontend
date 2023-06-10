@@ -788,6 +788,12 @@
         top: 0;
     }
 
+    .dumbsplain {
+        position: absolute;
+        bottom: 0;
+        height: 40vh;
+    }
+
 }
 
 @media only screen and (max-width: 920px) {

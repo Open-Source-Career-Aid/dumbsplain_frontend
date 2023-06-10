@@ -125,7 +125,6 @@
 }
 
 .reportcard-updown {
-    background-image: url("../../public/reportup.svg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -135,6 +134,18 @@
     left: 514px;
     top: 107px;
     padding: 0;
+}
+
+.reportcard-updown.up {
+    background-image: url("../../public/reportup.svg");
+}
+
+.reportcard-updown.down {
+    background-image: url("../../public/reportdown.svg");
+}
+
+.reportcard-updown.nochange {
+    background-image: url("../../public/reportnochange.svg");
 }
 
 .reportcard-streak {

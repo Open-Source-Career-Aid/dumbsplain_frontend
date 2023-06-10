@@ -6,7 +6,8 @@ import Dumbsplainer from '../Components/Dumbsplainer';
 import DumbLevel from '../Components/DumbLevel';
 import AnswerOptions from '../Components/AnswerOptions';
 import PlayOverlay from '../Components/LevelOverlay';
-import Acheivements from '../Components/ScoreModal';
+// import Acheivements from '../Components/ScoreModal';
+import ReportCard from '../Components/ReportCard';
 import getTopic from '../Functions/getTopic';
 import getExplanation from '../Functions/getExplanation';
 import getQuestion from '../Functions/getQuestion';
@@ -43,6 +44,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [correctoption, setCorrectoption] = React.useState(null);
     const [time, setTime] = React.useState(null)
     const [contentsectionheight, setContentsectionheight] = React.useState('40vh');
+    const [dqincreaseddecreasedorremained, setDqincreaseddecreasedorremained] = React.useState(null);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -402,7 +404,7 @@ function Dumbsplain( { theme , setTheme } ) {
             minheight: '500px',
         }}>
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
-            <Acheivements
+            <ReportCard
             scoreModal={scoreModal}
             setScoreModal={setScoreModal}
             userdq={userdq}
@@ -414,6 +416,8 @@ function Dumbsplain( { theme , setTheme } ) {
             maxstreak={maxstreak}
             setMaxstreak={setMaxstreak}
             mcqrequested={mcqrequested}
+            dqincreaseddecreasedorremained={dqincreaseddecreasedorremained}
+            setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
             />
             <section className='headersection'
             style={{

@@ -6,8 +6,18 @@ export default async function getTopic() {
 
     const url = `${APIURL}/api/gettopicname/`
 
-    const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
-    const data = await response.json()
+    // const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
+    // const data = await response.json()
 
-    return data
+    try {
+        const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
+        const data = await response.json()
+        return data
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+
+    // return data
 }

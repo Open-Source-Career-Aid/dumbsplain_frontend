@@ -4,7 +4,7 @@ import '../CSS/ReportCard.css';
 import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 
-const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained }) => {
+const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
   const sectionRef = useRef(null);
   const referenceRef = useRef(null);
@@ -13,6 +13,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [bordercolor, setBordercolor] = useState('#E8CF7A');
   // eslint-disable-next-line
   const [streakwindowwidth, setStreakwindowwidth] = useState('230');
+  const [airesponse, setAiresponse] = useState('-');
 
   useEffect(() => {
 
@@ -30,8 +31,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
   useEffect(() => {
 
-        if (scoreModal === true && apicalled === false) {
-
         async function fetchScore() {
             const score = await getScore();
             setUserdq(score.dq);
@@ -40,7 +39,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
             setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
+            setAiresponse(score.airesponse);
         }
+
+        if (scoreModal === true && apicalled === false) {
 
             fetchScore();
             setApicalled(true);
@@ -49,6 +51,34 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         
     // eslint-disable-next-line
     }, [scoreModal]);
+
+    useEffect(() => {
+
+      if (mcqrequested === true ) {
+        setApicalled(false);
+      }
+
+    // eslint-disable-next-line
+    }, [mcqrequested]);
+
+    useEffect(() => {
+
+      if (responsesubmitted === true ) {
+        setApicalled(false);
+      }
+
+    // eslint-disable-next-line
+    }, [responsesubmitted]);
+
+    useEffect(() => {
+
+      if (apicalled === false && responsesubmitted === true) {
+        setScoreModal(true);
+      }
+
+    // eslint-disable-next-line
+    }, [apicalled]);
+
 
   // const handleShareClick = () => {
 
@@ -228,7 +258,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 <div className='messagefromai'>
                   <div className='messagefromai-title'>MESSAGE FROM AI:</div>
                   <div className='messagefromai-textbox'>
-                    <div className='messagefromai-text'>You are doing great! Keep it up! You are doing great! Keep it up! You are doing great! Keep it up!</div>
+                    <div className='messagefromai-text'>{airesponse}</div>
                     {/* eslint-disable-next-line */}
                     <a href='#' className='messagefromai-link'>Link</a>
                   </div>

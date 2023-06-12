@@ -45,6 +45,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [time, setTime] = React.useState(null)
     const [contentsectionheight, setContentsectionheight] = React.useState('40vh');
     const [dqincreaseddecreasedorremained, setDqincreaseddecreasedorremained] = React.useState(null);
+    const [responsesubmitted, setResponsesubmitted] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -389,6 +390,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
+                setResponsesubmitted(true);
             }
             fetchAnswer();
         }
@@ -418,6 +420,7 @@ function Dumbsplain( { theme , setTheme } ) {
             mcqrequested={mcqrequested}
             dqincreaseddecreasedorremained={dqincreaseddecreasedorremained}
             setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
+            responsesubmitted={responsesubmitted}
             />
             <section className='headersection'
             style={{

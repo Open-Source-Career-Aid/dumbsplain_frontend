@@ -312,7 +312,7 @@ function Dumbsplain( { theme , setTheme } ) {
     }, [special_id]);
 
     const handleDumbsplain = (e) => {
-        navigator.vibrate(1000);
+        // navigator.vibrate(1000);
         if (dumbnessLevel !== null) {
             e.preventDefault();
             setExplanationrequested(true);
@@ -528,9 +528,9 @@ function Dumbsplain( { theme , setTheme } ) {
                     <>
                     { dumbnessLevel !== null ?
                     <div className='buttoncontainer'>
-                        <div className='dumbsplainbutton' onClick={handleDumbsplain}>
+                        <button className='dumbsplainbutton' onClick={handleDumbsplain}>
                             <div className='dumbsplainbuttontext'>Dumbsplain</div>
-                        </div>
+                        </button>
                     </div> 
                     : null }
                     </>}

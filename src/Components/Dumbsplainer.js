@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect, useRef } from 'react';
 
 // function that takes in a text finds the question surounded by <q> and </q> and 5 options surounded by <o> and </o>
 // and returns an array of the question and the options
@@ -63,10 +63,18 @@ function getQuestionAndOptions ({ text , theme }) {
 
 function Dumbsplainer ({ text , quizme , theme }) {
 
+    const textareaRef = useRef(null);
+
+    useEffect(() => {
+        // scroll to bottom of the ref if text changes
+        textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    }, [text])
+
     return (
         <>
             <div className='explanationcontainer'>
-                <div className='textarea'>
+                <div className='textarea'
+                ref={textareaRef}>
                     { quizme ? getQuestionAndOptions({ text , theme }) :
                     <p data-theme={theme}>
                         {text}

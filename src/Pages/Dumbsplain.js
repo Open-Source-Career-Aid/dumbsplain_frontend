@@ -14,6 +14,7 @@ import getQuestion from '../Functions/getQuestion';
 import WaitingBox from '../Components/WaitingBox';
 import getWaitingtime from '../Functions/getWaitingtime';
 import submitAnswer from '../Functions/submitAnswer';
+import pseudoGenerator from '../Functions/pseudoGenerator';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -318,7 +319,8 @@ function Dumbsplain( { theme , setTheme } ) {
             setExplanationloading(true);
             async function fetchExplanation() {
                 const explanation = await getExplanation(dumbnessLevel);
-                setExplanation(explanation.explanation);
+                // setExplanation(explanation.explanation);
+                pseudoGenerator(explanation.explanation, setExplanation, 0.06);
                 setSpecial_id(explanation.special_id);
             }
             fetchExplanation();
@@ -344,7 +346,8 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(true);
             async function fetchQuestion() {
                 const mcq = await getQuestion();
-                setMcq(mcq.question);
+                pseudoGenerator(mcq.question, setMcq, 0.06);
+                // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
             }
             fetchQuestion();

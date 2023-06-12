@@ -3,6 +3,7 @@ import React, { useRef , useState , useEffect } from 'react';
 import '../CSS/ReportCard.css';
 import classNames from 'classnames';
 import getScore from "../Functions/getScore";
+import pseudoGenerator from '../Functions/pseudoGenerator';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -39,7 +40,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
             setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
-            setAiresponse(score.airesponse);
+            pseudoGenerator(score.airesponse, setAiresponse, 0.1);
+            // setAiresponse(score.airesponse);
         }
 
         if (scoreModal === true && apicalled === false) {

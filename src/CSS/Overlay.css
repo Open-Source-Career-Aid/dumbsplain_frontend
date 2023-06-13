@@ -87,6 +87,10 @@
   .modal-content {
     animation: modalFadeIn 0.3s ease-in-out;
   }
+
+  .modal-content-inverted {
+    animation: modalFadeIn 0.3s ease-in-out;
+  }
   
   @keyframes modalFadeIn {
     from {

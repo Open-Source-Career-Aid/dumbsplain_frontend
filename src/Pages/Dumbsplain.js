@@ -15,6 +15,7 @@ import WaitingBox from '../Components/WaitingBox';
 import getWaitingtime from '../Functions/getWaitingtime';
 import submitAnswer from '../Functions/submitAnswer';
 import pseudoGenerator from '../Functions/pseudoGenerator';
+import { ReactSVG } from 'react-svg';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -434,7 +435,8 @@ function Dumbsplain( { theme , setTheme } ) {
                     <div className='dumbsplainlogo'></div>
                     <div className='utilitybuttons'>
                         { theme==='light' ?
-                        <svg className='lightmode' onClick={handleTheme}></svg>
+                        // <svg className='lightmode' onClick={handleTheme}></svg>
+                        <ReactSVG className='lightmode' onClick={handleTheme} src='../../public/lightmode.svg' />
                         : <svg className='darkmode' onClick={handleTheme}></svg>}
                         <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
                         <svg className='leaderboard' onClick={handleOverlay} data-overlay="score"></svg>

@@ -530,9 +530,9 @@ function Dumbsplain( { theme , setTheme } ) {
                     <>
                     { dumbnessLevel !== null ?
                     <div className='buttoncontainer'>
-                        <button className='dumbsplainbutton' onClick={handleDumbsplain}>
+                        <div className='dumbsplainbutton' onClick={handleDumbsplain}>
                             <div className='dumbsplainbuttontext'>Dumbsplain</div>
-                        </button>
+                        </div>
                     </div> 
                     : null }
                     </>}

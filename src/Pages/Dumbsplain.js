@@ -155,7 +155,7 @@ function Dumbsplain( { theme , setTheme } ) {
         const enterFunction = (event) => {
 
             if (event.keyCode === 13) {
-                if (dumbnessLevel !== null) {
+                if (dumbnessLevel !== null && explanationloaded === false && quizme === false) {
                     event.preventDefault();
                     // mimic the pressing of the dumbsplain button by calling the handleDumbsplain function
                     handleDumbsplain(event);
@@ -232,7 +232,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
         const keyFunction = (event) => {
 
-            if (explanationloaded === true && quizme === true && mcqloaded === true) {
+            if (!responsesubmitted) {
                 if (event.keyCode === 49) {
                     event.preventDefault();
                     setSelectedoption(1);
@@ -321,11 +321,11 @@ function Dumbsplain( { theme , setTheme } ) {
             async function fetchExplanation() {
                 const explanation = await getExplanation(dumbnessLevel);
                 // setExplanation(explanation.explanation);
-                pseudoGenerator(explanation.explanation, setExplanation, 0.06);
+                pseudoGenerator(explanation.explanation, setExplanation, 0.06, setExplanationloading);
                 setSpecial_id(explanation.special_id);
             }
             fetchExplanation();
-            setExplanationloading(false);
+            // setExplanationloading(false);
             setExplanationloaded(true);
         }
     }
@@ -335,7 +335,6 @@ function Dumbsplain( { theme , setTheme } ) {
         if (explanationloaded == true) {
             setCurrentext(explanation);
         }
-    
         // eslint-disable-next-line
     }, [explanation]);
 
@@ -347,12 +346,12 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(true);
             async function fetchQuestion() {
                 const mcq = await getQuestion();
-                pseudoGenerator(mcq.question, setMcq, 0.06);
+                pseudoGenerator(mcq.question, setMcq, 0.06, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
             }
             fetchQuestion();
-            setMcqloading(false);
+            // setMcqloading(false);
             setMcqloaded(true);
         }
     }
@@ -394,11 +393,17 @@ function Dumbsplain( { theme , setTheme } ) {
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
-                setResponsesubmitted(true);
             }
             fetchAnswer();
+            setResponsesubmitted(true);
         }
     }
+
+    useEffect(() => {
+
+        console.log(responsesubmitted, "responsesubmitted");
+
+    }, [responsesubmitted]);
 
 
     return (
@@ -499,7 +504,8 @@ function Dumbsplain( { theme , setTheme } ) {
                             />
                         </div>
                         :
-                        <div className='answeroptionscontainer'>
+                        <>
+                        { !mcqloading ? <div className='answeroptionscontainer'>
                             <AnswerOptions
                             selectedoption={selectedoption}
                             setSelectedoption={setSelectedoption}
@@ -512,7 +518,8 @@ function Dumbsplain( { theme , setTheme } ) {
                             theme={theme}
                             correctoption={correctoption}
                             />
-                        </div>
+                        </div> : null}
+                        </>
                         }
                     </div>
 

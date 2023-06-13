@@ -1,5 +1,5 @@
 
-export default async function pseudoGenerator(text, setStateText, TIME) {
+export default async function pseudoGenerator(text, setStateText, TIME, setLoading) {
 
     let typetext = ''
 
@@ -31,5 +31,7 @@ export default async function pseudoGenerator(text, setStateText, TIME) {
         typetext = typetext + chunks[i]
         await updatestate(typetext, setStateText)
     }
+
+    setLoading(false)
     
 }

@@ -196,7 +196,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
         const keyFunction = (event) => {
 
-            if (explanationloaded === false) {
+            if (explanationloaded === false && !waitfortomorrow) {
                 if (event.keyCode === 49) {
                     event.preventDefault();
                     setDumbnessLevel(1);
@@ -225,14 +225,14 @@ function Dumbsplain( { theme , setTheme } ) {
         }
 
     // eslint-disable-next-line
-    }, [explanationloaded]);
+    }, [explanationloaded, waitfortomorrow]);
 
     // if the explanation is loaded quizme is true, and the mcq is loaded, set the selected option on the press of A, B, C, D, or E respectively
     useEffect(() => {
 
         const keyFunction = (event) => {
 
-            if (!responsesubmitted) {
+            if (!responsesubmitted && !waitfortomorrow && explanationloaded === true && quizme === true && mcqloaded === true) {
                 console.log('somethings happening');
                 if (event.keyCode === 49) {
                     event.preventDefault();
@@ -262,7 +262,7 @@ function Dumbsplain( { theme , setTheme } ) {
         }
 
     // eslint-disable-next-line
-    }, [responsesubmitted]);
+    }, [responsesubmitted, waitfortomorrow, explanationloaded, quizme, mcqloaded]);
 
     useEffect(() => {
 

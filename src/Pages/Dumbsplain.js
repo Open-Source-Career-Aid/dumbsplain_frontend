@@ -233,6 +233,7 @@ function Dumbsplain( { theme , setTheme } ) {
         const keyFunction = (event) => {
 
             if (!responsesubmitted) {
+                console.log('somethings happening');
                 if (event.keyCode === 49) {
                     event.preventDefault();
                     setSelectedoption(1);
@@ -261,7 +262,7 @@ function Dumbsplain( { theme , setTheme } ) {
         }
 
     // eslint-disable-next-line
-    }, [explanationloaded, quizme, mcqloaded]);
+    }, [responsesubmitted]);
 
     useEffect(() => {
 
@@ -398,13 +399,6 @@ function Dumbsplain( { theme , setTheme } ) {
             setResponsesubmitted(true);
         }
     }
-
-    useEffect(() => {
-
-        console.log(responsesubmitted, "responsesubmitted");
-
-    }, [responsesubmitted]);
-
 
     return (
         <div style={{

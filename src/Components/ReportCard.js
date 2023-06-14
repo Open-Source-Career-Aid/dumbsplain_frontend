@@ -148,19 +148,19 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             border: '5px solid',
             borderColor: `${bordercolor}`,
           }}
-          >
-              <div className='reportcard-header'>
-                <div className='reportcard-header-title'>Dumbsplain Diary</div>
-                <div className='reportcard-header-weekday'><span className='weekdayspan'>Cycle</span> 1</div>
-                <div className='reportcard-header-weekday'><span className='weekdayspan'>Day</span> 2</div>
+          data-theme={theme}>
+              <div className='reportcard-header' data-theme={theme}>
+                <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
+                <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle</span> 1</div>
+                <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Day</span> 2</div>
               </div>
-              <div className='reportcard-body'>
-                <div className='reportcard-body-left'>
-                  <div className='reportcard-body-left-avatar'>
+              <div className='reportcard-body' data-theme={theme}>
+                <div className='reportcard-body-left' data-theme={theme}>
+                  <div className='reportcard-body-left-avatar' data-theme={theme}>
                     <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'0'}}></div>
                   </div>
                 </div>
-                <div className='reportcard-body-right'>
+                <div className='reportcard-body-right' data-theme={theme}>
                   <div className='reportcard-body-right-row'
                   style={{
                     position: 'absolute',
@@ -171,7 +171,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     justifyContent: 'space-between',
                     overflow: 'hidden',
                     padding: '0',
-                  }}>
+                  }} data-theme={theme}>
                   <section id='reference-section-for-width-1'
                   ref={referenceRef}
                   style={{
@@ -183,8 +183,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     width: '78%',
                     justifyContent: 'space-between',
                   }}
-                  >
-                    <div id='reportcard-dq'>
+                  data-theme={theme}>
+                    <div id='reportcard-dq' data-theme={theme}>
                       <div className='inner-content'
                       style={{
                         position: 'absolute',
@@ -195,7 +195,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         padding: '0',
                         textAlign: 'left',
                       }}
-                      >
+                      data-theme={theme}>
                         DQ
                       </div>
                     </div>
@@ -203,7 +203,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     // style={{
                     //   marginLeft: '10px',
                     // }}
-                    >
+                    data-theme={theme}>
                       <div className='inner-content'
                       style={{
                         position: 'absolute',
@@ -213,12 +213,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         overflow: 'hidden',
                         padding: '0'
                       }}
-                      >
+                      data-theme={theme}>
                         {userdq}
                       </div>
                     </div>
                     </section>
-                    <div className={updownornone}></div>
+                    <div className={updownornone} data-theme={theme}></div>
                   </div>
                   <div className='reportcard-body-right-row'
                   style={{
@@ -232,35 +232,35 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}
-                  >
-                    <div className='reportcard-streak'>
+                  data-theme={theme}>
+                    <div className='reportcard-streak' data-theme={theme}>
                       <div className='reportcard-streak-title'
                       style={{
                         width: '72px',
                       }}
-                      >Current Streak</div>
-                      <div className='reportcard-streakscore'>{userstreak}</div>
+                      data-theme={theme}>Current Streak</div>
+                      <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
                     </div>
                     <div className='reportcard-streak'
                     style={{
                       paddingLeft: '20px',
                     }}
-                    >
+                    data-theme={theme}>
                       <div className='reportcard-streak-title'
                       style={{
                         width: '59px',
                       }}
-                      >Max Streak</div>
-                      <div className='reportcard-streakscore'>{maxstreak}</div>
+                      data-theme={theme}>Max Streak</div>
+                      <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div>
                     </div>
                   </div>
                 </div>
-                <div className='messagefromai'>
-                  <div className='messagefromai-title'>MESSAGE FROM AI:</div>
-                  <div className='messagefromai-textbox'>
-                    <div className='messagefromai-text'>{airesponse}</div>
+                <div className='messagefromai' data-theme={theme}>
+                  <div className='messagefromai-title' data-theme={theme}>MESSAGE FROM AI:</div>
+                  <div className='messagefromai-textbox' data-theme={theme}>
+                    <div className='messagefromai-text' data-theme={theme}>{airesponse}</div>
                     {/* eslint-disable-next-line */}
-                    <a href='#' className='messagefromai-link'>Link</a>
+                    <a href='#' className='messagefromai-link' data-theme={theme}>Link</a>
                   </div>
                 </div>
               </div>

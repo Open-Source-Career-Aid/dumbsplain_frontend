@@ -58,6 +58,11 @@
     background-color: var(--dark-mode-bg);
     color: var(--dark-mode-text);
   }
+
+  .modal-content-inverted[data-theme="dark"] {
+    background-color: var(--dark-mode-bg);
+    color: var(--dark-mode-text);
+  }
   
     .modal-content .headercontainer {
       display: flex;

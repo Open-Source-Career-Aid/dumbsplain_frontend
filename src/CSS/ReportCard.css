@@ -271,3 +271,7 @@
 .inner-content[data-theme="dark"] {
     color: var(--dark-mode-text);
 }
+
+@media only screen and (max-width: 600px) {
+    
+}

@@ -82,8 +82,9 @@
 
 .reportcard-body-right {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    padding: 0;
 }
 
 .reportcard-body-right-row {
@@ -94,36 +95,38 @@
 
 #reportcard-dumbnesslevel {
     position: relative;
-    width: 130px;
+    width: auto;
     height: 100%;
-    /* left: 371px;
-    top: 99px; */
     font-style: normal;
     font-weight: 600;
     font-size: 100px;
-    line-height: 122px;
+    /* line-height: 122px; */
     display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     color: #000000;
     padding: 0;
     overflow: hidden;
+    justify-content: flex-end;
 }
 
 #reportcard-dq {
     position: relative;
-    width: 84px;
+    width: auto;
     height: 100%;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
-    font-size: 50px;
-    line-height: 61px;
+    font-size: 65px;
+    line-height: 65px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     color: #000000;
     padding: 0;
+    justify-content: flex-end;
 }
 
 .reportcard-updown {
@@ -170,11 +173,11 @@
     align-items: center;
     text-align: center;
     color: #000000;
-    padding: 0 10px;
     font-size: 35px;
     position: static;
     z-index: 0;
     width: auto;
+    padding: 0;
 }
 .reportcard-streakscore[data-theme='dark'] {
     color: var(--dark-mode-text);

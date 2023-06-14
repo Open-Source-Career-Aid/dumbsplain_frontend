@@ -160,100 +160,117 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'0'}}></div>
                   </div>
                 </div>
-                <div className='reportcard-body-right' data-theme={theme}>
-                  <div className='reportcard-body-right-row'
-                  style={{
-                    position: 'absolute',
-                    top: '100px',
-                    left: '280px',
-                    width: '299px',
-                    height: '104px',
-                    justifyContent: 'space-between',
-                    overflow: 'hidden',
+                <div className='reportcard-body-right' data-theme={theme}
+                style={{
+                  position: 'absolute',
+                  top: '100px',
+                  left: '280px',
+                }}
+                >
+                  <section style={{
                     padding: '0',
-                  }} data-theme={theme}>
-                  <section id='reference-section-for-width-1'
-                  ref={referenceRef}
-                  style={{
-                    position: 'relative',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    padding: '0',
-                    width: '78%',
-                    justifyContent: 'space-between',
-                  }}
-                  data-theme={theme}>
-                    <div id='reportcard-dq' data-theme={theme}>
-                      <div className='inner-content'
-                      style={{
-                        position: 'absolute',
-                        bottom: '0',
-                        fontSize: '1em',
-                        lineHeight: '1em',
-                        overflow: 'hidden',
-                        padding: '0',
-                        textAlign: 'left',
-                      }}
-                      data-theme={theme}>
-                        DQ
-                      </div>
-                    </div>
-                    <div id='reportcard-dumbnesslevel'
-                    // style={{
-                    //   marginLeft: '10px',
-                    // }}
-                    data-theme={theme}>
-                      <div className='inner-content'
-                      style={{
-                        position: 'absolute',
-                        bottom: '0',
-                        fontSize: '0.8em',
-                        lineHeight: '0.8em',
-                        overflow: 'hidden',
-                        padding: '0'
-                      }}
-                      data-theme={theme}>
-                        {userdq}
-                      </div>
-                    </div>
-                    </section>
-                    <div className={updownornone} data-theme={theme}></div>
-                  </div>
-                  <div className='reportcard-body-right-row'
-                  style={{
-                    position: 'absolute',
-                    width:`${streakwindowwidth}px`,
-                    height: '104px',
-                    left: '280px',
-                    top: '219px',
-                    padding: '0',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                  data-theme={theme}>
-                    <div className='reportcard-streak' data-theme={theme}>
-                      <div className='reportcard-streak-title'
-                      style={{
-                        width: '72px',
-                      }}
-                      data-theme={theme}>Current Streak</div>
-                      <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
-                    </div>
-                    <div className='reportcard-streak'
+                  }}>
+                    <div className='reportcard-body-right-row'
                     style={{
-                      paddingLeft: '20px',
+                      position: 'relative',
+                      width: '250px',
+                      height: '104px',
+                      justifyContent: 'space-between',
+                      overflow: 'hidden',
+                      padding: '0',
+                    }} data-theme={theme}>
+                    <section id='reference-section-for-width-1'
+                    ref={referenceRef}
+                    style={{
+                      position: 'relative',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      padding: '0',
+                      width: '100%',
+                      justifyContent: 'space-between',
                     }}
                     data-theme={theme}>
-                      <div className='reportcard-streak-title'
-                      style={{
-                        width: '59px',
-                      }}
-                      data-theme={theme}>Max Streak</div>
-                      <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div>
+                      <div id='reportcard-dq' data-theme={theme}>
+                        <div className='inner-content'
+                        style={{
+                          position: 'relative',
+                          fontSize: '1em',
+                          lineHeight: '1em',
+                          overflow: 'hidden',
+                          padding: '0',
+                          textAlign: 'left',
+                          textIndent: '-0.1em',
+                        }}
+                        data-theme={theme}>
+                          DQ
+                        </div>
+                      </div>
+                      <div id='reportcard-dumbnesslevel'
+                      // style={{
+                      //   marginLeft: '10px',
+                      // }}
+                      data-theme={theme}>
+                        <div className='inner-content'
+                        style={{
+                          position: 'relative',
+                          bottom: '0',
+                          fontSize: '0.8em',
+                          lineHeight: '0.8em',
+                          overflow: 'hidden',
+                          padding: '0'
+                        }}
+                        data-theme={theme}>
+                          {userdq}
+                        </div>
+                      </div>
+                      </section>
                     </div>
-                  </div>
+                    <div className='reportcard-body-right-row'
+                    style={{
+                      position: 'relative',
+                      width: '250px',
+                      height: '104px',
+                      padding: '0',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                    data-theme={theme}>
+                      <div className='reportcard-streak' data-theme={theme}>
+                        <div className='reportcard-streak-title'
+                        style={{
+                          width: '72px',
+                        }}
+                        data-theme={theme}>Current Streak</div>
+                        <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
+                      </div>
+                      <div className='reportcard-streak'
+                      style={{
+                        paddingLeft: '20px',
+                      }}
+                      data-theme={theme}>
+                        <div className='reportcard-streak-title'
+                        style={{
+                          width: '59px',
+                        }}
+                        data-theme={theme}>Max Streak</div>
+                        <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div>
+                      </div>
+                    </div>
+                  </section>
+                  <section
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    height: '208px',
+                    padding: '0',
+                  }}
+                  >
+                  <div className={updownornone} data-theme={theme}></div>
+                  </section>
                 </div>
                 <div className='messagefromai' data-theme={theme}>
                   <div className='messagefromai-title' data-theme={theme}>MESSAGE FROM AI:</div>

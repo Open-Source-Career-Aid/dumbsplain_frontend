@@ -48,6 +48,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [contentsectionheight, setContentsectionheight] = React.useState('40vh');
     const [dqincreaseddecreasedorremained, setDqincreaseddecreasedorremained] = React.useState(null);
     const [responsesubmitted, setResponsesubmitted] = React.useState(false);
+    const [newuser, setNewuser] = React.useState(0);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -100,11 +101,18 @@ function Dumbsplain( { theme , setTheme } ) {
             const topic = await getTopic();
             setTopic(topic.topic);
             setSpecial_id(topic.special_id);
+            setNewuser(topic.newuser);
         }
         fetchTopic();
     
     // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (newuser === 1) {
+            setInfoOverlay(true);
+        }
+    }, [newuser]);
 
     useEffect(() => {
 

@@ -34,7 +34,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-top: 15px;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .header {
@@ -46,22 +47,6 @@
     padding: 0;
     width: 35%;
     margin-top: 0.375em;
-}
-
-@media only screen and (min-width: 900px) {
-    .navbar {
-        position: absolute;
-        top: 0;
-        left: 10%;
-        z-index: 1000;
-        width: 80%;
-        padding: 0;
-        padding-top: 1%;
-    }
-
-    .dumbsplainbody {
-        height: 100%;
-    }
 }
 
 .introduction{
@@ -163,17 +148,51 @@
 }
 
 .totd {
-    font-size: 0.5em;
+    font-size: 50%;
     color: #454545;
+    font-weight: 500;
+    padding: 0;
+    overflow: visible;
+    width: auto;
 }
 .totd[data-theme='dark'] {
     color: var(--dark-mode-text);
 }
 
 .topic {
-    font-size: 0.675em;
+    font-size: 50%;
     color: #4C7BFE;
-    margin-bottom: 12px;
+    font-weight: 700;
+    padding: 0;
+    margin-left: 10px;
+    overflow: visible;
+    width: auto;
+}
+
+.topicbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: rgba(123, 123, 123, 0.1);
+    width: 80%;
+    border: 1px solid #c7c7c7;
+    border-bottom: none;
+    border-top-left-radius: .3125em;
+    border-top-right-radius: .3125em;
+    height: 12%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+@media only screen and (max-width: 900px) {
+    .topicbar {
+        width: 90%;
+        padding: 0;
+    }
+
+    
 }
 
 .subtitle {
@@ -208,11 +227,12 @@
     width: 80%;
     height: 100%;
     border: 1px solid #c7c7c7;
-    border-radius: .3125em;
     margin-bottom: .625em;
     font-family: 'Roboto', sans-serif;
     resize: none;
     overflow-y: scroll;
+    border-bottom-left-radius: .3125em;
+    border-bottom-right-radius: .3125em;
 }
 
 /* make text area recognise line breaks and spaces */
@@ -803,7 +823,8 @@
     .dumbsplain {
         position: absolute;
         bottom: 0;
-        height: 40vh;
+        /* height: 40vh; */
+        height: 100%;
     }
 
 }
@@ -904,10 +925,13 @@
 
     .totd {
         font-size: 0.5em;
+        white-space: nowrap;
+        text-align: center;
     }
 
     .topic {
         font-size: 0.8em;
+        white-space: nowrap;
     }
 
     .subtitle {
@@ -1251,8 +1275,7 @@
     }
 
     .topic {
-        width: 80%;
-        font-size: 0.6em;
+        font-size: 0.5em;
     }
 
     .optionscontainer {

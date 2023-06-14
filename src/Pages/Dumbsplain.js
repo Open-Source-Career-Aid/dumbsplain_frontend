@@ -449,12 +449,12 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className='leaderboard' onClick={handleOverlay} data-overlay="score"></svg>
                     </div>
                 </div>
-                <div className='introduction'>
+                {/* <div className='introduction'>
                     <Header
                     topic={topic}
                     theme={theme}
                     />
-                </div>
+                </div> */}
             </section>
             <div className='dumbsplainbody'>
                 <section className='contentsection'
@@ -480,6 +480,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         text={currentext}
                         quizme={quizme}
                         theme={theme}
+                        topic={topic}
                         />
                     </div>
                     </>

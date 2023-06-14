@@ -61,7 +61,7 @@ function getQuestionAndOptions ({ text , theme }) {
     )
 }
 
-function Dumbsplainer ({ text , quizme , theme }) {
+function Dumbsplainer ({ text , quizme , theme , topic }) {
 
     const textareaRef = useRef(null);
 
@@ -73,6 +73,10 @@ function Dumbsplainer ({ text , quizme , theme }) {
     return (
         <>
             <div className='explanationcontainer'>
+                <div className='topicbar'>
+                    <span className='totd' data-theme={theme}>TOPIC OF THE DAY:</span>
+                    <span className='topic' data-theme={theme}> {topic} </span>
+                </div>
                 <div className='textarea'
                 ref={textareaRef}>
                     { quizme ? getQuestionAndOptions({ text , theme }) :

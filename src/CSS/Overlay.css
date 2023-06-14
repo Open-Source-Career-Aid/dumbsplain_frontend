@@ -52,6 +52,7 @@
     margin: 0;
     position: relative;
     z-index: 0;
+    padding: 0;
   }
 
   .modal-content[data-theme="dark"] {

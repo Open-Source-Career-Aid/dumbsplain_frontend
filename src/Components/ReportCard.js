@@ -151,8 +151,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           data-theme={theme}>
               <div className='reportcard-header' data-theme={theme}>
                 <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
-                <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle</span> 1</div>
-                <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Day</span> 2</div>
+                <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle 1</span></div>
+                <div className='reportcard-header-weekday' data-theme={theme}>Day 2</div>
               </div>
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>

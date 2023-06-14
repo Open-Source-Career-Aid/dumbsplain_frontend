@@ -8,6 +8,7 @@ export default function OverlayCurve({ viewBox , styles }) {
             viewBox={viewBox}
                 style={styles}
                 preserveAspectRatio="xMidYMid meet"
+                className='headercurve'
             >
                 <OverlayCurveSVG
                  />

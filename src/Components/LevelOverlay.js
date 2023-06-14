@@ -13,8 +13,13 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const leveltext = level.map((item, index) => {
        return (
         <>
-            <div key={index}>
-                <li className="level" >
+            <div key={index}
+            style={{
+                height: 'auto',
+                overflow: 'visible',
+            }}
+            >
+                <li className="level">
                     {item[0]}
                 </li>
                 {item[1].map((item, index) => {
@@ -41,7 +46,12 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
 
     return(
         <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
-            <div className='modal-content' data-theme={theme}>
+            <div className='modal-content' data-theme={theme}
+            style={{
+                overflowY: 'scroll',
+                overflowX: 'hidden',
+            }}
+            >
                 <OverlayCurve theme={theme}
                 viewBox={'0 0 100% 100%'}
                 styles={{
@@ -58,7 +68,12 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
                         <h1 className='heading'>Dumbsplain Guide</h1>
                         <span className='closeOverlay' onClick={closeOverlay}>&times;</span>
                     </div>
-                    <ol>
+                    <ol
+                    style={{
+                        height: 'auto',
+                        overflow: 'visible',
+                    }}
+                    >
                         {leveltext}
                     </ol>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from "react";
 import '../CSS/Dumbsplain.css';
-import Header from '../Components/Header';
+// import Header from '../Components/Header';
 import Dumbsplainer from '../Components/Dumbsplainer';
 import DumbLevel from '../Components/DumbLevel';
 import AnswerOptions from '../Components/AnswerOptions';

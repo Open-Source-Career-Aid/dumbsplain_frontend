@@ -304,7 +304,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(false);
             setSelectedoption(null);
         }
-        // if special id is 1, get the question and direct to thr quiz
+        // if special id is 1, get the question and direct to the quiz
         else if (special_id === 1) {
             setQuizme(true);
             setMcqrequested(true);
@@ -330,7 +330,7 @@ function Dumbsplain( { theme , setTheme } ) {
             async function fetchExplanation() {
                 const explanation = await getExplanation(dumbnessLevel);
                 // setExplanation(explanation.explanation);
-                pseudoGenerator(explanation.explanation, setExplanation, 0.06, setExplanationloading);
+                pseudoGenerator(explanation.explanation, setExplanation, 0.1, setExplanationloading);
                 setSpecial_id(explanation.special_id);
             }
             fetchExplanation();
@@ -355,7 +355,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(true);
             async function fetchQuestion() {
                 const mcq = await getQuestion();
-                pseudoGenerator(mcq.question, setMcq, 0.06, setMcqloading);
+                pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
             }

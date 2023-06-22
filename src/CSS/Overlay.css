@@ -335,5 +335,7 @@ p.streak{
   * {
     padding: 0px;
   }
-  
+  .headercontainer{
+    overflow: hidden;
+  }
 }

@@ -337,5 +337,6 @@ p.streak{
   }
   .header{
     overflow-y: hidden;
+    font-size: 100%;
   }
 }

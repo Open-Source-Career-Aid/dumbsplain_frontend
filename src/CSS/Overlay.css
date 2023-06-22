@@ -325,5 +325,15 @@ p.streak{
     min-height: 600px;
     max-height: 600px;
   }
+
+  .infocontainer {
+    margin-top: 0;
+    font-size: 1em;
+    line-height: .5em;
+  }
+
+  * {
+    padding: 0px;
+  }
   
 }

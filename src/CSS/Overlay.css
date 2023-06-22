@@ -116,7 +116,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 0 5%;
-  margin-top: 100px;
+  margin-top: 1.75em;
 }
 
 ul {
@@ -235,57 +235,7 @@ p.streak{
   border-radius: 4px;
 }
 
-@media only screen and (max-width: 400px) {
 
-  .modal-content {
-    max-width: 100%;
-    min-width: 100%;
-    height: auto;
-    margin-top: 10%;
-    position: relative;
-    bottom: 0;
-    padding: 0;
-    overflow-y: scroll;
-  }
-
-  .infocontainer {
-    position: absolute;
-    top: 0;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-y: visible;
-    padding-bottom: 20px;
-  }
-
-  .headercurve{
-    display: none;
-  }
-
-  .heading {
-    position: relative;
-    padding: 0;
-    margin: 0;
-    font-size: 60%;
-    left: 0;
-    transform: none;
-    padding: 0 20px;
-  }
-
-  .headercontainer{
-    position: relative;
-    width: 100%;
-    height: 100px;
-    background: #4C7BFE;
-  }
-
-  .modal-content ol {
-    margin-top: 20px;
-    overflow: visible;
-  }
-
-}
 
 @media only screen and (max-width: 600px) {
   .modal-content-inverted {
@@ -335,8 +285,63 @@ p.streak{
   * {
     padding: 0px;
   }
-  .header {
+  .heading {
     overflow-y: hidden;
-    font-size: 100%;
+    font-size: 90%;
   }
+  .headercontainer {
+    overflow: hidden;
+  }
+}
+@media only screen and (max-width: 400px) {
+
+  .modal-content {
+    max-width: 100%;
+    min-width: 100%;
+    height: auto;
+    margin-top: 10%;
+    position: relative;
+    bottom: 0;
+    padding: 0;
+    overflow-y: scroll;
+  }
+
+  .infocontainer {
+    position: absolute;
+    top: 0;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-y: visible;
+    padding-bottom: 20px;
+  }
+
+  .headercurve{
+    display: none;
+  }
+
+  .heading {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 60%;
+    left: 0;
+    transform: none;
+    padding: 0 20px;
+    overflow: hidden;
+  }
+
+  .headercontainer{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: #4C7BFE;
+  }
+
+  .modal-content ol {
+    margin-top: 20px;
+    overflow: visible;
+  }
+
 }

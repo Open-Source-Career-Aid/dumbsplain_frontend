@@ -19,10 +19,10 @@ import { ReactSVG } from 'react-svg';
 
 function Dumbsplain( { theme , setTheme } ) {
 
-    let placeholder = 'Select your dumbness level for an explanation of Topic.';
+    let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
-    const [dumbnessLevel, setDumbnessLevel] = React.useState(null);
+    const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
     const [currentext, setCurrentext] = React.useState('explaination text');
     const [quizme, setQuizme] = React.useState(false);
     const [explanationloaded, setExplanationloaded] = React.useState(false);
@@ -49,6 +49,9 @@ function Dumbsplain( { theme , setTheme } ) {
     const [dqincreaseddecreasedorremained, setDqincreaseddecreasedorremained] = React.useState(null);
     const [responsesubmitted, setResponsesubmitted] = React.useState(false);
     const [newuser, setNewuser] = React.useState(0);
+    // wherever newandupdatedApp is used, it is used to make modifications and differentiate between the old and new app
+    const [newandupdatedApp, setNewandupdatedApp] = React.useState(true);
+    const [gameended, setGameended] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -58,13 +61,6 @@ function Dumbsplain( { theme , setTheme } ) {
         let currentTime = hours + ":" + minutes + ":" + seconds;
         setTime(currentTime);
     }
-
-    useEffect(() => {
-        if (dumbnessLevel !== null) {
-        setCurrentext(placeholder+'\n\nCareful now, you can only pick one level each play!');
-        }
-    // eslint-disable-next-line
-    }, [dumbnessLevel]);
 
     useEffect(() => {
 
@@ -88,7 +84,7 @@ function Dumbsplain( { theme , setTheme } ) {
         
         findcurrentTime();
         setCurrentext(placeholder);
-        setDumbnessLevel(null);
+        setDumbnessLevel(1);
         setQuizme(false);
         setExplanationloaded(false);
         setExplanationloading(false);
@@ -97,6 +93,7 @@ function Dumbsplain( { theme , setTheme } ) {
         setMcqloading(false);
         setMcqrequested(false);
         setSelectedoption(null);
+        setNewandupdatedApp(true);
         async function fetchTopic() {
             const topic = await getTopic();
             setTopic(topic.topic);
@@ -204,7 +201,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
         const keyFunction = (event) => {
 
-            if (explanationloaded === false && !waitfortomorrow) {
+            if (explanationloaded === false && !waitfortomorrow & !newandupdatedApp) {
                 if (event.keyCode === 49) {
                     event.preventDefault();
                     setDumbnessLevel(1);
@@ -408,6 +405,23 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }
 
+    const handleSteppedDumbsplain = (e) => {
+        e.preventDefault();
+        if (dumbnessLevel !== null) {
+            setMcqrequested(true);
+            setMcqloading(true);
+            async function fetchQuestion() {
+                const mcq = await getQuestion();
+                pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
+                // setMcq(mcq.question);
+                setSpecial_id(mcq.special_id);
+            }
+            fetchQuestion();
+            // setMcqloading(false);
+            setMcqloaded(true);
+        }
+    }
+
     return (
         <div style={{
             height: '100%',
@@ -504,6 +518,7 @@ function Dumbsplain( { theme , setTheme } ) {
                             explanationrequested={explanationrequested}
                             waitfortomorrow={waitfortomorrow}
                             theme={theme}
+                            newandupdatedApp={newandupdatedApp}
                             />
                         </div>
                         :
@@ -520,13 +535,14 @@ function Dumbsplain( { theme , setTheme } ) {
                             setScore={setScore}
                             theme={theme}
                             correctoption={correctoption}
+                            newandupdatedApp={newandupdatedApp}
                             />
                         </div> : null}
                         </>
                         }
                     </div>
 
-                    { explanationloaded ?
+                    {/* { explanationloaded ?
                         <>
                         { !quizme ?
                         <div className='buttoncontainer'>
@@ -552,7 +568,14 @@ function Dumbsplain( { theme , setTheme } ) {
                             <div className='dumbsplainbuttontext'>Submit</div>
                         </div>
                     </div>
-                    : null}
+                    : null} */}
+                    { dumbnessLevel !== null ?
+                    <div className='buttoncontainer'>
+                        <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
+                            <div className='dumbsplainbuttontext'>Dumbsplain</div>
+                        </div>
+                    </div> 
+                    : null }
                 </section>
             </div>
         </div>

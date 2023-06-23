@@ -305,7 +305,7 @@
     position: absolute;
     z-index: 1;
     height: 75%;
-    width: 55%;
+    width: 75%;
     bottom: 0;
     background-color: #4C7BFE;
     opacity: 0.1;
@@ -388,15 +388,13 @@
 }
 
 .avatarlabel {
-    font-size: 0.4em;
-    color: #000000;
-    margin-top: .3125em;
-    position: relative;
-    z-index: 2;
-    padding: 0;
+    color: #000;
+    font-size: .4em;
     margin-top: 15px;
-    text-align: center;
     overflow: visible;
+    padding: 0;
+    text-align: center;
+    word-wrap: break-word;
 }
 .avatarlabel[data-theme='dark'] {
     color: var(--dark-mode-text);
@@ -501,7 +499,7 @@
     position: absolute;
     z-index: 1;
     height: 75%;
-    width: 55%;
+    width: 75%;
     bottom: 0;
     background-color: #4C7BFE;
     opacity: 0.1;

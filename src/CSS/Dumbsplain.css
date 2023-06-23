@@ -388,13 +388,15 @@
 }
 
 .avatarlabel {
-    color: #000;
-    font-size: .4em;
-    margin-top: 15px;
-    overflow: visible;
+    font-size: 0.4em;
+    color: #000000;
+    margin-top: .3125em;
+    position: relative;
+    z-index: 2;
     padding: 0;
+    margin-top: 15px;
     text-align: center;
-    word-wrap: break-word;
+    overflow: visible;
 }
 .avatarlabel[data-theme='dark'] {
     color: var(--dark-mode-text);
@@ -879,7 +881,7 @@
         background-color: #4C7BFE;
         opacity: 0.1;
         z-index: -10000;
-        width: 55%;
+        width: 75%;
         padding: 0 17.5%;
     }
 

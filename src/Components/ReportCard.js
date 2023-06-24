@@ -157,7 +157,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>
                   <div className='reportcard-body-left-avatar' data-theme={theme}>
-                    <div className={avatarname} style={{width:'26.3333333333333332vw', height:'26.3333333333333332vh', position:'absolute', bottom:'0', top: 'auto'}}></div>
+                    <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'0'}}></div>
                   </div>
                 </div>
                 <div className='reportcard-body-right' data-theme={theme}

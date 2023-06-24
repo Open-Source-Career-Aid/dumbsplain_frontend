@@ -44,10 +44,11 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);
 
-    useEffect(() => {
-        setDumbnessLevel(carouseldumbnessLevel);
-    // eslint-disable-next-line
-    }, [carouseldumbnessLevel]);
+    // useEffect(() => {
+    //     console.log("akhsgdbiaugy");
+    //     setDumbnessLevel(carouseldumbnessLevel);
+    // // eslint-disable-next-line
+    // }, [carouseldumbnessLevel]);
 
     const handleLeftSwipe = () => {
         if (explanationrequested) {

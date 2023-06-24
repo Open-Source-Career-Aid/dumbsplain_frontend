@@ -157,13 +157,16 @@ function Dumbsplain( { theme , setTheme } ) {
 
     // if dumbness level is selected, get the explanation if enter is pressed
     useEffect(() => {
+
+        console.log('dumbnessLevel: ', dumbnessLevel);
+        
         const enterFunction = (event) => {
 
             if (event.keyCode === 13) {
                 if (dumbnessLevel !== null && explanationloaded === false && quizme === false) {
                     event.preventDefault();
                     // mimic the pressing of the dumbsplain button by calling the handleDumbsplain function
-                    handleDumbsplain(event);
+                    handleSteppedDumbsplain(event);
                 }
             }
         }
@@ -197,77 +200,77 @@ function Dumbsplain( { theme , setTheme } ) {
     }, [explanationloaded]);
 
     // if explanationloaded is false, set the dumbness level on the press of 1, 2, 3, 4, 5 keys respectively
-    useEffect(() => {
+    // useEffect(() => {
 
-        const keyFunction = (event) => {
+    //     const keyFunction = (event) => {
 
-            if (explanationloaded === false && !waitfortomorrow & !newandupdatedApp) {
-                if (event.keyCode === 49) {
-                    event.preventDefault();
-                    setDumbnessLevel(1);
-                }
-                else if (event.keyCode === 50) {
-                    event.preventDefault();
-                    setDumbnessLevel(2);
-                }
-                else if (event.keyCode === 51) {
-                    event.preventDefault();
-                    setDumbnessLevel(3);
-                }
-                else if (event.keyCode === 52) {
-                    event.preventDefault();
-                    setDumbnessLevel(4);
-                }
-                else if (event.keyCode === 53) {
-                    event.preventDefault();
-                    setDumbnessLevel(5);
-                }
-            }
-        }
-        window.addEventListener('keydown', keyFunction);
-        return () => {
-            window.removeEventListener('keydown', keyFunction);
-        }
+    //         if (explanationloaded === false && !waitfortomorrow & !newandupdatedApp) {
+    //             if (event.keyCode === 49) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(1);
+    //             }
+    //             else if (event.keyCode === 50) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(2);
+    //             }
+    //             else if (event.keyCode === 51) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(3);
+    //             }
+    //             else if (event.keyCode === 52) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(4);
+    //             }
+    //             else if (event.keyCode === 53) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(5);
+    //             }
+    //         }
+    //     }
+    //     window.addEventListener('keydown', keyFunction);
+    //     return () => {
+    //         window.removeEventListener('keydown', keyFunction);
+    //     }
 
-    // eslint-disable-next-line
-    }, [explanationloaded, waitfortomorrow]);
+    // // eslint-disable-next-line
+    // }, [explanationloaded, waitfortomorrow]);
 
     // if the explanation is loaded quizme is true, and the mcq is loaded, set the selected option on the press of A, B, C, D, or E respectively
-    useEffect(() => {
+    // useEffect(() => {
 
-        const keyFunction = (event) => {
+    //     const keyFunction = (event) => {
 
-            if (!responsesubmitted && !waitfortomorrow && explanationloaded === true && quizme === true && mcqloaded === true) {
-                console.log('somethings happening');
-                if (event.keyCode === 49) {
-                    event.preventDefault();
-                    setSelectedoption(1);
-                }
-                else if (event.keyCode === 50) {
-                    event.preventDefault();
-                    setSelectedoption(2);
-                }
-                else if (event.keyCode === 51) {
-                    event.preventDefault();
-                    setSelectedoption(3);
-                }
-                else if (event.keyCode === 52) {
-                    event.preventDefault();
-                    setSelectedoption(4);
-                }
-                else if (event.keyCode === 53) {
-                    event.preventDefault();
-                    setSelectedoption(5);
-                }
-            }
-        }
-        window.addEventListener('keydown', keyFunction);
-        return () => {
-            window.removeEventListener('keydown', keyFunction);
-        }
+    //         if (!responsesubmitted && !waitfortomorrow && explanationloaded === true && quizme === true && mcqloaded === true) {
+    //             console.log('somethings happening');
+    //             if (event.keyCode === 49) {
+    //                 event.preventDefault();
+    //                 setSelectedoption(1);
+    //             }
+    //             else if (event.keyCode === 50) {
+    //                 event.preventDefault();
+    //                 setSelectedoption(2);
+    //             }
+    //             else if (event.keyCode === 51) {
+    //                 event.preventDefault();
+    //                 setSelectedoption(3);
+    //             }
+    //             else if (event.keyCode === 52) {
+    //                 event.preventDefault();
+    //                 setSelectedoption(4);
+    //             }
+    //             else if (event.keyCode === 53) {
+    //                 event.preventDefault();
+    //                 setSelectedoption(5);
+    //             }
+    //         }
+    //     }
+    //     window.addEventListener('keydown', keyFunction);
+    //     return () => {
+    //         window.removeEventListener('keydown', keyFunction);
+    //     }
 
     // eslint-disable-next-line
-    }, [responsesubmitted, waitfortomorrow, explanationloaded, quizme, mcqloaded]);
+    // }, [responsesubmitted, waitfortomorrow, explanationloaded, quizme, mcqloaded]);
 
     useEffect(() => {
 
@@ -405,11 +408,41 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }
 
+    useEffect(() => {
+
+        if (selectedoption === correctoption && responsesubmitted === true) {
+
+            if (dumbnessLevel + 1 <= 5) {
+                setDumbnessLevel(dumbnessLevel + 1);
+                setExplanationloaded(false);
+            }
+        
+        }
+        else if (selectedoption !== correctoption && responsesubmitted === true) {
+            setGameended(true);
+        }
+
+    }, [correctoption]);
+
     const handleSteppedDumbsplain = (e) => {
         e.preventDefault();
-        if (dumbnessLevel !== null) {
+
+        if (responsesubmitted === true) {
+            setQuizme(false);
+            setExplanationrequested(false);
+            setExplanationloading(false);
+            setExplanationloaded(false);
+            setMcqloaded(false);
+            setMcqloading(false);
+            setMcqrequested(false);
+            setSelectedoption(null);
+            setResponsesubmitted(false);
+            setCorrectoption(null);
+        }
+        else if (dumbnessLevel !== null) {
             setMcqrequested(true);
             setMcqloading(true);
+            setQuizme(true);
             async function fetchQuestion() {
                 const mcq = await getQuestion();
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
@@ -569,13 +602,70 @@ function Dumbsplain( { theme , setTheme } ) {
                         </div>
                     </div>
                     : null} */}
-                    { dumbnessLevel !== null ?
+                    { dumbnessLevel !== null && !quizme ?
                     <div className='buttoncontainer'>
                         <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
                             <div className='dumbsplainbuttontext'>Dumbsplain</div>
                         </div>
                     </div> 
-                    : null }
+                    : 
+                    <>
+                    { quizme && !mcqloading && !responsesubmitted ? <div style={
+                        {
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                        }
+                    }>
+                    <div className='buttoncontainer'
+                    style={{
+                        marginRight: '0.3125em',
+                    }}
+                    >
+                        <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
+                            <div className='dumbsplainbuttontext'>Submit</div>
+                        </div>
+                    </div>
+                    <div className='buttoncontainer'
+                    style={{
+                        marginLeft: '0.3125em',
+                    }}
+                    >
+                        <div className='dumbsplainbutton'
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            border: '2px solid #4C7BFE',
+                            backgroundColor: 'transparent',
+                        }}
+                        >
+                            <div className='dumbsplainbuttontext'
+                            style={{
+                                color: 'black',
+                            }}
+                            >Take a Hint?</div>
+                            <div className='decrement'
+                            style={{
+                                color: 'red',
+                                fontSize: '0.4em',
+                                fontWeight: 'bold',
+                                padding: '0',
+                                marginLeft: '0.2125em',
+                            }}
+                            >-0.5</div>
+                        </div>
+                    </div> 
+                    </div> : <>
+                    { responsesubmitted ? 
+                    <div className='buttoncontainer'>
+                        <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
+                            <div className='dumbsplainbuttontext'>Dumbsplain</div>
+                        </div>
+                    </div> : null}
+                    </>
+                    }
+                    </>
+                    }
                 </section>
             </div>
         </div>

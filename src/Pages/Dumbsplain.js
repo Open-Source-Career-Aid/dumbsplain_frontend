@@ -16,6 +16,7 @@ import getWaitingtime from '../Functions/getWaitingtime';
 import submitAnswer from '../Functions/submitAnswer';
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import { ReactSVG } from 'react-svg';
+import ExplanationOverlay from '../Components/ExplanationOverlay';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -99,6 +100,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setTopic(topic.topic);
             setSpecial_id(topic.special_id);
             setNewuser(topic.newuser);
+            setDumbnessLevel(topic.dumblevel)
         }
         fetchTopic();
     
@@ -236,41 +238,41 @@ function Dumbsplain( { theme , setTheme } ) {
     // }, [explanationloaded, waitfortomorrow]);
 
     // if the explanation is loaded quizme is true, and the mcq is loaded, set the selected option on the press of A, B, C, D, or E respectively
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const keyFunction = (event) => {
+        const keyFunction = (event) => {
 
-    //         if (!responsesubmitted && !waitfortomorrow && explanationloaded === true && quizme === true && mcqloaded === true) {
-    //             console.log('somethings happening');
-    //             if (event.keyCode === 49) {
-    //                 event.preventDefault();
-    //                 setSelectedoption(1);
-    //             }
-    //             else if (event.keyCode === 50) {
-    //                 event.preventDefault();
-    //                 setSelectedoption(2);
-    //             }
-    //             else if (event.keyCode === 51) {
-    //                 event.preventDefault();
-    //                 setSelectedoption(3);
-    //             }
-    //             else if (event.keyCode === 52) {
-    //                 event.preventDefault();
-    //                 setSelectedoption(4);
-    //             }
-    //             else if (event.keyCode === 53) {
-    //                 event.preventDefault();
-    //                 setSelectedoption(5);
-    //             }
-    //         }
-    //     }
-    //     window.addEventListener('keydown', keyFunction);
-    //     return () => {
-    //         window.removeEventListener('keydown', keyFunction);
-    //     }
+            if (!responsesubmitted && !waitfortomorrow && explanationloaded === true && quizme === true && mcqloaded === true) {
+                console.log('somethings happening');
+                if (event.keyCode === 49) {
+                    event.preventDefault();
+                    setSelectedoption(1);
+                }
+                else if (event.keyCode === 50) {
+                    event.preventDefault();
+                    setSelectedoption(2);
+                }
+                else if (event.keyCode === 51) {
+                    event.preventDefault();
+                    setSelectedoption(3);
+                }
+                else if (event.keyCode === 52) {
+                    event.preventDefault();
+                    setSelectedoption(4);
+                }
+                else if (event.keyCode === 53) {
+                    event.preventDefault();
+                    setSelectedoption(5);
+                }
+            }
+        }
+        window.addEventListener('keydown', keyFunction);
+        return () => {
+            window.removeEventListener('keydown', keyFunction);
+        }
 
     // eslint-disable-next-line
-    // }, [responsesubmitted, waitfortomorrow, explanationloaded, quizme, mcqloaded]);
+    }, [responsesubmitted, waitfortomorrow, explanationloaded, quizme, mcqloaded]);
 
     useEffect(() => {
 
@@ -303,6 +305,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(false);
             setMcqrequested(false);
             setSelectedoption(null);
+            setGameended(true);
         }
         // if special id is 1, get the question and direct to the quiz
         else if (special_id === 1) {
@@ -402,6 +405,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
+                setGameended(answer.gameended)
             }
             fetchAnswer();
             setResponsesubmitted(true);
@@ -415,6 +419,9 @@ function Dumbsplain( { theme , setTheme } ) {
             if (dumbnessLevel + 1 <= 5) {
                 setDumbnessLevel(dumbnessLevel + 1);
                 setExplanationloaded(false);
+            }
+            else {
+                setGameended(true);
             }
         
         }
@@ -455,6 +462,11 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }
 
+    const handleExplanation = (e) => {
+        e.preventDefault();
+        setExplanationrequested(true);
+    }
+
     return (
         <div style={{
             height: '100%',
@@ -480,6 +492,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
             responsesubmitted={responsesubmitted}
             />
+            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} />
             <section className='headersection'
             style={{
                 height: 'auto',
@@ -602,6 +615,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         </div>
                     </div>
                     : null} */}
+                    { !gameended ? <>
                     { dumbnessLevel !== null && !quizme ?
                     <div className='buttoncontainer'>
                         <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
@@ -638,6 +652,7 @@ function Dumbsplain( { theme , setTheme } ) {
                             border: '2px solid #4C7BFE',
                             backgroundColor: 'transparent',
                         }}
+                        onClick={handleExplanation}
                         >
                             <div className='dumbsplainbuttontext'
                             style={{
@@ -666,6 +681,7 @@ function Dumbsplain( { theme , setTheme } ) {
                     }
                     </>
                     }
+                    </> : null}
                 </section>
             </div>
         </div>

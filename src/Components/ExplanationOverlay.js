@@ -1,12 +1,28 @@
 import { useState, useEffect } from 'react';
+import '../CSS/ExplanationOverlay.css';
+import getExplanation from '../Functions/getExplanation';
+import pseudoGenerator from '../Functions/pseudoGenerator';
 
-export default function ExplanationOverlay({dumbnessLevel, explanationrequested, setExplanationrequested}) {
+export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme }) {
 
-    const [timeremaining, setTimeremaining] = useState(60);
-    const [explanation, setExplanation] = useState("Some explanation about the question will appear here.");
+    const [timeremaining, setTimeremaining] = useState(30);
+    const [explanation, setExplanation] = useState("");
+    // eslint-disable-next-line
+    const [explanationloading, setExplanationloading] = useState(true);
 
     useEffect(() => {
+        async function fetchExplanation() {
+            const explanation = await getExplanation(dumbnessLevel);
+            // setExplanation(explanation.explanation);
+            pseudoGenerator(explanation.explanation, setExplanation, 0.02, setExplanationloading);
+        }
         if (explanationrequested) {
+            fetchExplanation();
+        }
+    }, [explanationrequested]);
+
+    useEffect(() => {
+        if (explanationrequested && timeremaining >= 0) {
             const timer = setInterval(() => {
                 setTimeremaining(timeremaining - 1);
             }, 1000);
@@ -27,16 +43,39 @@ export default function ExplanationOverlay({dumbnessLevel, explanationrequested,
         }
     }
 
+    const closeOverlay = (e) => {
+        e.preventDefault();
+        setExplanationrequested(false);
+    }
+
     return (
         <>
             <div className={ explanationrequested ? "modal-overlay" : "modal-overlay-off"}>
                 <main className="explanation-content" onClick={handleScoreOverlayClick}>
-                    <div className="explanation-content-header">
-                        <p className="warning">WARNING</p>
-                        <p className="countdown-timer">{timeremaining}</p>
+                    <div className="explanation-content-header"
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        width: "100%",
+                    }}
+                    >
+                        <p className="warning">Time to read: <span className="countdown-timer">{timeremaining}</span></p>
+                        <div className='closeOverlay' onClick={closeOverlay}
+                        style={{
+                            color: "black",
+                            cursor: "pointer",
+                        }}
+                        >&times;</div>
                     </div>
-                    <div className="explanation-content-body">
-                        <p className="explanation-text">{explanation}</p>
+                    <div className="explanation-content-body"
+                    style={{
+                        padding: "0",
+                    }}
+                    >
+                        <div className="explanation-text">
+                            <p className='explanation-text-p'>{explanation}</p>
+                        </div>
                     </div>
                 </main>
             </div>

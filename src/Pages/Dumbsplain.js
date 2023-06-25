@@ -492,7 +492,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
             responsesubmitted={responsesubmitted}
             />
-            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} />
+            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} />
             <section className='headersection'
             style={{
                 height: 'auto',

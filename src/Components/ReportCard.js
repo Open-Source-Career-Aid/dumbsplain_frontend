@@ -72,7 +72,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
       if (apicalled === false && responsesubmitted === true) {
         console.log('apicalled is false and responsesubmitted is true');
-        setScoreModal(true);
+        // setScoreModal(true);
       }
 
 

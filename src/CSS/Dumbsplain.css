@@ -433,6 +433,11 @@
 }
 
 @media only screen and (max-width: 600px) {
+    
+    .submithintbuttons {
+        scale: 0.7;
+    }
+
     .buttoncontainer {
         scale: 0.7;
     }
@@ -695,6 +700,10 @@
     opacity: 0.5;
     filter: grayscale(100%);
     pointer-events: none;
+}
+
+.carouseldumbnesslevel.hidden {
+    display: none;
 }
 
 .carouselbgcontainer {

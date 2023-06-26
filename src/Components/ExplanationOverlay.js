@@ -32,6 +32,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
 
     useEffect(() => {
         if (timeremaining === 0) {
+            setExplanation("Trying to be smart, huh? You can't read the explanation anymore!");
             setExplanationrequested(false);
         }
     }, [timeremaining, setExplanationrequested]);

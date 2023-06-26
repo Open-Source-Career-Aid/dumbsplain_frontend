@@ -44,11 +44,10 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);
 
-    // useEffect(() => {
-    //     console.log("akhsgdbiaugy");
-    //     setDumbnessLevel(carouseldumbnessLevel);
-    // // eslint-disable-next-line
-    // }, [carouseldumbnessLevel]);
+    useEffect(() => {
+        setCarouseldumbnessLevel(dumbnessLevel);
+    // eslint-disable-next-line
+    }, [dumbnessLevel]);
 
     const handleLeftSwipe = () => {
         if (explanationrequested) {
@@ -123,9 +122,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                 })
             }
 
-            <div className="dumbnesscarousel"
-            {...handlers}
-            >
+            <div className="dumbnesscarousel">
                 <div className="carouselelementscontainer"
                 style={{
                     transform: `translateX(${locationofelements}px)`,

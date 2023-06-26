@@ -53,6 +53,7 @@ function Dumbsplain( { theme , setTheme } ) {
     // wherever newandupdatedApp is used, it is used to make modifications and differentiate between the old and new app
     const [newandupdatedApp, setNewandupdatedApp] = React.useState(true);
     const [gameended, setGameended] = React.useState(false);
+    const [explanationread, setExplanationread] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -84,7 +85,7 @@ function Dumbsplain( { theme , setTheme } ) {
     useEffect(() => {
         
         findcurrentTime();
-        setCurrentext(placeholder);
+        // setCurrentext(placeholder);
         setDumbnessLevel(1);
         setQuizme(false);
         setExplanationloaded(false);
@@ -100,10 +101,10 @@ function Dumbsplain( { theme , setTheme } ) {
             setTopic(topic.topic);
             setSpecial_id(topic.special_id);
             setNewuser(topic.newuser);
-            setDumbnessLevel(topic.dumblevel)
+            setDumbnessLevel(topic.dumblevel);
+            pseudoGenerator(topic.message, setCurrentext, 0.1);
         }
         fetchTopic();
-    
     // eslint-disable-next-line
     }, []);
 
@@ -402,6 +403,7 @@ function Dumbsplain( { theme , setTheme } ) {
             e.preventDefault();
             async function fetchAnswer() {
                 const answer = await submitAnswer(selectedoption);
+                pseudoGenerator(answer.message, setCurrentext, 0.1);
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
@@ -445,6 +447,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setSelectedoption(null);
             setResponsesubmitted(false);
             setCorrectoption(null);
+            setExplanationread(false);
         }
         else if (dumbnessLevel !== null) {
             setMcqrequested(true);
@@ -464,7 +467,10 @@ function Dumbsplain( { theme , setTheme } ) {
 
     const handleExplanation = (e) => {
         e.preventDefault();
-        setExplanationrequested(true);
+        if (!explanationread) {
+            setExplanationrequested(true);
+            setExplanationread(true);
+        }
     }
 
     return (
@@ -629,11 +635,13 @@ function Dumbsplain( { theme , setTheme } ) {
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'center',
+                            overflow: 'visible',
                         }
-                    }>
+                    } class="submithintbuttons">
                     <div className='buttoncontainer'
                     style={{
                         marginRight: '0.3125em',
+                        scale: "1",
                     }}
                     >
                         <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
@@ -643,6 +651,8 @@ function Dumbsplain( { theme , setTheme } ) {
                     <div className='buttoncontainer'
                     style={{
                         marginLeft: '0.3125em',
+                        overflow: "visible",
+                        scale: '1',
                     }}
                     >
                         <div className='dumbsplainbutton'
@@ -651,6 +661,9 @@ function Dumbsplain( { theme , setTheme } ) {
                             justifyContent: 'center',
                             border: '2px solid #4C7BFE',
                             backgroundColor: 'transparent',
+                            position: 'relative',
+                            overflow: "visible",
+                            borderTopRightRadius: '0',
                         }}
                         onClick={handleExplanation}
                         >
@@ -661,11 +674,19 @@ function Dumbsplain( { theme , setTheme } ) {
                             >Take a Hint?</div>
                             <div className='decrement'
                             style={{
-                                color: 'red',
+                                color: 'white',
                                 fontSize: '0.4em',
                                 fontWeight: 'bold',
-                                padding: '0',
+                                padding: '5px 10px',
                                 marginLeft: '0.2125em',
+                                position: 'absolute',
+                                right: '0',
+                                top: '0',
+                                backgroundColor: '#F69E6C',
+                                // height: '25px',
+                                // width: '50px',
+                                borderRadius: '5px',
+                                transform: 'translate(0, -120%)',
                             }}
                             >-0.5</div>
                         </div>

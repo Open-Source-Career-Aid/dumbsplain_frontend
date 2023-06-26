@@ -1,6 +1,11 @@
 
 export default async function pseudoGenerator(text, setStateText, TIME, setLoading) {
 
+    // if setLoading isn't passed, set it to a function that does nothing
+    if (!setLoading) {
+        setLoading = () => {}
+    }
+
     let typetext = ''
 
     // split text into chunks of 4-6 characters

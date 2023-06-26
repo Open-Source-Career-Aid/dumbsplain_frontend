@@ -432,7 +432,8 @@ function Dumbsplain( { theme , setTheme } ) {
             setGameended(true);
         }
 
-    }, [correctoption, dumbnessLevel, responsesubmitted, selectedoption]);
+    // eslint-disable-next-line
+    }, [correctoption, responsesubmitted, selectedoption]);
 
     const handleSteppedDumbsplain = (e) => {
         e.preventDefault();

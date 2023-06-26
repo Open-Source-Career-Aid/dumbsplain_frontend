@@ -1,1 +1,1 @@
-export const APIURL='https://www.dumbsplain.com';
+export const APIURL='https://api.dumbsplain.com';

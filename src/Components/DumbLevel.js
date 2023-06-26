@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import classNames from 'classnames';
 import { useSwipeable } from "react-swipeable";
 
-function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , waitfortomorrow , theme }) {
+function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , waitfortomorrow , theme , newandupdatedApp }) {
 
     const [carouseldumbnessLevel, setCarouseldumbnessLevel] = useState(0);
     const [locationofelements, setLocationofelements] = useState(0);
@@ -45,9 +45,9 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
     }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);
 
     useEffect(() => {
-        setDumbnessLevel(carouseldumbnessLevel);
+        setCarouseldumbnessLevel(dumbnessLevel);
     // eslint-disable-next-line
-    }, [carouseldumbnessLevel]);
+    }, [dumbnessLevel]);
 
     const handleLeftSwipe = () => {
         if (explanationrequested) {
@@ -81,11 +81,13 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
     });
 
     const handleDumbclick = (e) => {
-        if (!explanationrequested) {
+
+        if (!explanationrequested && !newandupdatedApp) {
             e.preventDefault();
             setDumbnessLevel(e.currentTarget.getAttribute('value'));
             setCarouseldumbnessLevel(e.currentTarget.getAttribute('value'));
             }
+
     }
 
     const avatarlabels = ['Just Plain Dumb', 'Not Too Bright', 'Average Joe', 'Smartass', 'Pretentious Professor']
@@ -107,7 +109,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             // eslint-disable-next-line
                             selected: dumbnessLevel == dumbnesslevel,
                             // eslint-disable-next-line
-                            blocked: dumbnessLevel != dumbnesslevel && explanationrequested==true
+                            blocked: (dumbnessLevel != dumbnesslevel && explanationrequested==true) || (newandupdatedApp && dumbnessLevel != dumbnesslevel)
                             })}
                         onClick={handleDumbclick} value={dumbnesslevel}>
                             <div className="bgcontainer"></div>
@@ -120,9 +122,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                 })
             }
 
-            <div className="dumbnesscarousel"
-            {...handlers}
-            >
+            <div className="dumbnesscarousel">
                 <div className="carouselelementscontainer"
                 style={{
                     transform: `translateX(${locationofelements}px)`,
@@ -138,7 +138,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                     // eslint-disable-next-line
                                     selected: dumbnessLevel == dumbnesslevel,
                                     // eslint-disable-next-line
-                                    blocked: dumbnessLevel != dumbnesslevel && explanationrequested==true
+                                    blocked: (dumbnessLevel != dumbnesslevel && explanationrequested==true) || (newandupdatedApp && dumbnessLevel != dumbnesslevel)
                                     })}
                             onClick={handleDumbclick} value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>

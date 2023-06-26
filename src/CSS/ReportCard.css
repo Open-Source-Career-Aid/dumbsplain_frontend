@@ -71,7 +71,7 @@
     box-sizing: border-box;
     position: absolute;
     width: 170px;
-    height: 32vh;
+    height: 192px;
     left: 61px;
     top: 106px;
     border: 2px solid #D9D9D9;
@@ -270,4 +270,8 @@
 
 .inner-content[data-theme="dark"] {
     color: var(--dark-mode-text);
+}
+
+@media only screen and (max-width: 600px) {
+    
 }

@@ -16,13 +16,14 @@ import getWaitingtime from '../Functions/getWaitingtime';
 import submitAnswer from '../Functions/submitAnswer';
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import { ReactSVG } from 'react-svg';
+import ExplanationOverlay from '../Components/ExplanationOverlay';
 
 function Dumbsplain( { theme , setTheme } ) {
 
-    let placeholder = 'Select your dumbness level for an explanation of Topic.';
+    let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
-    const [dumbnessLevel, setDumbnessLevel] = React.useState(null);
+    const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
     const [currentext, setCurrentext] = React.useState('explaination text');
     const [quizme, setQuizme] = React.useState(false);
     const [explanationloaded, setExplanationloaded] = React.useState(false);
@@ -49,6 +50,10 @@ function Dumbsplain( { theme , setTheme } ) {
     const [dqincreaseddecreasedorremained, setDqincreaseddecreasedorremained] = React.useState(null);
     const [responsesubmitted, setResponsesubmitted] = React.useState(false);
     const [newuser, setNewuser] = React.useState(0);
+    // wherever newandupdatedApp is used, it is used to make modifications and differentiate between the old and new app
+    const [newandupdatedApp, setNewandupdatedApp] = React.useState(true);
+    const [gameended, setGameended] = React.useState(false);
+    const [explanationread, setExplanationread] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -58,13 +63,6 @@ function Dumbsplain( { theme , setTheme } ) {
         let currentTime = hours + ":" + minutes + ":" + seconds;
         setTime(currentTime);
     }
-
-    useEffect(() => {
-        if (dumbnessLevel !== null) {
-        setCurrentext(placeholder+'\n\nCareful now, you can only pick one level each play!');
-        }
-    // eslint-disable-next-line
-    }, [dumbnessLevel]);
 
     useEffect(() => {
 
@@ -87,8 +85,8 @@ function Dumbsplain( { theme , setTheme } ) {
     useEffect(() => {
         
         findcurrentTime();
-        setCurrentext(placeholder);
-        setDumbnessLevel(null);
+        // setCurrentext(placeholder);
+        setDumbnessLevel(1);
         setQuizme(false);
         setExplanationloaded(false);
         setExplanationloading(false);
@@ -97,14 +95,16 @@ function Dumbsplain( { theme , setTheme } ) {
         setMcqloading(false);
         setMcqrequested(false);
         setSelectedoption(null);
+        setNewandupdatedApp(true);
         async function fetchTopic() {
             const topic = await getTopic();
             setTopic(topic.topic);
             setSpecial_id(topic.special_id);
             setNewuser(topic.newuser);
+            setDumbnessLevel(topic.dumblevel);
+            pseudoGenerator(topic.message, setCurrentext, 0.1);
         }
         fetchTopic();
-    
     // eslint-disable-next-line
     }, []);
 
@@ -160,13 +160,16 @@ function Dumbsplain( { theme , setTheme } ) {
 
     // if dumbness level is selected, get the explanation if enter is pressed
     useEffect(() => {
+
+        console.log('dumbnessLevel: ', dumbnessLevel);
+        
         const enterFunction = (event) => {
 
             if (event.keyCode === 13) {
                 if (dumbnessLevel !== null && explanationloaded === false && quizme === false) {
                     event.preventDefault();
                     // mimic the pressing of the dumbsplain button by calling the handleDumbsplain function
-                    handleDumbsplain(event);
+                    handleSteppedDumbsplain(event);
                 }
             }
         }
@@ -200,40 +203,40 @@ function Dumbsplain( { theme , setTheme } ) {
     }, [explanationloaded]);
 
     // if explanationloaded is false, set the dumbness level on the press of 1, 2, 3, 4, 5 keys respectively
-    useEffect(() => {
+    // useEffect(() => {
 
-        const keyFunction = (event) => {
+    //     const keyFunction = (event) => {
 
-            if (explanationloaded === false && !waitfortomorrow) {
-                if (event.keyCode === 49) {
-                    event.preventDefault();
-                    setDumbnessLevel(1);
-                }
-                else if (event.keyCode === 50) {
-                    event.preventDefault();
-                    setDumbnessLevel(2);
-                }
-                else if (event.keyCode === 51) {
-                    event.preventDefault();
-                    setDumbnessLevel(3);
-                }
-                else if (event.keyCode === 52) {
-                    event.preventDefault();
-                    setDumbnessLevel(4);
-                }
-                else if (event.keyCode === 53) {
-                    event.preventDefault();
-                    setDumbnessLevel(5);
-                }
-            }
-        }
-        window.addEventListener('keydown', keyFunction);
-        return () => {
-            window.removeEventListener('keydown', keyFunction);
-        }
+    //         if (explanationloaded === false && !waitfortomorrow & !newandupdatedApp) {
+    //             if (event.keyCode === 49) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(1);
+    //             }
+    //             else if (event.keyCode === 50) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(2);
+    //             }
+    //             else if (event.keyCode === 51) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(3);
+    //             }
+    //             else if (event.keyCode === 52) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(4);
+    //             }
+    //             else if (event.keyCode === 53) {
+    //                 event.preventDefault();
+    //                 setDumbnessLevel(5);
+    //             }
+    //         }
+    //     }
+    //     window.addEventListener('keydown', keyFunction);
+    //     return () => {
+    //         window.removeEventListener('keydown', keyFunction);
+    //     }
 
-    // eslint-disable-next-line
-    }, [explanationloaded, waitfortomorrow]);
+    // // eslint-disable-next-line
+    // }, [explanationloaded, waitfortomorrow]);
 
     // if the explanation is loaded quizme is true, and the mcq is loaded, set the selected option on the press of A, B, C, D, or E respectively
     useEffect(() => {
@@ -303,6 +306,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(false);
             setMcqrequested(false);
             setSelectedoption(null);
+            setGameended(true);
         }
         // if special id is 1, get the question and direct to the quiz
         else if (special_id === 1) {
@@ -399,12 +403,73 @@ function Dumbsplain( { theme , setTheme } ) {
             e.preventDefault();
             async function fetchAnswer() {
                 const answer = await submitAnswer(selectedoption);
+                pseudoGenerator(answer.message, setCurrentext, 0.1);
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
+                setGameended(answer.gameended)
             }
             fetchAnswer();
             setResponsesubmitted(true);
+        }
+    }
+
+    useEffect(() => {
+
+        if (selectedoption === correctoption && responsesubmitted === true) {
+
+            if (dumbnessLevel + 1 <= 5) {
+                setDumbnessLevel(dumbnessLevel + 1);
+                setExplanationloaded(false);
+            }
+            else {
+                setGameended(true);
+            }
+        
+        }
+        else if (selectedoption !== correctoption && responsesubmitted === true) {
+            setGameended(true);
+        }
+
+    }, [correctoption]);
+
+    const handleSteppedDumbsplain = (e) => {
+        e.preventDefault();
+
+        if (responsesubmitted === true) {
+            setQuizme(false);
+            setExplanationrequested(false);
+            setExplanationloading(false);
+            setExplanationloaded(false);
+            setMcqloaded(false);
+            setMcqloading(false);
+            setMcqrequested(false);
+            setSelectedoption(null);
+            setResponsesubmitted(false);
+            setCorrectoption(null);
+            setExplanationread(false);
+        }
+        else if (dumbnessLevel !== null) {
+            setMcqrequested(true);
+            setMcqloading(true);
+            setQuizme(true);
+            async function fetchQuestion() {
+                const mcq = await getQuestion();
+                pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
+                // setMcq(mcq.question);
+                setSpecial_id(mcq.special_id);
+            }
+            fetchQuestion();
+            // setMcqloading(false);
+            setMcqloaded(true);
+        }
+    }
+
+    const handleExplanation = (e) => {
+        e.preventDefault();
+        if (!explanationread) {
+            setExplanationrequested(true);
+            setExplanationread(true);
         }
     }
 
@@ -433,6 +498,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
             responsesubmitted={responsesubmitted}
             />
+            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} />
             <section className='headersection'
             style={{
                 height: 'auto',
@@ -504,6 +570,7 @@ function Dumbsplain( { theme , setTheme } ) {
                             explanationrequested={explanationrequested}
                             waitfortomorrow={waitfortomorrow}
                             theme={theme}
+                            newandupdatedApp={newandupdatedApp}
                             />
                         </div>
                         :
@@ -520,13 +587,14 @@ function Dumbsplain( { theme , setTheme } ) {
                             setScore={setScore}
                             theme={theme}
                             correctoption={correctoption}
+                            newandupdatedApp={newandupdatedApp}
                             />
                         </div> : null}
                         </>
                         }
                     </div>
 
-                    { explanationloaded ?
+                    {/* { explanationloaded ?
                         <>
                         { !quizme ?
                         <div className='buttoncontainer'>
@@ -552,7 +620,89 @@ function Dumbsplain( { theme , setTheme } ) {
                             <div className='dumbsplainbuttontext'>Submit</div>
                         </div>
                     </div>
-                    : null}
+                    : null} */}
+                    { !gameended ? <>
+                    { dumbnessLevel !== null && !quizme ?
+                    <div className='buttoncontainer'>
+                        <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
+                            <div className='dumbsplainbuttontext'>Dumbsplain</div>
+                        </div>
+                    </div> 
+                    : 
+                    <>
+                    { quizme && !mcqloading && !responsesubmitted ? <div style={
+                        {
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            overflow: 'visible',
+                        }
+                    } class="submithintbuttons">
+                    <div className='buttoncontainer'
+                    style={{
+                        marginRight: '0.3125em',
+                        scale: "1",
+                    }}
+                    >
+                        <div className='dumbsplainbutton' onClick={handleAnswersubmit}>
+                            <div className='dumbsplainbuttontext'>Submit</div>
+                        </div>
+                    </div>
+                    <div className='buttoncontainer'
+                    style={{
+                        marginLeft: '0.3125em',
+                        overflow: "visible",
+                        scale: '1',
+                    }}
+                    >
+                        <div className='dumbsplainbutton'
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            border: '2px solid #4C7BFE',
+                            backgroundColor: 'transparent',
+                            position: 'relative',
+                            overflow: "visible",
+                            borderTopRightRadius: '0',
+                        }}
+                        onClick={handleExplanation}
+                        >
+                            <div className='dumbsplainbuttontext'
+                            style={{
+                                color: 'black',
+                            }}
+                            >Take a Hint?</div>
+                            <div className='decrement'
+                            style={{
+                                color: 'white',
+                                fontSize: '0.4em',
+                                fontWeight: 'bold',
+                                padding: '5px 10px',
+                                marginLeft: '0.2125em',
+                                position: 'absolute',
+                                right: '0',
+                                top: '0',
+                                backgroundColor: '#F69E6C',
+                                // height: '25px',
+                                // width: '50px',
+                                borderRadius: '5px',
+                                transform: 'translate(0, -120%)',
+                            }}
+                            >-0.5</div>
+                        </div>
+                    </div> 
+                    </div> : <>
+                    { responsesubmitted ? 
+                    <div className='buttoncontainer'>
+                        <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
+                            <div className='dumbsplainbuttontext'>Dumbsplain</div>
+                        </div>
+                    </div> : null}
+                    </>
+                    }
+                    </>
+                    }
+                    </> : null}
                 </section>
             </div>
         </div>

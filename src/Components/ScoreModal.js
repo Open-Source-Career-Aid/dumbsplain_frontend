@@ -4,7 +4,7 @@ import { toBlob } from 'html-to-image';
 import OverlayCurve from "../SVGasComponents/overlayCurve";
 import classNames from 'classnames';
 
-export default  function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested }){
+export default function Acheivements({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested }){
 
     const [roundedDQ, setRoundedDQ] = useState(1);
     const [apicalled, setApicalled] = useState(false);

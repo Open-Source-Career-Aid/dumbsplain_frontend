@@ -305,7 +305,7 @@
     position: absolute;
     z-index: 1;
     height: 75%;
-    width: 75%;
+    width: 55%;
     bottom: 0;
     background-color: #4C7BFE;
     opacity: 0.1;
@@ -433,6 +433,11 @@
 }
 
 @media only screen and (max-width: 600px) {
+    
+    .submithintbuttons {
+        scale: 0.7;
+    }
+
     .buttoncontainer {
         scale: 0.7;
     }
@@ -501,7 +506,7 @@
     position: absolute;
     z-index: 1;
     height: 75%;
-    width: 75%;
+    width: 55%;
     bottom: 0;
     background-color: #4C7BFE;
     opacity: 0.1;
@@ -697,6 +702,10 @@
     pointer-events: none;
 }
 
+.carouseldumbnesslevel.hidden {
+    display: none;
+}
+
 .carouselbgcontainer {
     display: flex;
     flex-direction: row;
@@ -881,7 +890,7 @@
         background-color: #4C7BFE;
         opacity: 0.1;
         z-index: -10000;
-        width: 75%;
+        width: 55%;
         padding: 0 17.5%;
     }
 

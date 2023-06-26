@@ -19,7 +19,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
         if (explanationrequested) {
             fetchExplanation();
         }
-    }, [explanationrequested]);
+    }, [explanationrequested, dumbnessLevel]);
 
     useEffect(() => {
         if (explanationrequested && timeremaining >= 0) {

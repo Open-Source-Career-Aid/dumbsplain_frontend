@@ -71,6 +71,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
         }
     }
 
+    // eslint-disable-next-line
     const handlers = useSwipeable({
 
         onSwipedLeft: () => handleLeftSwipe(),

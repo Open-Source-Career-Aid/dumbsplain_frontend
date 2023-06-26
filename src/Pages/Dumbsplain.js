@@ -20,7 +20,7 @@ import ExplanationOverlay from '../Components/ExplanationOverlay';
 
 function Dumbsplain( { theme , setTheme } ) {
 
-    let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
+    // let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
     const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
@@ -325,6 +325,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
     }, [special_id]);
 
+    // eslint-disable-next-line
     const handleDumbsplain = (e) => {
         // navigator.vibrate(1000);
         if (dumbnessLevel !== null) {
@@ -431,7 +432,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setGameended(true);
         }
 
-    }, [correctoption]);
+    }, [correctoption, dumbnessLevel, responsesubmitted, selectedoption]);
 
     const handleSteppedDumbsplain = (e) => {
         e.preventDefault();

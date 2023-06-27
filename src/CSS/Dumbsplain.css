@@ -146,6 +146,11 @@
     padding: 0;
     margin-left: 5%;
 }
+.leaderboard.blocked {
+    filter: grayscale(100%);
+    opacity: 0.8;
+    cursor: not-allowed;
+}
 
 .totd {
     font-size: 50%;

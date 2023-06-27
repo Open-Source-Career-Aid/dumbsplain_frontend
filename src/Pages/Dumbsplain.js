@@ -380,6 +380,11 @@ function Dumbsplain( { theme , setTheme } ) {
 
     const handleOverlay = (e) => {
         e.preventDefault();
+
+        if (!gameended) {
+            return;
+        }
+
         switch(e.target.dataset.overlay) {
             case "info": infoOverlay ? setInfoOverlay(false) : setInfoOverlay(true);
             break;
@@ -514,7 +519,8 @@ function Dumbsplain( { theme , setTheme } ) {
                         <ReactSVG className='lightmode' onClick={handleTheme} src='../../public/lightmode.svg' />
                         : <svg className='darkmode' onClick={handleTheme}></svg>}
                         <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
-                        <svg className='leaderboard' onClick={handleOverlay} data-overlay="score"></svg>
+                        <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
+                        onClick={handleOverlay} data-overlay="score"></svg>
                     </div>
                 </div>
                 {/* <div className='introduction'>

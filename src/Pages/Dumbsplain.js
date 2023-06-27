@@ -456,7 +456,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setCorrectoption(null);
             setExplanationread(false);
         }
-        else if (dumbnessLevel !== null) {
+        if (dumbnessLevel !== null) {
             setMcqrequested(true);
             setMcqloading(true);
             setQuizme(true);

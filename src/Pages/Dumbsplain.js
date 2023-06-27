@@ -243,7 +243,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
         const keyFunction = (event) => {
 
-            if (!responsesubmitted && !waitfortomorrow && explanationloaded === true && quizme === true && mcqloaded === true) {
+            if (!responsesubmitted && !waitfortomorrow && quizme === true && mcqloaded === true) {
                 console.log('somethings happening');
                 if (event.keyCode === 49) {
                     event.preventDefault();
@@ -675,17 +675,13 @@ function Dumbsplain( { theme , setTheme } ) {
                         }}
                         onClick={handleExplanation}
                         >
-                            <div className='dumbsplainbuttontext'
-                            style={{
-                                color: 'black',
-                            }}
-                            >Take a Hint?</div>
+                            <div className='dumbsplainbuttontext takeahint' data-theme={theme}>Take a Hint?</div>
                             <div className='decrement'
                             style={{
                                 color: 'white',
                                 fontSize: '0.4em',
                                 fontWeight: 'bold',
-                                padding: '5px 10px',
+                                padding: '3px 6px',
                                 marginLeft: '0.2125em',
                                 position: 'absolute',
                                 right: '0',
@@ -694,7 +690,9 @@ function Dumbsplain( { theme , setTheme } ) {
                                 // height: '25px',
                                 // width: '50px',
                                 borderRadius: '5px',
-                                transform: 'translate(0, -120%)',
+                                transform: 'translate(120%, 0)',
+                                borderTopLeftRadius: '0',
+                                border: '4px solid #F69E6C',
                             }}
                             >-0.5</div>
                         </div>

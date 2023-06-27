@@ -5,6 +5,14 @@
     --dark-mode-text: #F6F6F6;
 }
 
+.dumbsplainbuttontext.takeahint[data-theme='light'] {
+    color: black;
+}
+
+.dumbsplainbuttontext.takeahint[data-theme='dark'] {
+    color: white;
+}
+
 .bg[data-theme='dark'] {
     background-color: var(--dark-mode-bg);
     position: fixed;

@@ -381,14 +381,14 @@ function Dumbsplain( { theme , setTheme } ) {
     const handleOverlay = (e) => {
         e.preventDefault();
 
-        if (!gameended) {
-            return;
-        }
-
         switch(e.target.dataset.overlay) {
             case "info": infoOverlay ? setInfoOverlay(false) : setInfoOverlay(true);
             break;
-            case "score": scoreModal ? setScoreModal(false) : setScoreModal(true);
+            case "score":
+            if (!gameended) {
+                break;
+            }    
+            scoreModal ? setScoreModal(false) : setScoreModal(true);
             break;
             default: console.log(e.target,"");
         }

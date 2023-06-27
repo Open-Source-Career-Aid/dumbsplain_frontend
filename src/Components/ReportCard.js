@@ -27,11 +27,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         setCardscale(temp);
       } 
       else if (window.innerWidth < 420 && window.innerWidth > 300) {
-        let temp = window.innerWidth / 400; // tolerance
+        let temp = 1; // tolerance
         setCardscale(temp);
       }
       else if (window.innerWidth < 300) {
-        let temp = 0.75; // tolerance
+        let temp = 1; // tolerance
         setCardscale(temp);
       }
       else {
@@ -178,6 +178,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         style={
           {
             padding: '0',
+            margin: '0',
+            overflow: 'scroll',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }
         }>
           <div className='modal-content-inverted'

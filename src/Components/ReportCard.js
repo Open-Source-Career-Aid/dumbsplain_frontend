@@ -8,6 +8,8 @@ import pseudoGenerator from '../Functions/pseudoGenerator';
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
   const sectionRef = useRef(null);
+  const cardRef = useRef(null);
+  const [cardscale, setCardscale] = useState(1);
   const referenceRef = useRef(null);
   const [roundedDQ, setRoundedDQ] = useState(1);
   const [apicalled, setApicalled] = useState(false);
@@ -15,6 +17,37 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // eslint-disable-next-line
   const [streakwindowwidth, setStreakwindowwidth] = useState('230');
   const [airesponse, setAiresponse] = useState('-');
+
+  // measure the width of the cardRef as the window resizes
+  useEffect(() => {
+    const handleWindowResize = () => {
+      // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
+      if (window.innerWidth < 675 && window.innerWidth > 600) {
+        let temp = 0.8; // tolerance
+        setCardscale(temp);
+      } 
+      else if (window.innerWidth < 420 && window.innerWidth > 300) {
+        let temp = window.innerWidth / 400; // tolerance
+        setCardscale(temp);
+      }
+      else if (window.innerWidth < 300) {
+        let temp = 0.75; // tolerance
+        setCardscale(temp);
+      }
+      else {
+        let temp = 1; // tolerance
+        setCardscale(temp);
+      }
+
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
 
   useEffect(() => {
 
@@ -130,10 +163,14 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     }
 
   const updownornone = classNames('reportcard-updown', {
-        'up': dqincreaseddecreasedorremained === 0,
-        'down': dqincreaseddecreasedorremained === 2,
-        'nochange': dqincreaseddecreasedorremained === 1,
-    });
+    'up': dqincreaseddecreasedorremained === 0,
+    'down': dqincreaseddecreasedorremained === 2,
+    'nochange': dqincreaseddecreasedorremained === 1,
+  });
+  
+  const handleCloseOverlayClick = () => {
+    setScoreModal(false);
+  }
 
   return (
      <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
@@ -147,8 +184,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           style={{
             border: '5px solid',
             borderColor: `${bordercolor}`,
+            scale: `${cardscale}`,
           }}
+          ref={cardRef}
           data-theme={theme}>
+              <span className="closeOverlay reportcard" data-theme={theme} onClick={handleCloseOverlayClick}>&times;</span>
               <div className='reportcard-header' data-theme={theme}>
                 <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
                 <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle 1</span></div>
@@ -163,8 +203,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 <div className='reportcard-body-right' data-theme={theme}
                 style={{
                   position: 'absolute',
-                  top: '100px',
-                  left: '280px',
                 }}
                 >
                   <section style={{
@@ -173,8 +211,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     <div className='reportcard-body-right-row'
                     style={{
                       position: 'relative',
-                      width: '250px',
-                      height: '104px',
                       justifyContent: 'space-between',
                       overflow: 'hidden',
                       padding: '0',
@@ -229,8 +265,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     <div className='reportcard-body-right-row'
                     style={{
                       position: 'relative',
-                      width: '250px',
-                      height: '104px',
                       padding: '0',
                       display: 'flex',
                       flexDirection: 'row',

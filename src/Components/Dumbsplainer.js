@@ -61,7 +61,7 @@ function getQuestionAndOptions ({ text , theme }) {
     )
 }
 
-function Dumbsplainer ({ text , quizme , theme , topic }) {
+function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted }) {
 
     const textareaRef = useRef(null);
 
@@ -79,7 +79,7 @@ function Dumbsplainer ({ text , quizme , theme , topic }) {
                 </div>
                 <div className='textarea'
                 ref={textareaRef}>
-                    { quizme ? getQuestionAndOptions({ text , theme }) :
+                    { quizme && !responsesubmitted ? getQuestionAndOptions({ text , theme }) :
                     <p data-theme={theme}>
                         {text}
                     </p>}

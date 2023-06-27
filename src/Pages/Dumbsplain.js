@@ -555,6 +555,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         quizme={quizme}
                         theme={theme}
                         topic={topic}
+                        responsesubmitted={responsesubmitted}
                         />
                     </div>
                     </>

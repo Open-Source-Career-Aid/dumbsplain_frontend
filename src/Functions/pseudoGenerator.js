@@ -25,7 +25,6 @@ export default async function pseudoGenerator(text, setStateText, TIME, setLoadi
     }
 
     const chunks = splitText(text)
-    console.log(chunks)
 
     async function updatestate(text, setStateText) {
         setStateText(text)

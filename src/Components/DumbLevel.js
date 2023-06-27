@@ -91,7 +91,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     }
 
-    const avatarlabels = ['Just Plain Dumb', 'Not Too Bright', 'Average Joe', 'Smartass', 'Pretentious Professor']
+    const avatarlabels = ['Just Plain Dumb', 'Not Too Bright', 'Smartass', 'Pretentious Professor', 'Sentient Savant']
 
     const dumbnesslevels = classNames('dumbnesslevels', {
         greyed: waitfortomorrow
@@ -116,6 +116,19 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             <div className="bgcontainer"></div>
                             {/* avatar */}
                             <div className={`avatar${dumbnesslevel}`}></div>
+                            {dumbnesslevel === 5 ? 
+                            <>
+                            <div className="equaltoAI" data-theme={theme}
+                            style={{
+                                position: 'absolute',
+                                zIndex: 1000,
+                                fontSize: '0.8rem',
+                                top: '30%',
+                                right: '5%',
+                            }}
+                            >≈AI</div>
+                            </>
+                            : null }
                             {/* avatar label */}
                             <div className='avatarlabel' data-theme={theme}>{avatarlabels[dumbnesslevel-1]}</div>
                         </div>
@@ -148,6 +161,19 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                     zIndex: '50'
                                 }}
                                 ></div>
+                                {dumbnesslevel === 5 ? 
+                                    <>
+                                    <div className="equaltoAI" data-theme={theme}
+                                    style={{
+                                        position: 'absolute',
+                                        zIndex: 1000,
+                                        fontSize: '0.8rem',
+                                        top: '30%',
+                                        right: '5%',
+                                    }}
+                                    >≈AI</div>
+                                    </>
+                                    : null }
                                 <div className='avatarlabel' data-theme={theme}
                                 style={{
                                     zIndex: '50'

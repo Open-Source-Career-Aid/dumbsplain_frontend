@@ -316,7 +316,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   <div className='messagefromai-textbox' data-theme={theme}>
                     <div className='messagefromai-text' data-theme={theme}>{airesponse}</div>
                     {/* eslint-disable-next-line */}
-                    <a href='#' className='messagefromai-link' data-theme={theme}>Link</a>
+                    {/* <a href='#' className='messagefromai-link' data-theme={theme}>Link</a> */}
                   </div>
                 </div>
               </div>

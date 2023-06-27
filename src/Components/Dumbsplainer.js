@@ -43,16 +43,28 @@ function getQuestionAndOptions ({ text , theme }) {
 
     return (
         <>
-            <div className='mcq-question' data-theme={theme}>
+            <div className='mcq-question' data-theme={theme}
+            style={{
+                overflow: 'visible',
+            }}
+            >
                 {/* <p data-theme={theme}>  */}
                 {question} 
                 {/* </p> */}
             </div>
-            <div className='mcq-options'>
+            <div className='mcq-options'
+            style={{
+                overflow: 'visible',
+            }}
+            >
                 <ol>
                     {options.map((option, index) => {
                         return (
-                                <li className='mcq-option' key={index} data-theme={theme}> {option} </li>
+                                <li className='mcq-option' key={index} data-theme={theme}
+                                style={{
+                                    overflow: 'visible',
+                                }}
+                                > {option} </li>
                         )
                     })}
                 </ol>

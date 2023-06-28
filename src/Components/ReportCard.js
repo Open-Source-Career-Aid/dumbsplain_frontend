@@ -175,11 +175,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   return (
      <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
         <section ref={sectionRef}
+        className='reportcard-section-main'
         style={
           {
             padding: '0',
             margin: '0',
-            overflow: 'scroll',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

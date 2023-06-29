@@ -125,7 +125,8 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                 fontSize: '0.5rem',
                                 top: '30%',
                                 right: '5%',
-                                fontWeight: 'bold'
+                                fontWeight: 'bold',
+                                color: 'white'
                             }}
                             >=AI</div>
                             </>
@@ -171,7 +172,8 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                         fontSize: '0.5rem',
                                         top: '30%',
                                         right: '5%',
-                                        fontWeight: 'bold'
+                                        fontWeight: 'bold',
+                                        color: 'white'
                                     }}
                                     >=AI</div>
                                     </>

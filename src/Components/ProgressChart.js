@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 ChartJS.register(
   CategoryScale,
@@ -37,6 +37,15 @@ export const options = {
     y: {
       display: false, // Hide y-axis
     },
+    x: {
+      grid: {
+        color: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', '#000000', 'rgba(0, 0, 0, 0)'],
+        drawTicks: false,
+    },
+      border: {
+        dash: [5, 5],
+      }
+    },
   },
 };
 
@@ -47,7 +56,7 @@ export const data = {
   datasets: [
     {
       label: '',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 5 })),
       borderColor: 'rgba(8, 255, 13, 0.8)',
       // backgroundColor: 'rgb(255, 99, 132)',
       fill: false,

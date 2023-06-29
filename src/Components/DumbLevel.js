@@ -9,40 +9,54 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
     const [widthofcarouselelement, setWidthofcarouselelement] = useState(0);
     const [widthofcarouselwindow, setWidthofcarouselwindow] = useState(0);
 
-    useEffect(() => {
+    // useEffect(() => {
 
+    //     const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
+    //     const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
+
+    //     setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
+    //     setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
+
+    //     // eslint-disable-next-line
+    //     if (carouseldumbnessLevel == 1) {
+    //         const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2;
+    //         setLocationofelements(initialloc);
+    //     // eslint-disable-next-line
+    //     } else if (carouseldumbnessLevel == 2) {
+    //         const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth;
+    //         setLocationofelements(initialloc);
+    //     }
+    //     // eslint-disable-next-line
+    //     else if (carouseldumbnessLevel == 3) {
+    //         const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*2;
+    //         setLocationofelements(initialloc);
+    //     }
+    //     // eslint-disable-next-line
+    //     else if (carouseldumbnessLevel == 4) {
+    //         const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*3;
+    //         setLocationofelements(initialloc);
+    //     }
+    //     // eslint-disable-next-line
+    //     else if (carouseldumbnessLevel == 5) {
+    //         const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*4;
+    //         setLocationofelements(initialloc);
+    //     }
+
+    // }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);
+
+    useEffect(() => {
         const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
         const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
 
         setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
         setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
 
-        // eslint-disable-next-line
-        if (carouseldumbnessLevel == 1) {
-            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2;
-            setLocationofelements(initialloc);
-        // eslint-disable-next-line
-        } else if (carouseldumbnessLevel == 2) {
-            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth;
-            setLocationofelements(initialloc);
-        }
-        // eslint-disable-next-line
-        else if (carouseldumbnessLevel == 3) {
-            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*2;
-            setLocationofelements(initialloc);
-        }
-        // eslint-disable-next-line
-        else if (carouseldumbnessLevel == 4) {
-            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*3;
-            setLocationofelements(initialloc);
-        }
-        // eslint-disable-next-line
-        else if (carouseldumbnessLevel == 5) {
-            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*4;
-            setLocationofelements(initialloc);
+        if(carouseldumbnessLevel >= 1 && carouseldumbnessLevel <= 5){
+            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*(0.5 + carouseldumbnessLevel - 1);
+            setLocationofelements(initialloc);    
         }
 
-    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);
+    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);    
 
     useEffect(() => {
         setCarouseldumbnessLevel(dumbnessLevel);

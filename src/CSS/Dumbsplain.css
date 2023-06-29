@@ -77,6 +77,10 @@
     margin-left: 20px;
 }
 
+.equaltoAI[data-theme='dark'] {
+    color: white;
+}
+
 @media only screen and (max-width: 600px) {
 
     .dumbsplainlogo {

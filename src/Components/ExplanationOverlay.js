@@ -5,7 +5,7 @@ import pseudoGenerator from '../Functions/pseudoGenerator';
 
 export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme }) {
 
-    const [timeremaining, setTimeremaining] = useState(30);
+    const [timeremaining, setTimeremaining] = useState(3000);
     const [explanation, setExplanation] = useState("");
     // eslint-disable-next-line
     const [explanationloading, setExplanationloading] = useState(true);
@@ -52,7 +52,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     return (
         <>
             <div className={ explanationrequested ? "modal-overlay" : "modal-overlay-off"}>
-                <main className="explanation-content" onClick={handleScoreOverlayClick}>
+                <main className="explanation-content" onClick={handleScoreOverlayClick} data-theme={theme}>
                     <div className="explanation-content-header"
                     style={{
                         display: "flex",
@@ -61,21 +61,20 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         width: "100%",
                     }}
                     >
-                        <p className="warning">Time to read: <span className="countdown-timer">{timeremaining}</span></p>
-                        <div className='closeOverlay' onClick={closeOverlay}
+                        <p className="warning" data-theme={theme}>Time to read: <span className="countdown-timer">{timeremaining}</span></p>
+                        <div className='closeOverlay explanationoverlay' onClick={closeOverlay}
                         style={{
-                            color: "black",
                             cursor: "pointer",
                         }}
-                        >&times;</div>
+                        data-theme={theme}>&times;</div>
                     </div>
                     <div className="explanation-content-body"
                     style={{
                         padding: "0",
                     }}
-                    >
+                    data-theme={theme}>
                         <div className="explanation-text">
-                            <p className='explanation-text-p'>{explanation}</p>
+                            <p className='explanation-text-p' data-theme={theme}>{explanation}</p>
                         </div>
                     </div>
                 </main>

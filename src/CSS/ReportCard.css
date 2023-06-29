@@ -271,7 +271,7 @@
     letter-spacing: 0em;
     text-align: left;
     width: 514px;
-    height: 48px;
+    height: 80px;
     padding: 0;
     margin-top: 12px;
     overflow: hidden;
@@ -360,8 +360,8 @@
     .messagefromai-text {
         margin: 0;
         width: 340px;
-        height: 80px;
-        font-size: 16px;
+        height: 100px;
+        font-size: 18px;
     }
 
     .messagefromai-link {

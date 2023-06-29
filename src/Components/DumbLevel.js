@@ -122,11 +122,13 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             style={{
                                 position: 'absolute',
                                 zIndex: 1000,
-                                fontSize: '0.8rem',
+                                fontSize: '0.5rem',
                                 top: '30%',
                                 right: '5%',
+                                fontWeight: 'bold',
+                                color: 'white'
                             }}
-                            >≈AI</div>
+                            >=AI</div>
                             </>
                             : null }
                             {/* avatar label */}
@@ -167,11 +169,13 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                                     style={{
                                         position: 'absolute',
                                         zIndex: 1000,
-                                        fontSize: '0.8rem',
+                                        fontSize: '0.5rem',
                                         top: '30%',
                                         right: '5%',
+                                        fontWeight: 'bold',
+                                        color: 'white'
                                     }}
-                                    >≈AI</div>
+                                    >=AI</div>
                                     </>
                                     : null }
                                 <div className='avatarlabel' data-theme={theme}

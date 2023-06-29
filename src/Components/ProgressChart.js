@@ -10,7 +10,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import "CSS/ProgressChart.css";
 import faker from 'faker';
 
 ChartJS.register(
@@ -18,20 +17,25 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Title,
+  // Title,
   Tooltip,
-  Legend
+
 );
 
 export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: 'top' as const,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Progress Line Chart',
+    },
+  },
+  scales: {
+    y: {
+      display: false, // Hide y-axis
     },
   },
 };
@@ -42,14 +46,21 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Weekly Progress',
+      label: '',
       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(8, 255, 13, 0.8)',
+      borderColor: 'rgba(8, 255, 13, 0.8)',
+      // backgroundColor: 'rgb(255, 99, 132)',
+      fill: false,
     },
   ],
 };
 
-export function App() {
-  return <Line options={options} data={data} />;
+function ProgressChart() {
+  return (
+    <>
+      <Line data={data} options={options} />
+    </>
+  );
 }
+
+export default ProgressChart;

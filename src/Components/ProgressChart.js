@@ -49,6 +49,7 @@ export const options = {
       grid: {
         color: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', '#000000', 'rgba(0, 0, 0, 0)'],
         drawTicks: false,
+        display: false, // Hide x-axis grid lines
     },
     border: {
       dash: [5, 5],

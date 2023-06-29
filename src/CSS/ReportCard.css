@@ -254,6 +254,7 @@ canvas {
     left: 61px;
     top: 335px;
     padding: 0;
+    overflow: visible;
 }
 
 .messagefromai-title {
@@ -269,6 +270,7 @@ canvas {
     text-align: left;
     padding: 0;
     margin-bottom: 8px;
+    overflow: visible;
 }
 .messagefromai-title[data-theme="dark"] {
     color: rgba(111, 111, 111, 1)#B1B1B1;

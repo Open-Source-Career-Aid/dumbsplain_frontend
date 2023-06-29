@@ -46,8 +46,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
         <div className={infoOverlay ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
             <div className='modal-content' data-theme={theme}
             style={{
-                overflowY: 'scroll',
-                overflowX: 'hidden',
+                overflow: 'hidden',
             }}
             >
                 <OverlayCurve theme={theme}

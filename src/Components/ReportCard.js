@@ -4,6 +4,7 @@ import '../CSS/ReportCard.css';
 import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
+import ProgressChart from './ProgressChart';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -17,6 +18,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // eslint-disable-next-line
   const [streakwindowwidth, setStreakwindowwidth] = useState('230');
   const [airesponse, setAiresponse] = useState('-');
+  const [weekorday, setWeekorday] = useState('View Day');
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -172,6 +174,20 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     setScoreModal(false);
   }
 
+  const handleWeeokorDayClick = (e) => {
+     switch (e.target.innerText) {
+      case 'View Week':
+        setWeekorday('View Day');
+        break;
+      case 'View Day':
+        setWeekorday('View Week');
+        break;
+      default:
+        setWeekorday('View Week');
+        break;
+    }
+  }
+
   return (
      <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
         <section ref={sectionRef}
@@ -195,9 +211,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           data-theme={theme}>
               <span className="closeOverlay reportcard" data-theme={theme} onClick={handleCloseOverlayClick}>&times;</span>
               <div className='reportcard-header' data-theme={theme}>
-                <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
-                <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle 1</span></div>
-                <div className='reportcard-header-weekday' data-theme={theme}>Day 2</div>
+                <div className='reportcard-header-left'>
+                  <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
+                  <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle 1</span></div>
+                  <div className='reportcard-header-weekday' data-theme={theme}>Day 2</div>
+                </div>
+                <div className='reportcard-toggle' data-theme={theme} onClick={handleWeeokorDayClick}>{weekorday}</div>
               </div>
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>
@@ -311,14 +330,18 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   <div className={updownornone} data-theme={theme}></div>
                   </section>
                 </div>
-                <div className='messagefromai' data-theme={theme}>
+                { weekorday === 'View Week' ? <div className='messagefromai' data-theme={theme}>
                   <div className='messagefromai-title' data-theme={theme}>MESSAGE FROM AI:</div>
                   <div className='messagefromai-textbox' data-theme={theme}>
                     <div className='messagefromai-text' data-theme={theme}>{airesponse}</div>
                     {/* eslint-disable-next-line */}
                     {/* <a href='#' className='messagefromai-link' data-theme={theme}>Link</a> */}
                   </div>
+                </div> : 
+                <div className='reportcard-chart'>
+                  <ProgressChart />
                 </div>
+                }
               </div>
             {/* <div className='buttoncontainer'
             style={{

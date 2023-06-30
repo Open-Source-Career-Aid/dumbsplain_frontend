@@ -25,6 +25,8 @@ function Dumbsplain( { theme , setTheme } ) {
     const [mcq, setMcq] = React.useState('mcq text');
     const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
     const [currentext, setCurrentext] = React.useState('explaination text');
+    // eslint-disable-next-line
+    const [bufferText, setBufferText] = React.useState('buffer text');
     const [quizme, setQuizme] = React.useState(false);
     const [explanationloaded, setExplanationloaded] = React.useState(false);
     // eslint-disable-next-line
@@ -409,7 +411,8 @@ function Dumbsplain( { theme , setTheme } ) {
             e.preventDefault();
             async function fetchAnswer() {
                 const answer = await submitAnswer(selectedoption);
-                pseudoGenerator(answer.message, setCurrentext, 0.1);
+                // pseudoGenerator(answer.message, setCurrentext, 0.1);
+                setBufferText(answer.message);
                 setCorrectoption(answer.correctoption);
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
@@ -425,20 +428,46 @@ function Dumbsplain( { theme , setTheme } ) {
         if (selectedoption === correctoption && responsesubmitted === true) {
 
             if (dumbnessLevel + 1 <= 5) {
+                // this code makes sure that the user gets the next question if they hit the correct option.
                 setDumbnessLevel(dumbnessLevel + 1);
                 setExplanationloaded(false);
+                setExplanationloading(false);
+                setExplanationrequested(false);
+                setMcqloaded(false);
+                setMcqloading(false);
+                setMcqrequested(false);
+                setResponsesubmitted(false);
+                setSelectedoption(1);
+                setCorrectoption(null);
+                setExplanationread(false);
             }
             else {
                 setGameended(true);
+                pseudoGenerator(bufferText, setCurrentext, 0.1);
             }
         
         }
         else if (selectedoption !== correctoption && responsesubmitted === true) {
             setGameended(true);
+            pseudoGenerator(bufferText, setCurrentext, 0.1);
+        }
+
+        if (correctoption === null && responsesubmitted === false && selectedoption === 1 && mcqloaded === false) {
+            setMcqrequested(true);
+            setMcqloading(true);
+            async function fetchQuestion() {
+                const mcq = await getQuestion();
+                pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
+                // setMcq(mcq.question);
+                setSpecial_id(mcq.special_id);
+            }
+            fetchQuestion();
+            // setMcqloading(false);
+            setMcqloaded(true);
         }
 
     // eslint-disable-next-line
-    }, [correctoption, responsesubmitted, selectedoption]);
+    }, [correctoption, responsesubmitted, selectedoption, mcqloaded]);
 
     const handleSteppedDumbsplain = (e) => {
         e.preventDefault();
@@ -699,12 +728,12 @@ function Dumbsplain( { theme , setTheme } ) {
                         </div>
                     </div> 
                     </div> : <>
-                    { responsesubmitted ? 
+                    {/* { responsesubmitted ? 
                     <div className='buttoncontainer'>
                         <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
                             <div className='dumbsplainbuttontext'>Dumbsplain</div>
                         </div>
-                    </div> : null}
+                    </div> : null} */}
                     </>
                     }
                     </>

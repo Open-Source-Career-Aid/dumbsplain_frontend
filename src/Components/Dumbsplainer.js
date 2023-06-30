@@ -4,10 +4,12 @@ import React , { useEffect, useRef } from 'react';
 // and returns an array of the question and the options
 function getQuestionAndOptions ({ text , theme }) {
 
+    let message = '';
     let question = '';
     let options = [];
     let option = '';
     let optioncount = 0;
+    let messageflag = false;
     let optionflag = false;
     let questionflag = false;
 
@@ -33,6 +35,17 @@ function getQuestionAndOptions ({ text , theme }) {
             optioncount++;
             i += 3;
         }
+        else if (text[i] === '<' && text[i + 1] === 'm' && text[i + 2] === '>') {
+            messageflag = true;
+            i += 2;
+        }
+        else if (text[i] === '<' && text[i + 1] === '/' && text[i + 2] === 'm' && text[i + 3] === '>') {
+            messageflag = false;
+            i += 3;
+        }
+        else if (messageflag === true) {
+            message += text[i];
+        }
         else if (questionflag === true) {
             question += text[i];
         }
@@ -43,6 +56,12 @@ function getQuestionAndOptions ({ text , theme }) {
 
     return (
         <>
+            {message === '' ? null : <p data-theme={theme} style={{
+                margin: '0',
+                paddingBottom: '0',
+            }}>
+                {message}
+            </p>}
             <div className='mcq-question' data-theme={theme}
             style={{
                 overflow: 'visible',

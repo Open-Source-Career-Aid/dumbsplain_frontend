@@ -83,7 +83,7 @@ function getQuestionAndOptions ({ text , theme }) {
                                 style={{
                                     overflow: 'visible',
                                 }}
-                                > {option} </li>
+                                >{option}</li>
                         )
                     })}
                 </ol>

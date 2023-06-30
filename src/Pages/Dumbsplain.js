@@ -449,7 +449,7 @@ function Dumbsplain( { theme , setTheme } ) {
             }
         
         }
-        else if (selectedoption !== correctoption && responsesubmitted === true) {
+        else if (selectedoption !== correctoption && responsesubmitted === true && mcqloaded === true) {
             setGameended(true);
             pseudoGenerator(bufferText, setCurrentext, 0.1);
         }

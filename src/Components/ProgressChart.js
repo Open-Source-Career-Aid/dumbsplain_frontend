@@ -56,7 +56,7 @@ export const options = {
     y: {
       display: false, // Hide y-axis
       suggestedMin: 0,
-      suggestedMax: 5,
+      suggestedMax: 7,
       grid: {
         drawBorder: false,
         drawOnChartArea: false,
@@ -66,7 +66,7 @@ export const options = {
       grid: {
         // color: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', '#000'],
         drawTicks: false,
-        // display: false, // Hide x-axis grid lines
+        display: false, // Hide x-axis grid lines
     },
     border: {
       dash: [5, 5],
@@ -82,7 +82,7 @@ export const data = {
   datasets: [
     {
       label: '',
-      data: labels.map(() => faker.datatype.number({ min: 1, max: 5 })),
+      data: labels.map(() => faker.datatype.number({ min: 1.0, max: 5.0 })),
       borderColor: 'rgba(50, 188, 163, 1)',
       // backgroundColor: 'rgb(255, 99, 132)',
       fill: false,
@@ -105,14 +105,23 @@ function ProgressChart() {
             const lastIndex = dataset.data.length - 1;
             const x = xScale.getPixelForValue(lastIndex);
             const height = yScale.getPixelForValue(dataset.data[lastIndex]) - yScale.getPixelForValue(dataset.data[lastIndex]);
-    
+            // score for Day 7 is the last datapoint
+            const y = dataset.data[lastIndex];
             ctx.save();
             ctx.beginPath();
             ctx.setLineDash(linePlugin.dash);
             ctx.lineWidth = linePlugin.width;
             ctx.strokeStyle = linePlugin.color;
+            // draw score text at the contact point of the first datapoint use the y value of the first dataset
+            ctx.font = 'bold .5em Arial';
+            // add margin to the left of the text
+            // ctx.textBaseline = 'bottom';
+            ctx.fillStyle = 'red';
+            ctx.textAlign = 'left';
+            // text is placed on top of the contact point and offset it top of contact point by 20px
+            ctx.fillText(parseFloat(y), x, yScale.getPixelForValue(dataset.data[lastIndex]) + height - 50);
             // move line to the contact point of the first datapoint
-            ctx.moveTo(x,yScale.getPixelForValue(dataset.data[lastIndex]) + height );
+            ctx.moveTo(x,yScale.getPixelForValue(dataset.data[lastIndex]) + height);
             // ctx.moveTo(x, yScale.top - );
             ctx.lineTo(x, yScale.bottom);
             ctx.stroke();

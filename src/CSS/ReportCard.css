@@ -51,6 +51,8 @@ canvas {
     text-align: center;
     color: #4C7BFE;
     padding: 0;
+    overflow: visible;
+    white-space: nowrap;
 }
 
 .reportcard-header-weekday {
@@ -68,6 +70,8 @@ canvas {
     padding: 0;
     margin-left: 10px;
     padding-left: 10px;
+    overflow: visible;
+    white-space: nowrap;
 }
 
 .weekdayspan {

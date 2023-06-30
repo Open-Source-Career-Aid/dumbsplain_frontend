@@ -85,6 +85,8 @@ canvas {
     color: #D65757;
     padding: 0;
     margin-right: 10px;
+    overflow: visible;
+    white-space: nowrap;
 }
 
 .reportcard-toggle {

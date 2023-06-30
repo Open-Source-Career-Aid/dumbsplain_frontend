@@ -27,6 +27,23 @@ export const options = {
   },
   responsive: true,
   plugins: {
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const label = context.dataset.label || '';
+              const dataPoint = context.parsed.y;
+              return `${label}: ${dataPoint}`;
+            },
+          },
+        },
+        verticalLine: {
+          display: true,
+          color: 'red',
+          dash: [5, 5],
+          width: 2,
+          xValue:'Day 7',
+        },
+
     legend: {
       position: 'top',
     },
@@ -47,7 +64,7 @@ export const options = {
     },
     x: {
       grid: {
-        color: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', '#000000', 'rgba(0, 0, 0, 0)'],
+        // color: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', '#000'],
         drawTicks: false,
         // display: false, // Hide x-axis grid lines
     },
@@ -73,7 +90,41 @@ export const data = {
   ],
 };
 
+
+
 function ProgressChart() {
+    const customPlugin = {
+        id: 'verticalLine',
+        afterDatasetsDraw: (chart) => {
+          const linePlugin = chart.options.plugins.verticalLine;
+          if (linePlugin.display) {
+            const ctx = chart.ctx;
+            const xScale = chart.scales['x'];
+            const yScale = chart.scales['y'];
+            const dataset = chart.data.datasets[0];
+            const lastIndex = dataset.data.length - 1;
+            const x = xScale.getPixelForValue(lastIndex);
+            const height = yScale.getPixelForValue(dataset.data[lastIndex]) - yScale.getPixelForValue(dataset.data[lastIndex]);
+    
+            ctx.save();
+            ctx.beginPath();
+            ctx.setLineDash(linePlugin.dash);
+            ctx.lineWidth = linePlugin.width;
+            ctx.strokeStyle = linePlugin.color;
+            // move line to the contact point of the first datapoint
+            ctx.moveTo(x,yScale.getPixelForValue(dataset.data[lastIndex]) + height );
+            // ctx.moveTo(x, yScale.top - );
+            ctx.lineTo(x, yScale.bottom);
+            ctx.stroke();
+            ctx.restore();
+          }
+        },
+      };
+    
+      React.useEffect(() => {
+        ChartJS.register(customPlugin);
+      }, []);
+      
   return (
     <div style={{width: '100%', height: '100%'}}>
       <Line data={data} options={options} />

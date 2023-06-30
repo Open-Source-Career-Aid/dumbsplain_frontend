@@ -19,6 +19,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [streakwindowwidth, setStreakwindowwidth] = useState('230');
   const [airesponse, setAiresponse] = useState('-');
   const [weekorday, setWeekorday] = useState('View Day');
+  const [listofvalues, setListofvalues] = useState([]);
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -75,6 +76,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
             setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
+            setListofvalues(JSON.parse(score.weeklylist));
             pseudoGenerator(score.airesponse, setAiresponse, 0.1);
             // setAiresponse(score.airesponse);
         }
@@ -339,7 +341,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   </div>
                 </div> : 
                 <div className='reportcard-chart'>
-                  <ProgressChart />
+                  <ProgressChart
+                  linecolor={bordercolor}
+                  listofvalues={listofvalues}
+                  />
                 </div>
                 }
               </div>

@@ -113,13 +113,13 @@ function ProgressChart() {
             ctx.lineWidth = linePlugin.width;
             ctx.strokeStyle = linePlugin.color;
             // draw score text at the contact point of the first datapoint use the y value of the first dataset
-            ctx.font = 'bold .7em Arial';
+            ctx.font = 'bold .5em Arial';
             // add margin to the left of the text
             // ctx.textBaseline = 'bottom';
             ctx.fillStyle = 'red';
             ctx.textAlign = 'left';
             // text is placed on top of the contact point and offset it top of contact point by 20px
-            ctx.fillText(parseFloat(y), x, yScale.getPixelForValue(dataset.data[lastIndex]) + height - 50);
+            ctx.fillText(parseFloat(y), x, yScale.getPixelForValue(dataset.data[lastIndex]) + height - 20);
             // move line to the contact point of the first datapoint
             ctx.moveTo(x,yScale.getPixelForValue(dataset.data[lastIndex]) + height);
             // ctx.moveTo(x, yScale.top - );

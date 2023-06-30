@@ -429,8 +429,6 @@ function Dumbsplain( { theme , setTheme } ) {
 
         if (selectedoption === correctoption && responsesubmitted === true) {
 
-            setCurrentext("");
-
             if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.
                 setDumbnessLevel(dumbnessLevel + 1);

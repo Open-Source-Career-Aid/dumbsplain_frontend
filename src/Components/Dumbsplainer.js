@@ -118,10 +118,11 @@ function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , top
                 </div>
                 <div className='textarea'
                 ref={textareaRef}>
-                    { quizme && !responsesubmitted ? getQuestionAndOptions({ text , theme }) :
-                    <p data-theme={theme}>
-                        {text}
-                    </p>}
+                    {/* { quizme && !responsesubmitted ? getQuestionAndOptions({ text , theme }) : null } */}
+                    {/* <p data-theme={theme}>
+                         {text}
+                    </p> */}
+                    {getQuestionAndOptions({ text , theme })}
                 </div>
             </div>
         </>

@@ -113,7 +113,7 @@ function ProgressChart() {
             ctx.lineWidth = linePlugin.width;
             ctx.strokeStyle = linePlugin.color;
             // draw score text at the contact point of the first datapoint use the y value of the first dataset
-            ctx.font = 'bold .5em Arial';
+            ctx.font = 'bold .7em Arial';
             // add margin to the left of the text
             // ctx.textBaseline = 'bottom';
             ctx.fillStyle = 'red';

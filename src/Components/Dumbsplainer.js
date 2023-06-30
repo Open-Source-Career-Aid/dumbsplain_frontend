@@ -113,6 +113,7 @@ function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , top
                         color: 'inherit',
                     }}
                     target='_blank'
+                    rel="noreferrer"
                     >{topic}</a></span>
                 </div>
                 <div className='textarea'

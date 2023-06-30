@@ -117,7 +117,7 @@ function ProgressChart() {
             // add margin to the left of the text
             // ctx.textBaseline = 'bottom';
             ctx.fillStyle = 'red';
-            ctx.textAlign = 'left';
+            ctx.textAlign = 'center';
             // text is placed on top of the contact point and offset it top of contact point by 20px
             ctx.fillText(parseFloat(y), x, yScale.getPixelForValue(dataset.data[lastIndex]) + height - 20);
             // move line to the contact point of the first datapoint

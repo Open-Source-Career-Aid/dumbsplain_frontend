@@ -92,7 +92,7 @@ function getQuestionAndOptions ({ text , theme }) {
     )
 }
 
-function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted }) {
+function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , topicurl }) {
 
     const textareaRef = useRef(null);
 
@@ -106,7 +106,14 @@ function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted }) {
             <div className='explanationcontainer'>
                 <div className='topicbar'>
                     <span className='totd' data-theme={theme}>TOPIC OF THE DAY:</span>
-                    <span className='topic' data-theme={theme}> {topic} </span>
+                    <span className='topic' data-theme={theme}><a href={topicurl} style={{
+                        textDecoration: 'none',
+                        padding: '0',
+                        fontSize: '1em',
+                        color: 'inherit',
+                    }}
+                    target='_blank'
+                    >{topic}</a></span>
                 </div>
                 <div className='textarea'
                 ref={textareaRef}>

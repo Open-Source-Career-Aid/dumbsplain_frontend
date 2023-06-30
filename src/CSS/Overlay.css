@@ -118,6 +118,10 @@
   margin-top: 100px;
 }
 
+.modal-content ol > div {
+  margin-bottom: 20px;
+}
+
 ul {
     margin: 0;
     padding: 0;
@@ -213,7 +217,7 @@ p.streak{
   width: 100%;
   height: 100%;
   padding-top: 0;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   padding-right: 0;
 }
 

@@ -39,6 +39,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [scoreModal, setScoreModal] = React.useState(false);
     const [infoOverlay, setInfoOverlay ] = React.useState(false);
     const [topic, setTopic] = React.useState(null);
+    const [topicurl, setTopicurl] = React.useState(null);
     const [special_id, setSpecial_id] = React.useState(0);
     const [waitfortomorrow, setWaitfortomorrow] = React.useState(false);
     const [waitingtime, setWaitingtime] = React.useState(0);
@@ -101,6 +102,7 @@ function Dumbsplain( { theme , setTheme } ) {
         async function fetchTopic() {
             const topic = await getTopic();
             setTopic(topic.topic);
+            setTopicurl(topic.url);
             setSpecial_id(topic.special_id);
             setNewuser(topic.newuser);
             setDumbnessLevel(topic.dumblevel);
@@ -584,6 +586,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         quizme={quizme}
                         theme={theme}
                         topic={topic}
+                        topicurl={topicurl}
                         responsesubmitted={responsesubmitted}
                         />
                     </div>

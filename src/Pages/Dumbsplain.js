@@ -426,7 +426,7 @@ function Dumbsplain( { theme , setTheme } ) {
     }
 
     useEffect(() => {
-
+        
         if (selectedoption === correctoption && responsesubmitted === true) {
 
             if (dumbnessLevel + 1 <= 5) {

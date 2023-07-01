@@ -9,13 +9,14 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
     const [widthofcarouselelement, setWidthofcarouselelement] = useState(0);
     const [widthofcarouselwindow, setWidthofcarouselwindow] = useState(0);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (selectedoption === 1 && correctoption === null) {
-            setCarouseldumbnessLevel(1);
-        }
+        // if (selectedoption === 1 && correctoption === null) {
+        //     console.log("test 2");
+        //     setCarouseldumbnessLevel(1);
+        // }
 
-    }, [correctoption, selectedoption]);
+    // }, [correctoption, selectedoption]);
 
     useEffect(() => {
 
@@ -92,8 +93,9 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
     const handleDumbclick = (e) => {
         if (mcqrequested) {
             e.preventDefault();
-            setSelectedoption(e.currentTarget.getAttribute('value'));
-            setCarouseldumbnessLevel(e.currentTarget.getAttribute('value'));
+            const integervalue = parseInt(e.currentTarget.getAttribute('value'));
+            setSelectedoption(integervalue);
+            setCarouseldumbnessLevel(integervalue);
             }
     }
 

@@ -442,3 +442,9 @@ canvas {
     }
 
 }
+
+@media only screen and (max-width: 420px) and (min-width: 300px) {
+    .reportcard-section-main {
+        overflow: visible;
+    }
+}

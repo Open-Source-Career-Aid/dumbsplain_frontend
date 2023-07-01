@@ -30,11 +30,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         setCardscale(temp);
       } 
       else if (window.innerWidth < 420 && window.innerWidth > 300) {
-        let temp = 1; // tolerance
+        let temp = (window.innerWidth - 20) / 420; // tolerance
         setCardscale(temp);
       }
       else if (window.innerWidth < 300) {
-        let temp = 1; // tolerance
+        let temp = 0.7; // tolerance
         setCardscale(temp);
       }
       else {

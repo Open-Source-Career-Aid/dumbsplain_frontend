@@ -11,7 +11,9 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
 
     useEffect(() => {
 
-        console.log("look for this answer options:", correctoption, selectedoption)
+        if (selectedoption === 1 && correctoption === null) {
+            setCarouseldumbnessLevel(1);
+        }
 
     }, [correctoption, selectedoption]);
 

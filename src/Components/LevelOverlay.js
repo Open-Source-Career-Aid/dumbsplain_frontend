@@ -5,7 +5,7 @@ import OverlayCurve from '../SVGasComponents/overlayCurve';
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const level = [
         ["Commence your journey from the bottom", ["AI's intelligence is calibrated to the top. See how close you can get to it!"]],
-        ["Answer right away or take a hint for 0.5 points", ["1 point -> getting it right as Just Plain Dumb","5 points -> getting it right as Pretentious Professor, End of play -> getting it wrong"]],
+        ["Answer right away or take a hint for 0.5 points", ["1 point -> getting it right as Just Plain Dumb","5 points -> getting it right as Sentient Savant", "End of play -> getting it wrong"]],
         ["Reach for the highest Dumbness Quotient (DQ)", ["DQ is your average score this week and resets on Monday"]]];
     
     const leveltext = level.map((item, index) => {

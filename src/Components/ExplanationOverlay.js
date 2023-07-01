@@ -5,7 +5,7 @@ import pseudoGenerator from '../Functions/pseudoGenerator';
 
 export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme }) {
 
-    const [timeremaining, setTimeremaining] = useState(3000);
+    const [timeremaining, setTimeremaining] = useState(10);
     const [explanation, setExplanation] = useState("");
     // eslint-disable-next-line
     const [explanationloading, setExplanationloading] = useState(true);
@@ -19,6 +19,11 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
         if (explanationrequested) {
             fetchExplanation();
         }
+        else {
+            setTimeremaining(10);
+            setExplanation("");
+        }
+
     }, [explanationrequested, dumbnessLevel]);
 
     useEffect(() => {

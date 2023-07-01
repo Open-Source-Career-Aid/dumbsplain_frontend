@@ -76,7 +76,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
             setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
-            setListofvalues(JSON.parse(score.weeklylist));
+            // round the list values to 1 decimal place
+            let temp = JSON.parse(score.weeklylist);
+            for (let i = 0; i < temp.length; i++) {
+                temp[i] = Math.floor(temp[i] * 10) / 10;
+            }
+            setListofvalues(temp);
             pseudoGenerator(score.airesponse, setAiresponse, 0.1);
             // setAiresponse(score.airesponse);
         }

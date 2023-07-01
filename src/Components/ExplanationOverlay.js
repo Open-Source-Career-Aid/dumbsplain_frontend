@@ -56,8 +56,8 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
 
     return (
         <>
-            <div className={ explanationrequested ? "modal-overlay" : "modal-overlay-off"}>
-                <main className="explanation-content" onClick={handleScoreOverlayClick} data-theme={theme}>
+            <div className={ explanationrequested ? "modal-overlay" : "modal-overlay-off"} onClick={handleScoreOverlayClick}>
+                <main className="explanation-content" data-theme={theme}>
                     <div className="explanation-content-header"
                     style={{
                         display: "flex",

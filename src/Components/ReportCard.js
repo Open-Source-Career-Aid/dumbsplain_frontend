@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
+import Switch from "react-switch";
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -181,8 +182,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     setScoreModal(false);
   }
 
-  const handleWeeokorDayClick = (e) => {
-     switch (e.target.innerText) {
+  const handleWeeokorDayClick = () => {
+     switch (weekorday) {
       case 'View Week':
         setWeekorday('View Day');
         break;
@@ -223,7 +224,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle 1</span></div>
                   <div className='reportcard-header-weekday' data-theme={theme}>Day 2</div>
                 </div>
-                <div className='reportcard-toggle' data-theme={theme} onClick={handleWeeokorDayClick}>{weekorday}</div>
+                <div className='reportcard-toggle' data-theme={theme}>
+                  <Switch onChange={handleWeeokorDayClick} checked={weekorday==='View Day'}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  />
+                </div>
               </div>
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>

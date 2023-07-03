@@ -1,3 +1,11 @@
+.react-switch-handle {
+    padding: 0;
+}
+
+.react-switch-bg {
+    padding: 0;
+}
+
 .closeOverlay.reportcard {
     color: black;
 }
@@ -92,13 +100,23 @@ canvas {
     white-space: nowrap;
 }
 
+.reportcard-toggle > div {
+    padding: 0;
+}
+
 .reportcard-toggle {
-    font-size: 12px;
     padding: 0;
     white-space: nowrap;
     overflow: visible;
     color: #B1B1B1;
     font-style: italic;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+    overflow: visible;
+    scale: 0.8;
 }
 .reportcard-toggle:hover {
     text-decoration: underline;
@@ -376,6 +394,7 @@ canvas {
     .reportcard-toggle {
         white-space: wrap;
         text-align: center;
+        scale: 0.5;
     }
 
     .reportcard-header-title {

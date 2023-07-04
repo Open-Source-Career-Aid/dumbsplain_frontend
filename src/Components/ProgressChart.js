@@ -59,7 +59,7 @@ function ProgressChart({ linecolor , listofvalues }) {
       y: {
         display: false, // Hide y-axis
         suggestedMin: -1,
-        suggestedMax: 5,
+        suggestedMax: 6,
         grid: {
           drawBorder: false,
           drawOnChartArea: false,
@@ -108,7 +108,7 @@ function ProgressChart({ linecolor , listofvalues }) {
           ctx.lineWidth = linePlugin.width;
           ctx.strokeStyle = linePlugin.color;
           // draw score text at the contact point of the first datapoint use the y value of the first dataset
-          ctx.font = 'bold .5em Arial';
+          ctx.font = 'bold .45em Arial';
           // add margin to the left of the text
           // ctx.textBaseline = 'bottom';
           ctx.fillStyle = `${linecolor}`;

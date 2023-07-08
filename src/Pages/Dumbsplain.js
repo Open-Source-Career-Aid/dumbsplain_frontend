@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect } from "react";
 import '../CSS/Dumbsplain.css';
-// import Header from '../Components/Header';
 import Dumbsplainer from '../Components/Dumbsplainer';
 import DumbLevel from '../Components/DumbLevel';
 import AnswerOptions from '../Components/AnswerOptions';
@@ -17,6 +16,7 @@ import submitAnswer from '../Functions/submitAnswer';
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import { ReactSVG } from 'react-svg';
 import ExplanationOverlay from '../Components/ExplanationOverlay';
+import Header from '../Components/Header';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -552,6 +552,9 @@ function Dumbsplain( { theme , setTheme } ) {
             >
                 <div className='navbar'>
                     <div className='dumbsplainlogo'></div>
+                    <Header
+                    theme={theme}
+                    />
                     <div className='utilitybuttons'>
                         { theme==='light' ?
                         // <svg className='lightmode' onClick={handleTheme}></svg>
@@ -637,6 +640,7 @@ function Dumbsplain( { theme , setTheme } ) {
                             theme={theme}
                             correctoption={correctoption}
                             newandupdatedApp={newandupdatedApp}
+                            gameended={gameended}
                             />
                         </div> : null}
                         </>

@@ -232,7 +232,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   <Switch onChange={handleWeeokorDayClick} checked={weekorday==='View Day'}
                   uncheckedIcon={false}
                   checkedIcon={false}
-                  onColor={'888'}
+                  onColor={'#888'}
                   />
                 </div>
               </div>

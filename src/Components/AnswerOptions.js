@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 
-function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setSpecial_id , score , setScore , theme , correctoption , setCorrectoption }) {
+function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setSpecial_id , score , setScore , theme , correctoption , setCorrectoption , gameended }) {
 
     const [carouseldumbnessLevel, setCarouseldumbnessLevel] = useState(1);
     const [locationofelements, setLocationofelements] = useState(0);
@@ -26,8 +26,12 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
         setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
         setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
 
+        if (gameended) {
+            const initialloc = 0;
+            setLocationofelements(initialloc);
+        }
         // eslint-disable-next-line
-        if (carouseldumbnessLevel == 1) {
+        else if (carouseldumbnessLevel == 1) {
             const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth/2;
             setLocationofelements(initialloc);
         // eslint-disable-next-line
@@ -51,7 +55,7 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
             setLocationofelements(initialloc);
         }
 
-    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);
+    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel, gameended]);
 
     const handleLeftSwipe = () => {
         if (!mcqrequested) {
@@ -181,7 +185,11 @@ function AnswerOptions ({ selectedoption, setSelectedoption, mcqrequested , setS
                                     {
                                         // eslint-disable-next-line
                                         correct: selectedoption == dumbnesslevel && correctoption != null && correctoption == dumbnesslevel
-                                    })}
+                                    },
+                                    {
+                                        // eslint-disable-next-line
+                                        hidden: selectedoption != dumbnesslevel && correctoption != null && correctoption != dumbnesslevel
+                                })}
                                 onClick={handleDumbclick} value={dumbnesslevel}>
                                     <div className="dumbnessleveltext" data-theme={theme}
                                     style={{

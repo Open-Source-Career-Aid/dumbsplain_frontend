@@ -5,6 +5,10 @@
     --dark-mode-text: #F6F6F6;
 }
 
+#crx-root {
+    display: none;
+}
+
 .dumbsplainbuttontext.takeahint[data-theme='light'] {
     color: black;
 }

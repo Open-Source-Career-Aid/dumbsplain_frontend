@@ -21,6 +21,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [airesponse, setAiresponse] = useState('-');
   const [weekorday, setWeekorday] = useState('View Day');
   const [listofvalues, setListofvalues] = useState([]);
+  const [cycle, setCycle] = useState(0);
+  const [day, setDay] = useState(0);
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -71,12 +73,14 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
         async function fetchScore() {
             const score = await getScore();
+            setCycle(score.cycle);
             setUserdq(score.dq);
-            setUserstreak(score.streak);
+            setUserstreak(score.scoretoday);
             setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
             setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
+            setDay(JSON.parse(score.weeklylist).length);
             // round the list values to 1 decimal place
             let temp = JSON.parse(score.weeklylist);
             for (let i = 0; i < temp.length; i++) {
@@ -221,13 +225,14 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               <div className='reportcard-header' data-theme={theme}>
                 <div className='reportcard-header-left'>
                   <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
-                  <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle 1</span></div>
-                  <div className='reportcard-header-weekday' data-theme={theme}>Day 2</div>
+                  <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle {cycle}</span></div>
+                  <div className='reportcard-header-weekday' data-theme={theme}>Day {day}</div>
                 </div>
                 <div className='reportcard-toggle' data-theme={theme}>
                   <Switch onChange={handleWeeokorDayClick} checked={weekorday==='View Day'}
                   uncheckedIcon={false}
                   checkedIcon={false}
+                  onColor={'888'}
                   />
                 </div>
               </div>
@@ -313,7 +318,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         style={{
                           width: '72px',
                         }}
-                        data-theme={theme}>Current Streak</div>
+                        data-theme={theme}>Today's Score</div>
                         <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
                       </div>
                       <div className='reportcard-streak'

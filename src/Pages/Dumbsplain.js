@@ -57,6 +57,8 @@ function Dumbsplain( { theme , setTheme } ) {
     const [newandupdatedApp, setNewandupdatedApp] = React.useState(true);
     const [gameended, setGameended] = React.useState(false);
     const [explanationread, setExplanationread] = React.useState(false);
+    // eslint-disable-next-line
+    const [typing , setTyping] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -445,13 +447,19 @@ function Dumbsplain( { theme , setTheme } ) {
             }
             else {
                 setGameended(true);
-                pseudoGenerator(bufferText, setCurrentext, 0.1);
+                pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+                setTimeout(() => {
+                    setScoreModal(true);
+                }, 3000);
             }
         
         }
         else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
             setGameended(true);
-            pseudoGenerator(bufferText, setCurrentext, 0.1);
+            pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+            setTimeout(() => {
+                setScoreModal(true);
+            }, 3000);
         }
 
         if (correctoption === null && responsesubmitted === false && selectedoption === 1 && mcqloaded === false) {

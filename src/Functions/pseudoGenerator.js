@@ -5,6 +5,9 @@ export default async function pseudoGenerator(text, setStateText, TIME, setLoadi
     if (!setLoading) {
         setLoading = () => {}
     }
+    else {
+        setLoading(true)
+    }
 
     let typetext = ''
 

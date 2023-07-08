@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import classNames from 'classnames';
 import { useSwipeable } from "react-swipeable";
+import { avatarlabels } from "../config";
 
 function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , waitfortomorrow , theme , newandupdatedApp }) {
 
@@ -105,7 +106,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     }
 
-    const avatarlabels = ['Just Plain Dumb', 'Not Too Bright', 'Smartass', 'Pretentious Professor', 'Sentient Savant']
+    // const avatarlabels = ['Just Plain Dumb', 'Not Too Bright', 'Smartass', 'Pretentious Professor', 'Sentient Savant']
 
     const dumbnesslevels = classNames('dumbnesslevels', {
         greyed: waitfortomorrow

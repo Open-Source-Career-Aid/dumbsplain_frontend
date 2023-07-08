@@ -352,7 +352,7 @@ canvas {
 .reportcard-chart {
     display: flex;
     flex-direction: column;
-    justify-items: start;
+    justify-items: center;
     position: absolute;
     width: 553px;
     height: 128px;

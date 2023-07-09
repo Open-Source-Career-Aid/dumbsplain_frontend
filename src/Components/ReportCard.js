@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
-import Switch from "react-switch";
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -226,15 +225,15 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 <div className='reportcard-header-left'>
                   <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
                   <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle {cycle}</span></div>
-                  <div className='reportcard-header-weekday' data-theme={theme}>Day {day}</div>
+                  { weekorday==='View Week' ? <div className='reportcard-header-weekday' data-theme={theme}>Day {day}</div> : null}
                 </div>
-                <div className='reportcard-toggle' data-theme={theme}>
+                {/* <div className='reportcard-toggle' data-theme={theme}>
                   <Switch onChange={handleWeeokorDayClick} checked={weekorday==='View Day'}
                   uncheckedIcon={false}
                   checkedIcon={false}
                   onColor={'#888'}
                   />
-                </div>
+                </div> */}
               </div>
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>
@@ -326,12 +325,15 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         paddingLeft: '20px',
                       }}
                       data-theme={theme}>
-                        <div className='reportcard-streak-title'
+                        {/* <div className='reportcard-streak-title'
                         style={{
                           width: '59px',
                         }}
                         data-theme={theme}>Max Streak</div>
-                        <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div>
+                        <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div> */}
+                        <div className={ weekorday==='View Week' ? 'weekicon' : 'dayicon' }
+                        onClick={handleWeeokorDayClick}
+                        ></div>
                       </div>
                     </div>
                   </section>

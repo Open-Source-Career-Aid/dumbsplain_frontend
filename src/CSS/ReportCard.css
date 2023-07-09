@@ -28,6 +28,26 @@ canvas {
     }
 }
 
+.weekicon {
+    background-image: url(../../public/week.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+.dayicon {
+    background-image: url(../../public/day.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+}
+
 .reportcard-header {
     display: flex;
     flex-direction: row;
@@ -368,9 +388,9 @@ canvas {
         flex-direction: row;
         /* flex-wrap: wrap; */
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         top: 37px;
-        left: 100px;
+        left: 75px;
         width: 250px;
     }
 

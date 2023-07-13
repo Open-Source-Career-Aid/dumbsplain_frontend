@@ -97,14 +97,21 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
                                 style={{
                                     padding: '0',
                                     fontSize: '1em',
-                                    left: '10px',
+                                    left: '0',
                                     marginRight: '10px',
+                                    overflow: 'visible',
+                                    height: '100%',
+                                    display: 'flex',
+                                    alignItems: 'flex-start',
+                                    justifyContent: 'flex-start',
+                                    flexDirection: 'column',
                                 }}
                                 data-theme={theme}
                                 >
                                     {index + 1}{'.'}
                                 </span>
-                                    {option}</li>
+                                    {option.trimStart()}
+                                </li>
                         )
                     })}
                 </ol>

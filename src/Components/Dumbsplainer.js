@@ -2,7 +2,7 @@ import React , { useEffect, useRef } from 'react';
 
 // function that takes in a text finds the question surounded by <q> and </q> and 5 options surounded by <o> and </o>
 // and returns an array of the question and the options
-function getQuestionAndOptions ({ text , theme }) {
+function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedoption }) {
 
     let message = '';
     let question = '';
@@ -54,6 +54,13 @@ function getQuestionAndOptions ({ text , theme }) {
         }
     }
 
+    const handleMcqoptionClick = (e) => {
+        const option = e.target;
+        const optionindex = Array.from(option.parentElement.children).indexOf(option);
+        setSelectedoption(optionindex + 1);
+        console.log(optionindex + 1);
+    }
+
     return (
         <>
             {message === '' ? null : <p data-theme={theme} style={{
@@ -79,11 +86,25 @@ function getQuestionAndOptions ({ text , theme }) {
                 <ol>
                     {options.map((option, index) => {
                         return (
-                                <li className='mcq-option' key={index} data-theme={theme}
+                                <li className={
+                                    'mcq-option'
+                                    + (selectedoption === index + 1 ? ' selected' : '')
+                                    } key={index} data-theme={theme} onClick={handleMcqoptionClick}
                                 style={{
                                     overflow: 'visible',
+                                }}>
+                                <span
+                                style={{
+                                    padding: '0',
+                                    fontSize: '1em',
+                                    left: '10px',
+                                    marginRight: '10px',
                                 }}
-                                >{option}</li>
+                                data-theme={theme}
+                                >
+                                    {index + 1}{'.'}
+                                </span>
+                                    {option}</li>
                         )
                     })}
                 </ol>
@@ -92,7 +113,7 @@ function getQuestionAndOptions ({ text , theme }) {
     )
 }
 
-function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , topicurl }) {
+function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , topicurl , selectedoption , setSelectedoption }) {
 
     const textareaRef = useRef(null);
 
@@ -122,7 +143,7 @@ function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , top
                     {/* <p data-theme={theme}>
                          {text}
                     </p> */}
-                    {getQuestionAndOptions({ text , theme })}
+                    {getQuestionAndOptions({ text , theme , selectedoption , setSelectedoption })}
                 </div>
             </div>
         </>

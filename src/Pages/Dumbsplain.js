@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import '../CSS/Dumbsplain.css';
 import Dumbsplainer from '../Components/Dumbsplainer';
 import DumbLevel from '../Components/DumbLevel';
-import AnswerOptions from '../Components/AnswerOptions';
 import PlayOverlay from '../Components/LevelOverlay';
 // import Acheivements from '../Components/ScoreModal';
 import ReportCard from '../Components/ReportCard';
@@ -43,6 +42,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [special_id, setSpecial_id] = React.useState(0);
     const [waitfortomorrow, setWaitfortomorrow] = React.useState(false);
     const [waitingtime, setWaitingtime] = React.useState(0);
+    // eslint-disable-next-line
     const [score, setScore] = React.useState(null);
     const [userdq, setUserdq] = React.useState(0);
     const [userstreak, setUserstreak] = React.useState(0);
@@ -456,6 +456,7 @@ function Dumbsplain( { theme , setTheme } ) {
         }
         else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
             setGameended(true);
+            setDumbnessLevel(prev => prev - 1);
             pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
             setTimeout(() => {
                 setScoreModal(true);
@@ -599,6 +600,8 @@ function Dumbsplain( { theme , setTheme } ) {
                         topic={topic}
                         topicurl={topicurl}
                         responsesubmitted={responsesubmitted}
+                        selectedoption={selectedoption}
+                        setSelectedoption={setSelectedoption}
                         />
                     </div>
                     </>
@@ -614,7 +617,6 @@ function Dumbsplain( { theme , setTheme } ) {
                 }}
                 >
                     <div className='optionscontainer'>
-                        { !quizme ? 
                         <div className='dumbnesslevelscontainer'>
                             <DumbLevel
                             dumbnessLevel={dumbnessLevel}
@@ -625,26 +627,6 @@ function Dumbsplain( { theme , setTheme } ) {
                             newandupdatedApp={newandupdatedApp}
                             />
                         </div>
-                        :
-                        <>
-                        { !mcqloading ? <div className='answeroptionscontainer'>
-                            <AnswerOptions
-                            selectedoption={selectedoption}
-                            setSelectedoption={setSelectedoption}
-                            mcqrequested={mcqrequested}
-                            mcqloading={mcqloading}
-                            mcqloaded={mcqloaded}
-                            setSpecial_id={setSpecial_id}
-                            score={score}
-                            setScore={setScore}
-                            theme={theme}
-                            correctoption={correctoption}
-                            newandupdatedApp={newandupdatedApp}
-                            gameended={gameended}
-                            />
-                        </div> : null}
-                        </>
-                        }
                     </div>
 
                     {/* { explanationloaded ?

@@ -356,6 +356,17 @@
     pointer-events: none;
 }
 
+.dumbnesslevel.blocked.passed {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.dumbnesslevel.blocked.passed .bgcontainer {
+    border: 2px solid #8CA8FF;
+    /* bg color greyscale */
+    background-color: rgba(76, 123, 254, 0.1);
+}
+
 .avatar1 {
     background-image: url('../../public/dumblevel1.png');
     background-repeat: no-repeat;
@@ -726,6 +737,17 @@
     pointer-events: none;
 }
 
+.carouseldumbnesslevel.blocked.passed {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.carouseldumbnesslevel.blocked.passed .bgcontainer {
+    border: 2px solid #8CA8FF;
+    /* bg color greyscale */
+    background-color: rgba(76, 123, 254, 0.1);
+}
+
 .carouseldumbnesslevel.hidden {
     display: none;
 }
@@ -757,9 +779,18 @@
     font-size: 0.6em;
     color: #454545;
     margin-top: 1%;
+    padding: 5px;
+    cursor: pointer;
 }
 .mcq-option[data-theme='dark'] {
     color: var(--dark-mode-text);
+}
+
+.mcq-option.selected {
+    background-color: #4C7BFE;
+    opacity: 1;
+    color: #ffffff;
+    border-radius: 10px;
 }
 
 .mcq-options ol {
@@ -775,7 +806,7 @@
 
   .mcq-options ol li {
     position: relative;
-    padding-left: 1.5em;
+    padding-left: 0.5em;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -783,25 +814,26 @@
     white-space: pre-wrap;
   }
 
-.mcq-options ol li::before {
+/* .mcq-options ol li::before {
     counter-increment: custom-counter;
     content: counter(custom-counter, decimal);
     position: absolute;
     left: 0;
     background-color: #F2F2F2;
     border-radius: 50%;
+    border-right: 1px solid white;
     width: 1.2em;
     height: 1.2em;
     line-height: 1.2em;
     text-align: center;
-    font-size: 0.6em;
-    padding: 4px;
-    color: #8CA8FF;
+    font-size: 1em;
+    padding: 2px;
+    color: white;
     top: 2px;
-  }
-  .mcq-options ol li[data-theme='dark']::before {
+  } */
+  /* .mcq-options ol li[data-theme='dark']::before {
     background-color: black;
-  }
+  } */
 
 /* for anything with min width 600px */
 @media screen and (min-width: 920px) {

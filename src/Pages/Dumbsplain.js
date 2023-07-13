@@ -444,7 +444,6 @@ function Dumbsplain( { theme , setTheme } ) {
                 setSelectedoption(1);
                 setCorrectoption(null);
                 setExplanationread(false);
-                setSelectedoption(null);
             }
             else {
                 setGameended(true);

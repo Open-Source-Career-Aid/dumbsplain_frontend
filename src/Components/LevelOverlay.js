@@ -17,9 +17,15 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
                 overflow: 'visible',
             }}
             >
-                <li className="level">
+                { index === 1 ? 
+                <>
+                    <li className="level">
+                        Answer right away or take a hint for <span style={{padding: '0', color: '#F59E6C', fontSize: 'inherit'}}>-0.5 points</span>
+                    </li>
+                </>
+                : <li className="level">
                     {item[0]}
-                </li>
+                </li> }
                 {item[1].map((item, index) => {
                     return (
                     <p key={index} className="leveltext" data-theme={theme} style={{'font-size': '0.4em'}}>{item}</p>

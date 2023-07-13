@@ -450,7 +450,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
                 setTimeout(() => {
                     setScoreModal(true);
-                }, 3000);
+                }, 8000);
             }
         
         }
@@ -460,7 +460,7 @@ function Dumbsplain( { theme , setTheme } ) {
             pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
             setTimeout(() => {
                 setScoreModal(true);
-            }, 3000);
+            }, 8000);
         }
 
         if (correctoption === null && responsesubmitted === false && selectedoption === 1 && mcqloaded === false) {

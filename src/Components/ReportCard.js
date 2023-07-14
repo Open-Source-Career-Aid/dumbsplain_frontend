@@ -25,22 +25,17 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [cycle, setCycle] = useState(0);
   const [day, setDay] = useState(0);
   const reportCardRef = useRef(null);
+  const [copied, setCopied] = useState(false);
 
-  const handleCopyToClipboard = () => {
+  const handleCopy = () => {
     htmlToImage.toBlob(reportCardRef.current)
-      .then(function (dataUrl) {
-        const img = new Image();
-        img.src = dataUrl;
-
-        navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': dataUrl })
-        ])
-          .then(() => {
-            console.log('Image copied to clipboard!');
-          })
-          .catch((error) => {
-            console.error('Failed to copy image:', error);
-          });
+      .then(function (blob) {
+        const item = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([item]);
+        setCopied(true);
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
       });
   };
 
@@ -402,7 +397,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     <div className='dumbsplainbuttontext'>Share</div>
                 </div>
               </div> */}
-              <button  onClick={handleCopyToClipboard}>Copy ReportCard </button>
+            <button onClick={handleCopy}>{copied ? 'Copied!' : 'Copy to Clipboard'}</button>
             </div>
           </section>
       </div>

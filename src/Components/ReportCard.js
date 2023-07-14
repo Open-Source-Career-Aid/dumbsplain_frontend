@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -22,6 +24,25 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [listofvalues, setListofvalues] = useState([]);
   const [cycle, setCycle] = useState(0);
   const [day, setDay] = useState(0);
+  const reportCardRef = useRef(null);
+
+  const handleCopyToClipboard = () => {
+    htmlToImage.toBlob(reportCardRef.current)
+      .then(function (dataUrl) {
+        const img = new Image();
+        img.src = dataUrl;
+
+        navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': dataUrl })
+        ])
+          .then(() => {
+            console.log('Image copied to clipboard!');
+          })
+          .catch((error) => {
+            console.error('Failed to copy image:', error);
+          });
+      });
+  };
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -200,189 +221,192 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   }
 
   return (
-     <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
-        <section ref={sectionRef}
-        className='reportcard-section-main'
-        style={
-          {
-            padding: '0',
-            margin: '0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }
-        }>
-          <div className='modal-content-inverted'
-          style={{
-            border: '5px solid',
-            borderColor: `${bordercolor}`,
-            scale: `${cardscale}`,
-          }}
-          ref={cardRef}
-          data-theme={theme}>
-              <span className="closeOverlay reportcard" data-theme={theme} onClick={handleCloseOverlayClick}>&times;</span>
-              <div className='reportcard-header' data-theme={theme}>
-                <div className='reportcard-header-left'>
-                  <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
-                  <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle {cycle}</span></div>
-                  { weekorday==='View Week' ? <div className='reportcard-header-weekday' data-theme={theme}>Day {day}</div> : null}
-                </div>
-                {/* <div className='reportcard-toggle' data-theme={theme}>
-                  <Switch onChange={handleWeeokorDayClick} checked={weekorday==='View Day'}
-                  uncheckedIcon={false}
-                  checkedIcon={false}
-                  onColor={'#888'}
-                  />
-                </div> */}
-              </div>
-              <div className='reportcard-body' data-theme={theme}>
-                <div className='reportcard-body-left' data-theme={theme}>
-                  <div className='reportcard-body-left-avatar' data-theme={theme}>
-                    <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'0', top: 'auto'}}></div>
+    <>
+      <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick} ref={reportCardRef}>
+          <section ref={sectionRef}
+          className='reportcard-section-main'
+          style={
+            {
+              padding: '0',
+              margin: '0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }
+          }>
+            <div className='modal-content-inverted'
+            style={{
+              border: '5px solid',
+              borderColor: `${bordercolor}`,
+              scale: `${cardscale}`,
+            }}
+            ref={cardRef}
+            data-theme={theme}>
+                <span className="closeOverlay reportcard" data-theme={theme} onClick={handleCloseOverlayClick}>&times;</span>
+                <div className='reportcard-header' data-theme={theme}>
+                  <div className='reportcard-header-left'>
+                    <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
+                    <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle {cycle}</span></div>
+                    { weekorday==='View Week' ? <div className='reportcard-header-weekday' data-theme={theme}>Day {day}</div> : null}
                   </div>
+                  {/* <div className='reportcard-toggle' data-theme={theme}>
+                    <Switch onChange={handleWeeokorDayClick} checked={weekorday==='View Day'}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    onColor={'#888'}
+                    />
+                  </div> */}
                 </div>
-                <div className='reportcard-body-right' data-theme={theme}
-                style={{
-                  position: 'absolute',
-                }}
-                >
-                  <section style={{
-                    padding: '0',
-                  }}>
-                    <div className='reportcard-body-right-row'
-                    style={{
-                      position: 'relative',
-                      justifyContent: 'space-between',
-                      overflow: 'hidden',
-                      padding: '0',
-                    }} data-theme={theme}>
-                    <section id='reference-section-for-width-1'
-                    ref={referenceRef}
-                    style={{
-                      position: 'relative',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      padding: '0',
-                      width: '100%',
-                      justifyContent: 'space-between',
-                    }}
-                    data-theme={theme}>
-                      <div id='reportcard-dq' data-theme={theme}>
-                        <div className='inner-content'
-                        style={{
-                          position: 'relative',
-                          fontSize: '1em',
-                          lineHeight: '1em',
-                          overflow: 'hidden',
-                          padding: '0',
-                          textAlign: 'left',
-                          textIndent: '-0.1em',
-                        }}
-                        data-theme={theme}>
-                          DQ
-                        </div>
-                      </div>
-                      <div id='reportcard-dumbnesslevel'
-                      // style={{
-                      //   marginLeft: '10px',
-                      // }}
-                      data-theme={theme}>
-                        <div className='inner-content'
-                        style={{
-                          position: 'relative',
-                          bottom: '0',
-                          fontSize: '0.8em',
-                          lineHeight: '0.8em',
-                          overflow: 'hidden',
-                          padding: '0'
-                        }}
-                        data-theme={theme}>
-                          {userdq}
-                        </div>
-                      </div>
-                      </section>
+                <div className='reportcard-body' data-theme={theme}>
+                  <div className='reportcard-body-left' data-theme={theme}>
+                    <div className='reportcard-body-left-avatar' data-theme={theme}>
+                      <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'0', top: 'auto'}}></div>
                     </div>
-                    <div className='reportcard-body-right-row'
-                    style={{
-                      position: 'relative',
-                      padding: '0',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}
-                    data-theme={theme}>
-                      <div className='reportcard-streak' data-theme={theme}>
-                        <div className='reportcard-streak-title'
-                        style={{
-                          width: '72px',
-                        }}
-                        data-theme={theme}>Today's Score</div>
-                        <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
-                      </div>
-                      <div className='reportcard-streak'
-                      style={{
-                        paddingLeft: '20px',
-                      }}
-                      data-theme={theme}>
-                        {/* <div className='reportcard-streak-title'
-                        style={{
-                          width: '59px',
-                        }}
-                        data-theme={theme}>Max Streak</div>
-                        <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div> */}
-                        <div className={ weekorday==='View Week' ? 'weekicon' : 'dayicon' }
-                        onClick={handleWeeokorDayClick}
-                        ></div>
-                      </div>
-                    </div>
-                  </section>
-                  <section
+                  </div>
+                  <div className='reportcard-body-right' data-theme={theme}
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    height: '208px',
-                    padding: '0',
+                    position: 'absolute',
                   }}
                   >
-                  <div className={updownornone} data-theme={theme}></div>
-                  </section>
-                </div>
-                { weekorday === 'View Week' ? <div className='messagefromai' data-theme={theme}>
-                  <div className='messagefromai-title' data-theme={theme}>MESSAGE FROM AI:</div>
-                  <div className='messagefromai-textbox' data-theme={theme}>
-                    <div className='messagefromai-text' data-theme={theme}>{airesponse}</div>
-                    {/* eslint-disable-next-line */}
-                    {/* <a href='#' className='messagefromai-link' data-theme={theme}>Link</a> */}
+                    <section style={{
+                      padding: '0',
+                    }}>
+                      <div className='reportcard-body-right-row'
+                      style={{
+                        position: 'relative',
+                        justifyContent: 'space-between',
+                        overflow: 'hidden',
+                        padding: '0',
+                      }} data-theme={theme}>
+                      <section id='reference-section-for-width-1'
+                      ref={referenceRef}
+                      style={{
+                        position: 'relative',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        padding: '0',
+                        width: '100%',
+                        justifyContent: 'space-between',
+                      }}
+                      data-theme={theme}>
+                        <div id='reportcard-dq' data-theme={theme}>
+                          <div className='inner-content'
+                          style={{
+                            position: 'relative',
+                            fontSize: '1em',
+                            lineHeight: '1em',
+                            overflow: 'hidden',
+                            padding: '0',
+                            textAlign: 'left',
+                            textIndent: '-0.1em',
+                          }}
+                          data-theme={theme}>
+                            DQ
+                          </div>
+                        </div>
+                        <div id='reportcard-dumbnesslevel'
+                        // style={{
+                        //   marginLeft: '10px',
+                        // }}
+                        data-theme={theme}>
+                          <div className='inner-content'
+                          style={{
+                            position: 'relative',
+                            bottom: '0',
+                            fontSize: '0.8em',
+                            lineHeight: '0.8em',
+                            overflow: 'hidden',
+                            padding: '0'
+                          }}
+                          data-theme={theme}>
+                            {userdq}
+                          </div>
+                        </div>
+                        </section>
+                      </div>
+                      <div className='reportcard-body-right-row'
+                      style={{
+                        position: 'relative',
+                        padding: '0',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}
+                      data-theme={theme}>
+                        <div className='reportcard-streak' data-theme={theme}>
+                          <div className='reportcard-streak-title'
+                          style={{
+                            width: '72px',
+                          }}
+                          data-theme={theme}>Today's Score</div>
+                          <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
+                        </div>
+                        <div className='reportcard-streak'
+                        style={{
+                          paddingLeft: '20px',
+                        }}
+                        data-theme={theme}>
+                          {/* <div className='reportcard-streak-title'
+                          style={{
+                            width: '59px',
+                          }}
+                          data-theme={theme}>Max Streak</div>
+                          <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div> */}
+                          <div className={ weekorday==='View Week' ? 'weekicon' : 'dayicon' }
+                          onClick={handleWeeokorDayClick}
+                          ></div>
+                        </div>
+                      </div>
+                    </section>
+                    <section
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                      height: '208px',
+                      padding: '0',
+                    }}
+                    >
+                    <div className={updownornone} data-theme={theme}></div>
+                    </section>
                   </div>
-                </div> : 
-                <div className='reportcard-chart'>
-                  <ProgressChart
-                  linecolor={bordercolor}
-                  listofvalues={listofvalues}
-                  />
+                  { weekorday === 'View Week' ? <div className='messagefromai' data-theme={theme}>
+                    <div className='messagefromai-title' data-theme={theme}>MESSAGE FROM AI:</div>
+                    <div className='messagefromai-textbox' data-theme={theme}>
+                      <div className='messagefromai-text' data-theme={theme}>{airesponse}</div>
+                      {/* eslint-disable-next-line */}
+                      {/* <a href='#' className='messagefromai-link' data-theme={theme}>Link</a> */}
+                    </div>
+                  </div> : 
+                  <div className='reportcard-chart'>
+                    <ProgressChart
+                    linecolor={bordercolor}
+                    listofvalues={listofvalues}
+                    />
+                  </div>
+                  }
                 </div>
-                }
-              </div>
-            {/* <div className='buttoncontainer'
-            style={{
-              position: 'absolute',
-              bottom: '0',
-              }}
-            >
-              <div className='dumbsplainbutton' onClick={handleShareClick}
+              {/* <div className='buttoncontainer'
               style={{
-                backgroundColor: '#8CA8FF',
-              }}
+                position: 'absolute',
+                bottom: '0',
+                }}
               >
-                  <div className='dumbsplainbuttontext'>Share</div>
-              </div>
-            </div> */}
-          </div>
-        </section>
-    </div>
+                <div className='dumbsplainbutton' onClick={handleShareClick}
+                style={{
+                  backgroundColor: '#8CA8FF',
+                }}
+                >
+                    <div className='dumbsplainbuttontext'>Share</div>
+                </div>
+              </div> */}
+              <button  onClick={handleCopyToClipboard}>Copy ReportCard </button>
+            </div>
+          </section>
+      </div>
+     </>
   );
 };
 

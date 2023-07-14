@@ -7,6 +7,7 @@ import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import FileSaver from 'file-saver';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -28,11 +29,19 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
+    if (reportCardRef.current === null) {
+      return
+    }
     htmlToImage.toBlob(reportCardRef.current)
       .then(function (blob) {
         const item = new ClipboardItem({ 'image/png': blob });
         navigator.clipboard.write([item]);
         setCopied(true);
+        if (window.saveAs) {
+          window.saveAs(blob, 'my-report.png');
+        } else {
+           FileSaver.saveAs(blob, 'my-report.png');
+       }
       })
       .catch(function (error) {
         console.error('Error:', error);

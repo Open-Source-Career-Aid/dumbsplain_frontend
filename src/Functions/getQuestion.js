@@ -15,6 +15,7 @@ export default async function getExplanation(dumbnessLevel) {
             level: dumbnessLevel,
         }),
     });
+    
     const data = await response.json();
 
     return data

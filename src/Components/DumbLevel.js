@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import classNames from 'classnames';
 import { avatarlabels } from "../config";
 
-function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , waitfortomorrow , theme , newandupdatedApp }) {
+function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , waitfortomorrow , theme , newandupdatedApp , newgame , levellist }) {
 
     const [carouseldumbnessLevel, setCarouseldumbnessLevel] = useState(0);
     const [locationofelements, setLocationofelements] = useState(0);
@@ -34,6 +34,15 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
         greyed: waitfortomorrow
       });
 
+    const handleDumbClick = (e) => {
+        // eslint-disable-next-line
+        if (newgame) {
+            const integervalue = parseInt(e.currentTarget.getAttribute('value'));
+            console.log(integervalue);
+            setDumbnessLevel(integervalue);
+        }
+    }
+
     return (
         <div className={dumbnesslevels}>
 
@@ -44,13 +53,16 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                     return (
                         <div
                         className={classNames('dumbnesslevel', {
+                            // skipped if dumbnesslevel not in levellist and  dumbnesslevel is less than the minimum level in levellist
+                            skipped: !levellist.includes(dumbnesslevel) && !newgame && dumbnesslevel < Math.min(...levellist),
                             // eslint-disable-next-line
                             selected: dumbnessLevel == dumbnesslevel,
                             // eslint-disable-next-line
-                            blocked: (dumbnessLevel != dumbnesslevel && explanationrequested==true) || (newandupdatedApp && dumbnessLevel != dumbnesslevel),
+                            blocked: (dumbnessLevel != dumbnesslevel && explanationrequested==true) || (newandupdatedApp && dumbnessLevel != dumbnesslevel && !newgame),
                             // eslint-disable-next-line
-                            passed: dumbnessLevel > dumbnesslevel
+                            passed: dumbnessLevel > dumbnesslevel && !newgame && levellist.includes(dumbnesslevel)
                             })}
+                            onClick={handleDumbClick}
                             value={dumbnesslevel}>
                             <div className="bgcontainer"></div>
                             {/* avatar */}
@@ -90,13 +102,16 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                             <div 
                             className={
                                 classNames('carouseldumbnesslevel', {
+                                    // skipped if dumbnesslevel not in levellist and  dumbnesslevel is less than the minimum level in levellist
+                                    skipped: !levellist.includes(dumbnesslevel) && !newgame && dumbnesslevel < Math.min(...levellist),
                                     // eslint-disable-next-line
                                     selected: dumbnessLevel == dumbnesslevel,
                                     // eslint-disable-next-line
-                                    blocked: (dumbnessLevel != dumbnesslevel && explanationrequested==true) || (newandupdatedApp && dumbnessLevel != dumbnesslevel),
+                                    blocked: (dumbnessLevel != dumbnesslevel && explanationrequested==true) || (newandupdatedApp && dumbnessLevel != dumbnesslevel && !newgame),
                                     // eslint-disable-next-line
-                                    passed: dumbnessLevel > dumbnesslevel
+                                    passed: dumbnessLevel > dumbnesslevel && !newgame && levellist.includes(dumbnesslevel)
                                     })}
+                                    onClick={handleDumbClick}
                                     value={dumbnesslevel}>
                                 <div className="carouselbgcontainer"></div>
                                 <div className={`avatar${dumbnesslevel}`}

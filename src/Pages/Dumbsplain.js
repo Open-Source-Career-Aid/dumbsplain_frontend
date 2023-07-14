@@ -59,6 +59,8 @@ function Dumbsplain( { theme , setTheme } ) {
     const [explanationread, setExplanationread] = React.useState(false);
     // eslint-disable-next-line
     const [typing , setTyping] = React.useState(false);
+    const [newgame, setNewgame] = React.useState(false);
+    const [levellist, setLevellist] = React.useState([]);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -108,6 +110,9 @@ function Dumbsplain( { theme , setTheme } ) {
             setSpecial_id(topic.special_id);
             setNewuser(topic.newuser);
             setDumbnessLevel(topic.dumblevel);
+            setNewgame(topic.newgame)
+            const llist = JSON.parse(topic.levellist);
+            setLevellist(llist);
             pseudoGenerator(topic.message, setCurrentext, 0.1);
         }
         fetchTopic();
@@ -467,7 +472,9 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
-                const mcq = await getQuestion();
+                setLevellist(prev => [...prev, dumbnessLevel]);
+                setNewgame(false);
+                const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
@@ -500,8 +507,10 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(true);
             setMcqloading(true);
             setQuizme(true);
+            setLevellist(prev => [...prev, dumbnessLevel]);
+            setNewgame(false);
             async function fetchQuestion() {
-                const mcq = await getQuestion();
+                const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
@@ -625,6 +634,8 @@ function Dumbsplain( { theme , setTheme } ) {
                             waitfortomorrow={waitfortomorrow}
                             theme={theme}
                             newandupdatedApp={newandupdatedApp}
+                            newgame={newgame}
+                            levellist={levellist}
                             />
                         </div>
                     </div>

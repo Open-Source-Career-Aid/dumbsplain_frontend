@@ -320,7 +320,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
-                const mcq = await getQuestion();
+                const mcq = await getQuestion(dumbnessLevel);
                 setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
             }
@@ -329,6 +329,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloaded(true);
         }
 
+    // eslint-disable-next-line
     }, [special_id]);
 
     // eslint-disable-next-line
@@ -365,7 +366,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
-                const mcq = await getQuestion();
+                const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
@@ -467,7 +468,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
-                const mcq = await getQuestion();
+                const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);
@@ -501,7 +502,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(true);
             setQuizme(true);
             async function fetchQuestion() {
-                const mcq = await getQuestion();
+                const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
                 setSpecial_id(mcq.special_id);

@@ -1,12 +1,16 @@
 import React, { useRef , useState , useEffect } from 'react';
 // import { toBlob } from 'html-to-image';
-import '../CSS/ReportCard.css';
+import  '../CSS/ReportCard.css';
+import styles from '../CSS/ReportCard.css';
 import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import FileSaver from 'file-saver';
+import { set } from 'react-ga';
+
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -25,22 +29,27 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [cycle, setCycle] = useState(0);
   const [day, setDay] = useState(0);
   const reportCardRef = useRef(null);
+  const [copied, setCopied] = useState(false);
 
-  const handleCopyToClipboard = () => {
+
+  const handleCopy = () => {
+    if (reportCardRef.current === null) {
+      return
+    }
+    
     htmlToImage.toBlob(reportCardRef.current)
-      .then(function (dataUrl) {
-        const img = new Image();
-        img.src = dataUrl;
-
-        navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': dataUrl })
-        ])
-          .then(() => {
-            console.log('Image copied to clipboard!');
-          })
-          .catch((error) => {
-            console.error('Failed to copy image:', error);
-          });
+      .then(function (blob) {
+        const item = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([item]);
+        setCopied(true);
+        if (window.saveAs) {
+          window.saveAs(blob, 'my-report.png');
+        } else {
+           FileSaver.saveAs(blob, 'my-report.png');
+       }
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
       });
   };
 
@@ -74,6 +83,14 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (copied === true) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    }
+  }, [copied]);
 
   useEffect(() => {
 
@@ -146,6 +163,15 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     // eslint-disable-next-line
     }, [responsesubmitted, apicalled]);
 
+    // useEffect(() => {
+    //   const appendStylesheet = () => {
+    //     const style = document.createElement('style');
+    //     style.innerHTML = styles._getCss(); // Access the CSS from the imported module
+    //     document.head.appendChild(style);
+    //   };
+  
+    //   appendStylesheet();
+    // }, []);
 
   // const handleShareClick = () => {
 
@@ -180,6 +206,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   //       console.error('Error converting HTML to image:', error);
   //     });
   // };
+
+
 
   const avatarname = classNames({
         'avatar1': roundedDQ === 1 || roundedDQ === 0,
@@ -220,6 +248,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     }
   }
 
+
+
   return (
     <>
       <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick} ref={reportCardRef}>
@@ -227,6 +257,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           className='reportcard-section-main'
           style={
             {
+              fontFamily: 'Montserrat, sans-serif', 
               padding: '0',
               margin: '0',
               display: 'flex',
@@ -239,7 +270,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               border: '5px solid',
               borderColor: `${bordercolor}`,
               scale: `${cardscale}`,
+              
             }}
+
+
             ref={cardRef}
             data-theme={theme}>
                 <span className="closeOverlay reportcard" data-theme={theme} onClick={handleCloseOverlayClick}>&times;</span>
@@ -402,8 +436,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                     <div className='dumbsplainbuttontext'>Share</div>
                 </div>
               </div> */}
-              <button  onClick={handleCopyToClipboard}>Copy ReportCard </button>
+            <button onClick={handleCopy}>{copied ? 'Copied!' : 'Copy to Clipboard'}</button>
+          
             </div>
+            
           </section>
       </div>
      </>

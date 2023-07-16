@@ -20,7 +20,7 @@ import Header from '../Components/Header';
 function Dumbsplain( { theme , setTheme } ) {
 
     // let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
-    const [explanation, setExplanation] = React.useState('explanation text');
+    const [explanation, setExplanation] = React.useState('<m>Confident in your misplaced beliefs of your intelligence? Choose a higher level of dumbness to start. But let me warn you, failure will come at a high cost.\n\nHit ‘Dumbsplain’ if you’re ready for me.</m>');
     const [mcq, setMcq] = React.useState('mcq text');
     const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
     const [currentext, setCurrentext] = React.useState('explaination text');
@@ -113,7 +113,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setNewgame(topic.newgame)
             const llist = JSON.parse(topic.levellist);
             setLevellist(llist);
-            pseudoGenerator(topic.message, setCurrentext, 0.1);
+            pseudoGenerator(explanation, setCurrentext, 0.1);
         }
         fetchTopic();
     // eslint-disable-next-line

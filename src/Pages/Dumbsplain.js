@@ -69,24 +69,35 @@ function Dumbsplain( { theme , setTheme } ) {
         setTime(currentTime);
     }
 
-    useEffect(() => {
-
-        const handleWindowResize = () => {
+    const handleWindowResize = () => {
             
-            const windowheight = window.innerHeight;
-            const headerheight = document.querySelector('.headersection').offsetHeight;
-            const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+        const windowheight = window.innerHeight;
+        const windowwidth = window.innerWidth;
+        const headerheight = document.querySelector('.headersection').offsetHeight;
+        const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+        let contentsectionheighttemp = 0;
 
-            console.log('windowheight: ', windowheight,
-                'headerheight: ', headerheight,
-                'interactionheight: ', interactionheight);
+        if (windowwidth > 900) {
+            contentsectionheighttemp = windowheight - headerheight - 250;
+        }
+        else if (windowwidth > 600) {
+            contentsectionheighttemp = windowheight - headerheight - 220;
+        }
+        else {
+            contentsectionheighttemp = windowheight - headerheight - 182;
+        }
 
-            let contentsectionheighttemp = windowheight - headerheight - interactionheight - 60;
-            contentsectionheighttemp = contentsectionheighttemp + 'px';
-            console.log('contentsectionheighttemp: ', contentsectionheighttemp);
-            setContentsectionheight(contentsectionheighttemp);
+        console.log('windowheight: ', windowheight,
+            'headerheight: ', headerheight,
+            'interactionheight: ', interactionheight);
 
-            };
+        contentsectionheighttemp = contentsectionheighttemp + 'px';
+        console.log('contentsectionheighttemp: ', contentsectionheighttemp);
+        setContentsectionheight(contentsectionheighttemp);
+
+        };
+
+    useEffect(() => {
 
         window.addEventListener('resize', handleWindowResize);
 
@@ -537,7 +548,6 @@ function Dumbsplain( { theme , setTheme } ) {
             height: '100%',
             width: '100%',
             padding: '0',
-            paddingTop: '1%',
             minheight: '500px',
         }}>
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
@@ -589,7 +599,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='contentsection'
                 style={{
                     height: `${contentsectionheight}`,
-                    maxHeight: '45vh',
+                    // maxHeight: '45vh',
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
@@ -623,8 +633,6 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='interactionsection'
                 style={{
                     height: 'auto',
-                    marginTop: '0.625em',
-                    marginBottom: '0.625em',
                     position: 'relative',
                 }}
                 >

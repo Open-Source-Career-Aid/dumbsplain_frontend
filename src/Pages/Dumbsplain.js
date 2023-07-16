@@ -71,18 +71,29 @@ function Dumbsplain( { theme , setTheme } ) {
 
     useEffect(() => {
 
-        const windowheight = window.innerHeight;
-        const headerheight = document.querySelector('.headersection').offsetHeight;
-        const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+        const handleWindowResize = () => {
+            
+            const windowheight = window.innerHeight;
+            const headerheight = document.querySelector('.headersection').offsetHeight;
+            const interactionheight = document.querySelector('.interactionsection').offsetHeight;
 
-        console.log('windowheight: ', windowheight,
-            'headerheight: ', headerheight,
-            'interactionheight: ', interactionheight);
+            console.log('windowheight: ', windowheight,
+                'headerheight: ', headerheight,
+                'interactionheight: ', interactionheight);
 
-        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 60;
-        contentsectionheighttemp = contentsectionheighttemp + 'px';
-        console.log('contentsectionheighttemp: ', contentsectionheighttemp);
-        setContentsectionheight(contentsectionheighttemp);
+            let contentsectionheighttemp = windowheight - headerheight - interactionheight - 60;
+            contentsectionheighttemp = contentsectionheighttemp + 'px';
+            console.log('contentsectionheighttemp: ', contentsectionheighttemp);
+            setContentsectionheight(contentsectionheighttemp);
+
+            };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+        window.removeEventListener('resize', handleWindowResize);
+        };
 
     }, []);
 

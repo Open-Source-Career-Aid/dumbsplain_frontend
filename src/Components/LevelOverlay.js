@@ -1,12 +1,45 @@
-import React from 'react';
+import React , { useState , useEffect } from 'react';
 import '../CSS/Overlay.css';
 import OverlayCurve from '../SVGasComponents/overlayCurve';
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
+
+    const [cardscale, setCardscale] = useState(1);
+
     const level = [
-        ["Commence your journey from the bottom", ["AI's intelligence is calibrated to the top. See how close you can get to it!"]],
+        ["Embrace your dumbness, uncover your humanity", ["Choose your dumbness level for the topic.", "Beware! If you overestimate your brilliance to start, you will be penalized 50% of the level you picked."]],
         ["Answer right away or take a hint for -0.5 points", ["1 point -> getting it right as Just Plain Dumb","5 points -> getting it right as Sentient Savant", "Play ends when you get it wrong"]],
         ["Reach for the highest Dumbness Quotient (DQ)", ["DQ is your average score this week and resets on Monday"]]];
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+        // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
+        if (window.innerWidth < 675 && window.innerWidth > 600) {
+            let temp = 0.8; // tolerance
+            setCardscale(temp);
+        } 
+        else if (window.innerWidth < 420 && window.innerWidth > 300) {
+            let temp = (window.innerWidth - 20) / 420; // tolerance
+            setCardscale(temp);
+        }
+        else if (window.innerWidth < 300) {
+            let temp = 0.7; // tolerance
+            setCardscale(temp);
+        }
+        else {
+            let temp = 1; // tolerance
+            setCardscale(temp);
+        }
+
+        };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
     
     const leveltext = level.map((item, index) => {
        return (
@@ -53,6 +86,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
             <div className='modal-content' data-theme={theme}
             style={{
                 overflow: 'hidden',
+                scale: `${cardscale}`,
             }}
             >
                 <OverlayCurve theme={theme}

@@ -111,6 +111,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
     useEffect(() => {
         
+        handleWindowResize();
         findcurrentTime();
         // setCurrentext(placeholder);
         setDumbnessLevel(1);

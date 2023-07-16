@@ -7,7 +7,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const [cardscale, setCardscale] = useState(1);
 
     const level = [
-        ["Embrace your dumbness, uncover your humanity", ["Choose your dumbness level for the topic.", "Beware! If you overestimate your brilliance to start, you will be penalized 50% of the level you picked."]],
+        ["Commence your journey from the bottom", ["AI's intelligence is calibrated to the top. See how close you can get to it!"]],
         ["Answer right away or take a hint for -0.5 points", ["1 point -> getting it right as Just Plain Dumb","5 points -> getting it right as Sentient Savant", "Play ends when you get it wrong"]],
         ["Reach for the highest Dumbness Quotient (DQ)", ["DQ is your average score this week and resets on Monday"]]];
 

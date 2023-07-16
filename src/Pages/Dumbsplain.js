@@ -471,12 +471,26 @@ function Dumbsplain( { theme , setTheme } ) {
         
         }
         else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
-            setGameended(true);
-            setDumbnessLevel(prev => prev - 1);
-            pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
-            setTimeout(() => {
-                setScoreModal(true);
-            }, 8000);
+            if (levellist[levellist.length-1]===1) {
+                setGameended(true);
+                pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+                setTimeout(() => {
+                    setScoreModal(true);
+                }, 8000);
+            }
+            else {
+                setDumbnessLevel(prev => prev - 1);
+                setExplanationloaded(false);
+                setExplanationloading(false);
+                setExplanationrequested(false);
+                setMcqloaded(false);
+                setMcqloading(false);
+                setMcqrequested(false);
+                setResponsesubmitted(false);
+                setSelectedoption(1);
+                setCorrectoption(null);
+                setExplanationread(false);
+            }
         }
 
         if (correctoption === null && responsesubmitted === false && selectedoption === 1 && mcqloaded === false) {

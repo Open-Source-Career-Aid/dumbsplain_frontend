@@ -484,6 +484,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 setSelectedoption(1);
                 setCorrectoption(null);
                 setExplanationread(false);
+                setSelectedoption(0);
             }
             else {
                 setGameended(true);
@@ -518,10 +519,11 @@ function Dumbsplain( { theme , setTheme } ) {
                 setSelectedoption(1);
                 setCorrectoption(null);
                 setExplanationread(false);
+                setSelectedoption(0);
             }
         }
 
-        if (correctoption === null && responsesubmitted === false && selectedoption === 1 && mcqloaded === false) {
+        if (correctoption === null && responsesubmitted === false && selectedoption === 0 && mcqloaded === false) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {

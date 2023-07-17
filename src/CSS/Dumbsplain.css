@@ -355,7 +355,8 @@
 }
 
 .dumbnesslevel.skipped.blocked {
-    filter: grayscale(20%);
+    opacity: 0.5;
+    filter: grayscale(100%);
     pointer-events: none;
 }
 
@@ -747,7 +748,8 @@
 }
 
 .carouseldumbnesslevel.skipped.blocked {
-    filter: grayscale(20%);
+    opacity: 0.5;
+    filter: grayscale(100%);
     pointer-events: none;
 }
 

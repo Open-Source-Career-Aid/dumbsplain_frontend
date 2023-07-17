@@ -444,10 +444,22 @@ function Dumbsplain( { theme , setTheme } ) {
     }
 
     useEffect(() => {
+        if (gameended===true) {
+            pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+            setTimeout(() => {
+                setScoreModal(true);
+            }, 8000);
+        }
+    }, [gameended, bufferText]);
+
+    useEffect(() => {
         
         if (selectedoption === correctoption && responsesubmitted === true) {
 
-            if (dumbnessLevel + 1 <= 5) {
+            if (levellist.length > 1 && levellist[0]>levellist[1]) {
+                setGameended(true);
+            }
+            else if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.
                 setDumbnessLevel(dumbnessLevel + 1);
                 setExplanationloaded(false);
@@ -463,20 +475,24 @@ function Dumbsplain( { theme , setTheme } ) {
             }
             else {
                 setGameended(true);
-                pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
-                setTimeout(() => {
-                    setScoreModal(true);
-                }, 8000);
+                // pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+                // setTimeout(() => {
+                //     setScoreModal(true);
+                // }, 8000);
             }
         
         }
         else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
             if (levellist[levellist.length-1]===1) {
                 setGameended(true);
-                pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
-                setTimeout(() => {
-                    setScoreModal(true);
-                }, 8000);
+                // pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+                // setTimeout(() => {
+                //     setScoreModal(true);
+                // }, 8000);
+            }
+            else if (levellist.length > 1 && levellist[0]<levellist[1]) {
+                setDumbnessLevel(prev => prev - 1);
+                setGameended(true);
             }
             else {
                 setDumbnessLevel(prev => prev - 1);

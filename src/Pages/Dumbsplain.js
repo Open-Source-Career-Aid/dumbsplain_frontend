@@ -587,7 +587,6 @@ function Dumbsplain( { theme , setTheme } ) {
             height: '100%',
             width: '100%',
             padding: '0',
-            paddingTop: '1%',
             minheight: '500px',
         }}>
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
@@ -673,8 +672,8 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='interactionsection'
                 style={{
                     height: 'auto',
-                    marginTop: '0.625em',
-                    marginBottom: '0.625em',
+                    // marginTop: '0.625em',
+                    // marginBottom: '0.625em',
                     position: 'relative',
                 }}
                 >

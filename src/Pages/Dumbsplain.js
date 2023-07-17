@@ -71,24 +71,35 @@ function Dumbsplain( { theme , setTheme } ) {
         setTime(currentTime);
     }
 
-    useEffect(() => {
-
-        const handleWindowResize = () => {
+    const handleWindowResize = () => {
             
-            const windowheight = window.innerHeight;
-            const headerheight = document.querySelector('.headersection').offsetHeight;
-            const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+        const windowheight = window.innerHeight;
+        const windowwidth = window.innerWidth;
+        const headerheight = document.querySelector('.headersection').offsetHeight;
+        const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+        let contentsectionheighttemp = 0;
 
-            console.log('windowheight: ', windowheight,
-                'headerheight: ', headerheight,
-                'interactionheight: ', interactionheight);
+        if (windowwidth > 900) {
+            contentsectionheighttemp = windowheight - headerheight - 250;
+        }
+        else if (windowwidth > 600) {
+            contentsectionheighttemp = windowheight - headerheight - 220;
+        }
+        else {
+            contentsectionheighttemp = windowheight - headerheight - 182;
+        }
 
-            let contentsectionheighttemp = windowheight - headerheight - interactionheight - 60;
-            contentsectionheighttemp = contentsectionheighttemp + 'px';
-            console.log('contentsectionheighttemp: ', contentsectionheighttemp);
-            setContentsectionheight(contentsectionheighttemp);
+        console.log('windowheight: ', windowheight,
+            'headerheight: ', headerheight,
+            'interactionheight: ', interactionheight);
 
-            };
+        contentsectionheighttemp = contentsectionheighttemp + 'px';
+        console.log('contentsectionheighttemp: ', contentsectionheighttemp);
+        setContentsectionheight(contentsectionheighttemp);
+
+        };
+
+    useEffect(() => {
 
         window.addEventListener('resize', handleWindowResize);
 
@@ -102,6 +113,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
     useEffect(() => {
         
+        handleWindowResize();
         findcurrentTime();
         // setCurrentext(placeholder);
         setDumbnessLevel(1);
@@ -627,7 +639,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='contentsection'
                 style={{
                     height: `${contentsectionheight}`,
-                    maxHeight: '45vh',
+                    // maxHeight: '45vh',
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',

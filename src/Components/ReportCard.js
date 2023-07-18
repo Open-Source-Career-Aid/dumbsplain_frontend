@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
+import { avatarlabels } from '../config';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
 
@@ -18,9 +19,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // eslint-disable-next-line
   const [streakwindowwidth, setStreakwindowwidth] = useState('230');
   const [airesponse, setAiresponse] = useState('-');
+  // eslint-disable-next-line
   const [weekorday, setWeekorday] = useState('View Day');
   const [listofvalues, setListofvalues] = useState([]);
-  const [cycle, setCycle] = useState(0);
+  const [cycle, setCycle] = useState('');
   const [day, setDay] = useState(0);
 
   // measure the width of the cardRef as the window resizes
@@ -71,8 +73,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   useEffect(() => {
 
         async function fetchScore() {
+            let tempcycle = ''
             const score = await getScore();
-            setCycle(score.cycle);
+            tempcycle = score.weekstart + ' - ' + score.weekend;
+            setCycle(tempcycle);
             setUserdq(score.dq);
             setUserstreak(score.scoretoday);
             setMaxstreak(score.maxstreak);
@@ -168,6 +172,21 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         'avatar5': roundedDQ === 5,
     });
   
+  let avatarlabel = '';
+  if (roundedDQ === 0) {
+    avatarlabel = avatarlabels[0];
+  } else if (roundedDQ === 1) {
+    avatarlabel = avatarlabels[0];
+  } else if (roundedDQ === 2) {
+    avatarlabel = avatarlabels[1];
+  } else if (roundedDQ === 3) {
+    avatarlabel = avatarlabels[2];
+  } else if (roundedDQ === 4) {
+    avatarlabel = avatarlabels[3];
+  } else if (roundedDQ === 5) {
+    avatarlabel = avatarlabels[4];
+  }
+  
   const handleScoreOverlayClick = (e) => {
         // close overlay when clicked outside, add a listener to the window
         if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
@@ -185,19 +204,19 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     setScoreModal(false);
   }
 
-  const handleWeeokorDayClick = () => {
-     switch (weekorday) {
-      case 'View Week':
-        setWeekorday('View Day');
-        break;
-      case 'View Day':
-        setWeekorday('View Week');
-        break;
-      default:
-        setWeekorday('View Week');
-        break;
-    }
-  }
+  // const handleWeeokorDayClick = () => {
+  //    switch (weekorday) {
+  //     case 'View Week':
+  //       setWeekorday('View Day');
+  //       break;
+  //     case 'View Day':
+  //       setWeekorday('View Week');
+  //       break;
+  //     default:
+  //       setWeekorday('View Week');
+  //       break;
+  //   }
+  // }
 
   return (
      <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
@@ -224,7 +243,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               <div className='reportcard-header' data-theme={theme}>
                 <div className='reportcard-header-left'>
                   <div className='reportcard-header-title' data-theme={theme}>Dumbsplain Diary</div>
-                  <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>Cycle {cycle}</span></div>
+                  <div className='reportcard-header-weekday' data-theme={theme}><span className='weekdayspan'>{cycle}</span></div>
                   { weekorday==='View Week' ? <div className='reportcard-header-weekday' data-theme={theme}>Day {day}</div> : null}
                 </div>
                 {/* <div className='reportcard-toggle' data-theme={theme}>
@@ -238,7 +257,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>
                   <div className='reportcard-body-left-avatar' data-theme={theme}>
-                    <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'0', top: 'auto'}}></div>
+                    <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'25px', top: 'auto'}}></div>
+                    <div style={{width:'170px', height:'20px', position:'absolute', bottom:'0', top: 'auto', fontSize: '0.4em', textAlign: 'center', paddingTop: '3px', borderTop: '2px solid #D9D9D9', fontFamily: 'Gloria Hallelujah', color: '#D65757', lineHeight: '1em'}}>{avatarlabel}</div>
                   </div>
                 </div>
                 <div className='reportcard-body-right' data-theme={theme}
@@ -331,9 +351,9 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         }}
                         data-theme={theme}>Max Streak</div>
                         <div className='reportcard-streakscore' data-theme={theme}>{maxstreak}</div> */}
-                        <div className={ weekorday==='View Week' ? 'weekicon' : 'dayicon' }
+                        {/* <div className={ weekorday==='View Week' ? 'weekicon' : 'dayicon' }
                         onClick={handleWeeokorDayClick}
-                        ></div>
+                        ></div> */}
                       </div>
                     </div>
                   </section>

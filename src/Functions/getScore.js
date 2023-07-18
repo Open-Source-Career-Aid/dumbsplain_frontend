@@ -7,5 +7,7 @@ export default async function getScore() {
     const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
     const data = await response.json()
 
+    console.log(data)
+
     return data
 }

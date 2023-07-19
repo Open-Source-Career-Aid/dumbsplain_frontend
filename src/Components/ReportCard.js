@@ -24,25 +24,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [listofvalues, setListofvalues] = useState([]);
   const [cycle, setCycle] = useState('');
   const [day, setDay] = useState(0);
-  const reportCardRef = useRef(null);
-
-  const handleCopyToClipboard = () => {
-    htmlToImage.toBlob(reportCardRef.current)
-      .then(function (dataUrl) {
-        const img = new Image();
-        img.src = dataUrl;
-
-        navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': dataUrl })
-        ])
-          .then(() => {
-            console.log('Image copied to clipboard!');
-          })
-          .catch((error) => {
-            console.error('Failed to copy image:', error);
-          });
-      });
-  };
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {

@@ -69,26 +69,49 @@ function Dumbsplain( { theme , setTheme } ) {
         setTime(currentTime);
     }
 
-    useEffect(() => {
-
+    const handleWindowResize = () => {
+            
         const windowheight = window.innerHeight;
+        const windowwidth = window.innerWidth;
         const headerheight = document.querySelector('.headersection').offsetHeight;
         const interactionheight = document.querySelector('.interactionsection').offsetHeight;
+        let contentsectionheighttemp = 0;
+
+        if (windowwidth > 900) {
+            contentsectionheighttemp = windowheight - headerheight - 250;
+        }
+        else if (windowwidth > 600) {
+            contentsectionheighttemp = windowheight - headerheight - 220;
+        }
+        else {
+            contentsectionheighttemp = windowheight - headerheight - 182;
+        }
 
         console.log('windowheight: ', windowheight,
             'headerheight: ', headerheight,
             'interactionheight: ', interactionheight);
 
-        let contentsectionheighttemp = windowheight - headerheight - interactionheight - 60;
         contentsectionheighttemp = contentsectionheighttemp + 'px';
         console.log('contentsectionheighttemp: ', contentsectionheighttemp);
         setContentsectionheight(contentsectionheighttemp);
+
+        };
+
+    useEffect(() => {
+
+        window.addEventListener('resize', handleWindowResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+        window.removeEventListener('resize', handleWindowResize);
+        };
 
     }, []);
 
 
     useEffect(() => {
         
+        handleWindowResize();
         findcurrentTime();
         // setCurrentext(placeholder);
         setDumbnessLevel(1);
@@ -445,6 +468,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 setSelectedoption(1);
                 setCorrectoption(null);
                 setExplanationread(false);
+                setSelectedoption(0);
             }
             else {
                 setGameended(true);
@@ -464,7 +488,7 @@ function Dumbsplain( { theme , setTheme } ) {
             }, 8000);
         }
 
-        if (correctoption === null && responsesubmitted === false && selectedoption === 1 && mcqloaded === false) {
+        if (correctoption === null && responsesubmitted === false && selectedoption === 0 && mcqloaded === false) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
@@ -526,7 +550,6 @@ function Dumbsplain( { theme , setTheme } ) {
             height: '100%',
             width: '100%',
             padding: '0',
-            paddingTop: '1%',
             minheight: '500px',
         }}>
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
@@ -578,7 +601,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='contentsection'
                 style={{
                     height: `${contentsectionheight}`,
-                    maxHeight: '45vh',
+                    // maxHeight: '45vh',
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
@@ -612,8 +635,6 @@ function Dumbsplain( { theme , setTheme } ) {
                 <section className='interactionsection'
                 style={{
                     height: 'auto',
-                    marginTop: '0.625em',
-                    marginBottom: '0.625em',
                     position: 'relative',
                 }}
                 >

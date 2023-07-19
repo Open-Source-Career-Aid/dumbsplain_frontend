@@ -240,7 +240,7 @@ p.streak{
 
 @media only screen and (max-width: 400px) {
 
-  .modal-content {
+  /* .modal-content {
     max-width: 100%;
     min-width: 100%;
     height: auto;
@@ -249,9 +249,9 @@ p.streak{
     bottom: 0;
     padding: 0;
     overflow: scroll;
-  }
+  } */
 
-  .infocontainer {
+  /* .infocontainer {
     position: absolute;
     top: 0;
     height: auto;
@@ -260,13 +260,13 @@ p.streak{
     width: 100%;
     overflow-y: visible;
     padding-bottom: 20px;
-  }
+  } */
 
-  .headercurve{
+  /* .headercurve{
     display: none;
-  }
+  } */
 
-  .heading {
+  /* .heading {
     position: relative;
     padding: 0;
     margin: 0;
@@ -274,19 +274,19 @@ p.streak{
     left: 0;
     transform: none;
     padding: 0 20px;
-  }
+  } */
 
-  .headercontainer{
+  /* .headercontainer{
     position: relative;
     width: 100%;
     height: 100px;
     background: #4C7BFE;
-  }
+  } */
 
-  .modal-content ol {
+  /* .modal-content ol {
     margin-top: 20px;
     overflow: visible;
-  }
+  } */
 
 }
 

@@ -23,6 +23,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
+    const [confettiamount, setConfettiamount] = React.useState(0);
     // let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
@@ -457,19 +458,28 @@ function Dumbsplain( { theme , setTheme } ) {
 
     useEffect(() => {
 
-        if (confetti) {
+        if (confetti && confettiamount > 0) {
             setTimeout(() => {
                 setConfetti(false);
+                setConfettiamount(0);
             }, 5000);
         }
 
-    }, [confetti]);
+    }, [confetti, confettiamount]);
+
+    useEffect(() => {
+        
+        if (confettiamount > 0) {
+            setConfetti(true);
+        }
+
+    }, [confettiamount]);
 
     useEffect(() => {
         
         if (selectedoption === correctoption && responsesubmitted === true) {
 
-            setConfetti(true);
+            setConfettiamount([5, 50, 100, 200, 500][dumbnessLevel - 1]);
             if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.
                 setDumbnessLevel(dumbnessLevel + 1);
@@ -568,10 +578,12 @@ function Dumbsplain( { theme , setTheme } ) {
             minheight: '500px',
         }}>
             { confetti ? <Confetti
-            width={width}
-            height={height}
-            recycle={false}
-            /> : null }
+                width={width}
+                height={height}
+                recycle={false}
+                numberOfPieces={confettiamount}
+                colors={['#8CA8FF', '#4C7BFE', '#F59E6C', '#32BCA3']}
+                /> : null }
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard
             scoreModal={scoreModal}

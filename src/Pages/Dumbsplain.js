@@ -15,9 +15,10 @@ import submitAnswer from '../Functions/submitAnswer';
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import { ReactSVG } from 'react-svg';
 import ExplanationOverlay from '../Components/ExplanationOverlay';
-import Header from '../Components/Header';
-import useWindowSize from 'react-use/lib/useWindowSize'
-import Confetti from 'react-confetti'
+// import Header from '../Components/Header';
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti';
+import PlayerProgress from "../Components/PlayerProgress";
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -48,7 +49,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [waitfortomorrow, setWaitfortomorrow] = React.useState(false);
     const [waitingtime, setWaitingtime] = React.useState(0);
     // eslint-disable-next-line
-    const [score, setScore] = React.useState(null);
+    const [score, setScore] = React.useState(0);
     const [userdq, setUserdq] = React.useState(0);
     const [userstreak, setUserstreak] = React.useState(0);
     const [maxstreak, setMaxstreak] = React.useState(0);
@@ -137,6 +138,8 @@ function Dumbsplain( { theme , setTheme } ) {
             setNewuser(topic.newuser);
             setDumbnessLevel(topic.dumblevel);
             pseudoGenerator(topic.message, setCurrentext, 0.1);
+            setUserdq(topic.dq);
+            setScore(topic.score);
         }
         fetchTopic();
     // eslint-disable-next-line
@@ -605,13 +608,23 @@ function Dumbsplain( { theme , setTheme } ) {
             <section className='headersection'
             style={{
                 height: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                padding: '0',
             }}
             >
                 <div className='navbar'>
+                    { width > 900 ? <PlayerProgress
+                    dq={userdq}
+                    score={score}
+                    /> : null }
                     <div className='dumbsplainlogo'></div>
-                    <Header
+                    {/* <Header
                     theme={theme}
-                    />
+                    /> */}
                     <div className='utilitybuttons'>
                         { theme==='light' ?
                         // <svg className='lightmode' onClick={handleTheme}></svg>
@@ -622,6 +635,10 @@ function Dumbsplain( { theme , setTheme } ) {
                         onClick={handleOverlay} data-overlay="score"></svg>
                     </div>
                 </div>
+                { width < 900 ? <PlayerProgress
+                    dq={userdq}
+                    score={score}
+                    /> : null }
                 {/* <div className='introduction'>
                     <Header
                     topic={topic}

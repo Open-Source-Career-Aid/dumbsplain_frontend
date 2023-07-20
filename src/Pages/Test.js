@@ -1,9 +1,14 @@
-import ProgressChart from "../Components/ProgressChart";
+import PlayerProgress from "../Components/PlayerProgress";
 
 const Test = () => {
     return (
-        <div>
-            <ProgressChart />
+        <div style={{
+            overflow: 'visible',
+        }}>
+            <PlayerProgress
+            dq = {3.4}
+            score = {4}
+             />
         </div>
     );
     }

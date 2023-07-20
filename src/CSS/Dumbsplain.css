@@ -49,6 +49,7 @@
     margin-bottom: 10px;
     overflow: hidden;
     font-size: 30px;
+    width: 90%;
 }
 
 .header {
@@ -78,7 +79,7 @@
     background-size: contain;
     height: 35px;
     min-width: 150px;
-    margin-left: 20px;
+    margin-right: 40px;
 }
 
 .equaltoAI[data-theme='dark'] {

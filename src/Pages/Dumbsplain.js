@@ -16,9 +16,13 @@ import pseudoGenerator from '../Functions/pseudoGenerator';
 import { ReactSVG } from 'react-svg';
 import ExplanationOverlay from '../Components/ExplanationOverlay';
 import Header from '../Components/Header';
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 function Dumbsplain( { theme , setTheme } ) {
 
+    const { width , height } = useWindowSize()
+    const [confetti, setConfetti] = React.useState(false);
     // let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
@@ -452,9 +456,20 @@ function Dumbsplain( { theme , setTheme } ) {
     }
 
     useEffect(() => {
+
+        if (confetti) {
+            setTimeout(() => {
+                setConfetti(false);
+            }, 5000);
+        }
+
+    }, [confetti]);
+
+    useEffect(() => {
         
         if (selectedoption === correctoption && responsesubmitted === true) {
 
+            setConfetti(true);
             if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.
                 setDumbnessLevel(dumbnessLevel + 1);
@@ -552,6 +567,11 @@ function Dumbsplain( { theme , setTheme } ) {
             padding: '0',
             minheight: '500px',
         }}>
+            { confetti ? <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            /> : null }
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard
             scoreModal={scoreModal}

@@ -152,6 +152,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     // eslint-disable-next-line
     }, [responsesubmitted, apicalled, scoreModal, typename]);
 
+    useEffect(() => {
+
+      setTypename(false);
+
+    }, [roundedDQ]);
+
 
   // const handleShareClick = () => {
 

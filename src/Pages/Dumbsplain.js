@@ -19,9 +19,12 @@ import ExplanationOverlay from '../Components/ExplanationOverlay';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
 import PlayerProgress from "../Components/PlayerProgress";
+import JSConfetti from 'js-confetti'
+
+
 
 function Dumbsplain( { theme , setTheme } ) {
-
+    const jsConfetti = new JSConfetti();
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
     const [confettiamount, setConfettiamount] = React.useState(0);
@@ -465,10 +468,11 @@ function Dumbsplain( { theme , setTheme } ) {
             setTimeout(() => {
                 setConfetti(false);
                 setConfettiamount(0);
+                jsConfetti.clearCanvas();
             }, 5000);
         }
 
-    }, [confetti, confettiamount]);
+    }, [confetti, confettiamount,]);
 
     useEffect(() => {
         
@@ -580,13 +584,23 @@ function Dumbsplain( { theme , setTheme } ) {
             padding: '0',
             minheight: '500px',
         }}>
-            { confetti ? <Confetti
-                width={width}
-                height={height}
-                recycle={false}
-                numberOfPieces={confettiamount}
-                colors={['#8CA8FF', '#4C7BFE', '#F59E6C', '#32BCA3']}
-                /> : null }
+            { confetti ? 
+            // <Confetti
+            //     width={width}
+            //     height={height}
+            //     recycle={false}
+            //     numberOfPieces={confettiamount}
+            //     colors={['#8CA8FF', '#4C7BFE', '#F59E6C', '#32BCA3']}
+            //     /> 
+            jsConfetti.addConfetti({
+                emojis: ['🤖','🦿','🦾', '🎰', '⚙️',  '🖲️', '🖥️', '💽', '🕹️', '💻', '🚀','📱', '🎮', '🎚️', '🧮', '🤯', '🧠'],
+                emojiSize: 25,
+                confettiNumber: 100,
+                confettiColors: [
+                    '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7',
+                  ],
+            })
+                : null }
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard
             scoreModal={scoreModal}

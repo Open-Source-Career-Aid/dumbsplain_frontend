@@ -64,7 +64,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [gameended, setGameended] = React.useState(false);
     const [explanationread, setExplanationread] = React.useState(false);
     // eslint-disable-next-line
-    const [typing , setTyping] = React.useState(false);
+    const [typing , setTyping] = React.useState(true);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -501,9 +501,6 @@ function Dumbsplain( { theme , setTheme } ) {
             else {
                 setGameended(true);
                 pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
-                setTimeout(() => {
-                    setScoreModal(true);
-                }, 8000);
             }
         
         }
@@ -511,9 +508,6 @@ function Dumbsplain( { theme , setTheme } ) {
             setGameended(true);
             setDumbnessLevel(prev => prev - 1);
             pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
-            setTimeout(() => {
-                setScoreModal(true);
-            }, 8000);
         }
 
         if (correctoption === null && responsesubmitted === false && selectedoption === 0 && mcqloaded === false) {
@@ -532,6 +526,14 @@ function Dumbsplain( { theme , setTheme } ) {
 
     // eslint-disable-next-line
     }, [correctoption, responsesubmitted, selectedoption, mcqloaded]);
+
+    useEffect(() => {
+        if (typing===false) {
+            setTimeout(() => {
+                setScoreModal(true);
+            }, 3000);
+        }
+    }, [typing]);
 
     const handleSteppedDumbsplain = (e) => {
         e.preventDefault();

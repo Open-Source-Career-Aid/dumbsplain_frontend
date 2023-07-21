@@ -49,7 +49,7 @@ export default function PlayerProgress({ dq , score }) {
     }, [score, num2])
 
     return (
-        <div style={{
+        <div className='progresscontainer' style={{
             padding: '0',
             display: 'flex',
             flexDirection: 'row',

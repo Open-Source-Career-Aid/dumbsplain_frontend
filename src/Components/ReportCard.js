@@ -24,6 +24,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [listofvalues, setListofvalues] = useState([]);
   const [cycle, setCycle] = useState('');
   const [day, setDay] = useState(0);
+  const [typename, setTypename] = useState(false);
+  const [avatarlabel, setAvatarlabel] = useState('');
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -125,9 +127,30 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         // setScoreModal(true);
       }
 
+      if (apicalled===true && scoreModal===true && typename===false) {
+        let temp = '';
+          if (roundedDQ === 0) {
+            temp = avatarlabels[0];
+          } else if (roundedDQ === 1) {
+            temp = avatarlabels[0];
+          } else if (roundedDQ === 2) {
+            temp = avatarlabels[1];
+          } else if (roundedDQ === 3) {
+            temp = avatarlabels[2];
+          } else if (roundedDQ === 4) {
+            temp = avatarlabels[3];
+          } else if (roundedDQ === 5) {
+            temp = avatarlabels[4];
+          }
+        setTimeout(() => {
+          pseudoGenerator(temp, setAvatarlabel, 0.2);
+        }, 1000);
+        setTypename(true);
+      }
+
 
     // eslint-disable-next-line
-    }, [responsesubmitted, apicalled]);
+    }, [responsesubmitted, apicalled, scoreModal, typename]);
 
 
   // const handleShareClick = () => {
@@ -171,21 +194,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         'avatar4': roundedDQ === 4,
         'avatar5': roundedDQ === 5,
     });
-  
-  let avatarlabel = '';
-  if (roundedDQ === 0) {
-    avatarlabel = avatarlabels[0];
-  } else if (roundedDQ === 1) {
-    avatarlabel = avatarlabels[0];
-  } else if (roundedDQ === 2) {
-    avatarlabel = avatarlabels[1];
-  } else if (roundedDQ === 3) {
-    avatarlabel = avatarlabels[2];
-  } else if (roundedDQ === 4) {
-    avatarlabel = avatarlabels[3];
-  } else if (roundedDQ === 5) {
-    avatarlabel = avatarlabels[4];
-  }
   
   const handleScoreOverlayClick = (e) => {
         // close overlay when clicked outside, add a listener to the window

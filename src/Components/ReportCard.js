@@ -26,6 +26,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [day, setDay] = useState(0);
   const [typename, setTypename] = useState(false);
   const [avatarlabel, setAvatarlabel] = useState('');
+  const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -127,7 +128,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         // setScoreModal(true);
       }
 
-      if (apicalled===true && scoreModal===true && typename===false) {
+      if (apicalled===true && scoreModal===true && typename===false && updatedroundeddq===true) {
         let temp = '';
           if (roundedDQ === 0) {
             temp = avatarlabels[0];
@@ -150,11 +151,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
 
     // eslint-disable-next-line
-    }, [responsesubmitted, apicalled, scoreModal, typename]);
+    }, [responsesubmitted, apicalled, scoreModal, typename, updatedroundeddq]);
 
     useEffect(() => {
 
       setTypename(false);
+      setUpdatedroundeddq(true);
 
     }, [roundedDQ]);
 

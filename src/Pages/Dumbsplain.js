@@ -453,6 +453,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 setSpecial_id(answer.special_id);
                 setScore(answer.score);
                 setGameended(answer.gameended)
+                setUserdq(answer.dq);
             }
             fetchAnswer();
             setResponsesubmitted(true);
@@ -606,7 +607,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
             responsesubmitted={responsesubmitted}
             />
-            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} />
+            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} />
             <section className='headersection'
             style={{
                 height: 'auto',

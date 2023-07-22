@@ -7,7 +7,7 @@ import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
 import { avatarlabels } from '../config';
 
-const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
+const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
@@ -49,6 +49,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         setCardscale(temp);
       }
 
+      if (window.innerHeight < 620) {
+        let temp = window.innerHeight / 620;
+        setCardscale(temp);
+      }
+
     };
 
     window.addEventListener('resize', handleWindowResize);
@@ -81,7 +86,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             tempcycle = score.weekstart + ' - ' + score.weekend;
             setCycle(tempcycle);
             setUserdq(score.dq);
-            setUserstreak(score.scoretoday);
+            // setUserstreak(score.scoretoday);
+            setScore(score.scoretoday);
             setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
@@ -235,8 +241,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // }
 
   return (
-     <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
-        <section ref={sectionRef}
+     <div className={ scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
+        <section ref={ sectionRef }
         className='reportcard-section-main'
         style={
           {
@@ -354,7 +360,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                           width: '72px',
                         }}
                         data-theme={theme}>Today's Score</div>
-                        <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
+                        <div className='reportcard-streakscore' data-theme={theme}>{score}</div>
                       </div>
                       <div className='reportcard-streak'
                       style={{

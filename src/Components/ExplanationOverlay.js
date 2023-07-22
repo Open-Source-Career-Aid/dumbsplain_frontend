@@ -3,19 +3,23 @@ import '../CSS/ExplanationOverlay.css';
 import getExplanation from '../Functions/getExplanation';
 import pseudoGenerator from '../Functions/pseudoGenerator';
 
-export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme , setScore , setUserdq }) {
+export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme , setScore , setUserdq , setSub }) {
 
     const [timeremaining, setTimeremaining] = useState(10);
     const [explanation, setExplanation] = useState("");
     // eslint-disable-next-line
     const [explanationloading, setExplanationloading] = useState(true);
+    const [bufferscore, setBufferscore] = useState(null);
+    const [bufferdq, setBufferdq] = useState(null);
 
     useEffect(() => {
         async function fetchExplanation() {
             const explanation = await getExplanation(dumbnessLevel);
             // setExplanation(explanation.explanation);
-            setScore(explanation.score);
-            setUserdq(explanation.dq);
+            // setScore(explanation.score);
+            setBufferscore(explanation.score);
+            // setUserdq(explanation.dq);
+            setBufferdq(explanation.dq);
             pseudoGenerator(explanation.explanation, setExplanation, 0.02, setExplanationloading);
         }
         if (explanationrequested) {
@@ -35,7 +39,19 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
             }, 1000);
             return () => clearInterval(timer);
         }
-    }, [explanationrequested, timeremaining]);
+
+        if (explanationrequested===false && bufferscore!==null) {
+            setSub(-0.5)
+            setScore(bufferscore);
+            setBufferscore(null);
+        }
+
+        if (explanationrequested===false && bufferdq!==null) {
+            setUserdq(bufferdq);
+            setBufferdq(null);
+        }
+
+    }, [explanationrequested, timeremaining, setScore, bufferscore, setUserdq, bufferdq, setSub]);
 
     useEffect(() => {
         if (timeremaining === 0) {

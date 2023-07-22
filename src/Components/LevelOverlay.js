@@ -31,6 +31,11 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
             setCardscale(temp);
         }
 
+        if (window.innerHeight < 620) {
+            let temp = window.innerHeight / 620;
+            setCardscale(temp);
+        }
+
         };
 
     window.addEventListener('resize', handleWindowResize);

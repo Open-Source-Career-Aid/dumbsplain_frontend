@@ -1,4 +1,4 @@
-import React , { useEffect, useRef } from 'react';
+import React , { useRef } from 'react';
 
 // function that takes in a text finds the question surounded by <q> and </q> and 5 options surounded by <o> and </o>
 // and returns an array of the question and the options
@@ -122,12 +122,13 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
 
 function Dumbsplainer ({ text , quizme , theme , topic , responsesubmitted , topicurl , selectedoption , setSelectedoption }) {
 
+    // eslint-disable-next-line
     const textareaRef = useRef(null);
 
-    useEffect(() => {
+    // useEffect(() => {
         // scroll to bottom of the ref if text changes
-        textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
-    }, [text])
+        // textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    // }, [text])
 
     return (
         <>

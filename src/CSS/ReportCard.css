@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'GloriaHallelujah';
+  src: local('GloriaHallelujah'), url(../fonts/GloriaHallelujah-Regular.ttf) format('truetype');
+}
+
 .react-switch-handle {
     padding: 0;
 }
@@ -336,7 +341,7 @@ canvas {
 }
 
 .messagefromai-text {
-    font-family: Gloria Hallelujah;
+    font-family: 'GloriaHallelujah';
     color: #D65757;
     font-size: 18px;
     font-weight: 400;
@@ -351,7 +356,7 @@ canvas {
 }
 
 .messagefromai-link {
-    font-family: Gloria Hallelujah;
+    font-family: 'GloriaHallelujah';
     color: #4C7BFE;
     font-size: 18px;
     font-weight: 400;

@@ -10,13 +10,13 @@ export default function PlayerProgress({ dq , score }) {
 
     useEffect(() => {
 
-        if (fontcolor1==='#32BCA3') {
+        if (fontcolor1==='#32BCA3' || fontcolor2==='#F59E6C') {
             setTimeout(() => {
                 setFontColor1('#B1B1B1')
             }, 3000);
         }
 
-        if (fontcolor2==='#32BCA3') {
+        if (fontcolor2==='#32BCA3' || fontcolor2==='#F59E6C') {
             setTimeout(() => {
                 setFontColor2('#B1B1B1')
             }, 3000);
@@ -31,6 +31,7 @@ export default function PlayerProgress({ dq , score }) {
             setNum(dq)
         }
         else if (dq < num) {
+            setFontColor1('#F59E6C')
             setNum(dq)
         }
 
@@ -43,6 +44,7 @@ export default function PlayerProgress({ dq , score }) {
             setNum2(score)
         }
         else if (score < num2) {
+            setFontColor2('#F59E6C')
             setNum2(score)
         }
 

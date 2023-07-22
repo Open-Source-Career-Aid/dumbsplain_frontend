@@ -10,6 +10,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
     const [widthofcarouselwindow, setWidthofcarouselwindow] = useState(0);
 
     useEffect(() => {
+
         const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
         const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
 
@@ -21,7 +22,33 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
             setLocationofelements(initialloc);    
         }
 
-    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);    
+    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);   
+
+    // measure the width of the cardRef as the window resizes
+    useEffect(() => {
+        
+        const handleWindowResize = () => {
+
+            const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
+            const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
+
+            setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
+            setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
+
+            if(carouseldumbnessLevel >= 1 && carouseldumbnessLevel <= 5){
+                const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*(0.5 + carouseldumbnessLevel - 1);
+                setLocationofelements(initialloc);    
+            }
+
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+        window.removeEventListener('resize', handleWindowResize);
+        };
+    }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]); 
 
     useEffect(() => {
         setCarouseldumbnessLevel(dumbnessLevel);

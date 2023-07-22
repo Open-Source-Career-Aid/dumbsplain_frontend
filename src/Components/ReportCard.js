@@ -367,6 +367,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         paddingLeft: '20px',
                       }}
                       data-theme={theme}>
+                        <div className='sharebutton' data-theme={theme}></div>
                         {/* <div className='reportcard-streak-title'
                         style={{
                           width: '59px',

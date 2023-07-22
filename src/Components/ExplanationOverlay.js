@@ -3,7 +3,7 @@ import '../CSS/ExplanationOverlay.css';
 import getExplanation from '../Functions/getExplanation';
 import pseudoGenerator from '../Functions/pseudoGenerator';
 
-export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme }) {
+export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme , setScore , setUserdq }) {
 
     const [timeremaining, setTimeremaining] = useState(10);
     const [explanation, setExplanation] = useState("");
@@ -14,6 +14,8 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
         async function fetchExplanation() {
             const explanation = await getExplanation(dumbnessLevel);
             // setExplanation(explanation.explanation);
+            setScore(explanation.score);
+            setUserdq(explanation.dq);
             pseudoGenerator(explanation.explanation, setExplanation, 0.02, setExplanationloading);
         }
         if (explanationrequested) {
@@ -24,7 +26,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
             setExplanation("");
         }
 
-    }, [explanationrequested, dumbnessLevel]);
+    }, [explanationrequested, dumbnessLevel, setScore, setUserdq]);
 
     useEffect(() => {
         if (explanationrequested && timeremaining >= 0) {

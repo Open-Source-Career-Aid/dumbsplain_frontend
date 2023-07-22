@@ -67,7 +67,7 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
                 margin: '0',
                 paddingBottom: '0',
             }}>
-                {message}
+                {message.trim()}
             </p>}
             <div className='mcq-question' data-theme={theme}
             style={{
@@ -75,7 +75,7 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
             }}
             >
                 {/* <p data-theme={theme}>  */}
-                {question} 
+                {question.trim()} 
                 {/* </p> */}
             </div>
             <div className='mcq-options'
@@ -110,7 +110,7 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
                                 >
                                     {index + 1}{'.'}
                                 </span>
-                                    {option.trimStart()}
+                                    {option.trim()}
                                 </li>
                         )
                     })}

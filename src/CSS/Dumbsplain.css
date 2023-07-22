@@ -46,10 +46,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
     overflow: hidden;
     font-size: 30px;
     width: 90%;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .header {
@@ -79,7 +80,6 @@
     background-size: contain;
     height: 35px;
     min-width: 150px;
-    margin-right: 40px;
 }
 
 .equaltoAI[data-theme='dark'] {
@@ -103,6 +103,8 @@
     .navbar {
         padding: 0 10px;
         height: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     .header {
@@ -124,31 +126,31 @@
 }
 
 .lightmode {
-    background-image: url('../../public/lightmode.svg');
+    background-image: url('../../public/lightmode.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 2.8em;
-    width: 3.0em;
+    height: 50px;
+    width: 90px;
     cursor: pointer;
     padding: 0;
     margin-left: 5%;
 }
 
 .darkmode {
-    background-image: url('../../public/darkmode.svg');
+    background-image: url('../../public/darkmode.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    height: 2.8em;
-    width: 3.0em;
+    height: 50px;
+    width: 90px;
     cursor: pointer;
     padding: 0;
     margin-left: 5%;
 }
 
 .infobutton {
-    background-image: url('../../public/i.svg');
+    background-image: url('../../public/i.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -160,7 +162,7 @@
 }
 
 .leaderboard {
-    background-image: url('../../public/leaderboard.svg');
+    background-image: url('../../public/leaderboard.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -267,11 +269,10 @@
 /* make text area recognise line breaks and spaces */
 .textarea p {
     white-space: pre-wrap;
-    padding: 0.325em; 
 }
 
 .textarea p {
-    padding: 2em 1.5em;
+    padding: 1.5em;
     font-size: 0.5em;
 }
 .textarea p[data-theme='dark'] {
@@ -620,6 +621,7 @@
     padding: 0;
     width: 100%;
     height: 100%;
+    padding-bottom: 10px;
 }
 
 .waitingarea {
@@ -631,8 +633,6 @@
     height: 97%;
     border: 1px solid #c7c7c7;
     border-radius: .3125em;
-    margin-top: .625em;
-    margin-bottom: .625em;
     font-family: 'Roboto', sans-serif;
     position: relative;
 }
@@ -1020,9 +1020,9 @@
     }
 
     .textarea p {
-        padding: .3125em;
+        padding: 0;
+        padding-top: 1em;
         font-size: 0.5em;
-        padding-left: 0;
     }
 
     .dumbnesslevels {
@@ -1180,9 +1180,9 @@
     }
 
     .textarea p {
-        padding: .3125em;
+        padding: 0;
         font-size: 0.5em;
-        padding-left: 0;
+        padding-top: 1em;
     }
 
     .dumbnesslevels {

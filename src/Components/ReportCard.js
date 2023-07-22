@@ -5,11 +5,14 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
+import * as htmlToImage from 'html-to-image';
+// import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+// import FileSaver from 'file-saver';
 import { avatarlabels } from '../config';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
-  const sectionRef = useRef(null);
+  // const sectionRef = useRef(null);
   const cardRef = useRef(null);
   const [cardscale, setCardscale] = useState(1);
   const referenceRef = useRef(null);
@@ -22,11 +25,42 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // eslint-disable-next-line
   const [weekorday, setWeekorday] = useState('View Day');
   const [listofvalues, setListofvalues] = useState([]);
-  const [cycle, setCycle] = useState('');
+  const [cycle, setCycle] = useState(0);
   const [day, setDay] = useState(0);
+  const reportCardRef = useRef(null);
+  const [copied, setCopied] = useState(false);
   const [typename, setTypename] = useState(false);
   const [avatarlabel, setAvatarlabel] = useState('');
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
+
+  const handleCopy = () => {
+    if (reportCardRef.current === null) {
+      return
+    }
+    htmlToImage.toBlob(reportCardRef.current)
+      .then(function (blob) {
+        const item = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([item]);
+        setCopied(true);
+      //   if (window.saveAs) {
+      //     window.saveAs(blob, 'my-report.png');
+      //   } else {
+      //      FileSaver.saveAs(blob, 'my-report.png');
+      //  }
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+
+    if (copied) {
+      alert('Image copied to clipboard!');
+      setCopied(false);
+    }
+
+  }, [copied]);
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -166,7 +200,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     }, [roundedDQ]);
 
-
   // const handleShareClick = () => {
 
   //   if (!('clipboard' in navigator)) {
@@ -242,7 +275,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
   return (
      <div className={ scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
-        <section ref={ sectionRef }
+        <section ref={reportCardRef}
         className='reportcard-section-main'
         style={
           {
@@ -367,7 +400,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         paddingLeft: '20px',
                       }}
                       data-theme={theme}>
-                        <div className='sharebutton' data-theme={theme}></div>
+                        <div className='sharebutton' data-theme={theme} onClick={handleCopy}></div>
                         {/* <div className='reportcard-streak-title'
                         style={{
                           width: '59px',

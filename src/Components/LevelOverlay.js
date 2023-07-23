@@ -15,9 +15,13 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
 
         if (window.innerHeight < 620) {
             let temp = window.innerHeight / 620;
+            let temp2 = window.innerWidth / 420;
+            if (temp2 < temp) {
+                temp = temp2;
+            }
             setCardscale(temp);
             return;
-        }
+            }
 
         // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
         if (window.innerWidth < 675 && window.innerWidth > 600) {
@@ -29,7 +33,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
             setCardscale(temp);
         }
         else if (window.innerWidth < 300) {
-            let temp = 0.7; // tolerance
+            let temp = (window.innerWidth - 20) / 420; // tolerance
             setCardscale(temp);
         }
         else {

@@ -108,7 +108,7 @@ export default function PlayerProgress({ dq , score , add , sub , setAdd , setSu
                 color: fontcolor2,
             }}
             >{score}</div>
-            <div className={"addsomething"
+            {/* <div className={"addsomething"
             + (positive ? ' fade-in' : ' fade-out')
             }>
                 {add}
@@ -117,7 +117,7 @@ export default function PlayerProgress({ dq , score , add , sub , setAdd , setSu
             + (negative ? ' fade-in' : ' fade-out')
             }>
                 {sub}
-            </div>
+            </div> */}
         </div>
     );
     }

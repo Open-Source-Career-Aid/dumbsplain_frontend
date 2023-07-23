@@ -11,8 +11,14 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
         ["Answer right away or take a hint for -0.5 points", ["1 point -> getting it right as Just Plain Dumb","5 points -> getting it right as Sentient Savant", "Play ends when you get it wrong"]],
         ["Reach for the highest Dumbness Quotient (DQ)", ["DQ is your average score this week and resets on Monday"]]];
 
-    useEffect(() => {
-        const handleWindowResize = () => {
+    const handleWindowResize = () => {
+
+        if (window.innerHeight < 620) {
+            let temp = window.innerHeight / 620;
+            setCardscale(temp);
+            return;
+        }
+
         // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
         if (window.innerWidth < 675 && window.innerWidth > 600) {
             let temp = 0.8; // tolerance
@@ -31,20 +37,22 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
             setCardscale(temp);
         }
 
-        if (window.innerHeight < 620) {
-            let temp = window.innerHeight / 620;
-            setCardscale(temp);
-        }
+    };
 
+    useEffect(() => {
+
+        window.addEventListener('resize', handleWindowResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
         };
 
-    window.addEventListener('resize', handleWindowResize);
+    }, []);
 
-    // Cleanup function to remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
+    useEffect(() => {
+        handleWindowResize();
+    }, [infoOverlay]);
     
     const leveltext = level.map((item, index) => {
        return (

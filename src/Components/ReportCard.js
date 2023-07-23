@@ -62,33 +62,36 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
   }, [copied]);
 
+  const handleWindowResize = () => {
+
+    if (window.innerHeight < 620) {
+      let temp = window.innerHeight / 620;
+      setCardscale(temp);
+      return;
+    }
+
+    // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
+    if (window.innerWidth < 675 && window.innerWidth > 600) {
+      let temp = 0.8; // tolerance
+      setCardscale(temp);
+    } 
+    else if (window.innerWidth < 420 && window.innerWidth > 300) {
+      let temp = (window.innerWidth - 20) / 420; // tolerance
+      setCardscale(temp);
+    }
+    else if (window.innerWidth < 300) {
+      let temp = 0.7; // tolerance
+      setCardscale(temp);
+    }
+    else {
+      let temp = 1; // tolerance
+      setCardscale(temp);
+    }
+
+  };
+
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
-    const handleWindowResize = () => {
-      // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
-      if (window.innerWidth < 675 && window.innerWidth > 600) {
-        let temp = 0.8; // tolerance
-        setCardscale(temp);
-      } 
-      else if (window.innerWidth < 420 && window.innerWidth > 300) {
-        let temp = (window.innerWidth - 20) / 420; // tolerance
-        setCardscale(temp);
-      }
-      else if (window.innerWidth < 300) {
-        let temp = 0.7; // tolerance
-        setCardscale(temp);
-      }
-      else {
-        let temp = 1; // tolerance
-        setCardscale(temp);
-      }
-
-      if (window.innerHeight < 620) {
-        let temp = window.innerHeight / 620;
-        setCardscale(temp);
-      }
-
-    };
 
     window.addEventListener('resize', handleWindowResize);
 
@@ -97,6 +100,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
+
+  useEffect(() => {
+    handleWindowResize();
+  }, [scoreModal]);
 
   useEffect(() => {
 

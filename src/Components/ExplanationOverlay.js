@@ -11,6 +11,50 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     const [explanationloading, setExplanationloading] = useState(true);
     const [bufferscore, setBufferscore] = useState(null);
     const [bufferdq, setBufferdq] = useState(null);
+    const [cardscale, setCardscale] = useState(1);
+
+    const handleWindowResize = () => {
+
+        if (window.innerHeight < 620) {
+            let temp = window.innerHeight / 620;
+            setCardscale(temp);
+            return;
+        }
+
+        // console.log('Width:', window.innerWidth, 'Height:', window.innerHeight);
+        if (window.innerWidth < 675 && window.innerWidth > 600) {
+            let temp = 0.8; // tolerance
+            setCardscale(temp);
+        } 
+        else if (window.innerWidth < 420 && window.innerWidth > 300) {
+            let temp = (window.innerWidth - 20) / 420; // tolerance
+            setCardscale(temp);
+        }
+        else if (window.innerWidth < 300) {
+            let temp = 0.7; // tolerance
+            setCardscale(temp);
+        }
+        else {
+            let temp = 1; // tolerance
+            setCardscale(temp);
+        }
+
+    };
+
+    useEffect(() => {
+
+        window.addEventListener('resize', handleWindowResize);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+
+    }, []);
+
+    useEffect(() => {
+        handleWindowResize();
+    }, [explanationrequested]);
 
     useEffect(() => {
         async function fetchExplanation() {
@@ -75,7 +119,11 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     return (
         <>
             <div className={ explanationrequested ? "modal-overlay" : "modal-overlay-off"} onClick={handleScoreOverlayClick}>
-                <main className="explanation-content" data-theme={theme}>
+                <main className="explanation-content"
+                style={{
+                    transform: `scale(${cardscale})`,
+                }}
+                data-theme={theme}>
                     <div className="explanation-content-header"
                     style={{
                         display: "flex",

@@ -465,16 +465,21 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }
 
-    useEffect(() => {
+    const handleConfetticomplete = () => {
+        setConfetti(false);
+        setConfettiamount(0);
+    }
 
-        if (confetti && confettiamount > 0) {
-            setTimeout(() => {
-                setConfetti(false);
-                setConfettiamount(0);
-            }, 5000);
-        }
+    // useEffect(() => {
 
-    }, [confetti, confettiamount]);
+    //     if (confetti && confettiamount > 0) {
+    //         setTimeout(() => {
+    //             setConfetti(false);
+    //             setConfettiamount(0);
+    //         }, 10000);
+    //     }
+
+    // }, [confetti, confettiamount]);
 
     useEffect(() => {
         
@@ -488,7 +493,7 @@ function Dumbsplain( { theme , setTheme } ) {
         
         if (selectedoption === correctoption && responsesubmitted === true) {
 
-            setConfettiamount([5, 20, 150, 300, 5000][dumbnessLevel - 1]);
+            setConfettiamount([10, 20, 150, 300, 5000][dumbnessLevel - 1]);
             setAdd(1);
             if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.
@@ -594,6 +599,8 @@ function Dumbsplain( { theme , setTheme } ) {
                 recycle={false}
                 numberOfPieces={confettiamount}
                 colors={['#8CA8FF', '#4C7BFE', '#F59E6C', '#32BCA3']}
+                onConfettiComplete={handleConfetticomplete}
+                gravity={0.2}
                 /> : null }
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard

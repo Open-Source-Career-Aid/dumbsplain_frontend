@@ -29,7 +29,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [day, setDay] = useState(0);
   const reportCardRef = useRef(null);
   const [copied, setCopied] = useState(false);
-  const [typename, setTypename] = useState(false);
+  const [typename, setTypename] = useState(true);
   const [avatarlabel, setAvatarlabel] = useState('');
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
 
@@ -197,12 +197,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         setTimeout(() => {
           pseudoGenerator(temp, setAvatarlabel, 0.8);
         }, 1000);
-        setTypename(true);
       }
 
 
     // eslint-disable-next-line
-    }, [responsesubmitted, apicalled, scoreModal, typename, updatedroundeddq]);
+    }, [responsesubmitted, apicalled, scoreModal, typename, updatedroundeddq, roundedDQ]);
 
     useEffect(() => {
 

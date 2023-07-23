@@ -197,6 +197,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         setTimeout(() => {
           pseudoGenerator(temp, setAvatarlabel, 0.8);
         }, 1000);
+        setTypename(true);
       }
 
 

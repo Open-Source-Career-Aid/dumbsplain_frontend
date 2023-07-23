@@ -5,11 +5,14 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
+import * as htmlToImage from 'html-to-image';
+// import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+// import FileSaver from 'file-saver';
 import { avatarlabels } from '../config';
 
-const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted }) => {
+const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
-  const sectionRef = useRef(null);
+  // const sectionRef = useRef(null);
   const cardRef = useRef(null);
   const [cardscale, setCardscale] = useState(1);
   const referenceRef = useRef(null);
@@ -22,11 +25,42 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // eslint-disable-next-line
   const [weekorday, setWeekorday] = useState('View Day');
   const [listofvalues, setListofvalues] = useState([]);
-  const [cycle, setCycle] = useState('');
+  const [cycle, setCycle] = useState(0);
   const [day, setDay] = useState(0);
+  const reportCardRef = useRef(null);
+  const [copied, setCopied] = useState(false);
   const [typename, setTypename] = useState(false);
   const [avatarlabel, setAvatarlabel] = useState('');
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
+
+  const handleCopy = () => {
+    if (reportCardRef.current === null) {
+      return
+    }
+    htmlToImage.toBlob(reportCardRef.current)
+      .then(function (blob) {
+        const item = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([item]);
+        setCopied(true);
+      //   if (window.saveAs) {
+      //     window.saveAs(blob, 'my-report.png');
+      //   } else {
+      //      FileSaver.saveAs(blob, 'my-report.png');
+      //  }
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+
+    if (copied) {
+      alert('Image copied to clipboard!');
+      setCopied(false);
+    }
+
+  }, [copied]);
 
   // measure the width of the cardRef as the window resizes
   useEffect(() => {
@@ -46,6 +80,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       }
       else {
         let temp = 1; // tolerance
+        setCardscale(temp);
+      }
+
+      if (window.innerHeight < 620) {
+        let temp = window.innerHeight / 620;
         setCardscale(temp);
       }
 
@@ -81,7 +120,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             tempcycle = score.weekstart + ' - ' + score.weekend;
             setCycle(tempcycle);
             setUserdq(score.dq);
-            setUserstreak(score.scoretoday);
+            // setUserstreak(score.scoretoday);
+            setScore(score.scoretoday);
             setMaxstreak(score.maxstreak);
             setSpecial_id(score.special_id);
             setRoundedDQ(Math.round(score.dq));
@@ -160,7 +200,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     }, [roundedDQ]);
 
-
   // const handleShareClick = () => {
 
   //   if (!('clipboard' in navigator)) {
@@ -235,8 +274,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // }
 
   return (
-     <div className={scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
-        <section ref={sectionRef}
+     <div className={ scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
+        <section ref={reportCardRef}
         className='reportcard-section-main'
         style={
           {
@@ -274,7 +313,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 <div className='reportcard-body-left' data-theme={theme}>
                   <div className='reportcard-body-left-avatar' data-theme={theme}>
                     <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'25px', top: 'auto'}}></div>
-                    <div style={{width:'170px', height:'20px', position:'absolute', bottom:'0', top: 'auto', fontSize: '0.4em', textAlign: 'center', paddingTop: '3px', borderTop: '2px solid #D9D9D9', fontFamily: 'Gloria Hallelujah', color: '#D65757', lineHeight: '1em'}}>{avatarlabel}</div>
+                    <div style={{width:'170px', height:'20px', position:'absolute', bottom:'0', top: 'auto', fontSize: '0.4em', textAlign: 'center', paddingTop: '3px', borderTop: '2px solid #D9D9D9', fontFamily: 'GloriaHallelujah', color: '#D65757', lineHeight: '1em'}}>{avatarlabel}</div>
                   </div>
                 </div>
                 <div className='reportcard-body-right' data-theme={theme}
@@ -354,13 +393,14 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                           width: '72px',
                         }}
                         data-theme={theme}>Today's Score</div>
-                        <div className='reportcard-streakscore' data-theme={theme}>{userstreak}</div>
+                        <div className='reportcard-streakscore' data-theme={theme}>{score}</div>
                       </div>
                       <div className='reportcard-streak'
                       style={{
                         paddingLeft: '20px',
                       }}
                       data-theme={theme}>
+                        <div className='sharebutton' data-theme={theme} onClick={handleCopy}></div>
                         {/* <div className='reportcard-streak-title'
                         style={{
                           width: '59px',

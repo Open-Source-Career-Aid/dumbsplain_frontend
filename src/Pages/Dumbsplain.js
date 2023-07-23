@@ -65,6 +65,8 @@ function Dumbsplain( { theme , setTheme } ) {
     const [explanationread, setExplanationread] = React.useState(false);
     // eslint-disable-next-line
     const [typing , setTyping] = React.useState(true);
+    const [add, setAdd] = React.useState(0);
+    const [sub, setSub] = React.useState(0);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -443,7 +445,10 @@ function Dumbsplain( { theme , setTheme } ) {
     }
 
     const handleAnswersubmit = (e) => {
-        if (selectedoption !== null) {
+        if (selectedoption === null || selectedoption === 0) {
+            alert('Please select an option');
+        }
+        if (selectedoption !== null && selectedoption !== 0) {
             e.preventDefault();
             async function fetchAnswer() {
                 const answer = await submitAnswer(selectedoption);
@@ -483,7 +488,8 @@ function Dumbsplain( { theme , setTheme } ) {
         
         if (selectedoption === correctoption && responsesubmitted === true) {
 
-            setConfettiamount([5, 50, 100, 200, 5000][dumbnessLevel - 1]);
+            setConfettiamount([5, 20, 150, 300, 5000][dumbnessLevel - 1]);
+            setAdd(1);
             if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.
                 setDumbnessLevel(dumbnessLevel + 1);
@@ -494,7 +500,6 @@ function Dumbsplain( { theme , setTheme } ) {
                 setMcqloading(false);
                 setMcqrequested(false);
                 setResponsesubmitted(false);
-                setSelectedoption(1);
                 setCorrectoption(null);
                 setExplanationread(false);
                 setSelectedoption(0);
@@ -532,7 +537,7 @@ function Dumbsplain( { theme , setTheme } ) {
         if (typing===false) {
             setTimeout(() => {
                 setScoreModal(true);
-            }, 3000);
+            }, 5000);
         }
     }, [typing]);
 
@@ -606,8 +611,10 @@ function Dumbsplain( { theme , setTheme } ) {
             dqincreaseddecreasedorremained={dqincreaseddecreasedorremained}
             setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
             responsesubmitted={responsesubmitted}
+            score={score}
+            setScore={setScore}
             />
-            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} />
+            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} setSub={setSub} />
             <section className='headersection'
             style={{
                 height: 'auto',
@@ -623,6 +630,8 @@ function Dumbsplain( { theme , setTheme } ) {
                     { width > 900 ? <PlayerProgress
                     dq={userdq}
                     score={score}
+                    add={add}
+                    sub={sub}
                     /> : null }
                     <div className='dumbsplainlogo'></div>
                     {/* <Header
@@ -641,6 +650,8 @@ function Dumbsplain( { theme , setTheme } ) {
                 { width < 900 ? <PlayerProgress
                     dq={userdq}
                     score={score}
+                    add={add}
+                    sub={sub}
                     /> : null }
                 {/* <div className='introduction'>
                     <Header

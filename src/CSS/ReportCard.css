@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'GloriaHallelujah';
+  src: local('GloriaHallelujah'), url(../fonts/GloriaHallelujah-Regular.ttf) format('truetype');
+}
+
 .react-switch-handle {
     padding: 0;
 }
@@ -129,7 +134,6 @@ canvas {
     overflow: visible;
     color: #B1B1B1;
     font-style: italic;
-    padding: 0;
     display: flex;
     align-items: center;
     text-align: center;
@@ -337,7 +341,7 @@ canvas {
 }
 
 .messagefromai-text {
-    font-family: Gloria Hallelujah;
+    font-family: 'GloriaHallelujah';
     color: #D65757;
     font-size: 18px;
     font-weight: 400;
@@ -352,7 +356,7 @@ canvas {
 }
 
 .messagefromai-link {
-    font-family: Gloria Hallelujah;
+    font-family: 'GloriaHallelujah';
     color: #4C7BFE;
     font-size: 18px;
     font-weight: 400;
@@ -483,4 +487,28 @@ canvas {
     .reportcard-section-main {
         overflow: visible;
     }
+}
+
+.sharebutton[data-theme="light"] {
+    background-image: url(../../public/sharelight.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 100px;
+    padding: 0;
+    margin: 0;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.sharebutton[data-theme="dark"] {
+    background-image: url(../../public/sharedark.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 100px;
+    padding: 0;
+    margin: 0;
+    margin-top: 15px;
+    cursor: pointer;
 }

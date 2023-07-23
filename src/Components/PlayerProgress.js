@@ -1,12 +1,26 @@
 import '../CSS/PlayerProgress.css'
 import React , { useEffect , useState } from 'react';
 
-export default function PlayerProgress({ dq , score }) {
+export default function PlayerProgress({ dq , score , add , sub , setAdd , setSub }) {
 
     const [fontcolor1, setFontColor1] = useState('#B1B1B1')
     const [fontcolor2, setFontColor2] = useState('#B1B1B1')
     const [num, setNum] = useState(0)
     const [num2, setNum2] = useState(0)
+    const [positive, setPositive] = useState(false)
+    const [negative, setNegative] = useState(false)
+
+    // useEffect(() => {
+
+    //     if (add!==0) {
+    //         setPositive(true)
+    //     }
+
+    //     if (sub!==0) {
+    //         setNegative(true)
+    //     }
+
+    // }, [add, sub])
 
     useEffect(() => {
 
@@ -30,6 +44,7 @@ export default function PlayerProgress({ dq , score }) {
             setFontColor1('#32BCA3')
             setNum(dq)
         }
+
         else if (dq < num) {
             setFontColor1('#F59E6C')
             setNum(dq)
@@ -49,6 +64,24 @@ export default function PlayerProgress({ dq , score }) {
         }
 
     }, [score, num2])
+
+    useEffect(() => {
+
+        if (positive) {
+            setTimeout(() => {
+                setPositive(false)
+                setAdd(0)
+            }, 3000);
+        }
+
+        if (negative) {
+            setTimeout(() => {
+                setNegative(false)
+                setSub(0)
+            }, 3000);
+        }
+
+    }, [positive, negative, setAdd, setSub])
 
     return (
         <div className='progresscontainer' style={{
@@ -75,6 +108,16 @@ export default function PlayerProgress({ dq , score }) {
                 color: fontcolor2,
             }}
             >{score}</div>
+            <div className={"addsomething"
+            + (positive ? ' fade-in' : ' fade-out')
+            }>
+                {add}
+            </div>
+            <div className={"subsomething"
+            + (negative ? ' fade-in' : ' fade-out')
+            }>
+                {sub}
+            </div>
         </div>
     );
     }

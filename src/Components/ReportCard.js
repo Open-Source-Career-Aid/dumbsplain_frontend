@@ -56,8 +56,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   useEffect(() => {
 
     if (copied) {
-      alert('Image copied to clipboard!');
       setCopied(false);
+      alert('Image copied to clipboard!');
     }
 
   }, [copied]);
@@ -66,6 +66,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     if (window.innerHeight < 620) {
       let temp = window.innerHeight / 620;
+      let temp2 = window.innerWidth / 420;
+      if (temp2 < temp) {
+        temp = temp2;
+      }
       setCardscale(temp);
       return;
     }
@@ -80,7 +84,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       setCardscale(temp);
     }
     else if (window.innerWidth < 300) {
-      let temp = 0.7; // tolerance
+      let temp = (window.innerWidth - 20) / 420; // tolerance
       setCardscale(temp);
     }
     else {
@@ -291,6 +295,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            scale: `${cardscale}`,
           }
         }>
           <div className='modal-content-inverted'
@@ -298,7 +303,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           style={{
             border: '5px solid',
             borderColor: `${bordercolor}`,
-            scale: `${cardscale}`,
           }}
           // ref={cardRef}
           data-theme={theme}>

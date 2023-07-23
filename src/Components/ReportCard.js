@@ -13,7 +13,7 @@ import { avatarlabels } from '../config';
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
   // const sectionRef = useRef(null);
-  const cardRef = useRef(null);
+  // const cardRef = useRef(null);
   const [cardscale, setCardscale] = useState(1);
   const referenceRef = useRef(null);
   const [roundedDQ, setRoundedDQ] = useState(1);
@@ -282,7 +282,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
   return (
      <div className={ scoreModal ? "modal-overlay" : "modal-overlay-off" } onClick={handleScoreOverlayClick}>
-        <section ref={reportCardRef}
+        <section
         className='reportcard-section-main'
         style={
           {
@@ -294,12 +294,13 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           }
         }>
           <div className='modal-content-inverted'
+          ref={reportCardRef}
           style={{
             border: '5px solid',
             borderColor: `${bordercolor}`,
             scale: `${cardscale}`,
           }}
-          ref={cardRef}
+          // ref={cardRef}
           data-theme={theme}>
               <span className="closeOverlay reportcard" data-theme={theme} onClick={handleCloseOverlayClick}>&times;</span>
               <div className='reportcard-header' data-theme={theme}>

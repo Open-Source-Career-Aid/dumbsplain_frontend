@@ -105,6 +105,7 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
                                     alignItems: 'flex-start',
                                     justifyContent: 'flex-start',
                                     flexDirection: 'column',
+                                    width: '15px',
                                 }}
                                 data-theme={theme}
                                 >

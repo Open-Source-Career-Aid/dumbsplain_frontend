@@ -16,7 +16,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   // const cardRef = useRef(null);
   const [cardscale, setCardscale] = useState(1);
   const referenceRef = useRef(null);
-  const [roundedDQ, setRoundedDQ] = useState(1);
+  const [roundedDQ, setRoundedDQ] = useState(-1);
   const [apicalled, setApicalled] = useState(false);
   const [bordercolor, setBordercolor] = useState('#E8CF7A');
   // eslint-disable-next-line
@@ -195,7 +195,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             temp = avatarlabels[4];
           }
         setTimeout(() => {
-          pseudoGenerator(temp, setAvatarlabel, 0.2);
+          pseudoGenerator(temp, setAvatarlabel, 0.8);
         }, 1000);
         setTypename(true);
       }

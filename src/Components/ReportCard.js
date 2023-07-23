@@ -324,8 +324,8 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               <div className='reportcard-body' data-theme={theme}>
                 <div className='reportcard-body-left' data-theme={theme}>
                   <div className='reportcard-body-left-avatar' data-theme={theme}>
-                    <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'25px', top: 'auto'}}></div>
-                    <div style={{width:'170px', height:'20px', position:'absolute', bottom:'0', top: 'auto', fontSize: '0.4em', textAlign: 'center', paddingTop: '3px', borderTop: '2px solid #D9D9D9', fontFamily: 'GloriaHallelujah', color: '#D65757', lineHeight: '1em'}}>{avatarlabel}</div>
+                    <div className={avatarname} style={{width:'158px', height:'158px', position:'absolute', bottom:'28px', top: 'auto'}}></div>
+                    <div style={{width:'170px', height:'20px', position:'absolute', bottom:'0', top: 'auto', fontSize: '0.4em', textAlign: 'center', paddingTop: '6px', borderTop: '2px solid #D9D9D9', fontFamily: 'GloriaHallelujah', color: '#D65757', lineHeight: '1em'}}>{avatarlabel}</div>
                   </div>
                 </div>
                 <div className='reportcard-body-right' data-theme={theme}

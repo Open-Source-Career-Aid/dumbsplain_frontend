@@ -412,7 +412,20 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                         paddingLeft: '20px',
                       }}
                       data-theme={theme}>
-                        <div className='sharebutton' data-theme={theme} onClick={handleCopy}></div>
+                        <button
+                        onClick={handleCopy}
+                        className='sharebutton'
+                        data-theme={theme}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexDirection: 'row',
+                        }}
+                        >
+                          Share
+                          <div className='shareicon' data-theme={theme}></div>
+                        </button>
                         {/* <div className='reportcard-streak-title'
                         style={{
                           width: '59px',

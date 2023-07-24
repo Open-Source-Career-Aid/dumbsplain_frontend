@@ -19,6 +19,7 @@ import ExplanationOverlay from '../Components/ExplanationOverlay';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
 import PlayerProgress from "../Components/PlayerProgress";
+import EmojiSlider from "../Components/EmojiSlide";
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -67,6 +68,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [typing , setTyping] = React.useState(true);
     const [add, setAdd] = React.useState(0);
     const [sub, setSub] = React.useState(0);
+    const [showRobot, setShowRobot] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -518,6 +520,7 @@ function Dumbsplain( { theme , setTheme } ) {
         else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
             setGameended(true);
             setDumbnessLevel(prev => prev - 1);
+            setShowRobot(true);
             pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
         }
 
@@ -593,6 +596,7 @@ function Dumbsplain( { theme , setTheme } ) {
             padding: '0',
             minheight: '500px',
         }}>
+            { showRobot && <EmojiSlider showEmoji={showRobot} setShowEmoji={setShowRobot} />}
             { confetti ? <Confetti
                 width={width}
                 height={height}

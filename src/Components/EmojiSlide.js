@@ -7,7 +7,7 @@ const EmojiSlider = () => {
   // Slide the emoji to the bottom of the screen
   useEffect(() => {
     if (showEmoji) {
-      const timer = setTimeout(() => setShowEmoji(false), 3000); // 3 seconds
+      const timer = setTimeout(() => setShowEmoji(false), 3500); // 3.5 seconds
       return () => clearTimeout(timer);
     }
   }, [showEmoji]);

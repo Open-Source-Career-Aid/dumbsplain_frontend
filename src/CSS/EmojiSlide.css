@@ -23,7 +23,7 @@
 
 @keyframes robotFace {
   0% {
-    transform: translate(0, 0);
+    transform: translate(0, -25vh);
   }
   25% {
     transform: translate(-5px, 25vh) rotate(-5deg);
@@ -39,6 +39,6 @@
   }
 
   100% {
-    transform: translate(0, 100vh) rotate(0deg);
+    transform: translate(0, 150vh) rotate(0deg);
   }
 }

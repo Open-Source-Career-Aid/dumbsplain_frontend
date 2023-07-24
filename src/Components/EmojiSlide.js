@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../CSS/EmojiSlide.css';
 
-const EmojiSlider = () => {
-  const [showEmoji, setShowEmoji] = useState(true);
+const EmojiSlider = ({ showEmoji , setShowEmoji }) => {
 
   // Slide the emoji to the bottom of the screen
   useEffect(() => {
     if (showEmoji) {
-      const timer = setTimeout(() => setShowEmoji(false), 3900); // 3.9 seconds
+      const timer = setTimeout(() => setShowEmoji(false), 3500);
       return () => clearTimeout(timer);
     }
-  }, [showEmoji]);
+  }, [showEmoji, setShowEmoji]);
 
   return (
     <div className="emoji-container">

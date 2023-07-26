@@ -259,11 +259,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     useEffect(() => {
 
-      if (responsesubmitted === true ) {
-        console.log('responsesubmitted is true');
-        setApicalled(false);
-      }
-
       if (apicalled === false && responsesubmitted === true) {
         console.log('apicalled is false and responsesubmitted is true');
         // setScoreModal(true);
@@ -285,11 +280,15 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             temp = avatarlabels[4];
           }
         setTimeout(() => {
-          pseudoGenerator(temp, setAvatarlabel, 0.8);
+          pseudoGenerator(temp, setAvatarlabel, 0.4);
         }, 1000);
         setTypename(true);
       }
 
+      if (responsesubmitted === true ) {
+        console.log('responsesubmitted is true');
+        setApicalled(false);
+      }
 
     // eslint-disable-next-line
     }, [responsesubmitted, apicalled, scoreModal, typename, updatedroundeddq, roundedDQ]);
@@ -298,6 +297,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
       setTypename(false);
       setUpdatedroundeddq(true);
+      setApicalled(true);
 
     }, [roundedDQ]);
 

@@ -43,8 +43,12 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
             setLocationofelements(initialloc);    
         }
 
-        if (window.innerHeight < 600) {
+        if (window.innerWidth < 600) {
             let temp = 0.8; // tolerance
+            setCarouselscale(temp);
+        }
+        else {
+            let temp = 1; // tolerance
             setCarouselscale(temp);
         }
 

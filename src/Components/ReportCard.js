@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import getScore from "../Functions/getScore";
 import pseudoGenerator from '../Functions/pseudoGenerator';
 import ProgressChart from './ProgressChart';
-import * as htmlToImage from 'html-to-image';
+// import * as htmlToImage from 'html-to-image';
 // import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 // import FileSaver from 'file-saver';
 import { avatarlabels } from '../config';

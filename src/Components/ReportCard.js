@@ -9,6 +9,7 @@ import * as htmlToImage from 'html-to-image';
 // import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 // import FileSaver from 'file-saver';
 import { avatarlabels } from '../config';
+import domtoimage from 'dom-to-image';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
@@ -33,24 +34,109 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [avatarlabel, setAvatarlabel] = useState('');
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
 
+  const snapshotCreator = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        const scale = window.devicePixelRatio;
+        const element = reportCardRef.current; // You can use element's ID or Class here
+        domtoimage
+          .toBlob(element, {
+            height: element.offsetHeight * scale,
+            width: element.offsetWidth * scale,
+            style: {
+              transform: "scale(" + scale + ")",
+              transformOrigin: "top left",
+              width: element.offsetWidth + "px",
+              height: element.offsetHeight + "px",
+            },
+          })
+          .then((blob) => {
+            resolve(blob);
+          });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
+
   const handleCopy = () => {
-    if (reportCardRef.current === null) {
-      return
+    // if (reportCardRef.current === null) {
+    //   return
+    // }
+    // htmlToImage.toBlob(reportCardRef.current)
+    //   .then(function (blob) {
+    //     const item = new ClipboardItem({ 'image/png': blob });
+    //     navigator.clipboard.write([item]);
+    //     setCopied(true);
+    //   //   if (window.saveAs) {
+    //   //     window.saveAs(blob, 'my-report.png');
+    //   //   } else {
+    //   //      FileSaver.saveAs(blob, 'my-report.png');
+    //   //  }
+    //   })
+    //   .catch(function (error) {
+    //     console.error('Error:', error);
+    //   });
+
+    const isSafari = /^((?!chrome|android).)*safari/i.test(
+      navigator?.userAgent
+    );
+
+    const copyImageToClipBoardSafari = () => {
+      if(isSafari) {
+        navigator.clipboard
+          .write([
+            new ClipboardItem({
+              "image/png": new Promise(async (resolve, reject) => {
+                try {
+                  const blob = await snapshotCreator();
+                  resolve(new Blob([blob], { type: "image/png" }));
+                } catch (err) {
+                  reject(err);
+                }
+              }),
+            }),
+          ])
+          .then(() =>
+            {setCopied(true);}
+          )
+          .catch((err) =>
+            // Error
+            console.error("Error:", err)
+          );
+      }
     }
-    htmlToImage.toBlob(reportCardRef.current)
-      .then(function (blob) {
-        const item = new ClipboardItem({ 'image/png': blob });
-        navigator.clipboard.write([item]);
-        setCopied(true);
-      //   if (window.saveAs) {
-      //     window.saveAs(blob, 'my-report.png');
-      //   } else {
-      //      FileSaver.saveAs(blob, 'my-report.png');
-      //  }
-      })
-      .catch(function (error) {
-        console.error('Error:', error);
-      });
+
+    const isNotFirefox = navigator.userAgent.indexOf("Firefox") < 0;
+
+    const copyImageToClipBoardOtherBrowsers = () => {
+      if(isNotFirefox) {
+        navigator?.permissions
+          ?.query({ name: "clipboard-write" })
+          .then(async (result) => {
+            if (result.state === "granted") {
+              const type = "image/png";
+              const blob = await snapshotCreator();
+              let data = [new ClipboardItem({ [type]: blob })];
+              navigator.clipboard
+                .write(data)
+                .then(() => {
+                  setCopied(true);
+                })
+                .catch((err) => {
+                  // Error
+                  console.error("Error:", err)
+                });
+            }
+        });
+      } else {
+        alert("Firefox does not support this functionality");
+      }
+    }
+
+    copyImageToClipBoardSafari();
+    copyImageToClipBoardOtherBrowsers();
+
   };
 
   useEffect(() => {

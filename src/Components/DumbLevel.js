@@ -8,6 +8,12 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
     const [locationofelements, setLocationofelements] = useState(0);
     const [widthofcarouselelement, setWidthofcarouselelement] = useState(0);
     const [widthofcarouselwindow, setWidthofcarouselwindow] = useState(0);
+    const [carouselscale, setCarouselscale] = useState(1);
+
+    useEffect(() => {
+        handleWindowResize();
+    // eslint-disable-next-line
+    }, []);
 
     useEffect(() => {
 
@@ -24,23 +30,28 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
 
     }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]);   
 
+    const handleWindowResize = () => {
+
+        const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
+        const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
+
+        setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
+        setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
+
+        if(carouseldumbnessLevel >= 1 && carouseldumbnessLevel <= 5){
+            const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*(0.5 + carouseldumbnessLevel - 1);
+            setLocationofelements(initialloc);    
+        }
+
+        if (window.innerHeight < 600) {
+            let temp = 0.8; // tolerance
+            setCarouselscale(temp);
+        }
+
+    };
+
     // measure the width of the cardRef as the window resizes
     useEffect(() => {
-        
-        const handleWindowResize = () => {
-
-            const dumbnesscarousel = document.getElementsByClassName('dumbnesscarousel')[0];
-            const dumbnesscarouselelement = document.getElementsByClassName('carouseldumbnesslevel')[0];
-
-            setWidthofcarouselelement(dumbnesscarouselelement.offsetWidth);
-            setWidthofcarouselwindow(dumbnesscarousel.offsetWidth);
-
-            if(carouseldumbnessLevel >= 1 && carouseldumbnessLevel <= 5){
-                const initialloc = dumbnesscarousel.offsetWidth/2 - dumbnesscarouselelement.offsetWidth*(0.5 + carouseldumbnessLevel - 1);
-                setLocationofelements(initialloc);    
-            }
-
-        };
 
         window.addEventListener('resize', handleWindowResize);
 
@@ -48,6 +59,8 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
         return () => {
         window.removeEventListener('resize', handleWindowResize);
         };
+    
+    // eslint-disable-next-line
     }, [widthofcarouselelement, widthofcarouselwindow , carouseldumbnessLevel]); 
 
     useEffect(() => {
@@ -108,6 +121,7 @@ function DumbLevel ({ dumbnessLevel , setDumbnessLevel , explanationrequested , 
                 <div className="carouselelementscontainer"
                 style={{
                     transform: `translateX(${locationofelements}px)`,
+                    scale: `${carouselscale}`
                 }}
                 >
                 {

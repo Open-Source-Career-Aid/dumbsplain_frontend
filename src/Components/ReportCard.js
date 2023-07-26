@@ -243,7 +243,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
         setTimeout(() => {
           setAllowcopy(true);
-        }, 8000);
+        }, 6000);
         
     // eslint-disable-next-line
     }, [scoreModal]);
@@ -264,7 +264,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         // setScoreModal(true);
       }
 
-      if (apicalled===true && scoreModal===true && typename===false && updatedroundeddq===true) {
+      if (scoreModal===true && typename===false && updatedroundeddq===true) {
         let temp = '';
           if (roundedDQ === 0) {
             temp = avatarlabels[0];
@@ -280,7 +280,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             temp = avatarlabels[4];
           }
         setTimeout(() => {
-          pseudoGenerator(temp, setAvatarlabel, 0.4);
+          pseudoGenerator(temp, setAvatarlabel, 0.4, false, 1);
         }, 1000);
         setTypename(true);
       }

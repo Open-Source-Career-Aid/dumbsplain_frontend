@@ -1,5 +1,5 @@
 
-export default async function pseudoGenerator(text, setStateText, TIME, setLoading) {
+export default async function pseudoGenerator(text, setStateText, TIME, setLoading, chunksize=4 ) {
 
     // if setLoading isn't passed, set it to a function that does nothing
     if (!setLoading) {
@@ -18,7 +18,7 @@ export default async function pseudoGenerator(text, setStateText, TIME, setLoadi
         let chunk = ''
         textArray.forEach((letter, index) => {
             chunk += letter
-            if (index % 4 === 0 && index !== 0) {
+            if (index % chunksize === 0 && index !== 0) {
                 textChunks.push(chunk)
                 chunk = ''
             }

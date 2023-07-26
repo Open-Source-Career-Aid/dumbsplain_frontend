@@ -33,6 +33,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [typename, setTypename] = useState(true);
   const [avatarlabel, setAvatarlabel] = useState('');
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
+  const [allowcopy, setAllowcopy] = useState(false);
 
   const snapshotCreator = () => {
     return new Promise((resolve, reject) => {
@@ -136,7 +137,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     copyImageToClipBoardSafari();
     copyImageToClipBoardOtherBrowsers();
-
   };
 
   useEffect(() => {
@@ -240,6 +240,10 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setApicalled(true);
 
         }
+
+        setTimeout(() => {
+          setAllowcopy(true);
+        }, 5000);
         
     // eslint-disable-next-line
     }, [scoreModal]);
@@ -500,7 +504,9 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                       data-theme={theme}>
                         <button
                         onClick={handleCopy}
-                        className='sharebutton'
+                        className={'sharebutton'
+                        + (allowcopy ? '' : ' disabled')
+                        }
                         data-theme={theme}
                         style={{
                           display: 'flex',

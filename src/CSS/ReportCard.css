@@ -489,6 +489,16 @@ canvas {
     }
 }
 
+.sharebutton[data-theme='light'].disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.sharebutton[data-theme='dark'].disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
 .sharebutton[data-theme="light"] {
     /* background-image: url(../../public/sharelight.png);
     background-repeat: no-repeat;

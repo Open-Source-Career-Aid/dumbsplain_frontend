@@ -238,12 +238,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
             fetchScore();
             setApicalled(true);
+            setTimeout(() => {
+              setAllowcopy(true);
+            }, 5000);
 
         }
-
-        setTimeout(() => {
-          setAllowcopy(true);
-        }, 6000);
         
     // eslint-disable-next-line
     }, [scoreModal]);

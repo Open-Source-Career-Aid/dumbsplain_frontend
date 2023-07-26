@@ -297,7 +297,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
       setTypename(false);
       setUpdatedroundeddq(true);
-      setApicalled(true);
 
     }, [roundedDQ]);
 

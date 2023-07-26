@@ -243,7 +243,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
         setTimeout(() => {
           setAllowcopy(true);
-        }, 5000);
+        }, 8000);
         
     // eslint-disable-next-line
     }, [scoreModal]);

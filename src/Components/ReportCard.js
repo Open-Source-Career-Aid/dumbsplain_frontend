@@ -240,7 +240,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setApicalled(true);
             setTimeout(() => {
               setAllowcopy(true);
-            }, 5000);
+            }, 8000);
 
         }
         

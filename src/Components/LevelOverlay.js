@@ -1,6 +1,7 @@
 import React , { useState , useEffect } from 'react';
 import '../CSS/Overlay.css';
 import OverlayCurve from '../SVGasComponents/overlayCurve';
+import ReactGA4 from 'react-ga4';
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
 
@@ -88,12 +89,26 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const closeOverlay = (e) => {
         e.preventDefault();
         console.log(e.target.parentNode);
+
+        ReactGA4.event({
+            action: 'Info Overlay Click Close',
+            category: 'Info Overlay',
+            label: 'Click Info Close',
+            });
+
         setInfoOverlay(false);
     }
 
     const handleLevelOverlayClick = (e) => {
         // close overlay when clicked outside, add a listener to the window
         if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
+
+            ReactGA4.event({
+                action: 'Info Overlay Click Close',
+                category: 'Info Overlay',
+                label: 'Click Info Close',
+                });
+                
             setInfoOverlay(false);
         }
     }

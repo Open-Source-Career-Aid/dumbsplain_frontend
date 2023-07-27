@@ -51,8 +51,34 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               height: element.offsetHeight + "px",
             },
           })
-          .then((blob) => {
-            resolve(blob);
+          .then(() => {
+            domtoimage
+            .toBlob(element, {
+              height: element.offsetHeight * scale,
+              width: element.offsetWidth * scale,
+              style: {
+                transform: "scale(" + scale + ")",
+                transformOrigin: "top left",
+                width: element.offsetWidth + "px",
+                height: element.offsetHeight + "px",
+              },
+            })
+            .then(() => {
+              domtoimage
+              .toBlob(element, {
+                height: element.offsetHeight * scale,
+                width: element.offsetWidth * scale,
+                style: {
+                  transform: "scale(" + scale + ")",
+                  transformOrigin: "top left",
+                  width: element.offsetWidth + "px",
+                  height: element.offsetHeight + "px",
+                },
+              })
+              .then((blob) => {
+                resolve(blob);
+              });
+            });
           });
       } catch (e) {
         reject(e);

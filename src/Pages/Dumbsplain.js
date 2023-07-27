@@ -7,7 +7,6 @@ import PlayOverlay from '../Components/LevelOverlay';
 // import Acheivements from '../Components/ScoreModal';
 import ReportCard from '../Components/ReportCard';
 import getTopic from '../Functions/getTopic';
-import getExplanation from '../Functions/getExplanation';
 import getQuestion from '../Functions/getQuestion';
 import WaitingBox from '../Components/WaitingBox';
 import getWaitingtime from '../Functions/getWaitingtime';
@@ -20,6 +19,7 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
 import PlayerProgress from "../Components/PlayerProgress";
 import EmojiSlider from "../Components/EmojiSlide";
+import ReactGA4 from 'react-ga4';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -27,6 +27,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [confetti, setConfetti] = React.useState(false);
     const [confettiamount, setConfettiamount] = React.useState(0);
     // let placeholder = "Another day, another opportunity for me to challenge a human. Let’s see how close you get to my intellectual prowess today.\n\nHit ‘Dumbsplain’ if you’re ready for me.";
+    // eslint-disable-next-line
     const [explanation, setExplanation] = React.useState('explanation text');
     const [mcq, setMcq] = React.useState('mcq text');
     const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
@@ -451,7 +452,7 @@ function Dumbsplain( { theme , setTheme } ) {
             category: 'Quiz Me Button',
             label: 'Quiz Me Button',
             });
-            
+
         if (explanationloaded === true) {
             e.preventDefault();
             setQuizme(true);
@@ -528,7 +529,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
             scoreModal ? setScoreModal(false) : setScoreModal(true);
             break;
-            // default: console.log(e.target,"");
+            default: console.log(e.target,"");
         }
     }
 

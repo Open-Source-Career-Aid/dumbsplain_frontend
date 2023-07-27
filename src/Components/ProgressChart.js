@@ -70,6 +70,14 @@ function ProgressChart({ linecolor , listofvalues }) {
           // color: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0)', '#000'],
           drawTicks: false,
           display: false, // Hide x-axis grid lines
+
+      },
+      ticks: {
+        color: (context) => {
+          const index = context.index;
+          console.log(index);
+          return index === listofvalues.length - 1 ? linecolor : 'rgba(0,0,0, 1)';
+        },
       },
       },
     },
@@ -111,6 +119,9 @@ function ProgressChart({ linecolor , listofvalues }) {
           ctx.font = 'bold .45em Arial';
           // add margin to the left of the text
           // ctx.textBaseline = 'bottom';
+                // Check if the current label is for the highlighted day and set the color accordingly
+                // if (label === linePlugin.xValue)
+   
           ctx.fillStyle = `${linecolor}`;
           ctx.textAlign = 'center';
           // text is placed on top of the contact point and offset it top of contact point by 20px
@@ -121,9 +132,12 @@ function ProgressChart({ linecolor , listofvalues }) {
           ctx.lineTo(x, yScale.bottom);
           ctx.stroke();
           ctx.restore();
+  
+        console.log(lastIndex);
         }
       },
     };
+    
   
     React.useEffect(() => {
       ChartJS.register(customPlugin);

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../CSS/ExplanationOverlay.css';
 import getExplanation from '../Functions/getExplanation';
 import pseudoGenerator from '../Functions/pseudoGenerator';
+import ReactGA4 from 'react-ga4';
 
 export default function ExplanationOverlay({ dumbnessLevel, explanationrequested, setExplanationrequested , theme , setScore , setUserdq , setSub }) {
 
@@ -12,6 +13,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     const [bufferscore, setBufferscore] = useState(null);
     const [bufferdq, setBufferdq] = useState(null);
     const [cardscale, setCardscale] = useState(1);
+    const [startTime, setStartTime] = useState(null);
 
     const handleWindowResize = () => {
 
@@ -62,6 +64,15 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
 
     useEffect(() => {
         async function fetchExplanation() {
+
+            setStartTime(new Date().getTime());
+
+            ReactGA4.event({
+                category: 'Hint requested for level ' + dumbnessLevel,
+                action: 'Explanation requested',
+                label: 'Explanation requested',
+            });
+
             const explanation = await getExplanation(dumbnessLevel);
             // setExplanation(explanation.explanation);
             // setScore(explanation.score);
@@ -81,6 +92,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     }, [explanationrequested, dumbnessLevel, setScore, setUserdq]);
 
     useEffect(() => {
+
         if (explanationrequested && timeremaining >= 0) {
             const timer = setInterval(() => {
                 setTimeremaining(timeremaining - 1);
@@ -104,19 +116,43 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     useEffect(() => {
         if (timeremaining === 0) {
             setExplanation("Trying to be smart, huh? You can't read the explanation anymore!");
+
+            ReactGA4.event({
+                category: 'Hint box closed for level ' + dumbnessLevel,
+                action: 'Explanation requested',
+                label: 'Explanation requested',
+                value: new Date().getTime() - startTime,
+            });
+
             setExplanationrequested(false);
         }
-    }, [timeremaining, setExplanationrequested]);
+    }, [timeremaining, setExplanationrequested, dumbnessLevel, startTime]);
 
     const handleScoreOverlayClick = (e) => {
         // close overlay when clicked outside, add a listener to the window
         if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
+
+            ReactGA4.event({
+                category: 'Hint box closed for level ' + dumbnessLevel,
+                action: 'Explanation requested',
+                label: 'Explanation requested',
+                value: new Date().getTime() - startTime,
+            });
+
             setExplanationrequested(false);
         }
     }
 
     const closeOverlay = (e) => {
         e.preventDefault();
+
+        ReactGA4.event({
+            category: 'Hint box closed for level ' + dumbnessLevel,
+            action: 'Explanation requested',
+            label: 'Explanation requested',
+            value: new Date().getTime() - startTime,
+        });
+
         setExplanationrequested(false);
     }
 

@@ -120,6 +120,12 @@ function Dumbsplain( { theme , setTheme } ) {
 
 
     useEffect(() => {
+
+        ReactGA4.event({
+            action: 'Dumbsplain Landing',
+            category: 'Load',
+            label: 'landing page',
+            });
         
         handleWindowResize();
         findcurrentTime();
@@ -176,6 +182,13 @@ function Dumbsplain( { theme , setTheme } ) {
         const escFunction = (event) => {
 
             if (event.keyCode === 27) {
+                
+                ReactGA4.event({
+                    action: 'Esc button Close Guide',
+                    category: 'Guide Overlay',
+                    label: 'Esc Guide',
+                    });
+
                 setScoreModal(false);
             }
         }
@@ -190,6 +203,13 @@ function Dumbsplain( { theme , setTheme } ) {
         const escFunction = (event) => {
 
             if (event.keyCode === 27) {
+
+                ReactGA4.event({
+                    action: 'Esc button Close Info',
+                    category: 'Info Overlay',
+                    label: 'Esc Info',
+                    });
+
                 setInfoOverlay(false);
             }
         }
@@ -209,6 +229,13 @@ function Dumbsplain( { theme , setTheme } ) {
             if (event.keyCode === 13) {
                 if (dumbnessLevel !== null && explanationloaded === false && quizme === false) {
                     event.preventDefault();
+
+                    ReactGA4.event({
+                        action: 'Enter button Dumbsplain',
+                        category: 'Dumbsplain Button',
+                        label: 'Enter Dumbsplain',
+                        });
+
                     // mimic the pressing of the dumbsplain button by calling the handleDumbsplain function
                     handleSteppedDumbsplain(event);
                 }
@@ -288,22 +315,57 @@ function Dumbsplain( { theme , setTheme } ) {
                 console.log('somethings happening');
                 if (event.keyCode === 49) {
                     event.preventDefault();
+
+                    ReactGA4.event({
+                        action: '1 button MCQ',
+                        category: 'MCQ Button',
+                        label: '1 MCQ',
+                        });
+
                     setSelectedoption(1);
                 }
                 else if (event.keyCode === 50) {
                     event.preventDefault();
+
+                    ReactGA4.event({
+                        action: '2 button MCQ',
+                        category: 'MCQ Button',
+                        label: '2 MCQ',
+                        });
+
                     setSelectedoption(2);
                 }
                 else if (event.keyCode === 51) {
                     event.preventDefault();
+
+                    ReactGA4.event({
+                        action: '3 button MCQ',
+                        category: 'MCQ Button',
+                        label: '3 MCQ',
+                        });
+
                     setSelectedoption(3);
                 }
                 else if (event.keyCode === 52) {
                     event.preventDefault();
+
+                    ReactGA4.event({
+                        action: '4 button MCQ',
+                        category: 'MCQ Button',
+                        label: '4 MCQ',
+                        });
+
                     setSelectedoption(4);
                 }
                 else if (event.keyCode === 53) {
                     event.preventDefault();
+
+                    ReactGA4.event({
+                        action: '5 button MCQ',
+                        category: 'MCQ Button',
+                        label: '5 MCQ',
+                        });
+
                     setSelectedoption(5);
                 }
             }
@@ -320,6 +382,13 @@ function Dumbsplain( { theme , setTheme } ) {
 
         if (waitfortomorrow === true) {
             async function fetchWaitingtime() {
+
+                ReactGA4.event({
+                    action: 'Get Waiting Time',
+                    category: 'Waiting Time',
+                    label: 'Waiting Time',
+                    });
+
                 const waitingtime = await getWaitingtime();
                 setWaitingtime(waitingtime.waitingtime);
                 setSpecial_id(waitingtime.special_id);
@@ -367,25 +436,6 @@ function Dumbsplain( { theme , setTheme } ) {
     // eslint-disable-next-line
     }, [special_id]);
 
-    // eslint-disable-next-line
-    const handleDumbsplain = (e) => {
-        // navigator.vibrate(1000);
-        if (dumbnessLevel !== null) {
-            e.preventDefault();
-            setExplanationrequested(true);
-            setExplanationloading(true);
-            async function fetchExplanation() {
-                const explanation = await getExplanation(dumbnessLevel);
-                // setExplanation(explanation.explanation);
-                pseudoGenerator(explanation.explanation, setExplanation, 0.1, setExplanationloading);
-                setSpecial_id(explanation.special_id);
-            }
-            fetchExplanation();
-            // setExplanationloading(false);
-            setExplanationloaded(true);
-        }
-    }
-
     useEffect(() => {
         // eslint-disable-next-line
         if (explanationloaded == true) {
@@ -395,12 +445,26 @@ function Dumbsplain( { theme , setTheme } ) {
     }, [explanation]);
 
     const handleQuizme = (e) => {
+
+        ReactGA4.event({
+            action: 'Quiz Me Button Click',
+            category: 'Quiz Me Button',
+            label: 'Quiz Me Button',
+            });
+            
         if (explanationloaded === true) {
             e.preventDefault();
             setQuizme(true);
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
+
+                ReactGA4.event({
+                    action: `Get Question LOC1 ${dumbnessLevel}`,
+                    category: 'Question API',
+                    label: 'Question API',
+                    });
+
                 const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
@@ -425,19 +489,58 @@ function Dumbsplain( { theme , setTheme } ) {
 
         switch(e.target.dataset.overlay) {
             case "info": infoOverlay ? setInfoOverlay(false) : setInfoOverlay(true);
+
+            if (infoOverlay === false) {
+                ReactGA4.event({
+                    action: 'Info Overlay Click Open',
+                    category: 'Info Overlay',
+                    label: 'Click Info Open',
+                    });
+            }
+            else {
+                ReactGA4.event({
+                    action: 'Info Overlay Click Close',
+                    category: 'Info Overlay',
+                    label: 'Click Info Close',
+                    });
+            }
+
             break;
             case "score":
             if (!gameended) {
                 break;
-            }    
+            }
+
+            if (scoreModal === false) {
+                ReactGA4.event({
+                    action: 'Score Overlay Click Open',
+                    category: 'Score Overlay',
+                    label: 'Click Score Open',
+                    });
+            }
+            else {
+                ReactGA4.event({
+                    action: 'Score Overlay Click Close',
+                    category: 'Score Overlay',
+                    label: 'Click Score Close',
+                    });
+            }
+
             scoreModal ? setScoreModal(false) : setScoreModal(true);
             break;
-            default: console.log(e.target,"");
+            // default: console.log(e.target,"");
         }
     }
 
     const handleTheme = (e) => {
         e.preventDefault();
+
+        ReactGA4.event({
+            action: 'Theme Toggle',
+            category: 'Theme Toggle',
+            label: 'Theme Toggle',
+            });
+
         if (theme === 'light') {
             setTheme('dark');
         }
@@ -447,12 +550,33 @@ function Dumbsplain( { theme , setTheme } ) {
     }
 
     const handleAnswersubmit = (e) => {
+
+        ReactGA4.event({
+            action: 'Submit Answer Button Click',
+            category: 'Submit Answer',
+            label: 'Submit Answer',
+            });
+
         if (selectedoption === null || selectedoption === 0) {
+
+            ReactGA4.event({
+                action: 'Submit Answer without selecting an option',
+                category: 'Submit Answer',
+                label: 'Submit Answer',
+                });
+
             alert('Please select an option');
         }
         if (selectedoption !== null && selectedoption !== 0) {
             e.preventDefault();
             async function fetchAnswer() {
+
+                ReactGA4.event({
+                    action: `Submit Answer ${selectedoption}`,
+                    category: 'Submit Answer',
+                    label: 'Submit Answer',
+                    });
+
                 const answer = await submitAnswer(selectedoption);
                 // pseudoGenerator(answer.message, setCurrentext, 0.1);
                 setBufferText(answer.message);
@@ -512,12 +636,26 @@ function Dumbsplain( { theme , setTheme } ) {
                 setSelectedoption(0);
             }
             else {
+
+                ReactGA4.event({
+                    action: 'Game Ended after Completing all Levels',
+                    category: 'Game Ended',
+                    label: 'Game Ended',
+                    });
+
                 setGameended(true);
                 pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
             }
         
         }
         else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
+
+            ReactGA4.event({
+                action: 'Game Ended after Selecting Wrong Option',
+                category: 'Game Ended',
+                label: 'Game Ended',
+                });
+
             setGameended(true);
             setDumbnessLevel(prev => prev - 1);
             setShowRobot(true);
@@ -528,6 +666,13 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqrequested(true);
             setMcqloading(true);
             async function fetchQuestion() {
+
+                ReactGA4.event({
+                    action: `Get Question LOC2 ${dumbnessLevel}`,
+                    category: 'Question API',
+                    label: 'Question API',
+                    });
+
                 const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);
@@ -544,6 +689,13 @@ function Dumbsplain( { theme , setTheme } ) {
     useEffect(() => {
         if (typing===false) {
             setTimeout(() => {
+
+                ReactGA4.event({
+                    action: 'AUTO Score Modal Open at End of Game',
+                    category: 'Score Modal',
+                    label: 'Score Modal',
+                    });
+
                 setScoreModal(true);
             }, 5000);
         }
@@ -551,6 +703,12 @@ function Dumbsplain( { theme , setTheme } ) {
 
     const handleSteppedDumbsplain = (e) => {
         e.preventDefault();
+
+        ReactGA4.event({
+            action: 'Dumbsplain Button Click',
+            category: 'Dumbsplain Button',
+            label: 'Dumbsplain Button',
+            });
 
         if (responsesubmitted === true) {
             setQuizme(false);
@@ -570,6 +728,13 @@ function Dumbsplain( { theme , setTheme } ) {
             setMcqloading(true);
             setQuizme(true);
             async function fetchQuestion() {
+
+                ReactGA4.event({
+                    action: `Get Question LOC3 ${dumbnessLevel}`,
+                    category: 'Question API',
+                    label: 'Question API',
+                    });
+
                 const mcq = await getQuestion(dumbnessLevel);
                 pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
                 // setMcq(mcq.question);

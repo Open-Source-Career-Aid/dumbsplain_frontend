@@ -3,10 +3,14 @@ import Dumbsplain from "./Pages/Dumbsplain";
 import "./CSS/App.css";
 import Test from "./Pages/Test";
 import React from "react";
+import ReactGA4 from 'react-ga4';
+import { GTAG } from "./config";
 
 function App() {
 
   const [theme, setTheme] = React.useState('light');
+  const measurementId = GTAG;
+  ReactGA4.initialize(measurementId);
 
   return (
       <div className="App"

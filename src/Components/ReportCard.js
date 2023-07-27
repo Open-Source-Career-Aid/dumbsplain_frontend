@@ -61,23 +61,6 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   };
 
   const handleCopy = () => {
-    // if (reportCardRef.current === null) {
-    //   return
-    // }
-    // htmlToImage.toBlob(reportCardRef.current)
-    //   .then(function (blob) {
-    //     const item = new ClipboardItem({ 'image/png': blob });
-    //     navigator.clipboard.write([item]);
-    //     setCopied(true);
-    //   //   if (window.saveAs) {
-    //   //     window.saveAs(blob, 'my-report.png');
-    //   //   } else {
-    //   //      FileSaver.saveAs(blob, 'my-report.png');
-    //   //  }
-    //   })
-    //   .catch(function (error) {
-    //     console.error('Error:', error);
-    //   });
 
     const isSafari = /^((?!chrome|android).)*safari/i.test(
       navigator?.userAgent
@@ -135,8 +118,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       }
     }
 
-    copyImageToClipBoardSafari();
-    copyImageToClipBoardOtherBrowsers();
+    if (isSafari) {
+      copyImageToClipBoardSafari();
+    }
+    else {
+      copyImageToClipBoardOtherBrowsers();
+    }
   };
 
   useEffect(() => {
@@ -240,7 +227,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             setApicalled(true);
             setTimeout(() => {
               setAllowcopy(true);
-            }, 8000);
+            }, 5000);
 
         }
         

@@ -140,7 +140,27 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             }
         });
       } else {
-        alert("Firefox does not support this functionality");
+        // alert("Firefox does not support this functionality");
+        // firefox so we download the image
+        const downloadImage = async () => {
+          try {
+            const blob = await snapshotCreator();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "reportcard.png";
+            a.click();
+            URL.revokeObjectURL(url);
+            // removes the element from the DOM after the download
+            a.remove();
+            setCopied(true);
+          }
+          catch (err) {
+            alert('Browser does not support this functionality! Please use Chrome or Safari or Firefox.')
+            console.log(err);
+          }     
+        }
+        downloadImage();
       }
     }
 
@@ -156,7 +176,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     if (copied) {
       setCopied(false);
-      alert('Image copied to clipboard!');
+      alert('Yaay your report card is ready!');
     }
 
   }, [copied]);

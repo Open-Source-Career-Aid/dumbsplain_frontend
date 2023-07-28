@@ -35,6 +35,11 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [avatarlabel, setAvatarlabel] = useState('');
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
   const [allowcopy, setAllowcopy] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+
+  useEffect(() => {
+    setStartTime(new Date().getTime());
+  }, []);
 
   const snapshotCreator = () => {
     return new Promise((resolve, reject) => {
@@ -420,6 +425,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               category: 'Score Overlay Close',
               action: 'Score Overlay',
               label: 'Score Overlay Close',
+              value: new Date().getTime() - startTime,
             });
         }
     }
@@ -437,6 +443,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       category: 'Score Overlay Close',
       action: 'Score Overlay',
       label: 'Score Overlay Close',
+      value: new Date().getTime() - startTime,
     });
     
   }

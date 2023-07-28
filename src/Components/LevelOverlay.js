@@ -6,6 +6,7 @@ import ReactGA4 from 'react-ga4';
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
 
     const [cardscale, setCardscale] = useState(1);
+    const [startTime, setStartTime] = useState(null);
 
     const level = [
         ["Commence your journey from the bottom", ["AI's intelligence is calibrated to the top. See how close you can get to it!"]],
@@ -45,6 +46,8 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     };
 
     useEffect(() => {
+
+        setStartTime(new Date().getTime());
 
         window.addEventListener('resize', handleWindowResize);
 
@@ -94,6 +97,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
             action: 'Info Overlay Click Close',
             category: 'Info Overlay',
             label: 'Click Info Close',
+            value: new Date().getTime() - startTime,
             });
 
         setInfoOverlay(false);
@@ -107,6 +111,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
                 action: 'Info Overlay Click Close',
                 category: 'Info Overlay',
                 label: 'Click Info Close',
+                value: new Date().getTime() - startTime,
                 });
                 
             setInfoOverlay(false);

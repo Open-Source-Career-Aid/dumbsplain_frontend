@@ -10,6 +10,7 @@ import ProgressChart from './ProgressChart';
 // import FileSaver from 'file-saver';
 import { avatarlabels } from '../config';
 import domtoimage from 'dom-to-image';
+import ReactGA4 from 'react-ga4';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
@@ -77,6 +78,13 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
               })
               .then((blob) => {
                 resolve(blob);
+
+                ReactGA4.event({
+                  category: 'Screenshot Blob Created',
+                  action: 'Screenshot Blob Created',
+                  label: 'Screenshot Blob Created',
+                });
+
               });
             });
           });
@@ -87,6 +95,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   };
 
   const handleCopy = () => {
+
+    ReactGA4.event({
+      category: 'Share Button Clicked',
+      action: 'Share Button Clicked',
+      label: 'Share Button Clicked',
+    });
 
     const isSafari = /^((?!chrome|android).)*safari/i.test(
       navigator?.userAgent
@@ -108,7 +122,16 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             }),
           ])
           .then(() =>
-            {setCopied(true);}
+            {setCopied(true);
+            
+            ReactGA4.event({
+              category: 'Screenshot Copied to Clipboard - Safari',
+              action: 'Screenshot Copied to Clipboard - Safari',
+              label: 'Screenshot Copied to Clipboard - Safari',
+            });
+
+            }
+
           )
           .catch((err) =>
             // Error
@@ -132,6 +155,13 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 .write(data)
                 .then(() => {
                   setCopied(true);
+
+                  ReactGA4.event({
+                    category: 'Screenshot Copied to Clipboard - Other Browsers',
+                    action: 'Screenshot Copied to Clipboard - Other Browsers',
+                    label: 'Screenshot Copied to Clipboard - Other Browsers',
+                  });
+
                 })
                 .catch((err) => {
                   // Error
@@ -154,6 +184,13 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
             // removes the element from the DOM after the download
             a.remove();
             setCopied(true);
+
+            ReactGA4.event({
+              category: 'Screenshot Downloaded - Firefox',
+              action: 'Screenshot Downloaded - Firefox',
+              label: 'Screenshot Downloaded - Firefox',
+            });
+
           }
           catch (err) {
             alert('Browser does not support this functionality! Please use Chrome or Safari or Firefox.')
@@ -176,7 +213,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
     if (copied) {
       setCopied(false);
-      alert('Yaay your report card is ready!');
+      alert('Copied to Clipboard!');
     }
 
   }, [copied]);
@@ -378,6 +415,12 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
         // close overlay when clicked outside, add a listener to the window
         if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
             setScoreModal(false);
+
+            ReactGA4.event({
+              category: 'Score Overlay Close',
+              action: 'Score Overlay',
+              label: 'Score Overlay Close',
+            });
         }
     }
 
@@ -389,6 +432,13 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   
   const handleCloseOverlayClick = () => {
     setScoreModal(false);
+
+    ReactGA4.event({
+      category: 'Score Overlay Close',
+      action: 'Score Overlay',
+      label: 'Score Overlay Close',
+    });
+    
   }
 
   // const handleWeeokorDayClick = () => {

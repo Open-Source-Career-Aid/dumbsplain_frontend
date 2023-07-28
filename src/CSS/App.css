@@ -12,6 +12,10 @@
     overflow-x: hidden;
 }
 
+div > canvas {
+  padding: 0;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   border-bottom-right-radius: 5px;

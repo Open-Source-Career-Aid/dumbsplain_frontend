@@ -20,6 +20,7 @@ import Confetti from 'react-confetti';
 import PlayerProgress from "../Components/PlayerProgress";
 import EmojiSlider from "../Components/EmojiSlide";
 import ReactGA4 from 'react-ga4';
+import TopicOverlay from '../Components/TopicOverlay';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -70,6 +71,8 @@ function Dumbsplain( { theme , setTheme } ) {
     const [add, setAdd] = React.useState(0);
     const [sub, setSub] = React.useState(0);
     const [showRobot, setShowRobot] = React.useState(false);
+    const [topicOverlay, setTopicOverlay] = React.useState(false);
+    const [imageurl, setImageurl] = React.useState(null);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -151,10 +154,17 @@ function Dumbsplain( { theme , setTheme } ) {
             pseudoGenerator(topic.message, setCurrentext, 0.1);
             setUserdq(topic.dq);
             setScore(topic.score);
+            setImageurl(topic.imageurl);
         }
         fetchTopic();
     // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (imageurl !== null) {
+            setTopicOverlay(true);
+        }
+    }, [imageurl]);
 
     useEffect(() => {
         if (newuser === 1) {
@@ -772,6 +782,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 onConfettiComplete={handleConfetticomplete}
                 gravity={0.2}
                 /> : null }
+            <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard
             scoreModal={scoreModal}

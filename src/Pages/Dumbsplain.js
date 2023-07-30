@@ -76,6 +76,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [topicOverlay, setTopicOverlay] = React.useState(false);
     const [imageurl, setImageurl] = React.useState(null);
     const [gamestarted, setGamestarted] = React.useState(false);
+    const [fetchTheme, setFetchTheme] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -158,16 +159,26 @@ function Dumbsplain( { theme , setTheme } ) {
             setUserdq(topic.dq);
             setScore(topic.score);
             setImageurl(topic.imageurl);
-        }
-        async function fetchTheme() {
-            const theme_ = await getTheme(theme, gamestarted);
-            setTheme(theme_.theme);
+            setFetchTheme(true);
         }
         fetchTopic();
-        fetchTheme();
         setGamestarted(true);
     // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+
+        if(fetchTheme) {
+            async function fetchTheme() {
+                const theme_ = await getTheme(theme, gamestarted);
+                setTheme(theme_.theme);
+            }
+            fetchTheme();
+            setFetchTheme(false);
+        }
+
+    // eslint-disable-next-line
+    }, [fetchTheme]);
 
     useEffect(() => {
         if (imageurl !== null || imageurl !== '') {

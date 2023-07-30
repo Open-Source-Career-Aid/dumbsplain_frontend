@@ -241,7 +241,8 @@ p.streak{
 @media only screen and (max-width: 400px) {
 
   .modal-content {
-    scale: 0.8;
+    width: 80%;
+    height: auto;
   }
 
   /* .infocontainer {

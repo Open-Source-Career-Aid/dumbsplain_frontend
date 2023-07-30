@@ -14,7 +14,9 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
     useEffect(() => {
 
         if (topicOverlay) {
-            pseudoGenerator(topic, setText, 0.6, null, 1);
+            setTimeout(() => {
+                pseudoGenerator(topic, setText, 0.6, null, 1);
+            }, 500);
         }
 
     }, [topicOverlay, topic]);
@@ -120,16 +122,18 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                             padding: '0',
                             position: 'static',
                             textAlign: 'center',
-                            fontSize: '0.8em',
+                            fontSize: '0.7em',
                             marginTop: '40px',
+                            fontWeight: 'normal',
                         }}
-                        >Topic of the Day<br />
+                        >TOPIC OF THE DAY<br />
                         <span
                         style={{
-                            fontSize: '0.8em',
+                            fontSize: '0.9em',
                             color: (theme === 'light' ? 'grey' : 'grey'),
                             padding: '0',
                             position: 'static',
+                            fontWeight: 'bold',
                         }}
                         >{text}</span>
                         </h1>
@@ -150,6 +154,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                             width: '85%',
                             height: 'auto',
                             padding: '0',
+                            display: `${text!=='' ? 'block' : 'none'}`
                         }}
                         className={topicOverlay ? "fade-in" : "fade-out"}
                         />
@@ -158,6 +163,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                     style={{
                         scale: "1",
                         marginTop: '40px',
+                        display: `${imageurl !== null && imageurl !== '' && text !== '' ? 'flex' : 'none'}`,
                     }}
                     >
                         <div className='dumbsplainbutton' onClick={closeOverlay}>

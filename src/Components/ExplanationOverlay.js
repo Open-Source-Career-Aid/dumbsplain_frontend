@@ -184,7 +184,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        width: "100%",
+                        alignItems: "center",
                     }}
                     >
                         <p className="warning" data-theme={theme}>Time to read: <span className="countdown-timer">{timeremaining}</span></p>
@@ -205,14 +205,14 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         </div>
                         : modality==='video' ? <div className="explanation-video"
                         style={{
-                            overflow: 'hidden',
+                            overflow: 'visible',
                             padding: '0',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
                             position: 'relative',
                             marginTop: '40px',
-                            height: '80%',
+                            height: '60%',
                         }}
                         >
                             <video
@@ -222,6 +222,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                             padding: '0',
                             // display: `${text!=='' ? 'block' : 'none'}`,
                             border: '5px solid grey',
+                            overflow: 'visible',
                         }}
                         autoPlay loop muted>
                             <source src={link} type="video/mp4" />

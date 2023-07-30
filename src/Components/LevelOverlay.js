@@ -5,7 +5,7 @@ import ReactGA4 from 'react-ga4';
 
 export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
 
-    const [cardscale, setCardscale] = useState(1);
+    const [cardscale, setCardscale] = useState(0.8);
     const [startTime, setStartTime] = useState(null);
 
     const level = [

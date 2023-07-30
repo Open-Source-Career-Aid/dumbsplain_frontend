@@ -167,7 +167,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                     }}
                     >
                         <div className='dumbsplainbutton' onClick={closeOverlay}>
-                            <div className='dumbsplainbuttontext'>Enter</div>
+                            <div className='dumbsplainbuttontext'>Play</div>
                         </div>
                     </div>
                 </div>

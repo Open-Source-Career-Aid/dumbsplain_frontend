@@ -86,6 +86,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
         <div className={topicOverlay ? "modal-overlay" : "modal-overlay-off" }
         style={{
             // backgroundColor: (theme === 'light' ? 'rgba(0, 0, 0)' : 'grey'),
+            zIndex: '100000',
         }}
         >
             <div className='modal-content' data-theme={theme}

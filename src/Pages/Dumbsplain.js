@@ -161,16 +161,16 @@ function Dumbsplain( { theme , setTheme } ) {
     }, []);
 
     useEffect(() => {
-        if (imageurl !== null) {
+        if (imageurl !== null || imageurl !== '') {
             setTopicOverlay(true);
         }
     }, [imageurl]);
 
     useEffect(() => {
-        if (newuser === 1) {
+        if (newuser === 1 && topicOverlay === false) {
             setInfoOverlay(true);
         }
-    }, [newuser]);
+    }, [topicOverlay, newuser]);
 
     useEffect(() => {
 

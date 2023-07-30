@@ -72,43 +72,45 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
         setTopicOverlay(false);
     }
 
-    const handleLevelOverlayClick = (e) => {
-        // close overlay when clicked outside, add a listener to the window
-        if (e.target === document.getElementsByClassName('modal-overlay')[0]) {
-
-            ReactGA4.event({
-                action: 'Topic Overlay Click Close',
-                category: 'Topic Overlay',
-                label: 'Click Topic Close',
-                value: new Date().getTime() - startTime,
-                });
-                
-            setTopicOverlay(false);
-        }
-    }
-
     return(
-        <div className={topicOverlay ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
+        <div className={topicOverlay ? "modal-overlay" : "modal-overlay-off" }
+        style={{
+            // backgroundColor: (theme === 'light' ? 'rgba(0, 0, 0)' : 'grey'),
+        }}
+        >
             <div className='modal-content' data-theme={theme}
             style={{
                 overflow: 'hidden',
                 scale: `${cardscale}`,
+                justifyContent: 'flex-start',
             }}
             >
-                <div className='infocontainer'
+                <div
                 style={{
                     padding: '0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
                 }}
                 >
-                    <div className='headercontainer'>
-                        <div style={{
-                            padding: '0',
-                        }}>
-                        <h1 className='heading'
+                    <div className='headercontainer'
+                    style={{
+                        position: 'relative',
+                        overflow: 'visible',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    >
+                        <h1
                         style={{
                             color: (theme === 'light' ? 'black' : 'white'),
                             padding: '0',
-                            left: '-20px',
+                            position: 'static',
+                            textAlign: 'center',
+                            fontSize: '0.8em',
+                            marginTop: '40px',
                         }}
                         >Topic of the Day<br />
                         <span
@@ -116,16 +118,10 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                             fontSize: '0.8em',
                             color: (theme === 'light' ? 'grey' : 'grey'),
                             padding: '0',
-                            left: '-20px',
+                            position: 'static',
                         }}
                         >{topic}</span>
                         </h1>
-                        </div>
-                        <span className='closeOverlay'
-                        style={{
-                            color: (theme === 'light' ? 'black' : 'white'),
-                        }}
-                        onClick={closeOverlay}>&times;</span>
                     </div>
                     <div className='imagecontainer'
                     style={{
@@ -134,7 +130,8 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginTop: '50%',
+                        position: 'relative',
+                        marginTop: '40px',
                     }}
                     >
                         <img src={imageurl} title="source: imgur.com" alt="topic of the day"
@@ -144,6 +141,16 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                             padding: '0',
                         }}
                         />
+                    </div>
+                    <div className='buttoncontainer'
+                    style={{
+                        scale: "1",
+                        marginTop: '40px',
+                    }}
+                    >
+                        <div className='dumbsplainbutton' onClick={closeOverlay}>
+                            <div className='dumbsplainbuttontext'>Enter</div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -812,6 +812,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 alignItems: 'center',
                 width: '100%',
                 padding: '0',
+                filter: (topicOverlay ? 'blur(10px)' : 'blur(0px)'),
             }}
             >
                 <div className='navbar'>
@@ -859,6 +860,7 @@ function Dumbsplain( { theme , setTheme } ) {
                     justifyContent: 'center',
                     alignItems: 'center',
                     padding: '0',
+                    filter: (topicOverlay ? 'blur(10px)' : 'blur(0px)'),
                 }}
                 >
                     { waitfortomorrow ? <>
@@ -887,6 +889,7 @@ function Dumbsplain( { theme , setTheme } ) {
                 style={{
                     height: 'auto',
                     position: 'relative',
+                    filter: (topicOverlay ? 'blur(10px)' : 'blur(0px)'),
                 }}
                 >
                     <div className='optionscontainer'>

@@ -174,6 +174,9 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                 <main className="explanation-content"
                 style={{
                     transform: `scale(${cardscale})`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
                 }}
                 data-theme={theme}>
                     <div className="explanation-content-header"

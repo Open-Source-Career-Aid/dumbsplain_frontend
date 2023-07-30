@@ -643,6 +643,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                   <ProgressChart
                   linecolor={bordercolor}
                   listofvalues={listofvalues}
+                  theme={theme}
                   />
                 </div>
                 }

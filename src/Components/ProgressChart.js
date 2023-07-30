@@ -19,10 +19,9 @@ ChartJS.register(
 
 );
 
-function ProgressChart({ linecolor , listofvalues }) {
-
+function ProgressChart({ linecolor , listofvalues, theme }) {
   const labels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
-
+  const colorTick = theme === 'light' ? 'rgba(0,0,0, 1)' : 'rgba(255,255,255, 1)';
   const options = {
     maintainAspectRatio: false,
     tooltips: {
@@ -76,7 +75,7 @@ function ProgressChart({ linecolor , listofvalues }) {
         color: (context) => {
           const index = context.index;
           console.log(index);
-          return index === listofvalues.length - 1 ? linecolor : 'rgba(0,0,0, 1)';
+          return index === listofvalues.length - 1 ? linecolor : colorTick;
         },
       },
       },

@@ -16,7 +16,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
 
         if (topicOverlay) {
             setTimeout(() => {
-                pseudoGenerator(topic, setText, 0.6, null, 1);
+                pseudoGenerator(topic, setText, 0.2, null, 1);
             }, 500);
         }
 

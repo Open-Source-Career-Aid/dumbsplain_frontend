@@ -10,6 +10,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
     const [cardscale, setCardscale] = useState(1);
     const [startTime, setStartTime] = useState(null);
     const [text, setText] = useState('');
+    const [showbutton, setShowbutton] = useState(false);
 
     useEffect(() => {
 
@@ -20,6 +21,17 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
         }
 
     }, [topicOverlay, topic]);
+
+    useEffect(() => {
+
+        if (text !== '') {
+            setTimeout(() => {
+                setShowbutton(true);
+            }, 3000);
+        }
+
+    }, [text]);
+
 
     const handleWindowResize = () => {
 
@@ -154,7 +166,8 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                             width: '85%',
                             height: 'auto',
                             padding: '0',
-                            display: `${text!=='' ? 'block' : 'none'}`
+                            display: `${text!=='' ? 'block' : 'none'}`,
+                            border: '5px solid grey',
                         }}
                         className={topicOverlay ? "fade-in" : "fade-out"}
                         />
@@ -163,7 +176,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                     style={{
                         scale: "1",
                         marginTop: '40px',
-                        display: `${imageurl !== null && imageurl !== '' && text !== '' ? 'flex' : 'none'}`,
+                        display: `${imageurl !== null && imageurl !== '' && text !== '' && showbutton ? 'flex' : 'none'}`,
                     }}
                     >
                         <div className='dumbsplainbutton' onClick={closeOverlay}>

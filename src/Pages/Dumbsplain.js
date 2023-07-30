@@ -21,6 +21,7 @@ import PlayerProgress from "../Components/PlayerProgress";
 import EmojiSlider from "../Components/EmojiSlide";
 import ReactGA4 from 'react-ga4';
 import TopicOverlay from '../Components/TopicOverlay';
+import getTheme from '../Functions/getTheme';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -57,6 +58,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [userstreak, setUserstreak] = React.useState(0);
     const [maxstreak, setMaxstreak] = React.useState(0);
     const [correctoption, setCorrectoption] = React.useState(null);
+    // eslint-disable-next-line
     const [time, setTime] = React.useState(null)
     const [contentsectionheight, setContentsectionheight] = React.useState('40vh');
     const [dqincreaseddecreasedorremained, setDqincreaseddecreasedorremained] = React.useState(null);
@@ -73,6 +75,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [showRobot, setShowRobot] = React.useState(false);
     const [topicOverlay, setTopicOverlay] = React.useState(false);
     const [imageurl, setImageurl] = React.useState(null);
+    const [gamestarted, setGamestarted] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -156,7 +159,13 @@ function Dumbsplain( { theme , setTheme } ) {
             setScore(topic.score);
             setImageurl(topic.imageurl);
         }
+        async function fetchTheme() {
+            const theme_ = await getTheme(theme, gamestarted);
+            setTheme(theme_.theme);
+        }
         fetchTopic();
+        fetchTheme();
+        setGamestarted(true);
     // eslint-disable-next-line
     }, []);
 
@@ -172,21 +181,21 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }, [topicOverlay, newuser]);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        // if the time is between 7pm and 6am, set the theme to dark
-        if (time !== null) {
-            let timeArray = time.split(':');
-            let hours = parseInt(timeArray[0]);
-            if (hours >= 19 || hours < 6) {
-                setTheme('dark');
-            }
-            else {
-                setTheme('light');
-            }
-        }
-    // eslint-disable-next-line
-    }, [time]);
+    //     // if the time is between 7pm and 6am, set the theme to dark
+    //     if (time !== null) {
+    //         let timeArray = time.split(':');
+    //         let hours = parseInt(timeArray[0]);
+    //         if (hours >= 19 || hours < 6) {
+    //             setTheme('dark');
+    //         }
+    //         else {
+    //             setTheme('light');
+    //         }
+    //     }
+    // // eslint-disable-next-line
+    // }, [time]);
 
     // if esc is pressed and the score modal is open, close the score modal
     useEffect(() => {
@@ -559,6 +568,20 @@ function Dumbsplain( { theme , setTheme } ) {
             setTheme('light');
         }
     }
+
+    useEffect(() => {
+
+        async function fetchTheme() {
+            const theme_ = await getTheme(theme, gamestarted);
+            setTheme(theme_.theme);
+        }
+
+        if (gamestarted) {
+            fetchTheme();
+        }
+
+    // eslint-disable-next-line
+    }, [theme]);
 
     const handleAnswersubmit = (e) => {
 

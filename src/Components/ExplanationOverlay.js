@@ -14,6 +14,8 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     const [bufferdq, setBufferdq] = useState(null);
     const [cardscale, setCardscale] = useState(1);
     const [startTime, setStartTime] = useState(null);
+    const [modality, setModality] = useState(null);
+    const [link, setLink] = useState(null);
 
     const handleWindowResize = () => {
 
@@ -59,6 +61,12 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
     }, []);
 
     useEffect(() => {
+
+        console.log(modality);
+
+    }, [modality]);
+
+    useEffect(() => {
         handleWindowResize();
     }, [explanationrequested]);
 
@@ -80,6 +88,8 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
             // setUserdq(explanation.dq);
             setBufferdq(explanation.dq);
             pseudoGenerator(explanation.explanation, setExplanation, 0.02, setExplanationloading);
+            setModality(explanation.modality);
+            setLink(explanation.explanation);
         }
         if (explanationrequested) {
             fetchExplanation();
@@ -125,6 +135,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
             });
 
             setExplanationrequested(false);
+            setModality(null);
         }
     }, [timeremaining, setExplanationrequested, dumbnessLevel, startTime]);
 
@@ -140,6 +151,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
             });
 
             setExplanationrequested(false);
+            setModality(null);
         }
     }
 
@@ -179,7 +191,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         }}
                         data-theme={theme}>&times;</div>
                     </div>
-                    <div className="explanation-content-body"
+                        { modality==='text' ? <div className="explanation-content-body"
                     style={{
                         padding: "0",
                     }}
@@ -187,7 +199,35 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         <div className="explanation-text">
                             <p className='explanation-text-p' data-theme={theme}>{explanation}</p>
                         </div>
-                    </div>
+                        </div>
+                        : modality==='video' ? <div className="explanation-video"
+                        style={{
+                            overflow: 'hidden',
+                            padding: '0',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'relative',
+                            marginTop: '40px',
+                            height: '80%',
+                        }}
+                        >
+                            <video
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                            padding: '0',
+                            // display: `${text!=='' ? 'block' : 'none'}`,
+                            border: '5px solid grey',
+                        }}
+                        autoPlay loop muted>
+                            <source src={link} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                            </div>
+                        : modality==='image' ? <div className="explanation-image">
+                            </div>
+                        : null}
                 </main>
             </div>
         </>

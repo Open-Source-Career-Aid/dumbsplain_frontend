@@ -1,6 +1,7 @@
 import React , { useState , useEffect } from 'react';
 import '../CSS/Overlay.css';
 import ReactGA4 from 'react-ga4';
+import pseudoGenerator from '../Functions/pseudoGenerator';
 
 export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , imageurl , setImageurl , theme }){
 
@@ -8,6 +9,15 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
 
     const [cardscale, setCardscale] = useState(1);
     const [startTime, setStartTime] = useState(null);
+    const [text, setText] = useState('');
+
+    useEffect(() => {
+
+        if (topicOverlay) {
+            pseudoGenerator(topic, setText, 0.6, null, 1);
+        }
+
+    }, [topicOverlay, topic]);
 
     const handleWindowResize = () => {
 
@@ -120,7 +130,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                             padding: '0',
                             position: 'static',
                         }}
-                        >{topic}</span>
+                        >{text}</span>
                         </h1>
                     </div>
                     <div className='imagecontainer'

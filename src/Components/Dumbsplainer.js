@@ -99,13 +99,14 @@ function getQuestionAndOptions ({ text , theme , selectedoption , setSelectedopt
                                     fontSize: '1em',
                                     left: '0',
                                     marginRight: '10px',
-                                    overflow: 'visible',
+                                    overflow: 'hidden',
                                     height: '100%',
                                     display: 'flex',
                                     alignItems: 'flex-start',
                                     justifyContent: 'flex-start',
                                     flexDirection: 'column',
-                                    width: '15px',
+                                    minWidth: '15px',
+                                    maxWidth: '15px',
                                 }}
                                 data-theme={theme}
                                 >

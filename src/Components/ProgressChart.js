@@ -57,7 +57,7 @@ function ProgressChart({ linecolor , listofvalues, theme }) {
     scales: {
       y: {
         display: false, // Hide y-axis
-        suggestedMin: -1,
+        suggestedMin: 0,
         suggestedMax: 8,
         grid: {
           drawBorder: false,

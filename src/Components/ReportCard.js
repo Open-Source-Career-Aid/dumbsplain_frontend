@@ -100,18 +100,36 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     });
   };
 
-  // const handleCopy = () => {
-    
-  //   const file = new File([blob], "reportcard.png", {type: "image/png"});
+  const readImageFromClipboard = async () => {
+    const clipboardItems = await navigator.clipboard.read();
+    const imageItem = clipboardItems.find((item) => item.types.includes('image/png') || item.types.includes('image/jpeg'));
 
-  //   if (navigator.canShare && navigator.canShare({ files: [file] })) {
-  //         navigator.share({
-  //           files: [file],
-  //           title: 'My Image',
-  //           text: 'Check out this cool image!',
-  //         });
-  //       }
-  //   };
+    if (!imageItem) {
+      throw new Error('No image found in clipboard');
+    }
+
+    const blob = await imageItem.getType(imageItem.types[0]);
+    return blob;
+  };
+
+  const handleShare = async () => {
+    
+    try {
+      const blob = await readImageFromClipboard();
+      const file = new File([blob], 'clipboard-image.png', { type: blob.type });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: 'My Image',
+          text: 'Check out this cool image!',
+        });
+      }
+    } catch (error) {
+      console.error('Error reading image from clipboard:', error);
+    }
+
+    };
 
   const handleCopy = () => {
 
@@ -142,6 +160,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
           ])
           .then(() =>
             {setCopied(true);
+            handleShare();
             
             ReactGA4.event({
               category: 'Screenshot Copied to Clipboard - Safari',
@@ -174,6 +193,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 .write(data)
                 .then(() => {
                   setCopied(true);
+                  handleShare();
 
                   ReactGA4.event({
                     category: 'Screenshot Copied to Clipboard - Other Browsers',

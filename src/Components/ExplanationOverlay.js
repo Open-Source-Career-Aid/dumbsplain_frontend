@@ -205,7 +205,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         </div>
                         : modality==='video' ? <div className="explanation-video"
                         style={{
-                            overflow: 'visible',
+                            overflow: 'hidden',
                             padding: '0',
                             display: 'flex',
                             justifyContent: 'center',

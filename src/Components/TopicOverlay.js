@@ -172,7 +172,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
                         className={topicOverlay ? "fade-in" : "fade-out"}
                         />
                     </div>
-                    <div className='buttoncontainer'
+                    <div className={'buttoncontainer'+(showbutton ? ' fade-in2' : ' fade-out')}
                     style={{
                         scale: "1",
                         marginTop: '40px',

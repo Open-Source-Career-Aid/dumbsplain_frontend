@@ -160,7 +160,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
     });
   };
 
-const shareImage = async (imageFile) => {
+const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClipBoardOtherBrowsers, isSafari, isNotFirefox) => {
   if (navigator.share && navigator.canShare({ files: [imageFile] })) {
     try {
       await navigator.share({
@@ -173,7 +173,12 @@ const shareImage = async (imageFile) => {
       console.error('Error sharing image:', error);
     }
   } else {
-    throw new Error('Sharing images not supported');
+    if (isSafari) {
+        copyImageToClipBoardSafari();
+      }
+      else {
+        copyImageToClipBoardOtherBrowsers();
+      }
   }
 };
 
@@ -331,16 +336,8 @@ const shareImage = async (imageFile) => {
 
     snapshotCreatortoFile()
       .then((imageFile) => {
-        shareImage(imageFile);
+        shareImage(imageFile, copyImageToClipBoardSafari, copyImageToClipBoardOtherBrowsers, isSafari, isNotFirefox);
       })
-      .catch(() => {
-        if (isSafari) {
-          copyImageToClipBoardSafari();
-        }
-        else {
-          copyImageToClipBoardOtherBrowsers();
-        }
-      });
   };
 
   useEffect(() => {

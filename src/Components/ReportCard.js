@@ -144,9 +144,7 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 },
               })
               .then((blob) => {
-                const file = new File([blob], 'snapshot.png', { type: 'image/png' });
-                resolve(file);
-                // resolve(blob);
+                resolve(blob);
                 ReactGA4.event({
                   category: 'Screenshot Blob Created',
                   action: 'Screenshot Blob Created',

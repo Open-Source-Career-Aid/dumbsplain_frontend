@@ -84,7 +84,9 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
                 },
               })
               .then((blob) => {
-                resolve(blob);
+                const file = new File([blob], 'snapshot.png', { type: 'image/png' });
+                resolve(file);
+                // resolve(blob);
                 ReactGA4.event({
                   category: 'Screenshot Blob Created',
                   action: 'Screenshot Blob Created',
@@ -99,6 +101,23 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
       }
     });
   };
+
+const shareImage = async (imageFile) => {
+  if (navigator.share && navigator.canShare({ files: [imageFile] })) {
+    try {
+      await navigator.share({
+        files: [imageFile],
+        title: 'Generated Image',
+        text: 'Check out this image I generated!',
+      });
+      console.log('Image shared successfully');
+    } catch (error) {
+      console.error('Error sharing image:', error);
+    }
+  } else {
+    console.error("Your browser doesn't support the Web Share API");
+  }
+};
 
   // const readImageFromClipboard = async () => {
   //   const clipboardItems = await navigator.clipboard.read();
@@ -133,120 +152,132 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
 
   const handleCopy = () => {
 
-    ReactGA4.event({
-      category: 'Share Button Clicked',
-      action: 'Share Button Clicked',
-      label: 'Share Button Clicked',
-    });
+    snapshotCreator()
+      .then((imageFile) => {
+        shareImage(imageFile);
+      })
+      .catch((error) => {
+        console.error('Error generating image:', error);
+      });
 
-    const isSafari = /^((?!chrome|android).)*safari/i.test(
-      navigator?.userAgent
-    );
-
-    const copyImageToClipBoardSafari = () => {
-      if(isSafari) {
-        navigator.clipboard
-          .write([
-            new ClipboardItem({
-              "image/png": new Promise(async (resolve, reject) => {
-                try {
-                  const blob = await snapshotCreator();
-                  resolve(new Blob([blob], { type: "image/png" }));
-                } catch (err) {
-                  reject(err);
-                }
-              }),
-            }),
-          ])
-          .then(() =>
-            {setCopied(true);
-            // handleShare();
-            
-            ReactGA4.event({
-              category: 'Screenshot Copied to Clipboard - Safari',
-              action: 'Screenshot Copied to Clipboard - Safari',
-              label: 'Screenshot Copied to Clipboard - Safari',
-            });
-
-            }
-
-          )
-          .catch((err) =>
-            // Error
-            console.error("Error:", err)
-          );
-      }
-    }
-
-    const isNotFirefox = navigator.userAgent.indexOf("Firefox") < 0;
-
-    const copyImageToClipBoardOtherBrowsers = () => {
-      if(isNotFirefox) {
-        navigator?.permissions
-          ?.query({ name: "clipboard-write" })
-          .then(async (result) => {
-            if (result.state === "granted") {
-              const type = "image/png";
-              const blob = await snapshotCreator();
-              let data = [new ClipboardItem({ [type]: blob })];
-              navigator.clipboard
-                .write(data)
-                .then(() => {
-                  setCopied(true);
-                  // handleShare();
-
-                  ReactGA4.event({
-                    category: 'Screenshot Copied to Clipboard - Other Browsers',
-                    action: 'Screenshot Copied to Clipboard - Other Browsers',
-                    label: 'Screenshot Copied to Clipboard - Other Browsers',
-                  });
-
-                })
-                .catch((err) => {
-                  // Error
-                  console.error("Error:", err)
-                });
-            }
-        });
-      } else {
-        // alert("Firefox does not support this functionality");
-        // firefox so we download the image
-        const downloadImage = async () => {
-          try {
-            const blob = await snapshotCreator();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "reportcard.png";
-            a.click();
-            URL.revokeObjectURL(url);
-            // removes the element from the DOM after the download
-            a.remove();
-            setCopied(true);
-
-            ReactGA4.event({
-              category: 'Screenshot Downloaded - Firefox',
-              action: 'Screenshot Downloaded - Firefox',
-              label: 'Screenshot Downloaded - Firefox',
-            });
-
-          }
-          catch (err) {
-            alert('Browser does not support this functionality! Please use Chrome or Safari or Firefox.')
-            console.log(err);
-          }     
-        }
-        downloadImage();
-      }
-    }
-
-    if (isSafari) {
-      copyImageToClipBoardSafari();
-    }
-    else {
-      copyImageToClipBoardOtherBrowsers();
-    }
   };
+
+  // const handleCopy = () => {
+
+  //   ReactGA4.event({
+  //     category: 'Share Button Clicked',
+  //     action: 'Share Button Clicked',
+  //     label: 'Share Button Clicked',
+  //   });
+
+  //   const isSafari = /^((?!chrome|android).)*safari/i.test(
+  //     navigator?.userAgent
+  //   );
+
+  //   const copyImageToClipBoardSafari = () => {
+  //     if(isSafari) {
+  //       navigator.clipboard
+  //         .write([
+  //           new ClipboardItem({
+  //             "image/png": new Promise(async (resolve, reject) => {
+  //               try {
+  //                 const blob = await snapshotCreator();
+  //                 resolve(new Blob([blob], { type: "image/png" }));
+  //               } catch (err) {
+  //                 reject(err);
+  //               }
+  //             }),
+  //           }),
+  //         ])
+  //         .then(() =>
+  //           {setCopied(true);
+  //           // handleShare();
+            
+  //           ReactGA4.event({
+  //             category: 'Screenshot Copied to Clipboard - Safari',
+  //             action: 'Screenshot Copied to Clipboard - Safari',
+  //             label: 'Screenshot Copied to Clipboard - Safari',
+  //           });
+
+  //           }
+
+  //         )
+  //         .catch((err) =>
+  //           // Error
+  //           console.error("Error:", err)
+  //         );
+  //     }
+  //   }
+
+  //   const isNotFirefox = navigator.userAgent.indexOf("Firefox") < 0;
+
+  //   const copyImageToClipBoardOtherBrowsers = () => {
+  //     if(isNotFirefox) {
+  //       navigator?.permissions
+  //         ?.query({ name: "clipboard-write" })
+  //         .then(async (result) => {
+  //           if (result.state === "granted") {
+  //             const type = "image/png";
+  //             const blob = await snapshotCreator();
+  //             let data = [new ClipboardItem({ [type]: blob })];
+  //             navigator.clipboard
+  //               .write(data)
+  //               .then(() => {
+  //                 setCopied(true);
+  //                 // handleShare();
+
+  //                 ReactGA4.event({
+  //                   category: 'Screenshot Copied to Clipboard - Other Browsers',
+  //                   action: 'Screenshot Copied to Clipboard - Other Browsers',
+  //                   label: 'Screenshot Copied to Clipboard - Other Browsers',
+  //                 });
+
+  //               })
+  //               .catch((err) => {
+  //                 // Error
+  //                 console.error("Error:", err)
+  //               });
+  //           }
+  //       });
+  //     } else {
+  //       // alert("Firefox does not support this functionality");
+  //       // firefox so we download the image
+  //       const downloadImage = async () => {
+  //         try {
+  //           const blob = await snapshotCreator();
+  //           const url = window.URL.createObjectURL(blob);
+  //           const a = document.createElement("a");
+  //           a.href = url;
+  //           a.download = "reportcard.png";
+  //           a.click();
+  //           URL.revokeObjectURL(url);
+  //           // removes the element from the DOM after the download
+  //           a.remove();
+  //           setCopied(true);
+
+  //           ReactGA4.event({
+  //             category: 'Screenshot Downloaded - Firefox',
+  //             action: 'Screenshot Downloaded - Firefox',
+  //             label: 'Screenshot Downloaded - Firefox',
+  //           });
+
+  //         }
+  //         catch (err) {
+  //           alert('Browser does not support this functionality! Please use Chrome or Safari or Firefox.')
+  //           console.log(err);
+  //         }     
+  //       }
+  //       downloadImage();
+  //     }
+  //   }
+
+  //   if (isSafari) {
+  //     copyImageToClipBoardSafari();
+  //   }
+  //   else {
+  //     copyImageToClipBoardOtherBrowsers();
+  //   }
+  // };
 
   useEffect(() => {
 

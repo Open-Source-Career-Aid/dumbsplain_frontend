@@ -108,7 +108,7 @@ const shareImage = async (imageFile) => {
       await navigator.share({
         files: [imageFile],
         title: 'Generated Image',
-        text: 'Check out this image I generated!',
+        text: 'Find out how you fare against AI intellect at dumbsplain.com #dumbsplain #topicoftheday',
       });
       console.log('Image shared successfully');
     } catch (error) {

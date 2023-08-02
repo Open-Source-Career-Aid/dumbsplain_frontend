@@ -173,7 +173,7 @@ const shareImage = async (imageFile) => {
       console.error('Error sharing image:', error);
     }
   } else {
-    console.error("Your browser doesn't support the Web Share API");
+    throw new Error('Sharing images not supported');
   }
 };
 

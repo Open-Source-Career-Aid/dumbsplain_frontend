@@ -27,7 +27,7 @@ export default function TopicOverlay({ topicOverlay , setTopicOverlay , topic , 
         if (text !== '') {
             setTimeout(() => {
                 setShowbutton(true);
-            }, 3000);
+            }, 2000);
         }
 
     }, [text]);

@@ -187,7 +187,7 @@ export default function ExplanationOverlay({ dumbnessLevel, explanationrequested
                         alignItems: "center",
                     }}
                     >
-                        <p className="warning" data-theme={theme}>Time to read: <span className="countdown-timer">{timeremaining}</span></p>
+                        <p className="warning" data-theme={theme}>Time to view: <span className="countdown-timer">{timeremaining}</span></p>
                         <div className='closeOverlay explanationoverlay' onClick={closeOverlay}
                         style={{
                             cursor: "pointer",

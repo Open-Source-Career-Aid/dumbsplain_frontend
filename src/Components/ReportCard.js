@@ -164,13 +164,18 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
   if (navigator.share && navigator.canShare({ files: [imageFile] })) {
     try {
       await navigator.share({
-        files: [imageFile],
-        title: 'Generated Image',
-        text: 'Find out how you fare against AI intellect at dumbsplain.com #dumbsplain #topicoftheday',
+        text: `Current Dumbness Quotient: ${userdq}. Can you fare better against AI? dumbsplain.com #dumbsplain #topicoftheday #dq #dumbnessquotient`,
+        files: [imageFile]
       });
       console.log('Image shared successfully');
     } catch (error) {
       console.error('Error sharing image:', error);
+      if (isSafari) {
+        copyImageToClipBoardSafari();
+      }
+      else {
+        copyImageToClipBoardOtherBrowsers();
+      }
     }
   } else {
     if (isSafari) {

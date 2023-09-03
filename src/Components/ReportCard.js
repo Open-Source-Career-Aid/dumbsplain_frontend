@@ -11,6 +11,7 @@ import ProgressChart from './ProgressChart';
 import { avatarlabels } from '../config';
 import domtoimage from 'dom-to-image';
 import ReactGA4 from 'react-ga4';
+import Subscribe from '../Functions/subscribe';
 
 const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstreak , setUserstreak , maxstreak , setMaxstreak , setSpecial_id , theme , mcqrequested , dqincreaseddecreasedorremained , setDqincreaseddecreasedorremained , responsesubmitted , score , setScore }) => {
 
@@ -36,6 +37,9 @@ const ReportCard = ({ scoreModal, setScoreModal , userdq , setUserdq , userstrea
   const [updatedroundeddq, setUpdatedroundeddq] = useState(false);
   const [allowcopy, setAllowcopy] = useState(false);
   const [startTime, setStartTime] = useState(null);
+  const [subscribe, setSubscribe] = useState(false);
+  const [subscriptionstatus, setSubscriptionstatus] = useState('notsubscribed');
+  const [email, setEmail] = useState('');
   // const [blob, setBlob] = useState(null);
 
   useEffect(() => {
@@ -431,6 +435,7 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
             setRoundedDQ(Math.round(score.dq));
             setDqincreaseddecreasedorremained(score.change); // 0 for increase, 1 for remain, 2 for decrease
             setDay(JSON.parse(score.weeklylist).length);
+            setSubscribe(score.subscribe);
             // round the list values to 1 decimal place
             let temp = JSON.parse(score.weeklylist);
             for (let i = 0; i < temp.length; i++) {
@@ -580,6 +585,39 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
     
   }
 
+  const handleSubscribeClick = () => {
+
+    if (email === '') {
+      alert('Please enter your email address!');
+      return;
+    }
+    else if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+      alert('Please enter a valid email address!');
+      return;
+    }
+    else if (email.indexOf('@') === 0 || email.indexOf('.') === 0) {
+      alert('Please enter a valid email address!');
+      return;
+    }
+
+    ReactGA4.event({
+      category: 'Subscribe Button Clicked',
+      action: 'Subscribe Button Clicked',
+      label: 'Subscribe Button Clicked',
+    });
+
+    // call the subscribe function with the email
+    async function subscribe() {
+      // eslint-disable-next-line
+      const response = await Subscribe(email);
+      setSubscriptionstatus('subscribed');
+      setSubscribe(false);
+    }
+
+    subscribe();
+
+  }
+
   // const handleWeeokorDayClick = () => {
   //    switch (weekorday) {
   //     case 'View Week':
@@ -606,6 +644,7 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
             alignItems: 'center',
             justifyContent: 'center',
             scale: `${cardscale}`,
+            flexDirection: 'column',
           }
         }>
           <div className='modal-content-inverted'
@@ -795,6 +834,100 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
               </div>
             </div> */}
           </div>
+          { subscribe ? 
+          <div className='subscribebanner'
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0',
+            backgroundColor: '#8CA8FF',
+            width: '100%',
+          }}
+          >
+            {subscriptionstatus==='notsubscribed' ?
+            <>
+            <div className='subscribebanner-text'
+            style={{
+              padding: '10px 15px',
+              fontSize: '0.5em',
+              color: '#fff',
+            }}
+            >Subscribe to get daily updates!</div>
+            <div className='subscribebanner-button'
+            style={{
+              padding: '5px 15px',
+              fontSize: '0.5em',
+              color: '#fff',
+              border: '1px solid #fff',
+              borderRadius: '15px',
+              marginTop: '5px',
+              marginBottom: '5px',
+              marginRight: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={() => {setSubscriptionstatus('subscribing')}}>Subscribe</div> </>
+            : null }
+            {subscriptionstatus==='subscribing' ?
+              // <div className='subscribeform'
+              // style={{
+              //   display: 'flex',
+              //   flexDirection: 'row',
+              //   justifyContent: 'space-between',
+              //   alignItems: 'center',
+              //   padding: '0',
+              //   width: '100%',
+              // }}
+              // >
+              <>
+                {/* email field */}
+              <div className='subscribeform-email'
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '0',
+                backgroundColor: '#8CA8FF',
+                width: '100%',
+              }}
+              >
+                  <input
+                  className='subscribeform-email-input'
+                  type='email'
+                  placeholder='Email'
+                  style={{
+                    padding: '5px 15px',
+                    fontSize: '0.5em',
+                    border: '1px solid #fff',
+                    borderRadius: '15px',
+                    marginLeft: '15px',
+                    marginTop: '5px',
+                    marginBottom: '5px',
+                    width: '50%',
+                  }}
+                  onChange={(e) => {setEmail(e.target.value)}}
+                  />
+                  <div className='subscribeform-email-button'
+                  onClick={handleSubscribeClick}
+                  style={{
+                    padding: '5px 15px',
+                    fontSize: '0.5em',
+                    color: '#fff',
+                    border: '1px solid #fff',
+                    borderRadius: '15px',
+                    marginTop: '5px',
+                    marginBottom: '5px',
+                    marginRight: '10px',
+                    cursor: 'pointer',
+                  }}
+                  >Submit!</div>
+              </div>
+              </>
+            : null }
+          </div>
+          : null}
         </section>
     </div>
   );

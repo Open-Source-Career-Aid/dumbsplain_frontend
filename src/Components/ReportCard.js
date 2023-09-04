@@ -928,7 +928,7 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
             : null }
           </div>
           : <>
-          { subscribe && subscriptionstatus==='subscribed' ?
+          { subscriptionstatus==='subscribed' ?
             <div className='subscribebanner'
           style={{
             display: 'flex',

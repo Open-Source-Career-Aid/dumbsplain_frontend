@@ -927,7 +927,36 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
               </>
             : null }
           </div>
-          : null}
+          : <>
+          { subscribe && subscriptionstatus==='subscribed' ?
+            <div className='subscribebanner'
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0',
+            backgroundColor: 'green',
+            width: '100%',
+          }}
+          >
+            <div className='subscribebanner-text'
+            style={{
+              padding: '10px 15px',
+              fontSize: '0.5em',
+              color: '#fff',
+            }}
+            >Success!</div>
+            <div className='subscribebanner-button'
+            style={{
+              padding: '5px 15px',
+              marginTop: '5px',
+              marginBottom: '5px',
+              marginRight: '10px',
+            }}></div>
+          </div>
+          : null }
+          </>}
         </section>
     </div>
   );

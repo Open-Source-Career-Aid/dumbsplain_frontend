@@ -936,7 +936,7 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
             justifyContent: 'flex-start',
             alignItems: 'center',
             padding: '0',
-            backgroundColor: 'green',
+            backgroundColor: '#519282',
             width: '100%',
           }}
           >

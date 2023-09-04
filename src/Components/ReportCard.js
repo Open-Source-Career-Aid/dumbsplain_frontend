@@ -933,7 +933,7 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             padding: '0',
             backgroundColor: 'green',
@@ -947,13 +947,6 @@ const shareImage = async (imageFile, copyImageToClipBoardSafari, copyImageToClip
               color: '#fff',
             }}
             >Success!</div>
-            <div className='subscribebanner-button'
-            style={{
-              padding: '5px 15px',
-              marginTop: '5px',
-              marginBottom: '5px',
-              marginRight: '10px',
-            }}></div>
           </div>
           : null }
           </>}

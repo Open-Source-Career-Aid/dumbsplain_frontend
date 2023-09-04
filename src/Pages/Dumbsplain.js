@@ -664,7 +664,7 @@ function Dumbsplain( { theme , setTheme } ) {
         
         if (selectedoption === correctoption && responsesubmitted === true) {
 
-            setConfettiamount([10, 20, 150, 300, 5000][dumbnessLevel - 1]);
+            setConfettiamount([10, 20, 150, 250, 2000][dumbnessLevel - 1]);
             setAdd(1);
             if (dumbnessLevel + 1 <= 5) {
                 // this code makes sure that the user gets the next question if they hit the correct option.

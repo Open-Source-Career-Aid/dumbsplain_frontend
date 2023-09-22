@@ -22,6 +22,7 @@ import EmojiSlider from "../Components/EmojiSlide";
 import ReactGA4 from 'react-ga4';
 import TopicOverlay from '../Components/TopicOverlay';
 import getTheme from '../Functions/getTheme';
+import LeaderBoard from '../Components/LeaderBoard';
 
 function Dumbsplain( { theme , setTheme } ) {
 
@@ -77,6 +78,7 @@ function Dumbsplain( { theme , setTheme } ) {
     const [imageurl, setImageurl] = React.useState(null);
     const [gamestarted, setGamestarted] = React.useState(false);
     const [fetchTheme, setFetchTheme] = React.useState(false);
+    const [leaderboardoverlay, setLeaderboardoverlay] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -192,21 +194,21 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }, [topicOverlay, newuser]);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     // if the time is between 7pm and 6am, set the theme to dark
-    //     if (time !== null) {
-    //         let timeArray = time.split(':');
-    //         let hours = parseInt(timeArray[0]);
-    //         if (hours >= 19 || hours < 6) {
-    //             setTheme('dark');
-    //         }
-    //         else {
-    //             setTheme('light');
-    //         }
-    //     }
-    // // eslint-disable-next-line
-    // }, [time]);
+        // if the time is between 6pm and 6am, set the theme to dark
+        if (time !== null) {
+            let timeArray = time.split(':');
+            let hours = parseInt(timeArray[0]);
+            if (hours >= 18 || hours < 6) {
+                setTheme('dark');
+            }
+            else {
+                setTheme('light');
+            }
+        }
+    // eslint-disable-next-line
+    }, [time]);
 
     // if esc is pressed and the score modal is open, close the score modal
     useEffect(() => {
@@ -799,6 +801,11 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }
 
+    const handleStats = (e) => {
+        e.preventDefault();
+        setLeaderboardoverlay(true);
+    }
+
     return (
         <div style={{
             height: '100%',
@@ -836,6 +843,11 @@ function Dumbsplain( { theme , setTheme } ) {
             score={score}
             setScore={setScore}
             />
+            <LeaderBoard
+            overlaybool={leaderboardoverlay}
+            setOverlaybool={setLeaderboardoverlay}
+            theme={theme}
+            />
             <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} setSub={setSub} />
             <section className='headersection'
             style={{
@@ -868,6 +880,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
+                        <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg>
                     </div>
                 </div>
                 { width < 900 ? <PlayerProgress

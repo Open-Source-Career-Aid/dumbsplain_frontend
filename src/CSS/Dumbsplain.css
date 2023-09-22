@@ -161,6 +161,18 @@
     margin-left: 5%;
 }
 
+.statsbutton {
+    background-image: url('../../public/statslight.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
 .leaderboard {
     background-image: url('../../public/leaderboard.png');
     background-repeat: no-repeat;

@@ -1,6 +1,6 @@
 import { useState , useEffect } from "react";
 import getLeaderBoard from "../Functions/getLeaderBoard";
-// import { set } from "react-ga";
+import { set } from "react-ga";
 
 const Navigator = ({ navigationdict , setNavigationDict , theme }) => {
 

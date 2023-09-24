@@ -1,6 +1,5 @@
 import { useState , useEffect } from "react";
 import getLeaderBoard from "../Functions/getLeaderBoard";
-// import { set } from "react-ga";
 import '../CSS/leaderboard.css';
 
 const Navigator = ({ navigationdict , setNavigationDict , theme }) => {

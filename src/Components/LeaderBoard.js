@@ -1,6 +1,7 @@
 import { useState , useEffect } from "react";
 import getLeaderBoard from "../Functions/getLeaderBoard";
-import { set } from "react-ga";
+// import { set } from "react-ga";
+import '../CSS/leaderboard.css';
 
 const Navigator = ({ navigationdict , setNavigationDict , theme }) => {
 
@@ -16,15 +17,16 @@ const Navigator = ({ navigationdict , setNavigationDict , theme }) => {
     }
 
     return (
-        <div className="flex flex-row w-full p-0">
+        <div className="navigator-container">
             {/* map the items in navigationdict and based on if item.selected is true, highlight it */}
-            {navigationdict.map((item) => (
-                <div className="flex flex-col justify-center items-center align-middle w-[100px] rounded-md w-full p-0">
-                    <div className=
-                    {(item.selected ? "bg-[#8CA8FF] text-white" : "bg-transparent hover:bg-[#4C7BFE1A]") + " text-[16px] rounded-md cursor-pointer"+
-                    (theme === 'dark' ? " text-white" : "")
-                    }
-                    onClick={() => handleClick(navigationdict.indexOf(item))}
+            {navigationdict.map((item, index) => (
+                <div className="nav-item-container">
+                    <div className='nav-item'
+                    style={{
+                        backgroundColor: item.selected ? (theme === 'dark' ? '#4C7BFE' : '#4C7BFE1A') : (theme === 'dark' ? '#252525' : '#FFFFFF'),
+                        color: item.selected ? '#FFFFFF' : '#4C7BFE',
+                    }}
+                    onClick={() => handleClick(index)}
                     >{item.name}</div>
                 </div>
             ))}
@@ -36,21 +38,36 @@ const UserBox = ({ userstate , theme }) => {
 
     return (
         <>
-        <div className="flex flex-row p-0 justify-between text-[14px] pb-[5px]">
-            <div className={"font-bold text-[1em] p-0" +
-            (theme === 'dark' ? " text-white" : " text-[#4C7BFE]")
-            }>
+        <div className="userbox-container">
+            <div
+            style={{
+                fontSize: '1em',
+                padding: '0px',
+                fontWeight: 'bold',
+                color: theme === 'dark' ? '#FFFFFF' : '#4C7BFE',
+            }}
+            >
                 {/* User: {userstate.id} */}
                 You
             </div>
-            <div className={"font-bold text-[1em] p-0" +
-            (theme === 'dark' ? " text-white" : " text-[#4C7BFE]")
-            }>
+            <div
+            style={{
+                fontSize: '1em',
+                padding: '0px',
+                fontWeight: 'bold',
+                color: theme === 'dark' ? '#FFFFFF' : '#4C7BFE',
+            }}
+            >
                 School Rank: {userstate.schoolrank}
             </div>
-            <div className={"font-bold text-[1em] p-0"
-            + (theme === 'dark' ? " text-white" : " text-[#4C7BFE]")
-            }>
+            <div
+            style={{
+                fontSize: '1em',
+                padding: '0px',
+                fontWeight: 'bold',
+                color: theme === 'dark' ? '#FFFFFF' : '#4C7BFE',
+            }}
+            >
                 DQ: {userstate.dq}
             </div>
         </div>
@@ -61,30 +78,62 @@ const UserBox = ({ userstate , theme }) => {
 const LeaderTable = ({ leaderboard , userstate , theme , addschool }) => {
 
     return (
-        <div className="flex flex-col w-full p-0 py-2 h-[100%] justify-between items-center">
+        <div className="leadertable-container">
             {/* display the first three items in leaderboard */}
-            <div className="p-0 w-full overflow-visible">
+            <>
             {leaderboard.slice(0, 3).map((item) => (
                 <>
                 { item.position === 'first' || item.position === 'second' || item.position === 'third' ?
-                <div className={"flex flex-col w-full px-[15px] bg-[#4C7BFE1A] rounded-md my-[5px] text-[16px] overflow-visible"+(theme === 'dark' ? " bg-[#4C7BFE]" : "")
-                + (item.selected ? " border-[#4C7BFE] border-[2px]" : "")}>
-                    <div className="flex flex-row p-0 justify-between">
-                        <div className="text-[14px] p-0 flex flex-row">
-                            <div className={"text-black font-bold text-[1em] p-0 mr-[10px]"+
-                            (theme === 'dark' ? " text-white" : "")
-                            }>
+                <div className={"table-row"+(theme === 'dark' ? " bg-[#4C7BFE]" : "")
+                + (item.selected ? " border-[#4C7BFE] border-[2px]" : "")}
+                style={{
+                    backgroundColor: theme === 'dark' ? '#4C7BFE' : '#4C7BFE1A',
+                    border: item.selected ? '2px solid #4C7BFE' : 'none',
+                }}
+                >
+                    <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: '0px',
+                    }}>
+                        <div
+                        style={{
+                            fontSize: '14px',
+                            padding: '0px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}
+                        >
+                            <div
+                            style={{
+                                color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                                fontWeight: 'bold',
+                                fontSize: '1em',
+                                padding: '0px',
+                                marginRight: '10px',
+                            }}
+                            >
                                 {item.rank}
                             </div>
-                            <div className={"text-black-500 text-[1em] p-0 dark:text-white"+
-                            (theme === 'dark' ? " text-white" : "")
-                            }>
+                            <div
+                            style={{
+                                color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                                fontSize: '1em',
+                                padding: '0px',
+                            }}
+                            >
                                 {item.school}
                             </div>
                         </div>
-                        <div className={"text-[16px] p-0 dark:text-white"+
-                        (theme === 'dark' ? " text-white" : "")
-                        }>
+                        <div
+                        style={{
+                            color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                            fontSize: '16px',
+                            padding: '0px',
+                        }}
+                        >
                             {item.dq}
                         </div>
                     </div>
@@ -99,33 +148,75 @@ const LeaderTable = ({ leaderboard , userstate , theme , addschool }) => {
                 </div> : null }
                 </>
             ))}
-            </div>
+            </>
             {/* display the fourth if position is middle */}
             {leaderboard[3].position === 'middle' && (
                 <>
                 { leaderboard[0].selected === false &&    
-                <div className={"w-[80%] p-0 border-x-[2px] border-dotted h-full"+
-                (theme === 'dark' ? " border-[#4C7BFE]" : " border-black")
-                }>
+                <div
+                style={{
+                    // border: '2px dotted #4C7BFE',
+                    width: '80%',
+                    height: '100%',
+                    padding: '0px',
+                    borderStyle: 'dotted',
+                    borderColor: theme === 'dark' ? '#4C7BFE' : '#000000',
+                    borderWidth: '2px',
+                    borderTop: 'none',
+                    borderBottom: 'none',
+                }}
+                >
                 </div>}
-                <div className={"flex flex-col w-full px-[15px] bg-[#4C7BFE1A] rounded-md my-[5px] text-[16px] overflow-visible" + (theme === 'dark' ? " bg-[#4C7BFE]" : "")
-                + (leaderboard[3].selected ? " border-[#4C7BFE] border-[2px]" : "")}>
-                    <div className="flex flex-row p-0 justify-between">
-                        <div className="text-[14px] p-0 flex flex-row">
-                            <div className={"font-bold text-[1em] p-0 mr-[10px]"+
-                            (theme === 'dark' ? " text-white" : " text-black")
-                            }>
+                <div className={"table-row"+(theme === 'dark' ? " bg-[#4C7BFE]" : "")
+                + (leaderboard[3].selected ? " border-[#4C7BFE] border-[2px]" : "")}
+                style={{
+                    backgroundColor: theme === 'dark' ? '#4C7BFE' : '#4C7BFE1A',
+                    border: leaderboard[3].selected ? '2px solid #4C7BFE' : 'none',
+                }}
+                >
+                    <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: '0px',
+                    }}>
+                        <div
+                        style={{
+                            fontSize: '14px',
+                            padding: '0px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}
+                        >
+                            <div
+                            style={{
+                                color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                                fontWeight: 'bold',
+                                fontSize: '1em',
+                                padding: '0px',
+                                marginRight: '10px',
+                            }}
+                            >
                                 {leaderboard[3].rank}
                             </div>
-                            <div className={"text-[1em] p-0"
-                            + (theme === 'dark' ? " text-white" : " text-black")
-                            }>
+                            <div
+                            style={{
+                                color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                                fontSize: '1em',
+                                padding: '0px',
+                            }}
+                            >
                                 {leaderboard[3].school}
                             </div>
                         </div>
-                        <div className={"text-[16px] p-0"+
-                        (theme === 'dark' ? " text-white" : " text-black")
-                        }>
+                        <div
+                        style={{
+                            color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                            fontSize: '16px',
+                            padding: '0px',
+                        }}
+                        >
                             {leaderboard[3].dq}
                         </div>
                     </div>
@@ -142,31 +233,73 @@ const LeaderTable = ({ leaderboard , userstate , theme , addschool }) => {
             )}
             {/* display the last three */}
             { leaderboard[leaderboard.length-1].selected === false ?
-            <div className={"w-[80%] p-0 border-x-[2px] border-dotted h-full"+
-            (theme === 'dark' ? " border-[#4C7BFE]" : " border-black")
-            }>
+            <div
+                style={{
+                    // border: '2px dotted #4C7BFE',
+                    width: '80%',
+                    height: '100%',
+                    padding: '0px',
+                    borderStyle: 'dotted',
+                    borderColor: theme === 'dark' ? '#4C7BFE' : '#000000',
+                    borderWidth: '2px',
+                    borderTop: 'none',
+                    borderBottom: 'none',
+                }}
+                >
             </div> : null }
             {leaderboard.slice(-3).map((item) => (
                 <>
                 { item.position === 'third-to-last' || item.position === 'second-to-last' || item.position === 'last' ?
-                <div className={"flex flex-col w-full px-[15px] bg-[#4C7BFE1A] rounded-md my-[5px] text-[16px] overflow-visible"+(theme === 'dark' ? " bg-[#4C7BFE]" : "")
-                + (item.selected ? " border-[#4C7BFE] border-[2px]" : "")}>
-                    <div className="flex flex-row p-0 justify-between">
-                        <div className="text-[14px] p-0 flex flex-row">
-                            <div className={"text-black font-bold text-[1em] p-0 mr-[10px]"
-                            + (theme === 'dark' ? " text-white" : "")
-                            }>
+                <div className={"table-row"+(theme === 'dark' ? " bg-[#4C7BFE]" : "")
+                + (item.selected ? " border-[#4C7BFE] border-[2px]" : "")}
+                style={{
+                    backgroundColor: theme === 'dark' ? '#4C7BFE' : '#4C7BFE1A',
+                    border: item.selected ? '2px solid #4C7BFE' : 'none',
+                }}
+                >
+                    <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        padding: '0px',
+                    }}>
+                        <div
+                        style={{
+                            fontSize: '14px',
+                            padding: '0px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}
+                        >
+                            <div
+                            style={{
+                                color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                                fontWeight: 'bold',
+                                fontSize: '1em',
+                                padding: '0px',
+                                marginRight: '10px',
+                            }}
+                            >
                                 {item.rank}
                             </div>
-                            <div className={"text-black-500 text-[1em] p-0 "
-                            + (theme === 'dark' ? " text-white" : "")
-                            }>
+                            <div
+                            style={{
+                                color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                                fontSize: '1em',
+                                padding: '0px',
+                            }}
+                            >
                                 {item.school}
                             </div>
                         </div>
-                        <div className={"text-[16px] p-0"+
-                        (theme === 'dark' ? " text-white" : "")
-                        }>
+                        <div
+                        style={{
+                            color: theme === 'dark' ? '#FFFFFF' : '#000000',
+                            fontSize: '16px',
+                            padding: '0px',
+                        }}
+                        >
                             {item.dq}
                         </div>
                     </div>
@@ -206,7 +339,7 @@ const LeaderBoard = ({ overlaybool , setOverlaybool , theme }) => {
     const [navigationdict, setNavigationDict] = useState([
         {name: "Daily", selected: true},
         {name: "Weekly", selected: false},
-        {name: "Lifetime", selected: false},
+        // {name: "Lifetime", selected: false},
     ]);
 
     const [userstate, setUserState] = useState(null)
@@ -263,20 +396,39 @@ const LeaderBoard = ({ overlaybool , setOverlaybool , theme }) => {
 
     return (
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off"} onClick={handleClick}>
-            <div className={"flex flex-col justify-start items-center align-middle w-[400px] h-[600px] bg-white rounded-md p-[20px]"+
-            (theme === 'dark' ? " bg-[#252525]" : "")
-            }>
+            <div className="leaderboard-container"
+            style={{
+                backgroundColor: theme === 'dark' ? '#252525' : '#FFFFFF',
+            }}
+            >
                 { userstate &&
                 <>
-                <div className="mb-[10px] text-[20px] h-[6%] font-bold text-[#4C7BFE]">Leaderboard</div>
-                <div className="w-full p-0 h-[6%]">
+                <div className="leaderboard-title">Leaderboard</div>
+                <div
+                style={{
+                    height: '6%',
+                    padding: '0px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignContent: 'center',
+                }}>
                     <Navigator
                     navigationdict={navigationdict}
                     setNavigationDict={setNavigationDict}
                     theme={theme}
                     />
                 </div>
-                <div className="w-full p-0 h-[88%]">
+                <div
+                style={{
+                    width: '90%',
+                    height: '88%',
+                    padding: '0px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignContent: 'center',
+                }}>
                     <LeaderTable
                     leaderboard={leaderboard[
                         navigationdict.findIndex((item) => item.selected)

@@ -862,12 +862,21 @@ function Dumbsplain( { theme , setTheme } ) {
             }}
             >
                 <div className='navbar'>
-                    { width > 900 ? <PlayerProgress
+                    { width > 900 ?
+                    <div
+                    style={{
+                        minWidth: '250px',
+                        maxWidth: '250px',
+                        padding: '0',
+                    }}
+                    >
+                    <PlayerProgress
                     dq={userdq}
                     score={score}
                     add={add}
                     sub={sub}
-                    /> : null }
+                    /> 
+                    </div>: null }
                     <div className='dumbsplainlogo'></div>
                     {/* <Header
                     theme={theme}

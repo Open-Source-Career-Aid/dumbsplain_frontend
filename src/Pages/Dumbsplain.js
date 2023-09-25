@@ -889,7 +889,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
-                        <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg>
+                        {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
                     </div>
                 </div>
                 { width < 900 ? <PlayerProgress

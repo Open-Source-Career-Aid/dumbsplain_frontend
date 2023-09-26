@@ -801,6 +801,7 @@ function Dumbsplain( { theme , setTheme } ) {
         }
     }
 
+    // eslint-disable-next-line
     const handleStats = (e) => {
         e.preventDefault();
         setLeaderboardoverlay(true);

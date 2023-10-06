@@ -5,6 +5,7 @@ import Test from "./Pages/Test";
 import React from "react";
 import ReactGA4 from 'react-ga4';
 import { GTAG } from "./config";
+import DumbsplainError from "./Pages/Error";
 
 function App() {
 
@@ -26,11 +27,14 @@ function App() {
       >
         <div className='bg' data-theme={theme}></div>
         <Routes>
+
           <Route path="/" element={<Dumbsplain
           theme={theme}
           setTheme={setTheme}
            />} />
           <Route path="/test" element={<Test />} />
+          {/* on 404 show 404 page*/}
+          <Route path="*" element={<DumbsplainError />} />
         </Routes>
       </div>
   );

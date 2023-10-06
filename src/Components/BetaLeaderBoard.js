@@ -73,7 +73,7 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
     // eslint-disable-next-line
     }, [overlaybool]);
     
-    const leveltext = data.map((item, index) => {
+    const paintBottomLayer = data.slice(3,).map((item, index) => {
        return (
         <>
             <div key={index}
@@ -123,6 +123,22 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
                 setOverlaybool(false);
         }
     }
+    const paintTopLayer = data.slice(0,3).map((item, index) => {
+        return (
+                <div key={index} className="collegeCard" id={`${index}`} style={{order: index === 0 ? 1 :  index - 1}}>
+                    <div className="index"></div>
+                    <span className="rank">{index+1}</span>
+                    <div className="collegeImage">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Harvard_shield_wreath.svg" alt="Harvard University" />
+                    </div>
+                    <div className="collegeDetails">
+                        <h2>{item.collegeName}</h2>
+                        <p>Score: {item.score}</p>
+                        <p>Rank: {index+1}</p>
+                    </div>
+            </div>
+        )
+    })
 
     return(
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
@@ -149,27 +165,9 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
                     <div className="content">
                         <h1 className="collegeText"> Leaderboard</h1>
                         <div className="collegeCards">
-                        {          
-                         /* shows top three images along with their score and ranking */              
-                            data.slice(0,3).map((item, index) => {
-                                return (
-                                        <div key={index} className="collegeCard" id={`${index}`} style={{order: index === 0 ? 1 :  index - 1}}>
-                                            <div className="index"></div>
-                                            <span className="rank">{index+1}</span>
-                                            <div className="collegeImage">
-                                                <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Harvard_shield_wreath.svg" alt="Harvard University" />
-                                            </div>
-                                            <div className="collegeDetails">
-                                                <h2>{item.collegeName}</h2>
-                                                <p>Score: {item.score}</p>
-                                                <p>Rank: {index+1}</p>
-                                            </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                            
-                        
+                        {paintTopLayer}
+                    </div>
+                         
                     </div>
                     <span className='closeOverlay' onClick={closeOverlay}>&times;</span>
                     
@@ -185,7 +183,7 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
                         overflow: 'visible',
                     }}
                     >
-                        {leveltext}
+                        {paintBottomLayer}
                     </ol>
                 </div>
             </div>

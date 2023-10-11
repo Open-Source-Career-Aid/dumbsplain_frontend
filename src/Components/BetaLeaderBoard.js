@@ -7,14 +7,14 @@ import ReactGA4 from 'react-ga4';
 import {useState, useEffect} from 'react';
 // dummy data for the leaderboard with harvard as university name and 4 as score
 const data = [
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4},
-     {collegeName: "Harvard University", score: 4} 
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },
+     {collegeName: "Harvard University", score: 4, collegeLogo: "https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png" },    
+    //  {collegeName: "Harvard University", score: 4} 
 ]
 
 
@@ -78,19 +78,18 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
         <>
             <div key={index}
             style={{
-                height: 'auto',
+                height: '25%',
                 overflow: 'visible',
+                marginBottom:'5px',
             }}
             >
-                { index === 1 ? 
-                <>
-                    <li className="level">
-                        placeholder
-                    </li>
-                </>
-                : <li className="level">
-                    {item[0]}
-                </li> }
+                <div style={{ border: '1px solid #4C7BFE', borderRadius:'25px', height:'60%'}}>
+                    <img style={{fontSize: '.25em', padding: '7px 0 0 0', width:'30px', height:'30px'}} src= {item.collegeLogo} alt={item.collegeName} />
+                    <span style={{fontSize:'.5em', fontWeight: 'bold', padding: '5px', verticalAlign: 'middle'}}>{index + 4}</span>
+                    <span style={{textAlign: 'center', fontSize: '.5em', verticalAlign:'middle'}}>{item.collegeName}</span>
+                    <span style={{color:'#4C7BFE', fontSize: '.5em', padding: '0'}}>DQ</span><span style={{color: '#000', fontWeight: 'bolder', fontSize: '.65em', padding: '2px'}}>{item.score}</span>
+                </div>
+      
             </div>
         </>)
     });
@@ -126,16 +125,10 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
     const paintTopLayer = data.slice(0,3).map((item, index) => {
         return (
                 <div key={index} className="collegeCard" id={`${index}`} style={{order: index === 0 ? 1 :  index - 1}}>
-                    <div className="index"></div>
                     <span className="rank">{index+1}</span>
-                    <div className="collegeImage">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Harvard_shield_wreath.svg" alt="Harvard University" />
-                    </div>
-                    <div className="collegeDetails">
-                        <h2>{item.collegeName}</h2>
-                        <p>Score: {item.score}</p>
-                        <p>Rank: {index+1}</p>
-                    </div>
+                        <img className="collegeImage" src={item.collegeLogo} alt={`${item.collegeName}`} style={{maxWidth: index === 0 ? "100%" :  index === 1 ? "75%" : "65%" }} />
+                        <h2 id="collegeDQ">{item.collegeName}</h2>
+                        <p id="userDQ">DQ {item.score}</p>
             </div>
         )
     })
@@ -161,10 +154,9 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
                     scale: '1.07',
                 }}/> */}
                 <div className='infocontainer topThree'>
-                    <div className="curve"></div>
                     <div className="content">
                         <h1 className="collegeText"> Leaderboard</h1>
-                        <div className="collegeCards">
+                        <div className="collegeCards" style={{padding:'2px 2px', overflow: 'hidden'}}>
                         {paintTopLayer}
                     </div>
                          
@@ -177,14 +169,7 @@ export default function BetaLeaderBoard({ overlaybool, setOverlaybool, theme }) 
                 </div> */}
             </div>
             <div className='lastFour' style={{width:'100%'}}>
-                    <ol
-                    style={{
-                        height: 'auto',
-                        overflow: 'visible',
-                    }}
-                    >
-                        {paintBottomLayer}
-                    </ol>
+                    {paintBottomLayer}
                 </div>
             </div>
         </div>

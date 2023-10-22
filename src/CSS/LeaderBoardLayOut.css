@@ -1,0 +1,180 @@
+/* CSS */
+div#LeaderBoardNav{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+div#LeaderBoardBody{
+    width: 100%;
+    height: 80%;
+    background-color: #4C7BFE;
+    border-radius: 13% 13% 0px 0px;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    font-size: .5em;
+    color: #FFFFFF;    
+}
+h1#title {
+    color: #4C7BFE;
+    font-size: .75em;
+    height: 40%;
+    padding: 1em;
+}
+a.mode{
+    font-size: .4em;
+    border-radius: 15px;
+    /* background-color: rgba(123, 123, 123, .1); */
+    width: fit-content;
+    margin: 0 .5em 0 .5em;
+    padding: .5em 1em;
+    height: 35%;
+    overflow: hidden;
+    color: #8CA8FF;
+    font-weight: 600;
+}
+
+a.mode.light {
+    opacity: 100%;
+    color: #000000;
+    font-weight: bolder;
+}
+
+a.mode.dark{
+    opacity: 100%;
+    color: #FFFFFF;
+    font-weight: bolder;
+}
+
+a.mode:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+nav#LeaderBoardMenu{
+    height: 60%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.Leadericons {
+    font-size: .5em;
+    padding: 0;
+    transform: scale(1);
+    margin: 0;
+}
+
+#playerRank path, #collegeRank path {
+    fill: #4C7BFE;
+}
+
+section#university, section#DQ, section#rank {
+    font-size: .4em;
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+  }
+
+  div#contentHeader, div.contentBody {
+    display: flex;
+    justify-content: space-around;
+    align-content: flex-end;
+    
+  }
+
+div#contentHeader {
+    height: 5%;
+}
+
+div.contentBody {
+    background-color: rgba(255, 255, 255, .4);
+    border-radius: 40px;
+    width: 75%;
+    height: 15%;
+    margin: .2em auto;
+}
+article.leaderCard  {
+    font-size: .5em;
+    color: hsl(0, 0%, 0%);
+    font-weight: 700;
+}
+article.leaderCard.rank, article.leaderCard.dq {
+    align-self: center;
+    justify-content: flex-end;
+}
+article.leaderCard.university {
+    width: 85%;
+    align-self: center;
+}
+article.leaderCard.rank{
+    width: 10%
+}
+
+article.leaderCard.dq{
+    width: 5%;
+}
+article.university, article.rank, article.dq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+article.university > img.LeaderIcons {
+    width: 20%;
+    height: 20%;
+    padding: .1em;
+}
+article.university > span.LeaderLabel {
+    margin: 0;
+    font-size: .7em;
+    padding: 0 .2em;
+    width: 80%;
+}
+
+div.dark {
+    background-color: #000000;
+}
+
+div.light {
+    background-color: #FFFFFF;
+}
+
+a.darkMode {
+    background-color: rgba(255, 255, 255, .1);
+}
+a.lightMode {
+    background-color: rgba(123, 123, 123, .1);
+}
+
+/* background image an svg */
+article.first {
+    background-image: url(../SVGasComponents/Crown.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+article.second {
+    background-image: url(../SVGasComponents/Silver.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+article.third {
+    background-image: url(../SVGasComponents/Bronze.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+article.rank {
+    font-size: .4em;
+}
+article.rank sup {
+    font-size: .4em;
+    padding: .1em 0;
+    font-weight: bold;
+    width: 50%;
+}
+article.rank {
+    height: 100%;
+}

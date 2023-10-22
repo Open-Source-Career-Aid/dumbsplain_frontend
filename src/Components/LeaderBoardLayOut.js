@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState, useEffect, useReducer } from 'react';
 import '../CSS/Overlay.css';
 import '../CSS/LeaderBoardLayOut.css'
@@ -34,6 +34,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     const [cardscale, setCardscale] = useState(0.1);
     const [startTime, setStartTime] = useState(null);
     const [toggleMode, setToggleMode] = useState(false);
+    const viewRank = useRef(null);
                 
 
     const selectLeaderBoard = function() {
@@ -66,6 +67,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     return 'th';
                 }
             }
+
             // iterate through map object and return the data in the format above
             return [...data.entries()].map((item, index) => {
                 return (
@@ -88,6 +90,8 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     };
 
+    // default data to be displayed
+    viewRank.current = (displayLeaderBoard(toggleMode));
     const handleWindowResize = () => {
 
         if (window.innerHeight < 620) {
@@ -133,6 +137,21 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     // eslint-disable-next-line
     }, []);
+
+    useEffect( () => {
+        try {
+            const fecthRanks = async () => {
+                const response = await fetch('https://api.dumbsplain.com/leaderboard');
+                const data = await response.json();
+                console.log(data);
+                return data;
+            };
+            viewRank.current = (fecthRanks());
+        } catch (error) {
+            console.log(error);
+        }
+
+    }, [toggleMode]);
 
     useEffect(() => {
         handleWindowResize();
@@ -252,12 +271,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                         <section id="university">{ toggleMode ? 'PLAYER':'COLLEGE'}</section>
                         <section id="DQ">DQ</section>
                     </div>
-                    {/* <div className='contentBody'>
-                        <article className="leaderCard rank" id="1">1</article>
-                        <article className="leaderCard university" id="1"><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src='https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png'/> <span className='LeaderLabel'>User Name</span></article>
-                        <article className="leaderCard dq" id="1">3.8</article>
-                    </div> */}
-                    {displayLeaderBoard(toggleMode)}
+                    {viewRank.current}
                 </div>
             </div>
         </div>

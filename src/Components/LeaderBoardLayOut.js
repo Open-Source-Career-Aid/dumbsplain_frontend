@@ -230,7 +230,6 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         
     }
     
-
     return(
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
             <div className={'modal-content '}   data-theme={theme}

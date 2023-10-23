@@ -239,7 +239,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 scale: `${cardscale}`,
                 width: '100%',
                 height: '100%',
-                backgroundColor: theme === "light" ? '#fff' : '#000'
+                backgroundColor: theme === "light" ? '#fff' : '#252525'
             }}
             >
                 {/* <OverlayCurve theme={theme}

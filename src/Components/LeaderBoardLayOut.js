@@ -87,11 +87,14 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     🤖... Error displaying LeaderBoard; please reload your page. 
                 </div>);
                 }
-
     };
 
     // default data to be displayed
+    console.log(viewRank.current);
+   
     viewRank.current = (displayLeaderBoard(toggleMode));
+    
+    
     const handleWindowResize = () => {
 
         if (window.innerHeight < 620) {

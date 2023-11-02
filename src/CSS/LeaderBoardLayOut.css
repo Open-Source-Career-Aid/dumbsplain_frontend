@@ -1,4 +1,15 @@
 /* CSS */
+
+/* Declare global varibales */
+--root {
+    --dark: #252525;
+    --light: #FFFFFF;
+    --darkMode: rgba(255, 255, 255, .1);
+    --lightMode: rgba(123, 123, 123, .1);
+    --week: #703C8F;
+    --today: #2B4690;
+    --streak:#DE8958;
+}
 div#LeaderBoardNav{
     width: 100%;
     height: 20%;

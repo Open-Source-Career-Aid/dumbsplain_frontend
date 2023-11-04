@@ -35,6 +35,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     const [startTime, setStartTime] = useState(null);
     const [toggleMode, setToggleMode] = useState(false);
     const viewRank = useRef(null);
+    const [changeBgTheme, setChangeBgTheme] = useState("today");
                 
 
     const selectLeaderBoard = function() {
@@ -45,7 +46,8 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
             return college;
         }
     } 
-    function displayLeaderBoard (mode) {
+    function displayLeaderBoard (mode=1) {
+        // mode 1 = today, mode 2 = this week, mode 3 = all time
         try {
             const data = selectLeaderBoard();
             console.log(data.size);
@@ -67,7 +69,8 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     return 'th';
                 }
             }
-
+    
+            console.log(mode);
             // iterate through map object and return the data in the format above
             return [...data.entries()].map((item, index) => {
                 return (
@@ -92,7 +95,9 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     // default data to be displayed
     console.log(viewRank.current);
    
-    viewRank.current = (displayLeaderBoard(toggleMode));
+    viewRank.current = (displayLeaderBoard());
+
+
     
     
     const handleWindowResize = () => {
@@ -126,6 +131,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         }
 
     };
+
 
     useEffect(() => {
 
@@ -229,9 +235,12 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     console.log(theme)
     const currentMode = theme === "light" ? 'mode lightMode' : 'mode darkMode';
 
-    const viewCurrentRanks = function(e){
-        
+    const handleButtonClick = (mode=1, bg="today", e) => {
+        e.preventDefault();
+        setChangeBgTheme(bg);
+        viewRank.current = displayLeaderBoard(mode);
     }
+
     
     return(
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
@@ -262,12 +271,15 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                             <Divider className="Leadericons" width="23px" height="19px" fill={toggleMode ? "#000" : "#FFF"} />
                             <CollegeIcon className='Leadericons' width="20px" height="20px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ College Ranks' id= {toggleMode === false ? 'collegeRank' : ''} />
                         </a>
-                        <a className={currentMode}> Today </a>
-                        <a className={currentMode}> This Week </a>
-                        <a className={currentMode}> All Time </a>
+                        <a className={currentMode} href='#' onClick={(e) => handleButtonClick(1,'today', e)} title='shows leaderboard today ranks'> Today </a>
+                        <a className={currentMode} href='#' onClick={(e) => handleButtonClick(2, 'week', e)} title='show leaderboard ranks for current week'> This Week </a>
+                        <a className={currentMode} href='#' onClick={(e) => handleButtonClick(3, 'allTime', e)} title ='show all time leaderboard rank'> All Time </a>
                     </nav>
                 </div>
-                <div id="LeaderBoardBody">
+                {/* add datalist to leaderboardbody */}
+                
+
+                <div id="LeaderBoardBody" data-bg={changeBgTheme} >
                     <div id='contentHeader'>
                         <section id="rank">RANK</section>
                         <section id="university">{ toggleMode ? 'PLAYER':'COLLEGE'}</section>

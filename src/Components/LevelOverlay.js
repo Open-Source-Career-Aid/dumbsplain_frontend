@@ -9,9 +9,9 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
     const [startTime, setStartTime] = useState(null);
 
     const level = [
-        ["Commence your journey from the bottom", ["AI's intelligence is calibrated to the top. See how close you can get to it!"]],
-        ["Answer right away or take a hint for -0.5 points", ["1 point -> getting it right as Just Plain Dumb","5 points -> getting it right as Sentient Savant", "Play ends when you get it wrong"]],
-        ["Reach for the highest Dumbness Quotient (DQ)", ["DQ is your average score this week and resets on Monday"]]];
+        ["Commence your journey from the bottom", ["This game is simple. Try to prove you’re as smart as the computer. And have tissues  on hand for when you fail.", "5 questions - 5 chances to prove just how dumb you truly are."]],
+        ["5 questions - 5 chances to prove just how dumb you truly are.", ["The more questions you get right (if any!), the higher your Dumbness Quotient score."]],
+        ["DQ is your average score this week and resets every Monday", [ "Good luck. Now get ready to get destroyed."]]];
 
     const handleWindowResize = () => {
 
@@ -76,7 +76,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
                 { index === 1 ? 
                 <>
                     <li className="level">
-                        Answer right away or take a hint for <span style={{padding: '0', color: '#F59E6C', fontSize: 'inherit'}}>-0.5 points</span>
+                    If your puny human brain needs a hint, we’ll take pity on you and provide it for the low cost of <span style={{padding: '0', color: '#F59E6C', fontSize: 'inherit'}}>-0.5 points</span>
                     </li>
                 </>
                 : <li className="level">
@@ -141,7 +141,7 @@ export default function PlayOverlay( {infoOverlay, setInfoOverlay , theme }){
                 />
                 <div className='infocontainer'>
                     <div className='headercontainer'>
-                        <h1 className='heading'>Dumbsplain Guide</h1>
+                        <h1 className='heading'>Dumbsplain… For Dummies</h1>
                         <span className='closeOverlay' onClick={closeOverlay}>&times;</span>
                     </div>
                     <ol

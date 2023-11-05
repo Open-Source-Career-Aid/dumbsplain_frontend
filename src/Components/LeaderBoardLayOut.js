@@ -6,8 +6,8 @@ import '../CSS/LeaderBoardLayOut.css'
 import {ReactComponent as PlayerIcon} from '../SVGasComponents/player.svg';
 import {ReactComponent as CollegeIcon } from    '../SVGasComponents/icon2.svg';
 import {ReactComponent as Divider} from '../SVGasComponents/sep.svg';
-
-
+import getLeaderBoard  from '../Functions/getLeaderBoard';
+import useForceUpdate from '../Functions/forceUpdate';
 import ReactGA4 from 'react-ga4';
 import { set } from 'react-ga';
 
@@ -34,53 +34,62 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     const [cardscale, setCardscale] = useState(0.1);
     const [startTime, setStartTime] = useState(null);
     const [toggleMode, setToggleMode] = useState(false);
-    const viewRank = useRef(null);
     const [changeBgTheme, setChangeBgTheme] = useState("today");
-                
+    const [boardType, setBoardType] = useState(1);
+    const [displayBoard, setDisplayBoard] = useState(null);
+    const displayBoard2 = useRef(null);
+    const forceUpdate = useForceUpdate();
 
-    const selectLeaderBoard = function() {
+    const selectLeaderBoard = async function() {
+        // returns the correct leaderboard based on the toggleMode
+        // const data = await getLeaderBoard(+toggleMode);
         if (toggleMode) {
-            return player;
+            return  player;
         }
         else {
             return college;
         }
+        // return data;
     } 
-    function displayLeaderBoard (mode=1) {
+    async function  displayLeaderBoard  (mode=1) {
         // mode 1 = today, mode 2 = this week, mode 3 = all time
         try {
-            const data = selectLeaderBoard();
-            console.log(data.size);
-            if (data.size === 0) {
+            // await the data from the server
+            const data = await selectLeaderBoard();
+            // check if promise has been resolved
+            // on error throw an error
+            if (data.size === 0 || data === undefined) {
                 throw new Error('LeaderBoard Data is Empty');
             }
-            const subScript = function (num) { 
-                // returns the correct subscript for the number
-                if (num === 1) {
-                    return 'st';
+            // if data is not empty, display the data
+                const subScript = function (num) { 
+                    // returns the correct subscript for the number
+                    if (num === 1) {
+                        return 'st';
+                    }
+                    else if (num === 2) {
+                        return 'nd';
+                    }
+                    else if (num === 3) {
+                        return 'rd';
+                    }
+                    else {
+                        return 'th';
+                    }
                 }
-                else if (num === 2) {
-                    return 'nd';
-                }
-                else if (num === 3) {
-                    return 'rd';
-                }
-                else {
-                    return 'th';
-                }
-            }
-    
-            console.log(mode);
-            // iterate through map object and return the data in the format above
-            return [...data.entries()].map((item, index) => {
-                return (
-                    <div key={index} className="contentBody" id={`${index}`}>
-                        <article className={`leaderCard rank ${index + 1 === 1 ? 'first': index + 1 === 2 ? 'second' : index + 1 === 3 ? 'third' : ''}`} id={`${index}`}>   {index+1}<sup>{subScript(index + 1)}</sup> </article>
-                        <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={item[1].url}/> <span className='LeaderLabel'>{item[1].label}</span></article>
-                        <article className="leaderCard dq" id={`${index}`}>{item[1].DQ}</article>
-                    </div>
-                );
-            });            
+        
+                console.log(data);
+                // iterate through map object and return the data in the format above
+                return [...data.entries()].map((item, index) => {
+                    return (
+                        <div key={index} className="contentBody" id={`${index}`}>
+                            <article className={`leaderCard rank ${index + 1 === 1 ? 'first': index + 1 === 2 ? 'second' : index + 1 === 3 ? 'third' : ''}`} id={`${index}`}>   {index+1}<sup>{subScript(index + 1)}</sup> </article>
+                            <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={item[1].url}/> <span className='LeaderLabel'>{item[1].label}</span></article>
+                            <article className="leaderCard dq" id={`${index}`}>{item[1].DQ}</article>
+                        </div>
+                    );
+                });  
+              
 
          } catch (error) {
                 console.log(error);
@@ -93,13 +102,10 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     };
 
     // default data to be displayed
-    console.log(viewRank.current);
-   
-    viewRank.current = (displayLeaderBoard());
-
+    if (overlaybool === true) (async () => { displayBoard2.current = (await displayLeaderBoard(boardType))})();
 
     
-    
+    console.log(toggleMode);
     const handleWindowResize = () => {
 
         if (window.innerHeight < 620) {
@@ -149,18 +155,15 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     useEffect( () => {
         try {
-            const fecthRanks = async () => {
-                const response = await fetch('https://api.dumbsplain.com/leaderboard');
-                const data = await response.json();
-                console.log(data);
-                return data;
-            };
-            viewRank.current = (fecthRanks());
+            (async () => { displayBoard2.current = (await displayLeaderBoard(boardType))})();
+            forceUpdate();
         } catch (error) {
             console.log(error);
         }
 
-    }, [toggleMode]);
+    }, [toggleMode, boardType]);
+    // Use this effect to observe changes in displayBoard2 and trigger a re-render
+
 
     useEffect(() => {
         handleWindowResize();
@@ -232,15 +235,25 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     //         </div>
     //     )
     // })
-    console.log(theme)
+    console.log(theme, displayBoard2.current);
     const currentMode = theme === "light" ? 'mode lightMode' : 'mode darkMode';
 
-    const handleButtonClick = (mode=1, bg="today", e) => {
+    // const handleButtonClick = (mode=1, bg="today", e) => {
+    //     e.preventDefault();
+    //     setChangeBgTheme(bg);
+    //     setBoardType(mode);
+    //     (async () => { displayBoard2.current = (await displayLeaderBoard(boardType))})()
+    //     // (async () => { viewRank.current = await displayLeaderBoard(mode)})();
+    // }
+    const handleButtonClick = async (mode = 1, bg = "today", e) => {
         e.preventDefault();
         setChangeBgTheme(bg);
-        viewRank.current = displayLeaderBoard(mode);
-    }
+        setBoardType(mode);
 
+        // Update the displayBoard2 ref based on the new mode and boardType
+        displayBoard2.current = await displayLeaderBoard(boardType);
+        // forceUpdate();
+    }
     
     return(
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
@@ -285,7 +298,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                         <section id="university">{ toggleMode ? 'PLAYER':'COLLEGE'}</section>
                         <section id="DQ">DQ</section>
                     </div>
-                    {viewRank.current}
+                    {displayBoard2.current}
                 </div>
             </div>
         </div>

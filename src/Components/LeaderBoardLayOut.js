@@ -51,10 +51,11 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         }
         // return data;
     } 
-    async function  displayLeaderBoard  (mode=1) {
+    async function  displayLeaderBoard  (mode=1, type=+toggleMode) {
         // mode 1 = today, mode 2 = this week, mode 3 = all time
         try {
             // await the data from the server
+            // const data = await getLeaderBoard(type);
             const data = await selectLeaderBoard();
             // check if promise has been resolved
             // on error throw an error
@@ -102,7 +103,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     };
 
     // default data to be displayed
-    if (overlaybool === true) (async () => { displayBoard2.current = (await displayLeaderBoard(boardType))})();
+    if (overlaybool === true) (async () => { displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))})();
 
     
     console.log(toggleMode);
@@ -155,7 +156,9 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     useEffect( () => {
         try {
-            (async () => { displayBoard2.current = (await displayLeaderBoard(boardType))})();
+            // check if data is in client side cache and age is less than 3 hours
+
+            (async () => { displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))})();
             forceUpdate();
         } catch (error) {
             console.log(error);
@@ -168,28 +171,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     useEffect(() => {
         handleWindowResize();
     // eslint-disable-next-line
-    }, [overlaybool]);
-    
-    // const paintBottomLayer = data.slice(3,).map((item, index) => {
-    //    return (
-    //     <>
-    //         <div key={index}
-    //         style={{
-    //             height: '25%',
-    //             overflow: 'visible',
-    //             marginBottom:'5px',
-    //         }}
-    //         >
-    //             <div style={{ border: '1px solid #4C7BFE', borderRadius:'25px', height:'60%'}}>
-    //                 <img style={{fontSize: '.25em', padding: '7px 0 0 0', width:'30px', height:'30px'}} src= {item.collegeLogo} alt={item.collegeName} />
-    //                 <span style={{fontSize:'.5em', fontWeight: 'bold', padding: '5px', verticalAlign: 'middle'}}>{index + 4}</span>
-    //                 <span style={{textAlign: 'center', fontSize: '.5em', verticalAlign:'middle'}}>{item.collegeName}</span>
-    //                 <span style={{color:'#4C7BFE', fontSize: '.5em', padding: '0'}}>DQ</span><span style={{color: '#000', fontWeight: 'bolder', fontSize: '.65em', padding: '2px'}}>{item.score}</span>
-    //             </div>
-      
-    //         </div>
-    //     </>)
-    // });
+    }, [overlaybool]);   
 
     const closeOverlay = (e) => {
         e.preventDefault();
@@ -225,34 +207,19 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 setOverlaybool(false);
         }
     }
-    // const paintTopLayer = data.slice(0,3).map((item, index) => {
-    //     return (
-    //             <div key={index} className="collegeCard" id={`${index}`} style={{order: index === 0 ? 1 :  index - 1}}>
-    //                 <span className="rank">{index+1}</span>
-    //                     <img className="collegeImage" src={item.collegeLogo} alt={`${item.collegeName}`} style={{maxWidth: index === 0 ? "100%" :  index === 1 ? "75%" : "65%" }} />
-    //                     <h2 id="collegeDQ">{item.collegeName}</h2>
-    //                     <p id="userDQ">DQ {item.score}</p>
-    //         </div>
-    //     )
-    // })
+
     console.log(theme, displayBoard2.current);
     const currentMode = theme === "light" ? 'mode lightMode' : 'mode darkMode';
 
-    // const handleButtonClick = (mode=1, bg="today", e) => {
-    //     e.preventDefault();
-    //     setChangeBgTheme(bg);
-    //     setBoardType(mode);
-    //     (async () => { displayBoard2.current = (await displayLeaderBoard(boardType))})()
-    //     // (async () => { viewRank.current = await displayLeaderBoard(mode)})();
-    // }
+
     const handleButtonClick = async (mode = 1, bg = "today", e) => {
         e.preventDefault();
         setChangeBgTheme(bg);
         setBoardType(mode);
 
         // Update the displayBoard2 ref based on the new mode and boardType
-        displayBoard2.current = await displayLeaderBoard(boardType);
-        // forceUpdate();
+        displayBoard2.current = await displayLeaderBoard(boardType, +toggleMode);
+        forceUpdate();
     }
     
     return(
@@ -303,5 +270,4 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
             </div>
         </div>
     )
-
 }

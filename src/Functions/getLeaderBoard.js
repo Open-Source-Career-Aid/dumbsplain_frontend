@@ -4,10 +4,9 @@ export default async function getLeaderBoard() {
 
     const url = `${APIURL}/api/getleaderboard/`
 
-    const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true })
-    const data = await response.json()
-
-    console.log(data)
-
-    return data
+    const response = await fetch(url, { 'credentials': 'include', 'crossDomain': true });
+    const data = await response.json();
+    // const content = new Map([['data', data], ['timeStamp', Date.now()]]);
+    localStorage.setItem('lastFetched', Date.now());
+    return data;
 }

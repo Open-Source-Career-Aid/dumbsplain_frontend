@@ -9,6 +9,7 @@ import {ReactComponent as Divider} from '../SVGasComponents/sep.svg';
 import getLeaderBoard  from '../Functions/getLeaderBoard';
 import useForceUpdate from '../Functions/forceUpdate';
 import ReactGA4 from 'react-ga4';
+import checkForStaleData from '../Functions/cacheData';
 import { set } from 'react-ga';
 
 // dummy data for the leaderboard with harvard as university name and 4 as score
@@ -156,7 +157,23 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     useEffect( () => {
         try {
-            // check if data is in client side cache and age is less than 3 hours
+            // check if data is in client side cache and age is less than 1 hour
+
+            // if (typeof (Storage) !== "undefined") {
+            //     console.log('Data is stale, fetching new data');
+            //     const lastFetched = typeof Number(localStorage.getItem('lastFetched')) === Number ? Number(localStorage.getItem('lastFetched')) : 0;
+            //     const isStaleData = checkForStaleData(Date.now(), lastFetched);
+            //     const cachedMode = typeof  localStorage.getItem(`boardType${+toggleMode}`) === "string" ? +(localStorage.getItem(`boardType${+toggleMode}`)) : toggleMode;
+            //     if (isStaleData ) {
+            //         // fetch new data todos
+
+            //     }
+            //     else{
+            //         // use cached data
+            //         setBoardType(cachedMode);
+            //         displayBoard2.current = displayLeaderBoard(boardType, cachedMode);
+            //     }
+            // }
 
             (async () => { displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))})();
             forceUpdate();

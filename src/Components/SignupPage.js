@@ -1,12 +1,21 @@
 import React from 'react'
-
+import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
     return (
-        <div class="flex items-center justify-center min-h-screen">
-            <h1 class="font-bold text-center">
+        <div >
+            <h1 className="tw-font-bold tw-text-center">
                 Do you have an .edu address?
             </h1>
+            <button className="btn-primary">
+                Yes
+            </button>
+            <button className="tw-rounded-xl tw-bg-white tw-border-black">
+                No
+            </button>
         </div>
     )
 }
+
+// fix buttons
+// border, hover colors, click colors, spacing, padding

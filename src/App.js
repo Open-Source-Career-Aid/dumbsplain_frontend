@@ -6,6 +6,7 @@ import React from "react";
 import ReactGA4 from 'react-ga4';
 import { GTAG } from "./config";
 import DumbsplainError from "./Pages/Error";
+import SignupPage from "./Components/SignupPage";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/test" element={<Test />} />
           {/* on 404 show 404 page*/}
           <Route path="*" element={<DumbsplainError />} />
+          <Route path="signup" element={<SignupPage />} />
         </Routes>
       </div>
   );

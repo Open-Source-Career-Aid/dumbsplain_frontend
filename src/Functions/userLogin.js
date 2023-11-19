@@ -1,4 +1,4 @@
-import APIURL from '../helpers/environment';
+import { APIURL } from "../config";
 // login call to server
 export default async function userLogin(username, password){
     const url = `${APIURL}/api/login/`;

@@ -1,6 +1,6 @@
 import APIURL from '../helpers/environment.js';
 // create a user function that sends a username, password, and email to the server
-export default async function createUser(username, password, email) {
+export default async function signUp(username, password, email) {
     const url = `${APIURL}/api/signup/`;
     const response = await fetch(url, {
         'credentials': 'include',

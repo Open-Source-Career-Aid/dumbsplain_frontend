@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect } from 'react';
 import '../CSS/Overlay.css';
 import '../CSS/LeaderBoardLayOut.css'
 // import OverlayCurve from '../SVGasComponents/leaderOverlay';

@@ -150,6 +150,10 @@ export default function SignupPage() {
                     <span className="tw-mx-4 tw-text-sm">or</span>
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
                 </div>
+                <div className="tw-flex tw-flex-col">
+                    <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg tw-w-full">google sign up here</button>
+                    <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg">facebook sign up here</button>
+                </div>
             </div>
         </div>
     )

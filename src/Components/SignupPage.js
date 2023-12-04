@@ -23,6 +23,13 @@ export default function SignupPage() {
         setShowOtherSignup(true)
     }
 
+    const handleBack = () => {
+        console.log('back clicked')
+        setShowLanding(true)
+        setShowEdu(false)
+        setShowOtherSignup(false)
+    }
+
     // state for .edu form
     const initialState = {
             name: '',
@@ -118,6 +125,9 @@ export default function SignupPage() {
                             Continue
                         </button>
                     </div>
+                    <div className="tw-w-full">
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -131,15 +141,15 @@ export default function SignupPage() {
                 </h1>
                 <form className="tw-flex tw-flex-col tw-items-center">
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
-                    <label className="tw-font-bold tw-text-xs">Name</label>
-                    <input
-                        className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
-                        id="name"
-                        type="text"
-                        placeholder="Helena Bonham Carter"
-                    ></input>
+                        <label className="tw-font-bold tw-text-xs">Name</label>
+                        <input
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
+                            id="name"
+                            type="text"
+                            placeholder="Helena Bonham Carter"
+                        ></input>
                     </div>
-                    <div className="tw-flex tw-flex-col tw-mb-4">
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Email</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
@@ -147,6 +157,14 @@ export default function SignupPage() {
                             type="text"
                             placeholder="hcarter@university.edu">
                         </input>
+                    </div>
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-4">
+                        <label className="tw-font-bold tw-text-xs">Password</label>
+                        <input
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
+                            id="password"
+                            type="password"
+                        />
                     </div>
                     <div>
                         <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11" type="button">
@@ -162,6 +180,9 @@ export default function SignupPage() {
                 <div className="tw-flex tw-flex-col">
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg tw-w-full">google sign up here</button>
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg">facebook sign up here</button>
+                </div>
+                <div className="tw-w-full">
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
                 </div>
             </div>
         </div>

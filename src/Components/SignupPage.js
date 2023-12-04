@@ -5,11 +5,11 @@ export default function SignupPage() {
 
     const [showLanding, setShowLanding] = useState(true)
     const [showEdu, setShowEdu] = useState(false)
+    const [showOtherSignup, setShowOtherSignup] = useState(false)
     // state to show .edu?
     // state to show .edu login
     const [signUpSuccess, setSignUpSuccess] = useState(false)
     // state to show congratulations
-    // state to show sign up with email, FB, google
 
     const handleYesClick = () => {
         console.log('yes clicked')
@@ -19,6 +19,8 @@ export default function SignupPage() {
 
     const handleNoClick = () => {
         console.log('no clicked')
+        setShowLanding(false)
+        setShowOtherSignup(true)
     }
 
     // state for .edu form
@@ -108,6 +110,46 @@ export default function SignupPage() {
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    )
+
+    if(showOtherSignup) return (
+        <div className="tw-flex tw-items-center tw-justify-center tw-h-full">
+            <div className="tw-max-w-md">
+                <h1 className="tw-font-bold tw-text-center tw-mb-6 tw-mt-8">
+                    Please sign up using email, Google, or Facebook to continue.
+                </h1>
+                <form className="tw-flex tw-flex-col tw-items-center">
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
+                    <label className="tw-font-bold tw-text-xs">Name</label>
+                    <input
+                        className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
+                        id="name"
+                        type="text"
+                        placeholder="Helena Bonham Carter"
+                    ></input>
+                    </div>
+                    <div className="tw-flex tw-flex-col tw-mb-4">
+                        <label className="tw-font-bold tw-text-xs">Email</label>
+                        <input
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
+                            id="email"
+                            type="text"
+                            placeholder="hcarter@university.edu">
+                        </input>
+                    </div>
+                    <div>
+                        <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11" type="button">
+                            Continue
+                        </button>
+                    </div>
+                </form>
+                <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
+                    <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
+                    <span className="tw-mx-4 tw-text-sm">or</span>
+                    <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
+                </div>
             </div>
         </div>
     )

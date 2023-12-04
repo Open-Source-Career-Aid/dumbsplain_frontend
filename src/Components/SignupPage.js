@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize';
 import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
@@ -7,9 +9,19 @@ export default function SignupPage() {
     const [showEdu, setShowEdu] = useState(false)
     const [showOtherSignup, setShowOtherSignup] = useState(false)
     // state to show .edu?
-    // state to show .edu login
+    // state to show .edu login?
     const [signUpSuccess, setSignUpSuccess] = useState(false)
-    // state to show congratulations
+    // state to show congratulations?
+
+    // confetti state & application
+    const { width , height } = useWindowSize()
+    const [confetti, setConfetti] = React.useState(false);
+    const [confettiamount, setConfettiamount] = React.useState(500);
+
+    const handleConfetticomplete = () => {
+        setConfetti(false);
+        setConfettiamount(0);
+    }
 
     const handleYesClick = () => {
         console.log('yes clicked')
@@ -62,6 +74,7 @@ export default function SignupPage() {
             setShowEdu(false)
             // add set other sign up page to false
             setSignUpSuccess(true)
+            setConfetti(true)
         } else {
             console.log('invalid .edu email')
             setValidEmail(false)
@@ -230,42 +243,24 @@ export default function SignupPage() {
             <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-lg:w-auto tw-my-2">
                 Go to dumbsplain
             </button>
+            { confetti ? <Confetti
+                width={width}
+                height={height}
+                recycle={false}
+                numberOfPieces={confettiamount}
+                colors={['#8CA8FF', '#4C7BFE', '#F59E6C', '#32BCA3']}
+                onConfettiComplete={handleConfetticomplete}
+                gravity={0.2}
+                /> : null }
         </div>
     )
 }
 
-// fix input fields being in the center
-// button click colors
-// might want to fix the tw-ml-2 for the input field
+// WORK ON NEXT
+// password validation
+// states 201 validation
+// facebook and google sign in
 
-// old edu form tailwind
-{/* <div>
-<h1 className="tw-font-bold tw-text-center tw-mb-6 tw-mt-8">
-    Please sign up with your .edu email address.
-</h1>
-<form>
-    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
-    <label className="tw-font-bold tw-text-xs">Name</label>
-    <input
-        className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-1/2 tw-ml-2"
-        id="name"
-        type="text"
-        placeholder="Helena Bonham Carter"
-    ></input>
-    </div>
-    <div className="tw-flex tw-flex-col tw-mb-4">
-        <label className="tw-font-bold tw-text-xs">Email</label>
-        <input
-            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-1/2 tw-ml-2"
-            id="email"
-            type="text"
-            placeholder="hcarter@university.edu">
-        </input>
-    </div>
-    <div>
-        <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-1/2 tw-my-2" type="button">
-            Continue
-        </button>
-    </div>
-</form>
-</div> */}
+// BUGS AND SMALL THINGS
+// fix input fields being in the center
+// might want to fix the tw-ml-2 for the input field

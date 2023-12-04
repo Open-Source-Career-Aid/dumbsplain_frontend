@@ -104,6 +104,15 @@ export default function SignupPage() {
                         />
                     </div>
                     { validEmail === false ? <h2>invalid</h2> : null}
+                    <div className="tw-my-2 tw-w-full">
+                        <label className="tw-font-bold tw-text-xs">Password</label>
+                        <input
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
+                            id="password"
+                            type="password"
+                            onChange={handleEduChange}
+                        />
+                    </div>
                     <div className="tw-w-full">
                         <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2" type="submit">
                             Continue

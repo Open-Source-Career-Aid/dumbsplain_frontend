@@ -30,12 +30,13 @@ export default function SignupPage() {
         setShowOtherSignup(false)
     }
 
-    // state for .edu form
-    const initialState = {
+    // state for .edu sign up form
+    const initialEduState = {
             name: '',
-            email: ''
+            email: '',
+            password: ''
         }
-    const [eduFormData, setEduFormData] = useState(initialState);
+    const [eduFormData, setEduFormData] = useState(initialEduState);
 
     // state for valid email
     const [validEmail, setValidEmail] = useState(null)
@@ -45,7 +46,7 @@ export default function SignupPage() {
         return emailDomain.includes('.edu')
     }
 
-    // helper functions for input
+    // helper functions for .edu input
     const handleEduChange = (e) => {
         setEduFormData({...eduFormData, [e.target.id]: e.target.value});
     }
@@ -53,7 +54,6 @@ export default function SignupPage() {
     // .edu handle submit
     const handleEduSubmit = (e) => {
         e.preventDefault()
-
         const email = eduFormData.email
         if (isEmailEdu(email)) {
             console.log('valid .edu email')
@@ -66,7 +66,27 @@ export default function SignupPage() {
             console.log('invalid .edu email')
             setValidEmail(false)
         }
+    }
 
+    // state for other signup form
+    const initialOtherState = {
+        name: '',
+        email: '',
+        password: ''
+    }
+    const [otherFormData, setOtherFormData] = useState(initialOtherState);
+
+    // helper function for other input
+    const handleOtherChange = (e) => {
+        setOtherFormData({...otherFormData, [e.target.id]: e.target.value})
+    }
+
+    // other signup form handle submit
+    const handleOtherSubmit = (e) => {
+        e.preventDefault()
+        console.log(otherFormData)
+        setShowOtherSignup(false)
+        setSignUpSuccess(true)
     }
 
     if(showLanding) return (
@@ -117,6 +137,7 @@ export default function SignupPage() {
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
                             id="password"
                             type="password"
+                            placeholder="••••••••"
                             onChange={handleEduChange}
                         />
                     </div>
@@ -139,7 +160,7 @@ export default function SignupPage() {
                 <h1 className="tw-font-bold tw-text-center tw-mb-6 tw-mt-8">
                     Please sign up using email, Google, or Facebook to continue.
                 </h1>
-                <form className="tw-flex tw-flex-col tw-items-center">
+                <form className="tw-flex tw-flex-col tw-items-center" onSubmit={handleOtherSubmit}>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Name</label>
                         <input
@@ -147,7 +168,9 @@ export default function SignupPage() {
                             id="name"
                             type="text"
                             placeholder="Helena Bonham Carter"
-                        ></input>
+                            onChange={handleOtherChange}
+                        >
+                        </input>
                     </div>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Email</label>
@@ -155,7 +178,9 @@ export default function SignupPage() {
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="email"
                             type="text"
-                            placeholder="hcarter@university.edu">
+                            placeholder="hcarter@university.edu"
+                            onChange={handleOtherChange}
+                        >
                         </input>
                     </div>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-4">
@@ -164,10 +189,16 @@ export default function SignupPage() {
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="password"
                             type="password"
-                        />
+                            placeholder="••••••••"
+                            onChange={handleOtherChange}
+                        >
+                        </input>
                     </div>
-                    <div>
-                        <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11" type="button">
+                    <div className=" tw-flex tw-flex-col tw-mb-1">
+                        <button
+                            className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11 tw-ml-2"
+                            type="submit"
+                            >
                             Continue
                         </button>
                     </div>

@@ -10,17 +10,3 @@
     align-items: center;
     height: 100vh;
 }
-
-/* .signup-title {
-    Add your Tailwind and custom styles for the title
-    font-weight: bold;
-    text-align: center;
-} */
-
-.btn-primary {
-    background: #4C7BFE;
-    color: white;
-    border-radius: 5rem;
-    border: none;
-    padding: 0.25rem 7rem;
-}

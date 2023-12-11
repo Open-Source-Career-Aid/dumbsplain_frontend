@@ -46,7 +46,8 @@ export default function SignupPage() {
     const initialEduState = {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            confirm_password: ''
         }
     const [eduFormData, setEduFormData] = useState(initialEduState);
 
@@ -85,7 +86,8 @@ export default function SignupPage() {
     const initialOtherState = {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        confirm_password: ''
     }
     const [otherFormData, setOtherFormData] = useState(initialOtherState);
 
@@ -149,6 +151,16 @@ export default function SignupPage() {
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
                             id="password"
+                            type="password"
+                            placeholder="••••••••"
+                            onChange={handleEduChange}
+                        />
+                    </div>
+                    <div className="tw-my-2 tw-w-full">
+                        <label className="tw-font-bold tw-text-xs">Confirm Password</label>
+                        <input
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
+                            id="confirm_password"
                             type="password"
                             placeholder="••••••••"
                             onChange={handleEduChange}
@@ -257,8 +269,9 @@ export default function SignupPage() {
 }
 
 // WORK ON NEXT
-// password validation
+// password validation & field for confirm password
 // states 201 validation
+// use functions from functions folder
 // facebook and google sign in
 
 // BUGS AND SMALL THINGS

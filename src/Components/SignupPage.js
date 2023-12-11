@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import "../CSS/SignupPage.css"
@@ -41,6 +41,37 @@ export default function SignupPage() {
         setShowEdu(false)
         setShowOtherSignup(false)
     }
+
+    // password validation
+    const passwordValidator = require('password-validator')
+
+    // creating password schema
+    const schema = new passwordValidator()
+    schema
+        .is().min(8)
+        .is().max(100)
+        .has().uppercase()
+        .has().lowercase()
+        .has().digits(2)
+        .has().not().spaces()
+        .is().not().oneOf(['Passw0rd', 'Password123']) // Blacklist these values
+
+        schema.not().min(8, 'Password must have at least 8 characters.')
+        schema.not().max(100, 'Password cannot exceed 100 characters.')
+        schema.not().uppercase(1, 'Password must contain at least one uppercase letter.')
+        schema.not().lowercase(1, 'Password must contain at least one lowercase letter.')
+        schema.not().digits(2,'Password must contain at least two digits.')
+        schema.not().spaces(0, 'Password cannot contain spaces.')
+        // schema.not().oneOf ('Password cannot be common or easy to guess.')
+
+    const validatePasswordWithDetails = (password) => {
+        return schema.validate(password, { list: true, details: true })
+    }
+
+    // state for passwords matching & validated
+    const [passwordsMatch, setPasswordsMatch] = useState(false);
+    const [passwordValid, setPasswordValid] = useState(false);
+    const [validationDetails, setValidationDetails] = useState([]);
 
     // state for .edu sign up form
     const initialEduState = {
@@ -94,14 +125,33 @@ export default function SignupPage() {
     // helper function for other input
     const handleOtherChange = (e) => {
         setOtherFormData({...otherFormData, [e.target.id]: e.target.value})
+        if (e.target.id === 'password') {
+            setPasswordValid(schema.validate(e.target.value))
+            console.log('password valid', passwordValid)
+            const details = validatePasswordWithDetails(e.target.value)
+            setValidationDetails(details)
+            if (validationDetails.length > 0) {
+                console.log('validation details', validationDetails)
+            }
+        }
+        else if (e.target.id === 'confirm_password') {
+            setPasswordsMatch(e.target.value === otherFormData.password)
+            console.log('passwords match:', passwordsMatch)
+        }
     }
 
     // other signup form handle submit
     const handleOtherSubmit = (e) => {
         e.preventDefault()
-        console.log(otherFormData)
-        setShowOtherSignup(false)
-        setSignUpSuccess(true)
+        const passwordValid = schema.validate(otherFormData.password);
+        if (passwordValid && passwordsMatch) {
+        // if (passwordsMatch) {
+            console.log(otherFormData)
+            setShowOtherSignup(false)
+            setSignUpSuccess(true)
+        } else {
+            console.log('passwords don`t match or passwords invalid')
+        }
     }
 
     if(showLanding) return (
@@ -219,6 +269,27 @@ export default function SignupPage() {
                         >
                         </input>
                     </div>
+                    {validationDetails.length > 0 && (
+                        <div>
+                            <ul style={{ color: "red" }}>
+                                {validationDetails.map((detail, index) => (
+                                    <li key={index}>{detail.message}</li>
+                                ))}
+                            </ul>
+                        </div>)
+                    }
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-4">
+                        <label className="tw-font-bold tw-text-xs">Confirm Password</label>
+                        <input
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
+                            id="confirm_password"
+                            type="password"
+                            placeholder="••••••••"
+                            onChange={handleOtherChange}
+                        >
+                        </input>
+                    </div>
+                    {otherFormData.password.length > 0 && !passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
                     <div className=" tw-flex tw-flex-col tw-mb-1">
                         <button
                             className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11 tw-ml-2"
@@ -269,7 +340,9 @@ export default function SignupPage() {
 }
 
 // WORK ON NEXT
-// password validation & field for confirm password
+// password validation
+    // the messages aren't rendering properly (default and custom are rendering)
+// field for confirm password
 // states 201 validation
 // use functions from functions folder
 // facebook and google sign in

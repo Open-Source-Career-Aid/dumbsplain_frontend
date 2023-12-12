@@ -48,22 +48,13 @@ export default function SignupPage() {
     // creating password schema
     const schema = new passwordValidator()
     schema
-        // .is().min(8)
-        // .is().max(100)
-        // .has().uppercase()
-        .has().uppercase(1, 'Password must contain at least one uppercase letter.')
-        .has().lowercase()
-        .has().digits(2)
-        .has().not().spaces()
-        .is().not().oneOf(['Passw0rd', 'Password123']) // Blacklist these values
-
-        // schema.not().min(8, 'Password must have at least 8 characters.')
-        // schema.not().max(100, 'Password cannot exceed 100 characters.')
-        // schema.not().uppercase(1, 'Password must contain at least one uppercase letter.')
-        // schema.not().lowercase(1, 'Password must contain at least one lowercase letter.')
-        // schema.not().digits(2,'Password must contain at least two digits.')
-        // schema.not().spaces(0, 'Password cannot contain spaces.')
-        // schema.not().oneOf ('Password cannot be common or easy to guess.')
+    .not().min(8, 'Password must have at least 8 characters.')
+    .not().max(100, 'Password cannot exceed 100 characters.')
+    .has().uppercase(1, 'Password must contain at least one uppercase letter.')
+    .has().lowercase(1, 'Password must contain at least one lowercase letter.')
+    .has().digits(2, 'Password must contain at least two digits.')
+    .has().not().spaces(1, 'Password cannot contain spaces.')
+    .oneOf(['Passw0rd', 'Passw00rd', 'Passw0rd1', 'Password12', 'Password123'], 'Password cannot be common or easy to guess.')
 
     const validatePasswordWithDetails = (password) => {
         return schema.validate(password, { list: true, details: true })
@@ -95,6 +86,16 @@ export default function SignupPage() {
     // helper functions for .edu input
     const handleEduChange = (e) => {
         setEduFormData({...eduFormData, [e.target.id]: e.target.value});
+
+        if (e.target.id === 'password') {
+            setPasswordValid(schema.validate(e.target.value))
+            const details = validatePasswordWithDetails(e.target.value)
+            setValidationDetails(details)
+            setPasswordsMatch(e.target.value === eduFormData.confirm_password);
+        }
+        else if (e.target.id === 'confirm_password') {
+            setPasswordsMatch(e.target.value === eduFormData.password)
+        }
     }
 
     // .edu handle submit
@@ -102,16 +103,22 @@ export default function SignupPage() {
         e.preventDefault()
         const email = eduFormData.email
         if (isEmailEdu(email)) {
-            console.log('valid .edu email')
+            console.log('valid .edu email', validEmail)
             setValidEmail(true)
             console.log(eduFormData)
+        } else {
+            console.log('invalid .edu email', validEmail)
+            setValidEmail(false)
+        }
+        const passwordValid = schema.validate(eduFormData.password);
+        if (passwordValid && passwordsMatch) {
+            console.log(eduFormData)
             setShowEdu(false)
-            // add set other sign up page to false
+            setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
         } else {
-            console.log('invalid .edu email')
-            setValidEmail(false)
+            console.log('passwords don`t match or passwords invalid')
         }
     }
 
@@ -130,16 +137,9 @@ export default function SignupPage() {
 
         if (e.target.id === 'password') {
             setPasswordValid(schema.validate(e.target.value))
-            console.log('password valid', passwordValid)
-
             const details = validatePasswordWithDetails(e.target.value)
             setValidationDetails(details)
-
             setPasswordsMatch(e.target.value === otherFormData.confirm_password);
-
-            if (validationDetails.length > 0) {
-                // console.log('validation details', validationDetails)
-            }
         }
         else if (e.target.id === 'confirm_password') {
             setPasswordsMatch(e.target.value === otherFormData.password)
@@ -151,10 +151,10 @@ export default function SignupPage() {
         e.preventDefault()
         const passwordValid = schema.validate(otherFormData.password);
         if (passwordValid && passwordsMatch) {
-        // if (passwordsMatch) {
             console.log(otherFormData)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
+            setConfetti(true)
         } else {
             console.log('passwords don`t match or passwords invalid')
         }
@@ -189,6 +189,7 @@ export default function SignupPage() {
                             type="text"
                             placeholder="Helena Bonham Carter"
                             onChange={handleEduChange}
+                            required
                         />
                     </div>
                     <div className="tw-my-2 tw-w-full">
@@ -199,6 +200,7 @@ export default function SignupPage() {
                             type="text"
                             placeholder="hcarter@university.edu"
                             onChange={handleEduChange}
+                            required
                         />
                     </div>
                     { validEmail === false ? <h2>invalid</h2> : null}
@@ -210,8 +212,18 @@ export default function SignupPage() {
                             type="password"
                             placeholder="••••••••"
                             onChange={handleEduChange}
+                            required
                         />
                     </div>
+                    {validationDetails.length > 0 && (
+                        <div className="tw-text-sm tw-text-gray-600">
+                            <ul>
+                                {validationDetails.map((detail, index) => (
+                                    <li key={index}>{detail.message}</li>
+                                ))}
+                            </ul>
+                        </div>)
+                    }
                     <div className="tw-my-2 tw-w-full">
                         <label className="tw-font-bold tw-text-xs">Confirm Password</label>
                         <input
@@ -220,8 +232,10 @@ export default function SignupPage() {
                             type="password"
                             placeholder="••••••••"
                             onChange={handleEduChange}
+                            required
                         />
                     </div>
+                    {eduFormData.password.length > 0 && !passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
                     <div className="tw-w-full">
                         <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2" type="submit">
                             Continue
@@ -250,6 +264,7 @@ export default function SignupPage() {
                             type="text"
                             placeholder="Helena Bonham Carter"
                             onChange={handleOtherChange}
+                            required
                         >
                         </input>
                     </div>
@@ -261,6 +276,7 @@ export default function SignupPage() {
                             type="text"
                             placeholder="hcarter@university.edu"
                             onChange={handleOtherChange}
+                            required
                         >
                         </input>
                     </div>
@@ -272,12 +288,13 @@ export default function SignupPage() {
                             type="password"
                             placeholder="••••••••"
                             onChange={handleOtherChange}
+                            required
                         >
                         </input>
                     </div>
                     {validationDetails.length > 0 && (
-                        <div>
-                            <ul style={{ color: "red" }}>
+                        <div className="tw-text-sm tw-text-gray-600">
+                            <ul>
                                 {validationDetails.map((detail, index) => (
                                     <li key={index}>{detail.message}</li>
                                 ))}
@@ -292,6 +309,7 @@ export default function SignupPage() {
                             type="password"
                             placeholder="••••••••"
                             onChange={handleOtherChange}
+                            required
                         >
                         </input>
                     </div>

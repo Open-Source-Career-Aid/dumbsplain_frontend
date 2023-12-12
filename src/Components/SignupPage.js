@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import "../CSS/SignupPage.css"
@@ -48,20 +48,21 @@ export default function SignupPage() {
     // creating password schema
     const schema = new passwordValidator()
     schema
-        .is().min(8)
-        .is().max(100)
-        .has().uppercase()
+        // .is().min(8)
+        // .is().max(100)
+        // .has().uppercase()
+        .has().uppercase(1, 'Password must contain at least one uppercase letter.')
         .has().lowercase()
         .has().digits(2)
         .has().not().spaces()
         .is().not().oneOf(['Passw0rd', 'Password123']) // Blacklist these values
 
-        schema.not().min(8, 'Password must have at least 8 characters.')
-        schema.not().max(100, 'Password cannot exceed 100 characters.')
-        schema.not().uppercase(1, 'Password must contain at least one uppercase letter.')
-        schema.not().lowercase(1, 'Password must contain at least one lowercase letter.')
-        schema.not().digits(2,'Password must contain at least two digits.')
-        schema.not().spaces(0, 'Password cannot contain spaces.')
+        // schema.not().min(8, 'Password must have at least 8 characters.')
+        // schema.not().max(100, 'Password cannot exceed 100 characters.')
+        // schema.not().uppercase(1, 'Password must contain at least one uppercase letter.')
+        // schema.not().lowercase(1, 'Password must contain at least one lowercase letter.')
+        // schema.not().digits(2,'Password must contain at least two digits.')
+        // schema.not().spaces(0, 'Password cannot contain spaces.')
         // schema.not().oneOf ('Password cannot be common or easy to guess.')
 
     const validatePasswordWithDetails = (password) => {
@@ -84,6 +85,7 @@ export default function SignupPage() {
 
     // state for valid email
     const [validEmail, setValidEmail] = useState(null)
+
     // helper function to check if email is .edu
     const isEmailEdu = (email) => {
         const emailDomain = email.split('@')[1]
@@ -125,18 +127,22 @@ export default function SignupPage() {
     // helper function for other input
     const handleOtherChange = (e) => {
         setOtherFormData({...otherFormData, [e.target.id]: e.target.value})
+
         if (e.target.id === 'password') {
             setPasswordValid(schema.validate(e.target.value))
             console.log('password valid', passwordValid)
+
             const details = validatePasswordWithDetails(e.target.value)
             setValidationDetails(details)
+
+            setPasswordsMatch(e.target.value === otherFormData.confirm_password);
+
             if (validationDetails.length > 0) {
-                console.log('validation details', validationDetails)
+                // console.log('validation details', validationDetails)
             }
         }
         else if (e.target.id === 'confirm_password') {
             setPasswordsMatch(e.target.value === otherFormData.password)
-            console.log('passwords match:', passwordsMatch)
         }
     }
 

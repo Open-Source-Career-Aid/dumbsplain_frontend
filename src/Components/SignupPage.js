@@ -24,19 +24,16 @@ export default function SignupPage() {
     }
 
     const handleYesClick = () => {
-        console.log('yes clicked')
         setShowLanding(false)
         setShowEdu(true)
     }
 
     const handleNoClick = () => {
-        console.log('no clicked')
         setShowLanding(false)
         setShowOtherSignup(true)
     }
 
     const handleBack = () => {
-        console.log('back clicked')
         setShowLanding(true)
         setShowEdu(false)
         setShowOtherSignup(false)
@@ -78,10 +75,28 @@ export default function SignupPage() {
     const [validEmail, setValidEmail] = useState(null)
 
     // helper function to check if email is .edu
+    // const isEmailEdu = (email) => {
+    //     const emailDomain = email.split('@')[1]
+    //     return emailDomain.includes('.edu')
+    // }
     const isEmailEdu = (email) => {
-        const emailDomain = email.split('@')[1]
-        return emailDomain.includes('.edu')
-    }
+        if (!email) {
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const eduDomainRegex = /\.edu$/i;
+
+        if (!emailRegex.test(email)) {
+            return false; // Invalid email format
+        }
+
+        if (!eduDomainRegex.test(email)) {
+            return false; // Email doesn't have .edu domain
+        }
+
+        return true; // Valid .edu email
+    };
 
     // helper functions for .edu input
     const handleEduChange = (e) => {
@@ -364,9 +379,6 @@ export default function SignupPage() {
 }
 
 // WORK ON NEXT
-// password validation
-    // the messages aren't rendering properly (default and custom are rendering)
-// field for confirm password
 // states 201 validation
 // use functions from functions folder
 // facebook and google sign in
@@ -374,3 +386,4 @@ export default function SignupPage() {
 // BUGS AND SMALL THINGS
 // fix input fields being in the center
 // might want to fix the tw-ml-2 for the input field
+// .edu email broken if it's not .edu

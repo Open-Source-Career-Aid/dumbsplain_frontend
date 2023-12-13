@@ -65,7 +65,7 @@ export default function SignupPage() {
 
     // state for .edu sign up form
     const initialEduState = {
-            name: '',
+            username: '',
             email: '',
             password: '',
             confirm_password: ''
@@ -137,7 +137,7 @@ export default function SignupPage() {
         const passwordValid = schema.validate(eduFormData.password);
         if (validEmail && validEduEmail && passwordValid && passwordsMatch) {
             console.log(eduFormData)
-            signUp(eduFormData.name,eduFormData.email,eduFormData.password)
+            signUp(eduFormData.username,eduFormData.email,eduFormData.password)
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
@@ -149,7 +149,7 @@ export default function SignupPage() {
 
     // state for other signup form
     const initialOtherState = {
-        name: '',
+        username: '',
         email: '',
         password: '',
         confirm_password: ''
@@ -222,12 +222,12 @@ export default function SignupPage() {
                 </h1>
                 <form onSubmit={handleEduSubmit} className="tw-flex tw-flex-col tw-items-center">
                     <div className="tw-my-2 tw-w-full">
-                        <label className="tw-font-bold tw-text-xs">Name</label>
+                        <label className="tw-font-bold tw-text-xs">Username</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
-                            id="name"
+                            id="username"
                             type="text"
-                            placeholder="Helena Bonham Carter"
+                            placeholder="hbcarter"
                             onChange={handleEduChange}
                             required
                         />
@@ -238,7 +238,7 @@ export default function SignupPage() {
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
                             id="email"
                             type="text"
-                            placeholder="hcarter@university.edu"
+                            placeholder="hbcarter@university.edu"
                             onChange={handleEduChange}
                             required
                         />
@@ -301,12 +301,12 @@ export default function SignupPage() {
                 </h1>
                 <form className="tw-flex tw-flex-col tw-items-center" onSubmit={handleOtherSubmit}>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
-                        <label className="tw-font-bold tw-text-xs">Name</label>
+                        <label className="tw-font-bold tw-text-xs">Username</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
-                            id="name"
+                            id="username"
                             type="text"
-                            placeholder="Helena Bonham Carter"
+                            placeholder="hbcarter"
                             onChange={handleOtherChange}
                             required
                         >
@@ -318,7 +318,7 @@ export default function SignupPage() {
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="email"
                             type="text"
-                            placeholder="hcarter@university.edu"
+                            placeholder="hbcarter@university.edu"
                             onChange={handleOtherChange}
                             required
                         >
@@ -410,9 +410,11 @@ export default function SignupPage() {
 }
 
 // WORK ON NEXT
-// use functions from functions folder
+// use functions from functions folder for sign up
 // states 201 validation
 // facebook and google sign in
+// change name to username
+// username validation - the blacklisted usernames
 
 // BUGS AND SMALL THINGS
 // fix input fields being in the center

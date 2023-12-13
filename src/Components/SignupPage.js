@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import signUp from '../Functions/signUp';
+// import checkUserName from '../Functions/checkUsername';
 import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
@@ -99,32 +100,30 @@ export default function SignupPage() {
 
     // helper functions for .edu input
     const handleEduChange = (e) => {
-        setEduFormData({...eduFormData, [e.target.id]: e.target.value});
+        setEduFormData({...eduFormData, [e.target.id]: e.target.value})
+
+        // if (e.target.value === 'username')
 
         if (e.target.id === 'email') {
 
             const email = e.target.value
             setEmailTouched(true)
             setEmailFocused(e.target.value !== '')
-            console.log(emailTouched, 'email touched')
             if (!email.trim() || !validateEmail(email)) {
-                console.log('Please enter a valid email address')
                 setValidEmail(false)
             } else if (!validateEduEmail(email)) {
                 setValidEmail(true)
                 setValidEduEmail(false)
-                console.log('Please use a .edu email address')
             } else {
                 setValidEmail(true)
                 setValidEduEmail(true)
-                console.log('Valid and edu email')
             }
 
         } else if (e.target.id === 'password') {
             setPasswordValid(schema.validate(e.target.value))
             const details = validatePasswordWithDetails(e.target.value)
             setValidationDetails(details)
-            setPasswordsMatch(e.target.value === eduFormData.confirm_password);
+            setPasswordsMatch(e.target.value === eduFormData.confirm_password)
         } else if (e.target.id === 'confirm_password') {
             setPasswordsMatch(e.target.value === eduFormData.password)
         }
@@ -136,7 +135,6 @@ export default function SignupPage() {
 
         const passwordValid = schema.validate(eduFormData.password);
         if (validEmail && validEduEmail && passwordValid && passwordsMatch) {
-            console.log(eduFormData)
             signUp(eduFormData.username,eduFormData.email,eduFormData.password)
             setShowEdu(false)
             setShowOtherSignup(false)
@@ -165,13 +163,10 @@ export default function SignupPage() {
             const email = e.target.value
             setEmailTouched(true)
             setEmailFocused(e.target.value !== '')
-            console.log(emailTouched, 'email touched')
             if (!email.trim() || !validateEmail(email)) {
-                console.log('Please enter a valid email address')
                 setValidEmail(false)
             } else {
                 setValidEmail(true)
-                console.log('Valid email')
             }
 
         } else if (e.target.id === 'password') {
@@ -190,7 +185,6 @@ export default function SignupPage() {
         e.preventDefault()
         const passwordValid = schema.validate(otherFormData.password);
         if (validEmail && passwordValid && passwordsMatch) {
-            console.log(otherFormData)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
@@ -221,7 +215,7 @@ export default function SignupPage() {
                     Please sign up with your .edu email address.
                 </h1>
                 <form onSubmit={handleEduSubmit} className="tw-flex tw-flex-col tw-items-center">
-                    <div className="tw-my-2 tw-w-full">
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Username</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
@@ -232,7 +226,7 @@ export default function SignupPage() {
                             required
                         />
                     </div>
-                    <div className="tw-my-2 tw-w-full">
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Email</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
@@ -247,7 +241,8 @@ export default function SignupPage() {
                     {validEmail && emailTouched && !validEduEmail && (<p style={{ color: "red" }}>Please enter a .edu email.</p>)}
                     </div>
                     </div>
-                    <div className="tw-my-2 tw-w-full">
+                    {/* <div className="tw-my-2 tw-w-full"> */}
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Password</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
@@ -267,7 +262,7 @@ export default function SignupPage() {
                             </ul>
                         </div>)
                     }
-                    <div className="tw-my-2 tw-w-full">
+                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Confirm Password</label>
                         <input
                             className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
@@ -279,7 +274,7 @@ export default function SignupPage() {
                         />
                     </div>
                     {eduFormData.password.length > 0 && !passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
-                    <div className="tw-w-full">
+                    <div className="tw-flex tw-flex-col tw-mb-1">
                         <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2" type="submit">
                             Continue
                         </button>
@@ -359,7 +354,7 @@ export default function SignupPage() {
                         </input>
                     </div>
                     {otherFormData.password.length > 0 && !passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
-                    <div className=" tw-flex tw-flex-col tw-mb-1">
+                    <div className="tw-flex tw-flex-col tw-mb-1">
                         <button
                             className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11 tw-ml-2"
                             type="submit"
@@ -412,10 +407,12 @@ export default function SignupPage() {
 // WORK ON NEXT
 // use functions from functions folder for sign up
 // states 201 validation
-// facebook and google sign in
-// change name to username
+// facebook and google sign in (O-Auth); skip for right now
 // username validation - the blacklisted usernames
+    // use function "check username" and make it a boolean to move or or not
 
 // BUGS AND SMALL THINGS
 // fix input fields being in the center
 // might want to fix the tw-ml-2 for the input field
+// make the errors look better
+// dumbsplain header?

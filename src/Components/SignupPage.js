@@ -71,44 +71,60 @@ export default function SignupPage() {
         }
     const [eduFormData, setEduFormData] = useState(initialEduState);
 
+    // state to track whether the field is touched or focused
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [emailFocused, setEmailFocused] = useState(false);
+
     // state for valid email
     const [validEmail, setValidEmail] = useState(null)
 
-    // helper function to check if email is .edu
-    // const isEmailEdu = (email) => {
-    //     const emailDomain = email.split('@')[1]
-    //     return emailDomain.includes('.edu')
-    // }
-    const isEmailEdu = (email) => {
-        if (!email) {
-            return false;
-        }
+    // state for valid edu email
+    const [validEduEmail, setValidEduEmail] = useState(null)
 
+    // helper function to check if email is valid
+    const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const eduDomainRegex = /\.edu$/i;
-
-        if (!emailRegex.test(email)) {
-            return false; // Invalid email format
-        }
-
-        if (!eduDomainRegex.test(email)) {
-            return false; // Email doesn't have .edu domain
-        }
-
-        return true; // Valid .edu email
+        return emailRegex.test(email);
     };
+
+    // helper function to check if email is .edu
+    const validateEduEmail = (email) => {
+        const emailDomain = email.split('@')[1]
+        return !!emailDomain && emailDomain.includes('.edu')
+    }
+
+    // state for Signup error
+    const [signupError, setSignupError] = useState(false)
 
     // helper functions for .edu input
     const handleEduChange = (e) => {
         setEduFormData({...eduFormData, [e.target.id]: e.target.value});
 
-        if (e.target.id === 'password') {
+        if (e.target.id === 'email') {
+
+            const email = e.target.value
+            setEmailTouched(true)
+            setEmailFocused(e.target.value !== '')
+            console.log(emailTouched, 'email touched')
+            if (!email.trim() || !validateEmail(email)) {
+                console.log('Please enter a valid email address')
+                setValidEmail(false)
+            } else if (!validateEduEmail(email)) {
+                setValidEmail(true)
+                setValidEduEmail(false)
+                console.log('Please use a .edu email address')
+            } else {
+                setValidEmail(true)
+                setValidEduEmail(true)
+                console.log('Valid and edu email')
+            }
+
+        } else if (e.target.id === 'password') {
             setPasswordValid(schema.validate(e.target.value))
             const details = validatePasswordWithDetails(e.target.value)
             setValidationDetails(details)
             setPasswordsMatch(e.target.value === eduFormData.confirm_password);
-        }
-        else if (e.target.id === 'confirm_password') {
+        } else if (e.target.id === 'confirm_password') {
             setPasswordsMatch(e.target.value === eduFormData.password)
         }
     }
@@ -116,24 +132,16 @@ export default function SignupPage() {
     // .edu handle submit
     const handleEduSubmit = (e) => {
         e.preventDefault()
-        const email = eduFormData.email
-        if (isEmailEdu(email)) {
-            console.log('valid .edu email', validEmail)
-            setValidEmail(true)
-            console.log(eduFormData)
-        } else {
-            console.log('invalid .edu email', validEmail)
-            setValidEmail(false)
-        }
+
         const passwordValid = schema.validate(eduFormData.password);
-        if (passwordValid && passwordsMatch) {
+        if (validEmail && validEduEmail && passwordValid && passwordsMatch) {
             console.log(eduFormData)
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
         } else {
-            console.log('passwords don`t match or passwords invalid')
+            setSignupError(true)
         }
     }
 
@@ -150,7 +158,21 @@ export default function SignupPage() {
     const handleOtherChange = (e) => {
         setOtherFormData({...otherFormData, [e.target.id]: e.target.value})
 
-        if (e.target.id === 'password') {
+        if (e.target.id === 'email') {
+
+            const email = e.target.value
+            setEmailTouched(true)
+            setEmailFocused(e.target.value !== '')
+            console.log(emailTouched, 'email touched')
+            if (!email.trim() || !validateEmail(email)) {
+                console.log('Please enter a valid email address')
+                setValidEmail(false)
+            } else {
+                setValidEmail(true)
+                console.log('Valid email')
+            }
+
+        } else if (e.target.id === 'password') {
             setPasswordValid(schema.validate(e.target.value))
             const details = validatePasswordWithDetails(e.target.value)
             setValidationDetails(details)
@@ -165,13 +187,13 @@ export default function SignupPage() {
     const handleOtherSubmit = (e) => {
         e.preventDefault()
         const passwordValid = schema.validate(otherFormData.password);
-        if (passwordValid && passwordsMatch) {
+        if (validEmail && passwordValid && passwordsMatch) {
             console.log(otherFormData)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
         } else {
-            console.log('passwords don`t match or passwords invalid')
+            setSignupError(true)
         }
     }
 
@@ -190,7 +212,8 @@ export default function SignupPage() {
     )
 
     if(showEdu) return (
-        <div className="tw-flex tw-justify-center tw-p-20">
+        <div className="tw-flex tw-items-center tw-justify-center tw-h-full">
+        {/* was tw-p-20 */}
             <div className="tw-w-full tw-max-w-md">
                 <h1 className="tw-font-bold tw-text-center tw-mb-6 tw-mt-8">
                     Please sign up with your .edu email address.
@@ -217,8 +240,11 @@ export default function SignupPage() {
                             onChange={handleEduChange}
                             required
                         />
+                    <div>
+                    {emailTouched && !validEmail && (<p style={{ color: "red" }}>Please enter a valid email.</p>)}
+                    {validEmail && emailTouched && !validEduEmail && (<p style={{ color: "red" }}>Please enter a .edu email.</p>)}
                     </div>
-                    { validEmail === false ? <h2>invalid</h2> : null}
+                    </div>
                     <div className="tw-my-2 tw-w-full">
                         <label className="tw-font-bold tw-text-xs">Password</label>
                         <input
@@ -256,6 +282,7 @@ export default function SignupPage() {
                             Continue
                         </button>
                     </div>
+                    {signupError && (<p style={{ color: "red" }}>There was an error with your signup.</p>)}
                     <div className="tw-w-full">
                         <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
                     </div>
@@ -294,6 +321,7 @@ export default function SignupPage() {
                             required
                         >
                         </input>
+                    {emailTouched && !validEmail && (<p style={{ color: "red" }}>Please enter a valid email.</p>)}
                     </div>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-4">
                         <label className="tw-font-bold tw-text-xs">Password</label>
@@ -337,6 +365,7 @@ export default function SignupPage() {
                             Continue
                         </button>
                     </div>
+                    {signupError && (<p style={{ color: "red" }}>There was an error with your signup.</p>)}
                 </form>
                 <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
@@ -379,11 +408,10 @@ export default function SignupPage() {
 }
 
 // WORK ON NEXT
-// states 201 validation
 // use functions from functions folder
+// states 201 validation
 // facebook and google sign in
 
 // BUGS AND SMALL THINGS
 // fix input fields being in the center
 // might want to fix the tw-ml-2 for the input field
-// .edu email broken if it's not .edu

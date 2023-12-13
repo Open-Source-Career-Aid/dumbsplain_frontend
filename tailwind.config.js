@@ -10,6 +10,9 @@ module.exports = {
         orange_200: '#F49577',
         neutral_300: '#ABB0C2',
       },
+      fontSize: {
+        '2xs': '0.65rem',
+      }
     },
   },
   plugins: [],

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import signUp from '../Functions/signUp';
@@ -7,18 +8,24 @@ import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
 
+    // state for different logins, confetti, and success page
     const [showLanding, setShowLanding] = useState(true)
     const [showEdu, setShowEdu] = useState(false)
     const [showOtherSignup, setShowOtherSignup] = useState(false)
-    // state to show .edu?
-    // state to show .edu login?
     const [signUpSuccess, setSignUpSuccess] = useState(false)
     // state to show congratulations?
-
-    // confetti state & application
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
     const [confettiamount, setConfettiamount] = React.useState(500);
+
+    // state to track whether the field is touched or focused
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [emailFocused, setEmailFocused] = useState(false);
+
+    // state for passwords matching & validated
+    const [passwordsMatch, setPasswordsMatch] = useState(false);
+    const [passwordValid, setPasswordValid] = useState(false);
+    const [validationDetails, setValidationDetails] = useState([]);
 
     const handleConfetticomplete = () => {
         setConfetti(false);
@@ -39,6 +46,16 @@ export default function SignupPage() {
         setShowLanding(true)
         setShowEdu(false)
         setShowOtherSignup(false)
+        setEmailTouched(false)
+        setPasswordsMatch(!passwordsMatch)
+        setValidationDetails([])
+    }
+
+    const navigate = useNavigate()
+
+    const handleDumbsplain = () => {
+        navigate('/')
+        console.log('navigate home')
     }
 
     // password validation
@@ -59,11 +76,6 @@ export default function SignupPage() {
         return schema.validate(password, { list: true, details: true })
     }
 
-    // state for passwords matching & validated
-    const [passwordsMatch, setPasswordsMatch] = useState(false);
-    const [passwordValid, setPasswordValid] = useState(false);
-    const [validationDetails, setValidationDetails] = useState([]);
-
     // state for .edu sign up form
     const initialEduState = {
             username: '',
@@ -72,10 +84,6 @@ export default function SignupPage() {
             confirm_password: ''
         }
     const [eduFormData, setEduFormData] = useState(initialEduState);
-
-    // state to track whether the field is touched or focused
-    const [emailTouched, setEmailTouched] = useState(false);
-    const [emailFocused, setEmailFocused] = useState(false);
 
     // state for valid email
     const [validEmail, setValidEmail] = useState(null)
@@ -218,7 +226,7 @@ export default function SignupPage() {
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Username</label>
                         <input
-                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="username"
                             type="text"
                             placeholder="hbcarter"
@@ -226,10 +234,10 @@ export default function SignupPage() {
                             required
                         />
                     </div>
-                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
+                    <div className="tw-my-3 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Email</label>
                         <input
-                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="email"
                             type="text"
                             placeholder="hbcarter@university.edu"
@@ -237,15 +245,19 @@ export default function SignupPage() {
                             required
                         />
                     <div>
-                    {emailTouched && !validEmail && (<p style={{ color: "red" }}>Please enter a valid email.</p>)}
-                    {validEmail && emailTouched && !validEduEmail && (<p style={{ color: "red" }}>Please enter a .edu email.</p>)}
+                    <div className="tw-my-1">
+                        {emailTouched && !validEmail &&
+                            (<p className="tw-text-2xs tw-text-red-500">Please enter a valid email.</p>)}
+                        {validEmail && emailTouched && !validEduEmail &&
+                            (<p className="tw-text-2xs tw-text-red-500">Please enter a .edu email.</p>)}
+                    </div>
                     </div>
                     </div>
                     {/* <div className="tw-my-2 tw-w-full"> */}
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Password</label>
                         <input
-                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="password"
                             type="password"
                             placeholder="••••••••"
@@ -253,19 +265,18 @@ export default function SignupPage() {
                             required
                         />
                     </div>
-                    {validationDetails.length > 0 && (
-                        <div className="tw-text-sm tw-text-gray-600">
-                            <ul>
-                                {validationDetails.map((detail, index) => (
-                                    <li key={index}>{detail.message}</li>
-                                ))}
-                            </ul>
-                        </div>)
+                    <div>
+                        {validationDetails.length > 0 &&
+                        (<ul>
+                            {validationDetails.map((detail, index) => (
+                                <li className="tw-text-2xs tw-text-gray-600 tw-my-.5" key={index}>{detail.message}</li>))}
+                        </ul>)
                     }
-                    <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
+                    </div>
+                    <div className="tw-my-3 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Confirm Password</label>
                         <input
-                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-mt-1"
+                            className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-full tw-ml-2"
                             id="confirm_password"
                             type="password"
                             placeholder="••••••••"
@@ -273,15 +284,17 @@ export default function SignupPage() {
                             required
                         />
                     </div>
-                    {eduFormData.password.length > 0 && !passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
+                    <div className="tw-my-1">
+                        {eduFormData.password.length > 0 && !passwordsMatch && (<p className="tw-text-2xs tw-text-red-500">Passwords do not match.</p>)}
+                    </div>
                     <div className="tw-flex tw-flex-col tw-mb-1">
-                        <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2" type="submit">
+                        <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-10" type="submit">
                             Continue
                         </button>
                     </div>
                     {signupError && (<p style={{ color: "red" }}>There was an error with your signup.</p>)}
-                    <div className="tw-w-full">
-                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
+                    <div className="tw-flex tw-flex-col tw-mb-1">
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-14 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
                     </div>
                 </form>
             </div>
@@ -318,7 +331,10 @@ export default function SignupPage() {
                             required
                         >
                         </input>
-                    {emailTouched && !validEmail && (<p style={{ color: "red" }}>Please enter a valid email.</p>)}
+                        <div>
+                            {emailTouched && !validEmail &&
+                            (<p className="tw-text-2xs tw-text-red-500">Please enter a valid email.</p>)}
+                        </div>
                     </div>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-4">
                         <label className="tw-font-bold tw-text-xs">Password</label>
@@ -332,15 +348,15 @@ export default function SignupPage() {
                         >
                         </input>
                     </div>
-                    {validationDetails.length > 0 && (
-                        <div className="tw-text-sm tw-text-gray-600">
+                    <div>
+                        {validationDetails.length > 0 && (
                             <ul>
                                 {validationDetails.map((detail, index) => (
-                                    <li key={index}>{detail.message}</li>
+                                    <li className="tw-text-2xs tw-text-gray-600" key={index}>{detail.message}</li>
                                 ))}
-                            </ul>
-                        </div>)
-                    }
+                            </ul>)
+                        }
+                    </div>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-4">
                         <label className="tw-font-bold tw-text-xs">Confirm Password</label>
                         <input
@@ -353,7 +369,9 @@ export default function SignupPage() {
                         >
                         </input>
                     </div>
-                    {otherFormData.password.length > 0 && !passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
+                    <div>
+                        {otherFormData.password.length > 0 && !passwordsMatch && (<p className="tw-text-2xs tw-text-red-500">Passwords do not match.</p>)}
+                    </div>
                     <div className="tw-flex tw-flex-col tw-mb-1">
                         <button
                             className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-11 tw-ml-2"
@@ -388,7 +406,7 @@ export default function SignupPage() {
             <button className="tw-rounded-xl tw-bg-white hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200 tw-border-2 tw-border-blue_400 tw-w-full tw-lg:w-auto">
                 Go to profile
             </button>
-            <button className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-lg:w-auto tw-my-2">
+            <button onClick={handleDumbsplain} className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-lg:w-auto tw-my-2">
                 Go to dumbsplain
             </button>
             { confetti ? <Confetti

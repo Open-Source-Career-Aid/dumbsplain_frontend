@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
+import signUp from '../Functions/signUp';
 import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
@@ -136,6 +137,7 @@ export default function SignupPage() {
         const passwordValid = schema.validate(eduFormData.password);
         if (validEmail && validEduEmail && passwordValid && passwordsMatch) {
             console.log(eduFormData)
+            signUp(eduFormData.name,eduFormData.email,eduFormData.password)
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)

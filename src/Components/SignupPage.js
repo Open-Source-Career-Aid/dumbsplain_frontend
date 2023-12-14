@@ -3,10 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import signUp from '../Functions/signUp';
-// import checkUserName from '../Functions/checkUsername';
+import checkUserName from '../Functions/checkUsername';
 import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
+    // test for checkUsername function
+    console.log("should be false");
+    console.log(checkUserName("18992"));
+    console.log("should be true");
+    console.log(checkUserName("mygay10"));
+
 
     // state for different logins, confetti, and success page
     const [showLanding, setShowLanding] = useState(true)

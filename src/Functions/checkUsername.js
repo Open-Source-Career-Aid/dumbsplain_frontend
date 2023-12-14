@@ -1,6 +1,6 @@
 // const Bannedwords = require("../../public/flagged_words");
 // console.log(Bannedwords);
-import Bannedwords from "../../public/flagged_words.json";
+import Bannedwords from "../../src/Constants/flagged_words.json";
 // create a boolean function that checks if bannedword isa subset of string using regex
 export default function checkUserName(username) {
     // parse the json file

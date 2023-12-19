@@ -8,10 +8,10 @@ import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
     // test for checkUsername function
-    console.log("should be false");
-    console.log(checkUserName("18992"));
-    console.log("should be true");
-    console.log(checkUserName("mygay10"));
+    // console.log("should be false");
+    // console.log(checkUserName("18992"));
+    // console.log("should be true");
+    // console.log(checkUserName("mygay10"));
 
 
     // state for different logins, confetti, and success page
@@ -23,6 +23,9 @@ export default function SignupPage() {
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
     const [confettiamount, setConfettiamount] = React.useState(500);
+
+    // state to show if username is valid
+    const [usernameValid, setUsernameValid] = useState(false)
 
     // state to track whether the field is touched or focused
     const [emailTouched, setEmailTouched] = useState(false);
@@ -116,9 +119,16 @@ export default function SignupPage() {
     const handleEduChange = (e) => {
         setEduFormData({...eduFormData, [e.target.id]: e.target.value})
 
-        // if (e.target.value === 'username')
+        if (e.target.id === 'username') {
+            const isValidUsername = checkUserName(e.target.value)
+            if (isValidUsername) {
+                setUsernameValid(false)
+            } else {
+                setUsernameValid(true)
+            }
+        }
 
-        if (e.target.id === 'email') {
+        else if (e.target.id === 'email') {
 
             const email = e.target.value
             setEmailTouched(true)
@@ -147,8 +157,10 @@ export default function SignupPage() {
     const handleEduSubmit = (e) => {
         e.preventDefault()
 
+        const usernameIsInvalid = !checkUserName(eduFormData.username)
+
         const passwordValid = schema.validate(eduFormData.password);
-        if (validEmail && validEduEmail && passwordValid && passwordsMatch) {
+        if (!usernameIsInvalid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
             signUp(eduFormData.username, eduFormData.password, eduFormData.email)
             setShowEdu(false)
             setShowOtherSignup(false)
@@ -239,6 +251,9 @@ export default function SignupPage() {
                             onChange={handleEduChange}
                             required
                         />
+                    </div>
+                    <div className="tw-my-1">
+                        {eduFormData.username.length > 0 && !usernameValid && (<p className="tw-text-2xs tw-text-red-500">Username is invalid.</p>)}
                     </div>
                     <div className="tw-my-3 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Email</label>
@@ -388,7 +403,7 @@ export default function SignupPage() {
                     </div>
                     {signupError && (<p style={{ color: "red" }}>There was an error with your signup.</p>)}
                 </form>
-                <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
+                {/* <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
                     <span className="tw-mx-4 tw-text-sm">or</span>
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
@@ -396,7 +411,7 @@ export default function SignupPage() {
                 <div className="tw-flex tw-flex-col">
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg tw-w-full">google sign up here</button>
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg">facebook sign up here</button>
-                </div>
+                </div> */}
                 <div className="tw-w-full">
                         <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
                 </div>
@@ -433,7 +448,7 @@ export default function SignupPage() {
 // states 201 validation
 // facebook and google sign in (O-Auth); skip for right now
 // username validation - the blacklisted usernames
-    // use function "check username" and make it a boolean to move or or not
+    // use function "check username" and make it a boolean to move on or not
 
 // BUGS AND SMALL THINGS
 // fix input fields being in the center

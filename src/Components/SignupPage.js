@@ -126,9 +126,8 @@ export default function SignupPage() {
             } else {
                 setUsernameValid(true)
             }
-        }
 
-        else if (e.target.id === 'email') {
+        } else if (e.target.id === 'email') {
 
             const email = e.target.value
             setEmailTouched(true)
@@ -157,10 +156,8 @@ export default function SignupPage() {
     const handleEduSubmit = (e) => {
         e.preventDefault()
 
-        const usernameIsInvalid = !checkUserName(eduFormData.username)
-
         const passwordValid = schema.validate(eduFormData.password);
-        if (!usernameIsInvalid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
+        if (usernameValid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
             signUp(eduFormData.username, eduFormData.password, eduFormData.email)
             setShowEdu(false)
             setShowOtherSignup(false)
@@ -184,8 +181,15 @@ export default function SignupPage() {
     const handleOtherChange = (e) => {
         setOtherFormData({...otherFormData, [e.target.id]: e.target.value})
 
-        if (e.target.id === 'email') {
+        if (e.target.id === 'username') {
+            const isValidUsername = checkUserName(e.target.value)
+            if (isValidUsername) {
+                setUsernameValid(false)
+            } else {
+                setUsernameValid(true)
+            }
 
+        } else if (e.target.id === 'email') {
             const email = e.target.value
             setEmailTouched(true)
             setEmailFocused(e.target.value !== '')
@@ -210,7 +214,7 @@ export default function SignupPage() {
     const handleOtherSubmit = (e) => {
         e.preventDefault()
         const passwordValid = schema.validate(otherFormData.password);
-        if (validEmail && passwordValid && passwordsMatch) {
+        if (usernameValid && validEmail && passwordValid && passwordsMatch) {
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
@@ -313,7 +317,7 @@ export default function SignupPage() {
                             Continue
                         </button>
                     </div>
-                    {signupError && (<p style={{ color: "red" }}>There was an error with your signup.</p>)}
+                    {signupError && (<p className="tw-text-2xs tw-text-red-500">There was an error with your signup.</p>)}
                     <div className="tw-flex tw-flex-col tw-mb-1">
                         <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-14 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
                     </div>
@@ -340,6 +344,9 @@ export default function SignupPage() {
                             required
                         >
                         </input>
+                    </div>
+                    <div className="tw-my-1">
+                        {otherFormData.username.length > 0 && !usernameValid && (<p className="tw-text-2xs tw-text-red-500">Username is invalid.</p>)}
                     </div>
                     <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
                         <label className="tw-font-bold tw-text-xs">Email</label>
@@ -401,7 +408,9 @@ export default function SignupPage() {
                             Continue
                         </button>
                     </div>
-                    {signupError && (<p style={{ color: "red" }}>There was an error with your signup.</p>)}
+                    <div>
+                        {signupError && (<p className="tw-text-2xs tw-text-red-500">There was an error with your signup.</p>)}
+                    </div>
                 </form>
                 {/* <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>

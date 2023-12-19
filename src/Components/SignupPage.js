@@ -149,7 +149,7 @@ export default function SignupPage() {
 
         const passwordValid = schema.validate(eduFormData.password);
         if (validEmail && validEduEmail && passwordValid && passwordsMatch) {
-            signUp(eduFormData.username,eduFormData.email,eduFormData.password)
+            signUp(eduFormData.username, eduFormData.password, eduFormData.email)
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)

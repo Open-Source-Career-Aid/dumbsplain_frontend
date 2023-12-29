@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
-import signUp from '../Functions/signUp';
 import checkUserName from '../Functions/checkUsername';
+import signUp from '../Functions/signUp';
+import userLogin from '../Functions/userLogin';
 import "../CSS/SignupPage.css"
 
 export default function SignupPage() {
@@ -159,6 +160,7 @@ export default function SignupPage() {
         const passwordValid = schema.validate(eduFormData.password);
         if (usernameValid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
             signUp(eduFormData.username, eduFormData.password, eduFormData.email)
+            userLogin(eduFormData.username, eduFormData.password)
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
@@ -215,6 +217,8 @@ export default function SignupPage() {
         e.preventDefault()
         const passwordValid = schema.validate(otherFormData.password);
         if (usernameValid && validEmail && passwordValid && passwordsMatch) {
+            signUp(otherFormData.username, otherFormData.password, otherFormData.email)
+            userLogin(otherFormData.username, otherFormData.password)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)

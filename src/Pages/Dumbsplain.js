@@ -876,7 +876,7 @@ function Dumbsplain( { theme , setTheme } ) {
                     score={score}
                     add={add}
                     sub={sub}
-                    /> 
+                    />
                     </div>: null }
                     <div className='dumbsplainlogo'></div>
                     {/* <Header
@@ -891,6 +891,8 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
                     </div>
                 </div>
                 { width < 900 ? <PlayerProgress

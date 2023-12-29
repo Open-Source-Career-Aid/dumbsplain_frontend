@@ -7,7 +7,7 @@ import signUp from '../Functions/signUp';
 import userLogin from '../Functions/userLogin';
 import "../CSS/SignupPage.css"
 
-export default function SignupPage() {
+export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
     // test for checkUsername function
     // console.log("should be false");
     // console.log(checkUserName("18992"));
@@ -161,6 +161,7 @@ export default function SignupPage() {
         if (usernameValid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
             signUp(eduFormData.username, eduFormData.password, eduFormData.email)
             userLogin(eduFormData.username, eduFormData.password)
+            setUserLoggedIn(true)
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
@@ -219,6 +220,7 @@ export default function SignupPage() {
         if (usernameValid && validEmail && passwordValid && passwordsMatch) {
             signUp(otherFormData.username, otherFormData.password, otherFormData.email)
             userLogin(otherFormData.username, otherFormData.password)
+            setUserLoggedIn(true)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
@@ -457,14 +459,13 @@ export default function SignupPage() {
 }
 
 // WORK ON NEXT
-// use functions from functions folder for sign up
-// states 201 validation
-// facebook and google sign in (O-Auth); skip for right now
-// username validation - the blacklisted usernames
-    // use function "check username" and make it a boolean to move on or not
+// profile page
+// login and logout
 
 // BUGS AND SMALL THINGS
-// fix input fields being in the center
-// might want to fix the tw-ml-2 for the input field
 // make the errors look better
-// dumbsplain header?
+// dumbsplain header is not visible on this component
+
+// SKIPPING FOR NOW
+// facebook and google sign in (O-Auth); skip for right now
+

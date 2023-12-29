@@ -2,7 +2,7 @@ import { Route , Routes } from "react-router-dom";
 import Dumbsplain from "./Pages/Dumbsplain";
 import "./CSS/App.css";
 import Test from "./Pages/Test";
-import React from "react";
+import React, { useState } from "react";
 import ReactGA4 from 'react-ga4';
 import { GTAG } from "./config";
 import DumbsplainError from "./Pages/Error";
@@ -13,6 +13,8 @@ function App() {
   const [theme, setTheme] = React.useState('light');
   const measurementId = GTAG;
   ReactGA4.initialize(measurementId);
+
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
 
   return (
       <div className="App"
@@ -32,11 +34,14 @@ function App() {
           <Route path="/" element={<Dumbsplain
           theme={theme}
           setTheme={setTheme}
-           />} />
+          userLoggedIn={userLoggedIn}
+          setUserLoggedIn={setUserLoggedIn}
+          />} />
           <Route path="/test" element={<Test />} />
           {/* on 404 show 404 page*/}
           <Route path="*" element={<DumbsplainError />} />
-          <Route path="signup" element={<SignupPage />} />
+          <Route path="signup" element={<SignupPage userLoggedIn={userLoggedIn}
+          setUserLoggedIn={setUserLoggedIn}/>} />
         </Routes>
       </div>
   );

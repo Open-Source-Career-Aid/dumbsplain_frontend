@@ -24,7 +24,7 @@ import TopicOverlay from '../Components/TopicOverlay';
 import getTheme from '../Functions/getTheme';
 import LeaderBoard from '../Components/LeaderBoard';
 
-function Dumbsplain( { theme , setTheme } ) {
+function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
 
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
@@ -891,8 +891,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
-                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>
-                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
+                        { !userLoggedIn ? <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button> : <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button> }
                     </div>
                 </div>
                 { width < 900 ? <PlayerProgress

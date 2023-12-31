@@ -6,11 +6,12 @@ import '../CSS/LeaderBoardLayOut.css'
 import {ReactComponent as PlayerIcon} from '../SVGasComponents/player.svg';
 import {ReactComponent as CollegeIcon } from    '../SVGasComponents/icon2.svg';
 import {ReactComponent as Divider} from '../SVGasComponents/sep.svg';
-import getLeaderBoard  from '../Functions/getLeaderBoard';
+import getLeaderBoard  from '../Functions/getLeaderBoardRanks';
 import useForceUpdate from '../Functions/forceUpdate';
 import ReactGA4 from 'react-ga4';
 import checkForStaleData from '../Functions/cacheData';
 import { set } from 'react-ga';
+import userAvatarLevel from '../Functions/userAvatarLevel';
 
 // dummy data for the leaderboard with harvard as university name and 4 as score
 const player = new Map([
@@ -40,24 +41,52 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     const [displayBoard, setDisplayBoard] = useState(null);
     const displayBoard2 = useRef(null);
     const forceUpdate = useForceUpdate();
+    const leaderBoardData = useRef(null);
 
-    const selectLeaderBoard = async function() {
+    const selectLeaderBoard = async function(mode = 1, type = +toggleMode) {
         // returns the correct leaderboard based on the toggleMode
         // const data = await getLeaderBoard(+toggleMode);
-        if (toggleMode) {
-            return  player;
+        const LITERAL = ['daily', 'weekly', 'lifetime'];
+        // if (!(leaderBoardData.current === null || leaderBoardData.current === undefined)) {
+        //     console.log(LITERAL[mode-1], type);
+        //     if (type === 1) {
+        //         const res = await getLeaderBoard(type);
+        //         // retrieve the correct data from the response
+        //         console.log(res["data"][LITERAL[mode-1]]);
+        //         leaderBoardData.current = res["data"];
+        //         return  new Map(Object.entries(res["data"][LITERAL[mode-1]]));
+        //     }
+        //     else {
+        //         leaderBoardData.current = college
+        //         return college;
+        //     }
+        // }
+        // else {
+        //     console.group('LeaderBoard Data', leaderBoardData.current);
+        //     return leaderBoardData.current[LITERAL[mode-1]];
+        // }
+        console.log(type);
+        if (type === 0) {
+            const res = await getLeaderBoard(type);
+            // retrieve the correct data from the response
+            console.log(res["data"][LITERAL[mode-1]]);
+            leaderBoardData.current = res["data"];
+            return  new Map(Object.entries(res["data"][LITERAL[mode-1]]));
         }
         else {
+            leaderBoardData.current = college
             return college;
         }
-        // return data;
+      
     } 
     async function  displayLeaderBoard  (mode=1, type=+toggleMode) {
         // mode 1 = today, mode 2 = this week, mode 3 = all time
         try {
             // await the data from the server
             // const data = await getLeaderBoard(type);
-            const data = await selectLeaderBoard();
+            console.log('displayLeaderBoard', mode, type);
+            const data = await selectLeaderBoard(mode, type);
+
             // check if promise has been resolved
             // on error throw an error
             if (data.size === 0 || data === undefined) {
@@ -86,8 +115,8 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     return (
                         <div key={index} className="contentBody" id={`${index}`}>
                             <article className={`leaderCard rank ${index + 1 === 1 ? 'first': index + 1 === 2 ? 'second' : index + 1 === 3 ? 'third' : ''}`} id={`${index}`}>   {index+1}<sup>{subScript(index + 1)}</sup> </article>
-                            <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={item[1].url}/> <span className='LeaderLabel'>{item[1].label}</span></article>
-                            <article className="leaderCard dq" id={`${index}`}>{item[1].DQ}</article>
+                            <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={userAvatarLevel(item[1].dq)}/> <span className='LeaderLabel'>{item[1].label}</span></article>
+                            <article className="leaderCard dq" id={`${index}`}>{item[1].dq}</article>
                         </div>
                     );
                 });  
@@ -104,7 +133,11 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     };
 
     // default data to be displayed
-    if (overlaybool === true) (async () => { displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))})();
+    if (overlaybool === true) (async () => { 
+        displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode));
+        // update reactDOM once the data has been fetched
+
+    })();
 
     
     console.log(toggleMode);
@@ -174,9 +207,13 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
             //         displayBoard2.current = displayLeaderBoard(boardType, cachedMode);
             //     }
             // }
-
-            (async () => { displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))})();
-            forceUpdate();
+   
+            (async () => {  
+                displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))
+                // update reactDOM once the data has been fetched
+                forceUpdate();
+            })();
+ 
         } catch (error) {
             console.log(error);
         }
@@ -206,8 +243,9 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     const LeaderBoardToggle = (e) => {
         e.preventDefault();
-        console.log(e.target.parentNode);
+        console.log(e.target.parentNode, boardType);
         setToggleMode(!toggleMode);
+        handleButtonClick(boardType, changeBgTheme, e);
     }
 
     const handleLevelOverlayClick = (e) => {
@@ -233,7 +271,6 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         e.preventDefault();
         setChangeBgTheme(bg);
         setBoardType(mode);
-
         // Update the displayBoard2 ref based on the new mode and boardType
         displayBoard2.current = await displayLeaderBoard(boardType, +toggleMode);
         forceUpdate();
@@ -261,7 +298,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     scale: '1.07',
                 }}/> */}
                 <div id="LeaderBoardNav" className={theme === "light" ? 'light' : 'dark'}>
-                    <h1 id="title">{ toggleMode ? 'Player':'College'} LeaderBoard </h1>
+                    <h1 id="title">{ !toggleMode ? 'Player':'College'} LeaderBoard </h1>
                     <nav id='LeaderBoardMenu' >
                         <a className={currentMode} onClick={LeaderBoardToggle}>
                             <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {toggleMode  ? 'playerRank' : ''}/> 

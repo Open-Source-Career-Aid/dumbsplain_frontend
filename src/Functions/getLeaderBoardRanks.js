@@ -2,6 +2,7 @@ import { APIURL } from '../config.js';
 
 export default async function getLeaderBoard(mode = 0) {
     const url = `${APIURL}/api/getleaderboard/?type=${mode}`;
+    console.log(url);
     
     try {
         const response = await fetch(url, {
@@ -18,11 +19,10 @@ export default async function getLeaderBoard(mode = 0) {
         }
 
         const data = await response.json();
-        console.log(data);
 
         if (typeof Storage !== 'undefined') {
-            localStorage.setItem('lastFetched', Date.now());
-            localStorage.setItem(`boardType${mode}`, mode);
+            localStorage.setItem('lastFetched', data["data"]["timestamp"]);
+            // localStorage.setItem(`boardType${mode}`, mode);
         }
 
         return data;

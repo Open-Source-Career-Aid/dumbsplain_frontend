@@ -23,6 +23,8 @@ import ReactGA4 from 'react-ga4';
 import TopicOverlay from '../Components/TopicOverlay';
 import getTheme from '../Functions/getTheme';
 import LeaderBoard from '../Components/LeaderBoard';
+import LoginOverlay from '../Components/LoginOverlay';
+import userLogOut from '../Functions/userLogOut';
 
 function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
 
@@ -80,6 +82,10 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     const [fetchTheme, setFetchTheme] = React.useState(false);
     const [leaderboardoverlay, setLeaderboardoverlay] = React.useState(false);
 
+    // login & logout overlay state
+    const [showLoginOverlay, setShowLoginOverlay] = React.useState(false)
+    const [showLogoutOverlap, setShowLogoutOverlay] = React.useState(false)
+
     async function findcurrentTime() {
         let date = new Date();
         let hours = date.getHours();
@@ -90,7 +96,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     }
 
     const handleWindowResize = () => {
-            
+
         const windowheight = window.innerHeight;
         const windowwidth = window.innerWidth;
         const headerheight = document.querySelector('.headersection').offsetHeight;
@@ -562,7 +568,19 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
             scoreModal ? setScoreModal(false) : setScoreModal(true);
             break;
             default: console.log(e.target,"");
+            // would like to put the login & logout overlay here but don't want to mess up the code here
         }
+    }
+
+    const handleLoginOverlay = () => {
+        console.log('login clicked')
+        setShowLoginOverlay(true)
+    }
+
+    const handleLogout = () => {
+        console.log('logout clicked')
+        userLogOut()
+        setUserLoggedIn(false)
     }
 
     const handleTheme = (e) => {
@@ -824,6 +842,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                 onConfettiComplete={handleConfetticomplete}
                 gravity={0.2}
                 /> : null }
+            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/> : null}
             <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard
@@ -891,7 +910,8 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
-                        { !userLoggedIn ? <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button> : <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button> }
+                        { !userLoggedIn ? <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button> : <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button> }
+                        {/* liza working */}
                     </div>
                 </div>
                 { width < 900 ? <PlayerProgress

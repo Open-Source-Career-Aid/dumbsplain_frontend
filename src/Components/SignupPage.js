@@ -445,7 +445,7 @@ export default function SignupPage() {
     if(signUpSuccess) return (
         <div>
             <h1 className="tw-font-bold tw-text-center tw-mb-6 tw-mt-8">
-                Thank you for signing up!
+                Thank you for signing up, {user.username}!
             </h1>
             <button className="tw-rounded-xl tw-bg-white hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200 tw-border-2 tw-border-blue_400 tw-w-full tw-lg:w-auto">
                 Go to profile

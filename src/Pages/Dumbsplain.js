@@ -84,7 +84,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     const [fetchTheme, setFetchTheme] = React.useState(false);
     const [leaderboardoverlay, setLeaderboardoverlay] = React.useState(false);
 
-    // login & logout overlay state
+    // login & logout overlay state - liza working
     const [showLoginOverlay, setShowLoginOverlay] = React.useState(false)
     const [showLogoutOverlap, setShowLogoutOverlay] = React.useState(false)
 
@@ -264,7 +264,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     useEffect(() => {
 
         console.log('dumbnessLevel: ', dumbnessLevel);
-        
+
         const enterFunction = (event) => {
 
             if (event.keyCode === 13) {
@@ -574,6 +574,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
         }
     }
 
+    // liza working
     const handleLoginOverlay = () => {
         console.log('login clicked')
         setShowLoginOverlay(true)
@@ -845,6 +846,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                 gravity={0.2}
                 /> : null }
             { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/> : null}
+            {/* liza working */}
             <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard

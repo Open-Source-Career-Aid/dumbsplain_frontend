@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import userLogin from '../Functions/userLogin';
+import UserContext from '../userContext';
 
-
-export default function LoginOverlay( { userLoggedIn, setUserLoggedIn }) {
+export default function LoginOverlay() {
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     // state for form
@@ -30,7 +31,7 @@ export default function LoginOverlay( { userLoggedIn, setUserLoggedIn }) {
     const handleLogin = () => {
         console.log(formData)
         userLogin(formData.username, formData.password)
-        setUserLoggedIn(false)
+        setUser( {username: formData.username })
     }
 
     return (

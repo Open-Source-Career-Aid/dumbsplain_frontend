@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from "react";
 import '../CSS/Dumbsplain.css';
 import Dumbsplainer from '../Components/Dumbsplainer';
@@ -25,8 +25,10 @@ import getTheme from '../Functions/getTheme';
 import LeaderBoard from '../Components/LeaderBoard';
 import LoginOverlay from '../Components/LoginOverlay';
 import userLogOut from '../Functions/userLogOut';
+import UserContext from '../userContext';
 
 function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
+    const { user } = useContext(UserContext)
 
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
@@ -519,7 +521,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
         if (mcqloaded === true) {
             setCurrentext(mcq);
         }
-        
+
     // eslint-disable-next-line
     }, [mcq]);
 

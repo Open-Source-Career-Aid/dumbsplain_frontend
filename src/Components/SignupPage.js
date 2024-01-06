@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
@@ -6,14 +6,16 @@ import checkUserName from '../Functions/checkUsername';
 import signUp from '../Functions/signUp';
 import userLogin from '../Functions/userLogin';
 import "../CSS/SignupPage.css"
+import UserContext from '../userContext';
 
-export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
+export default function SignupPage() {
     // test for checkUsername function
     // console.log("should be false");
     // console.log(checkUserName("18992"));
     // console.log("should be true");
     // console.log(checkUserName("mygay10"));
 
+    const { user, setUser } = useContext(UserContext);
 
     // state for different logins, confetti, and success page
     const [showLanding, setShowLanding] = useState(true)
@@ -161,7 +163,10 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
         if (usernameValid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
             signUp(eduFormData.username, eduFormData.password, eduFormData.email)
             userLogin(eduFormData.username, eduFormData.password)
-            setUserLoggedIn(true)
+            setUser({
+                username: eduFormData.username,
+                email: eduFormData.email,
+            })
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
@@ -220,7 +225,10 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
         if (usernameValid && validEmail && passwordValid && passwordsMatch) {
             signUp(otherFormData.username, otherFormData.password, otherFormData.email)
             userLogin(otherFormData.username, otherFormData.password)
-            setUserLoggedIn(true)
+            setUser({
+                username: otherFormData.username,
+                email: otherFormData.email,
+            })
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)

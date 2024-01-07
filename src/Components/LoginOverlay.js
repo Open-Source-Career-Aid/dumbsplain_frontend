@@ -38,7 +38,7 @@ export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay }) 
             <div className="modal fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
                 <div className="bg-white p-8 rounded shadow-lg">
                     <div>
-                        <button onClick={close} className="text-gray-700 hover:text-red-500">
+                        <button onClick={close} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">
                         close
                         </button>
                     </div>

@@ -920,9 +920,9 @@ function Dumbsplain( { theme , setTheme } ) {
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
                         { user ? (
-                            <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
+                            <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
                             ) : (
-                            <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>)}
+                            <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>)}
                         {/* liza working */}
                     </div>
                 </div>

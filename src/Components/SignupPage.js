@@ -67,7 +67,7 @@ export default function SignupPage() {
 
     const handleDumbsplain = () => {
         navigate('/')
-        console.log('navigate home')
+        console.log(user)
     }
 
     // password validation

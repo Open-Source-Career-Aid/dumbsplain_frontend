@@ -28,7 +28,13 @@ import userLogOut from '../Functions/userLogOut';
 import UserContext from '../userContext';
 
 function Dumbsplain( { theme , setTheme } ) {
+    // useContext to grab user data and creating setUser function for future use
     const { user, setUser } = useContext(UserContext)
+
+    // double checking the user is correct and useContext is working
+    React.useEffect(() => {
+        console.log(user)
+    }, [user]);
 
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
@@ -576,14 +582,13 @@ function Dumbsplain( { theme , setTheme } ) {
 
     // liza working
     const handleLoginOverlay = () => {
-        console.log('login clicked')
         setShowLoginOverlay(true)
     }
 
     const handleLogout = () => {
-        console.log('logout clicked')
         userLogOut()
         setUser(null)
+        console.log(user)
     }
 
     const handleTheme = (e) => {

@@ -24,6 +24,7 @@ import TopicOverlay from '../Components/TopicOverlay';
 import getTheme from '../Functions/getTheme';
 import LeaderBoard from '../Components/LeaderBoard';
 import LoginOverlay from '../Components/LoginOverlay';
+import LogoutOverlay from '../Components/LogoutOverlay';
 import userLogOut from '../Functions/userLogOut';
 import UserContext from '../userContext';
 
@@ -590,6 +591,7 @@ function Dumbsplain( { theme , setTheme } ) {
         setUser(null)
         console.log(user)
     }
+    // put in "are you sure" overlay
 
     const handleTheme = (e) => {
         e.preventDefault();

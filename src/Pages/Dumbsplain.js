@@ -27,8 +27,8 @@ import LoginOverlay from '../Components/LoginOverlay';
 import userLogOut from '../Functions/userLogOut';
 import UserContext from '../userContext';
 
-function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
-    const { user } = useContext(UserContext)
+function Dumbsplain( { theme , setTheme } ) {
+    const { user, setUser } = useContext(UserContext)
 
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
@@ -583,7 +583,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     const handleLogout = () => {
         console.log('logout clicked')
         userLogOut()
-        setUserLoggedIn(false)
+        setUser(null)
     }
 
     const handleTheme = (e) => {
@@ -845,7 +845,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                 onConfettiComplete={handleConfetticomplete}
                 gravity={0.2}
                 /> : null }
-            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/> : null}
+            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay}/> : null}
             {/* liza working */}
             <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
@@ -914,7 +914,10 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
-                        { !userLoggedIn ? <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button> : <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button> }
+                        { user ? (
+                            <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
+                            ) : (
+                                <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>)}
                         {/* liza working */}
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import userLogin from '../Functions/userLogin';
 import UserContext from '../userContext';
 
-export default function LoginOverlay() {
+export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay }) {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -14,10 +14,8 @@ export default function LoginOverlay() {
     }
     const [formData, setFormData] = useState(initialState)
 
-    const [isOpen, setIsOpen] = useState(true)
-
     const close = () => {
-        setIsOpen(false)
+        setShowLoginOverlay(false)
     }
 
     const handleSignupClick = () => {
@@ -32,6 +30,7 @@ export default function LoginOverlay() {
         console.log(formData)
         userLogin(formData.username, formData.password)
         setUser( {username: formData.username })
+        setShowLoginOverlay(false)
     }
 
     return (

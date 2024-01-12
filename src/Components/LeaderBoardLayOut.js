@@ -113,7 +113,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 // iterate through map object and return the data in the format above
                 return [...data.entries()].map((item, index) => {
                     return (
-                        <div key={index} className="contentBody" id={`${index}`}>
+                        <div key={index} className={`contentBody ${item[1].selected ? 'active': ''}`} id={`${index}`}>
                             <article className={`leaderCard rank ${index + 1 === 1 ? 'first': index + 1 === 2 ? 'second' : index + 1 === 3 ? 'third' : ''}`} id={`${index}`}>   {index+1}<sup>{subScript(index + 1)}</sup> </article>
                             <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={userAvatarLevel(item[1].dq)}/> <span className='LeaderLabel'>{item[1].label}</span></article>
                             <article className="leaderCard dq" id={`${index}`}>{item[1].dq}</article>
@@ -305,9 +305,9 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                             <Divider className="Leadericons" width="23px" height="19px" fill={toggleMode ? "#000" : "#FFF"} />
                             <CollegeIcon className='Leadericons' width="20px" height="20px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ College Ranks' id= {toggleMode === false ? 'collegeRank' : ''} />
                         </a>
-                        <a className={currentMode} href='#' onClick={(e) => handleButtonClick(1,'today', e)} title='shows leaderboard today ranks'> Today </a>
-                        <a className={currentMode} href='#' onClick={(e) => handleButtonClick(2, 'week', e)} title='show leaderboard ranks for current week'> This Week </a>
-                        <a className={currentMode} href='#' onClick={(e) => handleButtonClick(3, 'allTime', e)} title ='show all time leaderboard rank'> All Time </a>
+                        <a className={`${currentMode} ${boardType === 1 ? 'active': 'inactive'}`} href='#' onClick={(e) => handleButtonClick(1,'today', e)} title='shows leaderboard today ranks'> Today </a>
+                        <a className={`${currentMode} ${boardType === 2 ? 'active': 'inactive'}`}href='#' onClick={(e) => handleButtonClick(2, 'week', e)} title='show leaderboard ranks for current week'> This Week </a>
+                        <a className={`${currentMode} ${boardType === 3 ? 'active': 'inactive'}`} href='#' onClick={(e) => handleButtonClick(3, 'allTime', e)} title ='show all time leaderboard rank'> All Time </a>
                     </nav>
                 </div>
                 {/* add datalist to leaderboardbody */}

@@ -115,7 +115,7 @@ article.leaderCard  {
 }
 article.leaderCard.rank, article.leaderCard.dq {
     align-self: center;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
 }
 article.leaderCard.university {
     width: 85%;
@@ -133,6 +133,10 @@ article.university, article.rank, article.dq {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+article.rank {
+    justify-content: flex-end;
 }
 article.university > img.LeaderIcons {
     width: 40%;
@@ -199,4 +203,15 @@ div#LeaderBoardBody[data-bg="week"]  {
 }
 div#LeaderBoardBody[data-bg="allTime"]  {
     background-color: var(--streak);
+}
+.contentBody.active {
+    background-color: white;
+    color:#2B4690;
+}
+
+a.active{
+    opacity: 1;
+}
+a.inactive{
+    opacity: .5;
 }

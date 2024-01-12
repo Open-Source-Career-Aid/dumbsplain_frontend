@@ -127,7 +127,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 return (
                     <div className='errorInfoBox' style={{color: 'red', fontSize: '1.5em', 
                     fontWeight: 'bold', textAlign: 'center', padding: '10px'}}> 
-                    🤖... Error displaying LeaderBoard; please reload your page. 
+                    🤖... Error displaying LeaderBoard; please try reloading page. 
                 </div>);
                 }
     };
@@ -279,12 +279,13 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     return(
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
             <div className={'modal-content '}   data-theme={theme}
+
             style={{
                 overflow: 'hidden',
                 scale: `${cardscale}`,
                 width: '100%',
                 height: '100%',
-                backgroundColor: theme === "light" ? '#fff' : '#252525'
+                backgroundColor: theme === "light" ? '#fff' : '#17213F'
             }}
             >
                 {/* <OverlayCurve theme={theme}
@@ -300,7 +301,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 <div id="LeaderBoardNav" className={theme === "light" ? 'light' : 'dark'}>
                     <h1 id="title">{ !toggleMode ? 'Player':'College'} LeaderBoard </h1>
                     <nav id='LeaderBoardMenu' >
-                        <a className={currentMode} onClick={LeaderBoardToggle}>
+                        <a className={currentMode} onClick={LeaderBoardToggle} id="toggleBtn">
                             <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {toggleMode  ? 'playerRank' : ''}/> 
                             <Divider className="Leadericons" width="23px" height="19px" fill={toggleMode ? "#000" : "#FFF"} />
                             <CollegeIcon className='Leadericons' width="20px" height="20px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ College Ranks' id= {toggleMode === false ? 'collegeRank' : ''} />

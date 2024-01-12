@@ -2,7 +2,7 @@
 
 /* Declare global variables */
 :root {
-    --dark: #252525;
+    --dark: #17213F;
     --light: #FFFFFF;
     --darkMode: rgba(255, 255, 255, .1);
     --lightMode: rgba(123, 123, 123, .1);
@@ -35,9 +35,12 @@ h1#title {
     font-size: .55em;
     height: 40%;
     padding: 1em;
+    width: fit-content;
+    overflow-y: hidden;
+    font-weight: bold;
 }
 a.mode{
-    font-size: .4em;
+    font-size: .3em;
     border-radius: 15px;
     /* background-color: rgba(123, 123, 123, .1); */
     width: fit-content;
@@ -151,7 +154,7 @@ article.university > span.LeaderLabel {
 }
 
 div.dark {
-    background-color: #252525;
+    background-color: #17213F;
 }
 
 div.light {
@@ -195,7 +198,7 @@ article.rank {
     height: 100%;
 }
 
-div#LeaderBoardBody[data-bg="today"] {
+/* div#LeaderBoardBody[data-bg="today"] {
     background-color: var(--today);
 }
 div#LeaderBoardBody[data-bg="week"]  {
@@ -203,7 +206,7 @@ div#LeaderBoardBody[data-bg="week"]  {
 }
 div#LeaderBoardBody[data-bg="allTime"]  {
     background-color: var(--streak);
-}
+} */
 .contentBody.active {
     background-color: white;
     color:#2B4690;
@@ -214,4 +217,9 @@ a.active{
 }
 a.inactive{
     opacity: .5;
+}
+
+#toggleBtn {
+    display: flex;
+    width: 25%;
 }

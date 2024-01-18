@@ -917,6 +917,80 @@ and (min-width: 992px) {
 and (max-width: 991px) 
 and (min-width: 768px) {
 
+    .interactionsection {
+        padding: 0;
+    }
+
+    .answeroptions {
+        padding: 0;
+    }
+
+    .optionscontainer {
+        padding: 0;
+        position: relative;
+    }
+
+    .dumbnesslevel {
+        display: none;
+    }
+
+    .answeroption {
+        display: none;
+    }
+
+    .dumbsplainbody {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: relative;
+    }
+
+    .carouseldumbnesslevel {
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+        position: relative;
+        width: 150px;
+        height: 120px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .carouselbgcontainer {
+        position: absolute;
+        height: 75%;
+        bottom: 0;
+        background-color: #4C7BFE;
+        opacity: 0.1;
+        z-index: -10000;
+        width: 55%;
+        padding: 0 17.5%;
+    }
+
+    .carouselelementscontainer {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        padding: 0;
+        /* fade out on left and right edges */
+    }
+
+    .carouselelementscontainer.block {
+        pointer-events: none;
+    }
+
+    .avatarlabel {
+        position: absolute;
+        z-index: 5000;
+        bottom: 6%;
+        padding: 5% 0;
+        font-size: 10px;
+    }
 }
 
 @media screen 
@@ -993,7 +1067,7 @@ and (min-width: 320px) {
     }
 }
 
-@media only screen and (max-width: 920px) {
+/* @media only screen and (max-width: 920px) {
 
     .interactionsection {
         padding: 0;
@@ -1054,9 +1128,9 @@ and (min-width: 320px) {
         flex-direction: row;
         position: relative;
         width: 100%;
-        padding: 0;
+        padding: 0; */
         /* fade out on left and right edges */
-    }
+    /* }
 
     .carouselelementscontainer.block {
         pointer-events: none;
@@ -1069,7 +1143,7 @@ and (min-width: 320px) {
         padding: 5% 0;
         font-size: 10px;
     }
-}
+} */
 
 /* Mobile responsiveness */
 @media only screen and (max-width: 600px) {

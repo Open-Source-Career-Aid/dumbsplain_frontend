@@ -47,11 +47,11 @@ path {
 }
 
 /* mobile version */
-@media only screen and (max-width: 900px) {
+/* @media only screen and (max-width: 900px) {
     * {
         padding: 0 2px;
     }
-}
+} */
 
 iframe {
     padding: 0;

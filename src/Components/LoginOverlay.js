@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import userLogin from '../Functions/userLogin';
 import UserContext from '../userContext';
+import '../CSS/Overlay.css'
+import '../CSS/LeaderBoardLayOut.css'
 
 export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay }) {
     const { user, setUser } = useContext(UserContext);

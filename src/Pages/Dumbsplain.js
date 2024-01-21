@@ -93,7 +93,7 @@ function Dumbsplain( { theme , setTheme } ) {
 
     // login & logout overlay state - liza working
     const [showLoginOverlay, setShowLoginOverlay] = React.useState(false)
-    const [showLogoutOverlap, setShowLogoutOverlay] = React.useState(false)
+    const [showLogoutOverlay, setShowLogoutOverlay] = React.useState(false)
 
     async function findcurrentTime() {
         let date = new Date();
@@ -586,6 +586,10 @@ function Dumbsplain( { theme , setTheme } ) {
         setShowLoginOverlay(true)
     }
 
+    const handleLogoutOverlay = () => {
+        setShowLogoutOverlay(true)
+    }
+
     const handleLogout = () => {
         userLogOut()
         setUser(null)
@@ -852,7 +856,8 @@ function Dumbsplain( { theme , setTheme } ) {
                 onConfettiComplete={handleConfetticomplete}
                 gravity={0.2}
                 /> : null }
-            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay}/> : null}
+            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} theme={theme}/> : null}
+            { showLogoutOverlay ? <LogoutOverlay showLogoutOverlay={showLogoutOverlay} setShowLogoutOverlay={setShowLogoutOverlay} theme={theme}/> : null}
             {/* liza working */}
             <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
@@ -922,7 +927,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
                         { user ? (
-                            <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
+                            <button onClick={handleLogoutOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
                             ) : (
                             <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>)}
                         {/* liza working */}

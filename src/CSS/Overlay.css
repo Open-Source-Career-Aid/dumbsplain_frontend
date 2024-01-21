@@ -201,6 +201,20 @@ p.streak{
     left: 0;
 }
 
+.heading-logout {
+  font-size: 0.65em;
+  font-weight: 600;
+  color: #ffffff;
+  position: absolute;
+  /* center the text horizontally */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  margin-top: 45px;
+  z-index: 10000;
+  top: 0;
+}
+
+
 .dqtext {
   font-size: 20px;
 }

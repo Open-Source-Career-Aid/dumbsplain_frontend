@@ -2,24 +2,24 @@ import React, { useState, useContext } from 'react'
 import ReactGA4 from 'react-ga4';
 import { useNavigate } from 'react-router-dom';
 import userLogOut from '../Functions/userLogOut';
+import UserContext from '../userContext';
 import '../CSS/Overlay.css'
 import '../CSS/LeaderBoardLayOut.css'
-import UserContext from '../userContext';
 import OverlayCurve from '../SVGasComponents/overlayCurve';
 
 
-export default function LogoutOverlay({ showLoginOverlay, setShowLoginOverlay, showLogoutOverlay, setShowLogoutOverlay, theme }) {
+export default function LogoutOverlay({ showLogoutOverlay, setShowLogoutOverlay, theme }) {
 
     const { user, setUser } = useContext(UserContext);
     const [cardscale, setCardscale] = useState(1);
+    const navigate = useNavigate();
 
     const closeOverlay = (e) => {
         e.preventDefault();
-        console.log(e.target.parentNode);
         ReactGA4.event({
-            action: 'Topic Overlay Click Close',
-            category: 'Topic Overlay',
-            label: 'Click Topic Close',
+            action: 'Logout Overlay Click Close',
+            category: 'Logout Overlay',
+            label: 'Click Logout Close',
             // value: new Date().getTime() - startTime,
             });
         setShowLogoutOverlay(false);
@@ -33,9 +33,7 @@ export default function LogoutOverlay({ showLoginOverlay, setShowLoginOverlay, s
     }
 
     return (
-        <div className={showLogoutOverlay ? "modal-overlay" : "modal-overlay-off" }
-        // onClick={handleLevelOverlayClick}
-        >
+        <div className={showLogoutOverlay ? "modal-overlay" : "modal-overlay-off" }>
             <div className='modal-content' data-theme={theme}
             style={{
                 overflow: 'hidden',

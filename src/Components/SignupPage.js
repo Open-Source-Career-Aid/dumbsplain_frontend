@@ -425,6 +425,9 @@ export default function SignupPage() {
                     <div>
                         {signupError && (<p className="tw-text-2xs tw-text-red-500">There was an error with your signup.</p>)}
                     </div>
+                    <div className="tw-flex tw-flex-col tw-mb-1">
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-14 tw-ml-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
+                    </div>
                 </form>
                 {/* <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
@@ -435,9 +438,6 @@ export default function SignupPage() {
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg tw-w-full">google sign up here</button>
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg">facebook sign up here</button>
                 </div> */}
-                <div className="tw-w-full">
-                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
-                </div>
             </div>
         </div>
     )

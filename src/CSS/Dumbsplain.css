@@ -90,30 +90,6 @@
     color: black;
 }
 
-@media only screen and (max-width: 600px) {
-
-    .dumbsplainlogo {
-        background-image: url('../../public/squarelogo.svg');
-        padding: 0;
-        height: 35px;
-        width: 35px;
-        min-width: 35px;
-        margin: 0;
-    }
-
-    .navbar {
-        padding: 0 10px;
-        height: 50px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    .header {
-        margin-top: 0.1em;
-    }
-    
-}
-
 .utilitybuttons {
     display: flex;
     flex-direction: row;
@@ -230,14 +206,6 @@
     height: 12%;
     overflow-y: hidden;
     overflow-x: auto;
-}
-
-@media only screen and (max-width: 900px) {
-
-    .topicbar {
-        width: 90%;
-        padding: 0;
-    }
 }
 
 .subtitle {
@@ -474,12 +442,6 @@
     margin-bottom: 0.625em;
 }
 
-@media only screen and (max-width: 900px) {
-    .buttoncontainer {
-        margin: 0;
-    }
-}
-
 .dumbsplainbutton {
     background-color: #4C7BFE;
     border: none;
@@ -492,20 +454,6 @@
     display: flex;
     flex-direction: row;
     cursor: pointer;
-}
-
-@media only screen and (max-width: 600px) {
-    
-    .submithintbuttons {
-        scale: 0.7;
-    }
-
-    .buttoncontainer {
-        scale: 0.7;
-    }
-    .dumbnesslevels {
-        margin: 0;
-    }
 }
 
 .dumbsplainbutton:hover {
@@ -940,7 +888,32 @@ and (min-width: 768px) {
         width: 100%;
         position: relative;
     }
+
+    .topicbar {
+        width: 90%;
+        padding: 0;
+    }
     
+    .textarea {
+        width: 80%;
+        height: 85%;
+        margin-bottom: 3%;
+        padding: 0 5%;
+    }
+
+    .mcq-question {
+        font-size: 0.6em;
+        color: #454545;
+        margin-top: 2%;
+        font-weight: 600;
+        padding: 0;
+    }
+
+    .mcq-option {
+        font-size: 0.5em;
+        color: #454545;
+        margin-top: 1%;
+    }
 
     .interactionsection {
         padding: 0;
@@ -959,8 +932,105 @@ and (min-width: 768px) {
         display: none;
     }
 
+
+    .dumbnesslevels {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: .625em;
+        flex-wrap: wrap;
+    }
+
+    .dumbnesslevel:hover {
+        background: #4C7BFE;
+    }
+
+    .dumbnesslevel.selected {
+        background: #4C7BFE;
+    }
+
+    .avatar1 {
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
+    }
+
+    .avatar2 {
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
+    }
+
+    .avatar3 {
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
+    }
+
+    .avatar4 {
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
+    }
+
+    .avatar5 {
+        position: absolute;
+        top: 0;
+        width: 60%;
+        height: 60%;
+        z-index: 5;
+    }
+
+    .buttoncontainer {
+        margin: 0;
+    }
+
+    .bgcontaineranswer {
+        width: 40%;
+        z-index: 1;
+    }
+
     .answeroption {
         display: none;
+    }
+
+    .answeroptiontext {
+        font-size: 0.8em;
+        margin-top: 25%;
+    }
+
+    .waitingarea {
+        width: 80%;
+        height: 97%;
+        border: 1px solid #c7c7c7;
+        border-radius: .3125em;
+        margin-top: .625em;
+        margin-bottom: .625em;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .waitingtext {
+        font-size: 0.5em;
+        /* color: #454545; */
+        text-align: center;
+        margin-top: 4%;
+    }
+
+    .waitingtime {
+        font-size: 1.5em;
+        color: #4C7BFE;
+        font-weight: 800;
+        text-align: center;
     }
 
     
@@ -1007,6 +1077,7 @@ and (min-width: 768px) {
         font-size: 10px;
     }
 }
+
 /* Tablet - Mobile Responsiveness */
 @media screen 
 and (max-width: 767px) 
@@ -1182,6 +1253,10 @@ and (min-width: 576px) {
         font-size: 0.5em;
         color: #454545;
         margin-top: 1%;
+    }
+
+    .buttoncontainer {
+        margin: 0;
     }
 }
 /* Smart Phone - Mobile Responsiveness */
@@ -1500,7 +1575,7 @@ and (min-width: 320px) {
 }
 
 /* meduim screens mobile responsiveness */
-@media only screen and (min-width: 600px) and (max-width: 900px) {
+/* @media only screen and (min-width: 600px) and (max-width: 900px) { */
 
     /* .dumbsplainbody {
         display: flex;
@@ -1529,7 +1604,7 @@ and (min-width: 320px) {
         display: none;
     } */
 
-    .textarea {
+    /* .textarea {
         width: 80%;
         height: 85%;
         margin-bottom: 3%;
@@ -1626,9 +1701,9 @@ and (min-width: 320px) {
     }
 
     .waitingtext {
-        font-size: 0.5em;
+        font-size: 0.5em; */
         /* color: #454545; */
-        text-align: center;
+        /* text-align: center;
         margin-top: 4%;
     }
 
@@ -1637,7 +1712,7 @@ and (min-width: 320px) {
         color: #4C7BFE;
         font-weight: 800;
         text-align: center;
-    }
+    } */
 
     /* .carouseldumbnesslevel {
         justify-content: center;
@@ -1661,7 +1736,7 @@ and (min-width: 320px) {
         padding: 0 17.5%;
     } */
 
-    .mcq-question {
+    /* .mcq-question {
         font-size: 0.6em;
         color: #454545;
         margin-top: 2%;
@@ -1674,7 +1749,7 @@ and (min-width: 320px) {
         color: #454545;
         margin-top: 1%;
     }
-}
+} */
 
 /* large screens mobile responsiveness */
 /* @media screen and (min-width: 900px) and (max-width: 1200) {
@@ -1726,3 +1801,55 @@ and (min-width: 320px) {
         width: 100%;
     }
 } */
+
+@media only screen and (max-width: 600px) {
+
+    .dumbsplainlogo {
+        background-image: url('../../public/squarelogo.svg');
+        padding: 0;
+        height: 35px;
+        width: 35px;
+        min-width: 35px;
+        margin: 0;
+    }
+
+    .navbar {
+        padding: 0 10px;
+        height: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .header {
+        margin-top: 0.1em;
+    }
+    
+}
+
+/* @media only screen and (max-width: 900px) {
+
+    .topicbar {
+        width: 90%;
+        padding: 0;
+    }
+} */
+
+/* @media only screen and (max-width: 900px) {
+    .buttoncontainer {
+        margin: 0;
+    }
+} */
+
+@media only screen and (max-width: 600px) {
+    
+    .submithintbuttons {
+        scale: 0.7;
+    }
+
+    .buttoncontainer {
+        scale: 0.7;
+    }
+    .dumbnesslevels {
+        margin: 0;
+    }
+}

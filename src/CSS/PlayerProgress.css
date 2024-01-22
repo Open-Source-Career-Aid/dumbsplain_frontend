@@ -158,7 +158,7 @@
     }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 991px) {
     
     .progresstitle {
         font-size: 0.6em;

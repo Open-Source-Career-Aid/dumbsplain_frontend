@@ -1096,6 +1096,10 @@ and (min-width: 576px) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: relative;
     }
 
     /* .lightmode {
@@ -1106,14 +1110,19 @@ and (min-width: 576px) {
         display: none;
     } */
 
-    .totd {
+    /* .totd {
         font-size: 0.5em;
     }
 
     .topic {
         font-size: 0.8em;
-    }
+    } */
 
+    .topicbar {
+        width: 90%;
+        padding: 0;
+    }
+    
     .textarea {
         width: 80%;
         height: 85%;
@@ -1127,6 +1136,33 @@ and (min-width: 576px) {
         padding-top: 1em;
     }
 
+    .mcq-question {
+        font-size: 0.6em;
+        color: #454545;
+        margin-top: 2%;
+        font-weight: 600;
+        padding: 0;
+    }
+
+    .mcq-option {
+        font-size: 0.5em;
+        color: #454545;
+        margin-top: 1%;
+    }
+
+    .interactionsection {
+        padding: 0;
+    }
+
+    .answeroptions {
+        padding: 0;
+    }
+
+    .optionscontainer {
+        padding: 0;
+        position: relative;
+    }
+
     .dumbnesslevels {
         display: flex;
         flex-direction: row;
@@ -1135,6 +1171,19 @@ and (min-width: 576px) {
         width: 100%;
         margin-bottom: .625em;
         flex-wrap: wrap;
+    }
+
+    .dumbnesslevel {
+        width: 2em;
+        height: 2em;
+    }
+
+    .avatarlabel {
+        position: absolute;
+        z-index: 5000;
+        bottom: 6%;
+        padding: 5% 0;
+        font-size: 10px;
     }
 
     .dumbnesslevel:hover {
@@ -1183,6 +1232,12 @@ and (min-width: 576px) {
         width: 60%;
         height: 60%;
         z-index: 5;
+    }
+
+    .equaltoAI {
+        scale: .8;
+        float: right;
+        margin-right: -0.75em;
     }
 
     .bgcontaineranswer {
@@ -1240,20 +1295,6 @@ and (min-width: 576px) {
         width: 55%;
         padding: 0 17.5%;
     } */
-
-    .mcq-question {
-        font-size: 0.6em;
-        color: #454545;
-        margin-top: 2%;
-        font-weight: 600;
-        padding: 0;
-    }
-
-    .mcq-option {
-        font-size: 0.5em;
-        color: #454545;
-        margin-top: 1%;
-    }
 
     .buttoncontainer {
         margin: 0;

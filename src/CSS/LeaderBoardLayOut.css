@@ -277,15 +277,15 @@ div#LeaderBoardNav, div#LeaderBoardBody {
     border: thin solid var(--bar);
 } */
 
-div.signup-overlay {
-    /* display: flex;
+/* div.signup-overlay {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: .25rem;
     padding: 0;
     height: 20%;
-    /* z-index: -1; */
-} */
+    z-index: -1;
+}  */
 
 div#para-btn {
     width: 70%;
@@ -341,7 +341,8 @@ p#btn-para{
 .contentBody[data-mode= "dark"] {
     background-color: var(--dark);
     color: var(--light);
-} */
+} 
+
 div.signup-overlay {
     display: flex;
     position: fixed;

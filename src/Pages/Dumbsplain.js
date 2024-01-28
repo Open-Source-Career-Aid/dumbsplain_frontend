@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from "react";
 import '../CSS/Dumbsplain.css';
 import Dumbsplainer from '../Components/Dumbsplainer';
@@ -24,9 +24,18 @@ import TopicOverlay from '../Components/TopicOverlay';
 import getTheme from '../Functions/getTheme';
 import LeaderBoardLayOut from '../Components/LeaderBoardLayOut';
 import LoginOverlay from '../Components/LoginOverlay';
+import LogoutOverlay from '../Components/LogoutOverlay';
 import userLogOut from '../Functions/userLogOut';
+import UserContext from '../userContext';
 
-function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
+function Dumbsplain( { theme , setTheme } ) {
+    // useContext to grab user data and creating setUser function for future use
+    const { user, setUser } = useContext(UserContext)
+
+    // double checking the user is correct and useContext is working
+    React.useEffect(() => {
+        console.log(user)
+    }, [user]);
 
     const { width , height } = useWindowSize()
     const [confetti, setConfetti] = React.useState(false);
@@ -82,9 +91,9 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     const [fetchTheme, setFetchTheme] = React.useState(false);
     const [leaderboardoverlay, setLeaderboardoverlay] = React.useState(false);
 
-    // login & logout overlay state
+    // login & logout overlay state - liza working
     const [showLoginOverlay, setShowLoginOverlay] = React.useState(false)
-    const [showLogoutOverlap, setShowLogoutOverlay] = React.useState(false)
+    const [showLogoutOverlay, setShowLogoutOverlay] = React.useState(false)
 
     async function findcurrentTime() {
         let date = new Date();
@@ -262,7 +271,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
     useEffect(() => {
 
         console.log('dumbnessLevel: ', dumbnessLevel);
-        
+
         const enterFunction = (event) => {
 
             if (event.keyCode === 13) {
@@ -519,7 +528,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
         if (mcqloaded === true) {
             setCurrentext(mcq);
         }
-        
+
     // eslint-disable-next-line
     }, [mcq]);
 
@@ -589,16 +598,21 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
         }
     }
 
+    // liza working
     const handleLoginOverlay = () => {
-        console.log('login clicked')
         setShowLoginOverlay(true)
     }
 
-    const handleLogout = () => {
-        console.log('logout clicked')
-        userLogOut()
-        setUserLoggedIn(false)
+    const handleLogoutOverlay = () => {
+        setShowLogoutOverlay(true)
     }
+
+    const handleLogout = () => {
+        userLogOut()
+        setUser(null)
+        console.log(user)
+    }
+    // put in "are you sure" overlay
 
     const handleTheme = (e) => {
         e.preventDefault();
@@ -859,7 +873,9 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                 onConfettiComplete={handleConfetticomplete}
                 gravity={0.2}
                 /> : null }
-            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/> : null}
+            { showLoginOverlay ? <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} theme={theme}/> : null}
+            { showLogoutOverlay ? <LogoutOverlay showLogoutOverlay={showLogoutOverlay} setShowLogoutOverlay={setShowLogoutOverlay} theme={theme}/> : null}
+            {/* liza working */}
             <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
             <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
             <ReportCard
@@ -928,7 +944,17 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg>
-                        { !userLoggedIn ? <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button> : <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button> }
+                        {user ? (
+                            <svg
+                                onClick={handleLogoutOverlay}
+                                className={theme === 'light' ? 'logoutbuttonlight' : 'logoutbuttondark'}
+                            ></svg>
+                        ) : (
+                            <svg
+                                onClick={handleLoginOverlay}
+                                className={theme === 'light' ? 'loginbuttonlight' : 'loginbuttondark'}
+                            ></svg>
+                        )}
                         {/* liza working */}
                     </div>
                 </div>

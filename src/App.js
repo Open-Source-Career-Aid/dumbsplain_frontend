@@ -8,14 +8,16 @@ import ReactGA4 from 'react-ga4';
 import { GTAG } from "./config";
 import DumbsplainError from "./Pages/Error";
 
+import UserContext from "./userContext";
 
 function App() {
+
+  // useContext state for user
+  const [user, setUser] = useState(null)
 
   const [theme, setTheme] = React.useState('light');
   const measurementId = GTAG;
   ReactGA4.initialize(measurementId);
-
-  const [userLoggedIn, setUserLoggedIn] = useState(false)
 
   return (
       <div className="App"
@@ -30,20 +32,18 @@ function App() {
       }}
       >
         <div className='bg' data-theme={theme}></div>
-        <Routes>
-
-          <Route path="/" element={<Dumbsplain
-          theme={theme}
-          setTheme={setTheme}
-          userLoggedIn={userLoggedIn}
-          setUserLoggedIn={setUserLoggedIn}
-          />} />
-          <Route path="/test" element={<Test />} />
-          {/* on 404 show 404 page*/}
-          <Route path="*" element={<DumbsplainError />} />
-          <Route path="signup" element={<SignupPage userLoggedIn={userLoggedIn}
-          setUserLoggedIn={setUserLoggedIn}/>} />
-        </Routes>
+        <UserContext.Provider value={ {user, setUser}}>
+          <Routes>
+            <Route path="/" element={<Dumbsplain
+            theme={theme}
+            setTheme={setTheme}
+            />} />
+            <Route path="/test" element={<Test />} />
+            {/* on 404 show 404 page*/}
+            <Route path="*" element={<DumbsplainError />} />
+            <Route path="signup" element={<SignupPage />} />
+          </Routes>
+        </UserContext.Provider>
       </div>
   );
 }

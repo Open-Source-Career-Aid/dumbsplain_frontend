@@ -5,7 +5,7 @@ export default async function userLogOut() {
     const response = await fetch(url, {
         'credentials': 'include',
         'crossDomain': true,
-        'method': 'POST',
+        'method': 'GET',
         'headers': { 'Content-Type': 'application/json' },
     });
     const resp = await response.json();

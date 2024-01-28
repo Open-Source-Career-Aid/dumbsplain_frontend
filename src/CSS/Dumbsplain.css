@@ -161,13 +161,97 @@
     margin-left: 5%;
 }
 
+.loginbuttonlight {
+    background-image: url('../../public/login_light.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.logoutbuttonlight {
+    background-image: url('../../public/logout_light.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.loginbuttondark {
+    background-image: url('../../public/login_dark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.logoutbuttondark {
+    background-image: url('../../public/logout_dark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
 .leaderboard {
     background-image: url('../../public/leaderboard.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     height: 50px;
-    width: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.logoutbuttonlight {
+    background-image: url('../../public/logout_light.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.loginbuttondark {
+    background-image: url('../../public/login_dark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.logoutbuttondark {
+    background-image: url('../../public/logout_dark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
     cursor: pointer;
     padding: 0;
     margin-left: 5%;

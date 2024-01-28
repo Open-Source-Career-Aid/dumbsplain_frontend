@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
@@ -6,14 +6,16 @@ import checkUserName from '../Functions/checkUsername';
 import signUp from '../Functions/signUp';
 import userLogin from '../Functions/userLogin';
 import "../CSS/SignupPage.css";
+import UserContext from '../userContext';
 
-export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
+export default function SignupPage() {
     // test for checkUsername function
     // console.log("should be false");
     // console.log(checkUserName("18992"));
     // console.log("should be true");
     // console.log(checkUserName("mygay10"));
 
+    const { user, setUser } = useContext(UserContext);
 
     // state for different logins, confetti, and success page
     const [showLanding, setShowLanding] = useState(true)
@@ -65,7 +67,7 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
 
     const handleDumbsplain = () => {
         navigate('/')
-        console.log('navigate home')
+        console.log(user)
     }
 
     // password validation
@@ -161,7 +163,10 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
         if (usernameValid && validEmail && validEduEmail && passwordValid && passwordsMatch) {
             signUp(eduFormData.username, eduFormData.password, eduFormData.email)
             userLogin(eduFormData.username, eduFormData.password)
-            setUserLoggedIn(true)
+            setUser({
+                username: eduFormData.username,
+                email: eduFormData.email,
+            })
             setShowEdu(false)
             setShowOtherSignup(false)
             setSignUpSuccess(true)
@@ -220,7 +225,10 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
         if (usernameValid && validEmail && passwordValid && passwordsMatch) {
             signUp(otherFormData.username, otherFormData.password, otherFormData.email)
             userLogin(otherFormData.username, otherFormData.password)
-            setUserLoggedIn(true)
+            setUser({
+                username: otherFormData.username,
+                email: otherFormData.email,
+            })
             setShowOtherSignup(false)
             setSignUpSuccess(true)
             setConfetti(true)
@@ -417,6 +425,9 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
                     <div>
                         {signupError && (<p className="tw-text-2xs tw-text-red-500">There was an error with your signup.</p>)}
                     </div>
+                    <div className="tw-flex tw-flex-col tw-mb-1">
+                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-14 tw-ml-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
+                    </div>
                 </form>
                 {/* <div className="tw-flex tw-items-center tw-mb-4 tw-my-2">
                     <hr className="tw-flex-grow tw-border-t tw-border-neutral_300"/>
@@ -427,9 +438,6 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg tw-w-full">google sign up here</button>
                     <button className="tw-mb-2 tw-border tw-border-neutral_300 tw-rounded-lg">facebook sign up here</button>
                 </div> */}
-                <div className="tw-w-full">
-                        <button className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200" onClick={handleBack}>Back</button>
-                </div>
             </div>
         </div>
     )
@@ -437,7 +445,7 @@ export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
     if(signUpSuccess) return (
         <div>
             <h1 className="tw-font-bold tw-text-center tw-mb-6 tw-mt-8">
-                Thank you for signing up!
+                Thank you for signing up, {user.username}!
             </h1>
             <button className="tw-rounded-xl tw-bg-white hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200 tw-border-2 tw-border-blue_400 tw-w-full tw-lg:w-auto">
                 Go to profile

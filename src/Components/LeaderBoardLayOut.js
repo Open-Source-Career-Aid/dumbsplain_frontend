@@ -56,7 +56,6 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
             return  new Map(Object.entries(res["data"][LITERAL[mode-1]]));
         }
         else {
-            leaderBoardData.current = college
             return college;
         }
       

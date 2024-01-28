@@ -1,4 +1,5 @@
 import { Route , Routes } from "react-router-dom";
+import SignupPage from "./Components/SignupPage";
 import Dumbsplain from "./Pages/Dumbsplain";
 import "./CSS/App.css";
 import Test from "./Pages/Test";
@@ -6,7 +7,7 @@ import React, { useState } from "react";
 import ReactGA4 from 'react-ga4';
 import { GTAG } from "./config";
 import DumbsplainError from "./Pages/Error";
-import SignupPage from "./Components/SignupPage";
+
 
 function App() {
 

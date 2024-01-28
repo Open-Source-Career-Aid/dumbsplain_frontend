@@ -9,6 +9,20 @@
     --week: #703C8F;
     --today: #2B4690;
     --streak:#DE8958;
+    --bar: #ABB0C2;
+    --header: #F86E42;
+    --msgDark: #39466E;
+    --msgLight: #ECEEF3;
+    --signUpLight: #4C7BFE;
+    --signUpDark: #769AFE;
+    --playerLight:#D8DBE6;
+    --playerDark: #39466E;
+    --playerColorLight: #4C7BFE;
+    --playerColorDark: #769AFE;
+    /* --signUpDark: #4C7BFE; */
+
+
+
 }
 div#LeaderBoardNav{
     width: 100%;
@@ -23,12 +37,12 @@ div#LeaderBoardNav{
 div#LeaderBoardBody{
     width: 100%;
     height: 80%;
-    border-radius: 13% 13% 0px 0px;
+    /* border-radius: 13% 13% 0px 0px; */
     overflow: hidden;
     display: flex;
     flex-flow: column nowrap;
     font-size: .5em;
-    color: #FFFFFF;    
+    /* color: #FFFFFF;     */
 }
 h1#title {
     color: #4C7BFE;
@@ -73,6 +87,8 @@ nav#LeaderBoardMenu{
     height: 60%;
     display: flex;
     align-items: flex-start;
+    justify-content: space-evenly;
+    width: 100%;
 }
 
 .Leadericons {
@@ -89,31 +105,40 @@ nav#LeaderBoardMenu{
 section#university, section#DQ, section#rank {
     font-size: .4em;
     text-align: center;
-    margin: auto;
+    margin: auto 0;
     font-weight: bold;
   }
 
   div#contentHeader, div.contentBody {
     display: flex;
-    justify-content: space-around;
-    align-content: flex-end;
-    
+    justify-content: space-between;
+    /* align-content: flex-end; */
+    border-bottom: thin solid var(--bar);
+    padding: .5em .2em;
   }
 
 div#contentHeader {
-    height: 5%;
+    height: 10%;
+    font-size: 1.5em;
+    color: var(--header);
+    /* padding: .5em 0; */
+    /* width: 100%; */
 }
 
-div.contentBody {
-    background-color: rgba(255, 255, 255, .4);
-    border-radius: 40px;
+div.contentBody[data-mode="light"] {
+    background-color: var(--light);
+    /* border-radius: 40px;
     width: 75%;
     height: 15%;
-    margin: .2em auto;
+    margin: .2em auto; */
+}
+div.contentBody[data-mode="dark"] {
+    background-color: var(--dark);
+
 }
 article.leaderCard  {
     font-size: .5em;
-    color: hsl(0, 0%, 0%);
+    /* color: hsl(0, 0%, 0%); */
     font-weight: 700;
 }
 article.leaderCard.rank, article.leaderCard.dq {
@@ -123,9 +148,11 @@ article.leaderCard.rank, article.leaderCard.dq {
 article.leaderCard.university {
     width: 85%;
     align-self: center;
+    padding: .5em 0;
 }
 article.leaderCard.rank{
-    width: 10%
+    width: 10%;
+    height: 200%;
 }
 
 article.leaderCard.dq{
@@ -142,8 +169,8 @@ article.rank {
     justify-content: flex-end;
 }
 article.university > img.LeaderIcons {
-    width: 40%;
-    height: 40%;
+    width: 15%;
+    /* height: 40%; */
     padding: .1em;
 }
 article.university > span.LeaderLabel {
@@ -207,9 +234,29 @@ div#LeaderBoardBody[data-bg="week"]  {
 div#LeaderBoardBody[data-bg="allTime"]  {
     background-color: var(--streak);
 } */
-.contentBody.active {
-    background-color: white;
-    color:#2B4690;
+div.contentBody[data-mode="light"] {
+    background-color: var(--light);
+}
+div.contentBody[data-mode="dark"] {
+    background-color: var(--dark);
+}
+.contentBody.currentPlayer {
+    order: 1;
+}
+
+.contentBody.currentPlayer[data-mode="light"] {
+    background-color: var(--playerLight);
+    color: var(--playerColorLight);
+}
+
+.contentBody.currentPlayer[data-mode="dark"] {
+    background-color: var(--playerDark);
+    color: var(--playerColorDark);
+}
+div.contentBody {
+    width:fit-content;
+    overflow: hidden;
+    /* height: 15%; */
 }
 
 a.active{
@@ -221,5 +268,117 @@ a.inactive{
 
 #toggleBtn {
     display: flex;
-    width: 25%;
 }
+div#LeaderBoardNav, div#LeaderBoardBody {
+    padding: 0;
+}
+
+/* #topMargin{
+    border: thin solid var(--bar);
+} */
+
+div.signup-overlay {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .25rem;
+    padding: 0;
+    height: 20%;
+    /* z-index: -1; */
+} */
+
+div#para-btn {
+    width: 70%;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+aside#btn-container {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+button.sign-btn  {
+    border: thin solid var(--bar);
+    border-radius: 15px;
+    text-align: center;
+    padding: 1em;
+    text-align: center;
+    font-size: .25em;
+    font-weight: bold;
+    width: 25%;
+    height: 20%;
+}
+
+.msgdark {
+    background-color: var(--msgDark);
+    color: var(--light);
+}
+
+.msglight {
+    background-color: var(--msgLight);
+    color: var(--dark);
+}
+p#btn-para{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    font-weight: bold;
+    width: 65%;
+    text-align: center;
+    align-self: center;
+
+
+}
+
+.contentBody[data-mode= "light"] {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.contentBody[data-mode= "dark"] {
+    background-color: var(--dark);
+    color: var(--light);
+} */
+div.signup-overlay {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 20%;
+    font-size: .25rem;
+    z-index: 1000; /* Make sure it's above other elements if needed */
+  }
+  
+  .close-msg-overlay {
+    font-size: 40px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+button.yes[data-mode="light"] {
+    background-color: var(--signUpLight);
+  }
+.yes[data-mode="dark"] {
+        background-color: var(--signUpDark);
+    }
+
+.contentBody.currentPlayer{
+    position: fixed;
+    bottom: 10px;
+    width: 95%;
+    height: 5%;
+    border-radius: 25px;
+    margin: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+

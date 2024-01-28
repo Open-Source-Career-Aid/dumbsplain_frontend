@@ -22,7 +22,7 @@ import EmojiSlider from "../Components/EmojiSlide";
 import ReactGA4 from 'react-ga4';
 import TopicOverlay from '../Components/TopicOverlay';
 import getTheme from '../Functions/getTheme';
-import LeaderBoard from '../Components/LeaderBoard';
+import LeaderBoardLayOut from '../Components/LeaderBoardLayOut';
 import LoginOverlay from '../Components/LoginOverlay';
 import userLogOut from '../Functions/userLogOut';
 
@@ -567,6 +567,23 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
 
             scoreModal ? setScoreModal(false) : setScoreModal(true);
             break;
+            case 'stats':
+            if (leaderboardoverlay === false) {
+                ReactGA4.event({
+                    action: 'Stats Overlay Click Open',
+                    category: 'Stats Overlay',
+                    label: 'Click Stats Open',
+                    });
+            }
+            else {
+                ReactGA4.event({
+                    action: 'Stats Overlay Click Close',
+                    category: 'Stats Overlay',
+                    label: 'Click Stats Close',
+                    });
+            }
+            leaderboardoverlay ? setLeaderboardoverlay(false) : setLeaderboardoverlay(true);
+            break;
             default: console.log(e.target,"");
             // LIZA: would like to put the login & logout overlay here but don't want to mess up the code here
         }
@@ -863,10 +880,11 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
             score={score}
             setScore={setScore}
             />
-            <LeaderBoard
+            <LeaderBoardLayOut
             overlaybool={leaderboardoverlay}
             setOverlaybool={setLeaderboardoverlay}
             theme={theme}
+            setShowLoginOverlay={setShowLoginOverlay}
             />
             <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} setSub={setSub} />
             <section className='headersection'
@@ -909,7 +927,7 @@ function Dumbsplain( { theme , setTheme, userLoggedIn, setUserLoggedIn } ) {
                         <svg className='infobutton' onClick={handleOverlay} data-overlay="info"></svg>
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
-                        {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
+                        <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg>
                         { !userLoggedIn ? <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button> : <button onClick={handleLogout} className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-2 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button> }
                         {/* liza working */}
                     </div>

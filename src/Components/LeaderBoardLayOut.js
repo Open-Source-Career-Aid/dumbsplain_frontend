@@ -12,65 +12,47 @@ import ReactGA4 from 'react-ga4';
 import checkForStaleData from '../Functions/cacheData';
 import { set } from 'react-ga';
 import userAvatarLevel from '../Functions/userAvatarLevel';
+import isLoggedIn from '../Functions/isLoggedIn';
 
 // dummy data for the leaderboard with harvard as university name and 4 as score
 const player = new Map([
-    [0, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [1, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [2, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [3, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [4, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [5, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }]
+    [0, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [1, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [2, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [3, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [4, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [5, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }]
 ]);
 
 const college = new Map([
-    [0, { label: 'Harvard University', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [1, { label: 'Harvard University', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [2, { label: 'Harvard University', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }],
-    [3, { label: 'Harvard University', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Harvard_University_shield.png' }]
+    [0, { label: 'Dumbsplain University', dq: 5.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [1, { label: 'Dumbsplain University', dq: 4.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [2, { label: 'Dumbsplain University', dq: 3.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+    [3, { label: 'Dumbsplain University', dq: 2.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }]
 ]);
-console.log(player.get(0));
 
 
-export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, theme}) {
+export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, theme, setShowLoginOverlay}) {
     const [cardscale, setCardscale] = useState(0.1);
     const [startTime, setStartTime] = useState(null);
     const [toggleMode, setToggleMode] = useState(false);
     const [changeBgTheme, setChangeBgTheme] = useState("today");
     const [boardType, setBoardType] = useState(1);
-    const [displayBoard, setDisplayBoard] = useState(null);
+    const displayBoard = {"current": null};
     const displayBoard2 = useRef(null);
+    let displayBoard3 = null;
     const forceUpdate = useForceUpdate();
-    const leaderBoardData = useRef(null);
+    // const isLogged = (async () => await isLoggedIn())(); 
+    const [isLoggedInBool, setisLoggedInBool] = useState(false);
+    const [leaderBoardData, setLeaderBoardData] = useState(null);
 
     const selectLeaderBoard = async function(mode = 1, type = +toggleMode) {
         // returns the correct leaderboard based on the toggleMode
         // const data = await getLeaderBoard(+toggleMode);
         const LITERAL = ['daily', 'weekly', 'lifetime'];
-        // if (!(leaderBoardData.current === null || leaderBoardData.current === undefined)) {
-        //     console.log(LITERAL[mode-1], type);
-        //     if (type === 1) {
-        //         const res = await getLeaderBoard(type);
-        //         // retrieve the correct data from the response
-        //         console.log(res["data"][LITERAL[mode-1]]);
-        //         leaderBoardData.current = res["data"];
-        //         return  new Map(Object.entries(res["data"][LITERAL[mode-1]]));
-        //     }
-        //     else {
-        //         leaderBoardData.current = college
-        //         return college;
-        //     }
-        // }
-        // else {
-        //     console.group('LeaderBoard Data', leaderBoardData.current);
-        //     return leaderBoardData.current[LITERAL[mode-1]];
-        // }
-        console.log(type);
         if (type === 0) {
             const res = await getLeaderBoard(type);
             // retrieve the correct data from the response
-            console.log(res["data"][LITERAL[mode-1]]);
-            leaderBoardData.current = res["data"];
             return  new Map(Object.entries(res["data"][LITERAL[mode-1]]));
         }
         else {
@@ -84,12 +66,12 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         try {
             // await the data from the server
             // const data = await getLeaderBoard(type);
-            console.log('displayLeaderBoard', mode, type);
+            // console.log('displayLeaderBoard', mode, type);
             const data = await selectLeaderBoard(mode, type);
-
+            // console.log(data);
             // check if promise has been resolved
             // on error throw an error
-            if (data.size === 0 || data === undefined) {
+            if (data.size === 0 || data === undefined || data === null) {
                 throw new Error('LeaderBoard Data is Empty');
             }
             // if data is not empty, display the data
@@ -108,13 +90,12 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                         return 'th';
                     }
                 }
-        
-                console.log(data);
+
                 // iterate through map object and return the data in the format above
                 return [...data.entries()].map((item, index) => {
                     return (
-                        <div key={index} className={`contentBody ${item[1].selected ? 'active': ''}`} id={`${index}`}>
-                            <article className={`leaderCard rank ${index + 1 === 1 ? 'first': index + 1 === 2 ? 'second' : index + 1 === 3 ? 'third' : ''}`} id={`${index}`}>   {index+1}<sup>{subScript(index + 1)}</sup> </article>
+                        <div key={index} className={`contentBody ${item[1].selected ? 'currentPlayer': ''}`} id={`${index}`} data-mode= {theme === "light" ? "light" : "dark"}>
+                            <article className={`leaderCard rank ${item[1].rank === 1 ? 'first': item[1].rank === 2 ? 'second' : item[1].rank === 3 ? 'third' : ''}`} id={`${item[1].rank}`}>   {item[1].rank}<sup>{subScript(item[1].rank)}</sup> </article>
                             <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={userAvatarLevel(item[1].dq)}/> <span className='LeaderLabel'>{item[1].label}</span></article>
                             <article className="leaderCard dq" id={`${index}`}>{item[1].dq}</article>
                         </div>
@@ -123,24 +104,25 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
               
 
          } catch (error) {
-                console.log(error);
+                // console.log(error);
                 return (
                     <div className='errorInfoBox' style={{color: 'red', fontSize: '1.5em', 
                     fontWeight: 'bold', textAlign: 'center', padding: '10px'}}> 
-                    🤖... Error displaying LeaderBoard; please try reloading page. 
+                  🤖... No ranking avaliabe be the first to play and get ranked! 
                 </div>);
                 }
     };
 
-    // default data to be displayed
-    if (overlaybool === true) (async () => { 
-        displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode));
-        // update reactDOM once the data has been fetched
-
-    })();
+    // // default data to be displayed
+    // if (overlaybool === true) (async () => { 
+    //     displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode));
+    //     // update reactDOM once the data has been fetched
+    //     
+        
+    // })();
 
     
-    console.log(toggleMode);
+    // console.log(toggleMode);
     const handleWindowResize = () => {
 
         if (window.innerHeight < 620) {
@@ -185,37 +167,22 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
             window.removeEventListener('resize', handleWindowResize);
         };
 
+
     // eslint-disable-next-line
     }, []);
 
     useEffect( () => {
         try {
-            // check if data is in client side cache and age is less than 1 hour
-
-            // if (typeof (Storage) !== "undefined") {
-            //     console.log('Data is stale, fetching new data');
-            //     const lastFetched = typeof Number(localStorage.getItem('lastFetched')) === Number ? Number(localStorage.getItem('lastFetched')) : 0;
-            //     const isStaleData = checkForStaleData(Date.now(), lastFetched);
-            //     const cachedMode = typeof  localStorage.getItem(`boardType${+toggleMode}`) === "string" ? +(localStorage.getItem(`boardType${+toggleMode}`)) : toggleMode;
-            //     if (isStaleData ) {
-            //         // fetch new data todos
-
-            //     }
-            //     else{
-            //         // use cached data
-            //         setBoardType(cachedMode);
-            //         displayBoard2.current = displayLeaderBoard(boardType, cachedMode);
-            //     }
-            // }
    
             (async () => {  
-                displayBoard2.current = (await displayLeaderBoard(boardType, +toggleMode))
+                // (await displayLeaderBoard(boardType, +toggleMode))
                 // update reactDOM once the data has been fetched
                 forceUpdate();
             })();
  
         } catch (error) {
-            console.log(error);
+            // console.log(error);
+            return
         }
 
     }, [toggleMode, boardType]);
@@ -229,8 +196,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     const closeOverlay = (e) => {
         e.preventDefault();
-        console.log(e.target.parentNode);
-
+        // console.log(e.target.parentNode);
         ReactGA4.event({
             action: 'Info Overlay Click Close',
             category: 'Info Overlay',
@@ -241,9 +207,36 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         setOverlaybool(false);
     }
 
+    useEffect( () => {
+        async function fetchUser () { 
+            try { 
+                let res;
+                res = await isLoggedIn(); 
+                // console.log(res.is_user);
+                setisLoggedInBool(res.is_user);
+            } catch (error) { 
+                setisLoggedInBool(false);
+        }
+    }
+    fetchUser();
+    }
+    , []);
+
+    useEffect( () => {
+        async function fetchLeaderBoard () { 
+            const resp = await displayLeaderBoard(boardType, +toggleMode);
+            setLeaderBoardData(resp);
+            forceUpdate();
+
+        }
+        fetchLeaderBoard();
+        // setLeaderBoardData(data);
+    }, [boardType, toggleMode, isLoggedInBool, theme]);
+
+    
     const LeaderBoardToggle = (e) => {
         e.preventDefault();
-        console.log(e.target.parentNode, boardType);
+        // console.log(e.target.parentNode, boardType);
         setToggleMode(!toggleMode);
         handleButtonClick(boardType, changeBgTheme, e);
     }
@@ -263,23 +256,55 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         }
     }
 
-    console.log(theme, displayBoard2.current);
     const currentMode = theme === "light" ? 'mode lightMode' : 'mode darkMode';
-
-
     const handleButtonClick = async (mode = 1, bg = "today", e) => {
         e.preventDefault();
         setChangeBgTheme(bg);
         setBoardType(mode);
         // Update the displayBoard2 ref based on the new mode and boardType
-        displayBoard2.current = await displayLeaderBoard(boardType, +toggleMode);
         forceUpdate();
     }
+
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        const value = e.target.value;
+        switch (value) {
+            case 'true':
+                // hide the overlay
+                setOverlaybool(false);
+                setShowLoginOverlay(true);
+                break;
+            case 'false':
+                // redirect to signup page
+                window.location.href = '/signup';
+                break;
+            default:
+                break;
+        }
+    }
+
+    const signUpMsgBox = () => {
+        return (
+            <div className={`signup-overlay ${theme === 'light' ? 'msglight' : 'msgdark' }`} >
+                <div class="close-msg-overlay" onClick={(e) => { e.preventDefault();
+                    setisLoggedInBool(true); 
+                    ReactGA4.event({
+                        action: 'SignUp Message Overlay Click Close',
+                        category: 'Signup Message Overlay',
+                        label: 'Click Signup Closed for Anonymous User',
+                        value: new Date().getTime() - startTime,
+                        });
+                     }}>&times;</div>
+                <p id='btn-para'>Only logged players can view their rankings. <br/> Are 🫵 a registred player?</p> <aside id='btn-container'><button className='sign-btn no' value={false} onClick={handleSignUp} >NO</button> <button className="sign-btn yes" data-mode={`${theme === 'light' ? 'light' : 'dark' }`} value={true} onClick={handleSignUp} >Yes</button></aside>
+            </div>
+        );
+    }
     
+    
+
     return(
         <div className={overlaybool ? "modal-overlay" : "modal-overlay-off" } onClick={handleLevelOverlayClick}>
             <div className={'modal-content '}   data-theme={theme}
-
             style={{
                 overflow: 'hidden',
                 scale: `${cardscale}`,
@@ -298,13 +323,19 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     width: '100%',
                     scale: '1.07',
                 }}/> */}
+                 <span className='closeOverlay' onClick={closeOverlay} style={{
+                    position: 'relative',
+                    margin: '0 .5em 0 0',
+                    color: theme === "light" ? '#000' : '#fff',
+                    overflow: 'visible',
+                 }} >&times;</span>
                 <div id="LeaderBoardNav" className={theme === "light" ? 'light' : 'dark'}>
                     <h1 id="title">{ !toggleMode ? 'Player':'College'} LeaderBoard </h1>
                     <nav id='LeaderBoardMenu' >
                         <a className={currentMode} onClick={LeaderBoardToggle} id="toggleBtn">
-                            <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {toggleMode  ? 'playerRank' : ''}/> 
-                            <Divider className="Leadericons" width="23px" height="19px" fill={toggleMode ? "#000" : "#FFF"} />
-                            <CollegeIcon className='Leadericons' width="20px" height="20px" fill={toggleMode ? "#000" : "#FFF"} title='Top DQ College Ranks' id= {toggleMode === false ? 'collegeRank' : ''} />
+                            <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={!toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {!toggleMode  ? 'playerRank' : ''}/> 
+                            <Divider className="Leadericons" width="23px" height="19px" fill={!toggleMode ? "#000" : "#FFF"} />
+                            <CollegeIcon className='Leadericons' width="20px" height="20px" fill={!toggleMode ? "#000" : "#FFF"} title='Top DQ College Ranks' id= {!toggleMode === false ? 'collegeRank' : ''} />
                         </a>
                         <a className={`${currentMode} ${boardType === 1 ? 'active': 'inactive'}`} href='#' onClick={(e) => handleButtonClick(1,'today', e)} title='shows leaderboard today ranks'> Today </a>
                         <a className={`${currentMode} ${boardType === 2 ? 'active': 'inactive'}`}href='#' onClick={(e) => handleButtonClick(2, 'week', e)} title='show leaderboard ranks for current week'> This Week </a>
@@ -314,13 +345,15 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 {/* add datalist to leaderboardbody */}
                 
 
-                <div id="LeaderBoardBody" data-bg={changeBgTheme} >
+                <div id="LeaderBoardBody" className={`${theme === "light" ? 'light' : 'dark'}`} data-bg={changeBgTheme} >
                     <div id='contentHeader'>
                         <section id="rank">RANK</section>
-                        <section id="university">{ toggleMode ? 'PLAYER':'COLLEGE'}</section>
+                        <section id="university">{ !toggleMode ? 'PLAYER':'COLLEGE'}</section>
                         <section id="DQ">DQ</section>
                     </div>
-                    {displayBoard2.current}
+                    {leaderBoardData}
+                    {isLoggedInBool ? null: signUpMsgBox() }
+
                 </div>
             </div>
         </div>

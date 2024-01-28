@@ -5,7 +5,7 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import checkUserName from '../Functions/checkUsername';
 import signUp from '../Functions/signUp';
 import userLogin from '../Functions/userLogin';
-import "../CSS/SignupPage.css"
+import "../CSS/SignupPage.css";
 
 export default function SignupPage( { userLoggedIn, setUserLoggedIn} ) {
     // test for checkUsername function

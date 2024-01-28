@@ -926,10 +926,17 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         {/* <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg> */}
-                        { user ? (
-                            <button onClick={handleLogoutOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">logout</button>
-                            ) : (
-                            <button onClick={handleLoginOverlay} className="tw-my-2 tw-rounded-xl tw-border tw-w-12 tw-text-2xs tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200">login</button>)}
+                        {user ? (
+                            <svg
+                                onClick={handleLogoutOverlay}
+                                className={theme === 'light' ? 'logoutbuttonlight' : 'logoutbuttondark'}
+                            ></svg>
+                        ) : (
+                            <svg
+                                onClick={handleLoginOverlay}
+                                className={theme === 'light' ? 'loginbuttonlight' : 'loginbuttondark'}
+                            ></svg>
+                        )}
                         {/* liza working */}
                     </div>
                 </div>

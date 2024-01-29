@@ -928,11 +928,6 @@ and (min-width: 768px) {
         position: relative;
     }
 
-    .dumbnesslevel {
-        display: none;
-    }
-
-
     .dumbnesslevels {
         display: flex;
         flex-direction: row;
@@ -943,12 +938,24 @@ and (min-width: 768px) {
         flex-wrap: wrap;
     }
 
+    .dumbnesslevel {
+        display: none;
+    }
+
     .dumbnesslevel:hover {
         background: #4C7BFE;
     }
 
     .dumbnesslevel.selected {
         background: #4C7BFE;
+    }
+
+    .avatarlabel {
+        position: absolute;
+        z-index: 5000;
+        bottom: 6%;
+        padding: 5% 0;
+        font-size: 10px;
     }
 
     .avatar1 {
@@ -1067,14 +1074,6 @@ and (min-width: 768px) {
 
     .carouselelementscontainer.block {
         pointer-events: none;
-    }
-
-    .avatarlabel {
-        position: absolute;
-        z-index: 5000;
-        bottom: 6%;
-        padding: 5% 0;
-        font-size: 10px;
     }
 }
 
@@ -1210,31 +1209,31 @@ and (min-width: 576px) {
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin: 0;
         width: 100%;
         margin-bottom: .625em;
         flex-wrap: wrap;
     }
 
     .dumbnesslevel {
-        width: 2em;
-        height: 2em;
-        /* flex-basis: 2em; */
-    }
-
-    .avatarlabel {
-        position: absolute;
-        z-index: 5000;
-        bottom: 6%;
-        padding: 5% 0;
-        font-size: 10px;
+        width: 1.7em;
+        height: 1.7em;
     }
 
     .dumbnesslevel:hover {
         background: #4C7BFE;
     }
-
+    
     .dumbnesslevel.selected {
         background: #4C7BFE;
+    }
+    
+    .avatarlabel {
+        position: relative;
+        z-index: 5000;
+        top: 40%;
+        padding: 5% 0;
+        font-size: 10px;
     }
 
     .avatar1 {
@@ -1345,16 +1344,12 @@ and (min-width: 576px) {
     } */
 
     .submithintbuttons {
-        scale: 0.7;
+        scale: 0.8;
     }
 
     .buttoncontainer {
         margin: 0;
         scale: 0.7;
-    }
-
-    .dumbnesslevels {
-        margin: 0;
     }
 }
 /* Smart Phone - Mobile Responsiveness */

@@ -93,34 +93,34 @@
 .utilitybuttons {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 0;
     height: 100%;
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 100px;
+    max-width: 300px;
     overflow: hidden;
 }
 
 .lightmode {
-    background-image: url('../../public/lightmode.png');
+    background-image: url('../../public/lightmode.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     height: 50px;
-    width: 90px;
+    width: 160px;
     cursor: pointer;
     padding: 0;
     margin-left: 5%;
 }
 
 .darkmode {
-    background-image: url('../../public/darkmode.png');
+    background-image: url('../../public/darkmode.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     height: 50px;
-    width: 90px;
+    width: 160px;
     cursor: pointer;
     padding: 0;
     margin-left: 5%;
@@ -128,54 +128,6 @@
 
 .infobutton {
     background-image: url('../../public/i.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    height: 50px;
-    width: 50px;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 5%;
-}
-
-.loginbuttonlight {
-    background-image: url('../../public/login_light.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    height: 50px;
-    width: 90px;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 5%;
-}
-
-.logoutbuttonlight {
-    background-image: url('../../public/logout_light.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    height: 50px;
-    width: 90px;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 5%;
-}
-
-.loginbuttondark {
-    background-image: url('../../public/login_dark.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    height: 50px;
-    width: 90px;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 5%;
-}
-
-.logoutbuttondark {
-    background-image: url('../../public/logout_dark.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -198,8 +150,38 @@
     margin-left: 5%;
 }
 
+.leaderboard.blocked {
+    filter: grayscale(100%);
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.statsbutton {
+    background-image: url('../../public/RankBoardButton.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.loginbuttonlight {
+    background-image: url('../../public/login_light.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
 .logoutbuttonlight {
-    background-image: url('../../public/logout_light.png');
+    background-image: url('../../public/logout_light.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -211,7 +193,7 @@
 }
 
 .loginbuttondark {
-    background-image: url('../../public/login_dark.png');
+    background-image: url('../../public/login_dark.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -223,7 +205,7 @@
 }
 
 .logoutbuttondark {
-    background-image: url('../../public/logout_dark.png');
+    background-image: url('../../public/logout_dark.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -234,22 +216,40 @@
     margin-left: 5%;
 }
 
-.statsbutton {
-    background-image: url('../../public/RankBoardButton.svg');
+.logoutbuttonlight {
+    background-image: url('../../public/logout_light.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     height: 50px;
-    width: 50px;
+    width: 90px;
     cursor: pointer;
     padding: 0;
     margin-left: 5%;
 }
 
-.leaderboard.blocked {
-    filter: grayscale(100%);
-    opacity: 0.8;
-    cursor: not-allowed;
+.loginbuttondark {
+    background-image: url('../../public/login_dark.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
+}
+
+.logoutbuttondark {
+    background-image: url('../../public/logout_dark.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 50px;
+    width: 90px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 5%;
 }
 
 .totd {

@@ -32,7 +32,7 @@ const college = new Map([
 ]);
 
 
-export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, theme, setShowLoginOverlay}) {
+export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, theme, setShowLoginOverlay, user}) {
     const [cardscale, setCardscale] = useState(0.1);
     const [startTime, setStartTime] = useState(null);
     const [toggleMode, setToggleMode] = useState(false);
@@ -219,7 +219,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     }
     fetchUser();
     }
-    , []);
+    , [user, isLoggedInBool]);
 
     useEffect( () => {
         async function fetchLeaderBoard () { 
@@ -230,7 +230,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         }
         fetchLeaderBoard();
         // setLeaderBoardData(data);
-    }, [boardType, toggleMode, isLoggedInBool, theme]);
+    }, [boardType, toggleMode, isLoggedInBool, theme, user]);
 
     
     const LeaderBoardToggle = (e) => {
@@ -286,7 +286,10 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         return (
             <div className={`signup-overlay ${theme === 'light' ? 'msglight' : 'msgdark' }`} >
                 <div class="close-msg-overlay" onClick={(e) => { e.preventDefault();
-                    setisLoggedInBool(true); 
+                    // set the display to none
+                    const msg = document.getElementsByClassName('signup-overlay')[0];
+                    msg.style.display = 'none';
+                    console.log(isLoggedInBool, "is logged in");
                     ReactGA4.event({
                         action: 'SignUp Message Overlay Click Close',
                         category: 'Signup Message Overlay',
@@ -298,6 +301,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
             </div>
         );
     }
+  
     
     
 
@@ -329,7 +333,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     overflow: 'visible',
                  }} >&times;</span>
                 <div id="LeaderBoardNav" className={theme === "light" ? 'light' : 'dark'}>
-                    <h1 id="title">{ !toggleMode ? 'Player':'College'} LeaderBoard </h1>
+                    <h1 id="title">{ !toggleMode ? 'Player':'College'} Leaderboard </h1>
                     <nav id='LeaderBoardMenu' >
                         <a className={currentMode} onClick={LeaderBoardToggle} id="toggleBtn">
                             <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={!toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {!toggleMode  ? 'playerRank' : ''}/> 
@@ -351,7 +355,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                         <section id="DQ">DQ</section>
                     </div>
                     {leaderBoardData}
-                    {isLoggedInBool ? null: signUpMsgBox() }
+                    {isLoggedInBool ? null : signUpMsgBox() }
 
                 </div>
             </div>

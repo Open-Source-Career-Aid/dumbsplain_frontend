@@ -27,6 +27,8 @@ import LoginOverlay from '../Components/LoginOverlay';
 import LogoutOverlay from '../Components/LogoutOverlay';
 import userLogOut from '../Functions/userLogOut';
 import UserContext from '../userContext';
+import isLoggedIn from '../Functions/isLoggedIn';
+import { set } from 'react-ga';
 
 function Dumbsplain( { theme , setTheme } ) {
     // useContext to grab user data and creating setUser function for future use
@@ -92,8 +94,9 @@ function Dumbsplain( { theme , setTheme } ) {
     const [leaderboardoverlay, setLeaderboardoverlay] = React.useState(false);
 
     // login & logout overlay state - liza working
-    const [showLoginOverlay, setShowLoginOverlay] = React.useState(false)
-    const [showLogoutOverlay, setShowLogoutOverlay] = React.useState(false)
+    const [showLoginOverlay, setShowLoginOverlay] = React.useState(false);
+    const [showLogoutOverlay, setShowLogoutOverlay] = React.useState(false);
+    const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
 
     async function findcurrentTime() {
         let date = new Date();
@@ -182,6 +185,20 @@ function Dumbsplain( { theme , setTheme } ) {
         setGamestarted(true);
     // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        async function fetchUser() {
+            const user = await isLoggedIn();
+            setIsUserLoggedIn(user.is_user);
+        } 
+        fetchUser();
+        // if (isUserLoggedIn && showLoginOverlay) {
+        //     setShowLogoutOverlay(true);
+        // }
+        // else if (isUserLoggedIn && showLogoutOverlay) {
+        //     setShowLoginOverlay(true);
+        // }
+    }, [showLoginOverlay, showLogoutOverlay]);
 
     useEffect(() => {
 
@@ -600,11 +617,15 @@ function Dumbsplain( { theme , setTheme } ) {
 
     // liza working
     const handleLoginOverlay = () => {
-        setShowLoginOverlay(true)
+            setShowLoginOverlay(true);
+        
     }
 
     const handleLogoutOverlay = () => {
+        console.log('logout overlay clicked', isUserLoggedIn)
         setShowLogoutOverlay(true)
+
+        user ? setIsUserLoggedIn(false) : setIsUserLoggedIn(true)
     }
 
     const handleLogout = () => {
@@ -901,6 +922,7 @@ function Dumbsplain( { theme , setTheme } ) {
             setOverlaybool={setLeaderboardoverlay}
             theme={theme}
             setShowLoginOverlay={setShowLoginOverlay}
+            user={user}
             />
             <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} setSub={setSub} />
             <section className='headersection'
@@ -944,7 +966,7 @@ function Dumbsplain( { theme , setTheme } ) {
                         <svg className={'leaderboard' + ( !gameended ? ' blocked' : '' )}
                         onClick={handleOverlay} data-overlay="score"></svg>
                         <svg className='statsbutton' onClick={handleStats} data-overlay="stats"></svg>
-                        {user ? (
+                        {(user || isUserLoggedIn) ? (
                             <svg
                                 onClick={handleLogoutOverlay}
                                 className={theme === 'light' ? 'logoutbuttonlight' : 'logoutbuttondark'}

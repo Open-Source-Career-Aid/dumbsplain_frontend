@@ -333,7 +333,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     overflow: 'visible',
                  }} >&times;</span>
                 <div id="LeaderBoardNav" className={theme === "light" ? 'light' : 'dark'}>
-                    <h1 id="title">{ !toggleMode ? 'Player':'College'} LeaderBoard </h1>
+                    <h1 id="title">{ !toggleMode ? 'Player':'College'} Leaderboard </h1>
                     <nav id='LeaderBoardMenu' >
                         <a className={currentMode} onClick={LeaderBoardToggle} id="toggleBtn">
                             <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={!toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {!toggleMode  ? 'playerRank' : ''}/> 

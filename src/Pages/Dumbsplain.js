@@ -844,11 +844,11 @@ function Dumbsplain( { theme , setTheme } ) {
             score={score}
             setScore={setScore}
             />
-            <LeaderBoard
+            {/* <LeaderBoard
             overlaybool={leaderboardoverlay}
             setOverlaybool={setLeaderboardoverlay}
             theme={theme}
-            />
+            /> */}
             <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} setSub={setSub} />
             <section className='headersection'
             style={{

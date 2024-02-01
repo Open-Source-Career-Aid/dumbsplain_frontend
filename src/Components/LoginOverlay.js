@@ -84,9 +84,9 @@ export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay, th
         <div>
           <form onSubmit={handleLogin}>
             <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
-              <label className="tw-font-bold tw-text-xs">Username</label>
+              <label className="tw-font-bold tw-text-xs tw-text-center">Username</label>
               <input
-                className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-auto tw-ml-2"
+                className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-auto"
                 id="username"
                 type="text"
                 placeholder="hbcarter"
@@ -95,9 +95,9 @@ export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay, th
               />
             </div>
             <div className="tw-my-2 tw-flex tw-flex-col tw-mb-1">
-              <label className="tw-font-bold tw-text-xs">Password</label>
+              <label className="tw-font-bold tw-text-xs tw-text-center">Password</label>
               <input
-                className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-auto tw-ml-2"
+                className="tw-rounded-lg tw-border tw-border-neutral_300 tw-py-1 tw-px-1 tw-text-xs tw-w-auto"
                 id="password"
                 type="password"
                 placeholder="••••••••"
@@ -107,7 +107,7 @@ export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay, th
             </div>
             <div className="tw-flex tw-flex-col tw-mb-1">
               <button
-                className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-10"
+                className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-auto tw-my-2 tw-px-10"
                 type="submit"
               >
                 Login
@@ -118,7 +118,7 @@ export default function LoginOverlay({ showLoginOverlay, setShowLoginOverlay, th
             <p className="tw-text-3xs">Don't have an account? Click sign up below.</p>
             <button
               onClick={handleSignupClick}
-              className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-1 tw-px-10"
+              className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-auto tw-my-1 tw-px-10"
             >
               Signup
             </button>

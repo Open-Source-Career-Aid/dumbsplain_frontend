@@ -623,15 +623,14 @@ function Dumbsplain( { theme , setTheme } ) {
 
     const handleLogoutOverlay = () => {
         console.log('logout overlay clicked', isUserLoggedIn)
-        setShowLogoutOverlay(true)
-
+        setShowLogoutOverlay(true);
         user ? setIsUserLoggedIn(false) : setIsUserLoggedIn(true)
     }
 
     const handleLogout = () => {
-        userLogOut()
-        setUser(null)
-        console.log(user)
+        userLogOut();
+        setUser(null);
+        // console.log(user);
     }
     // put in "are you sure" overlay
 

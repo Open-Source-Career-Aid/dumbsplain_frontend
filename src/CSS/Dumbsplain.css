@@ -1462,6 +1462,10 @@ and (min-width: 320px) {
         margin-bottom: 10px;
     }
 
+    .progresscontainer {
+        font-size: 0.5em;
+    }
+
     .subtitle {
         display: none;
     }

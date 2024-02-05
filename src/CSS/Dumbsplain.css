@@ -1315,7 +1315,7 @@ and (min-width: 576px) {
     .avatarlabel {
         position: relative;
         z-index: 5000;
-        top: 40%;
+        top: 45%;
         padding: 5% 0;
         font-size: 10px;
     }
@@ -1363,7 +1363,8 @@ and (min-width: 576px) {
     .equaltoAI {
         scale: .8;
         float: right;
-        margin-right: -0.75em;
+        margin-top: -0.25em;
+        margin-right: -1em;
     }
 
     .bgcontaineranswer {
@@ -1489,7 +1490,7 @@ and (min-width: 320px) {
 
     .dumbsplain {
         position: absolute;
-        bottom: 0;
+        top: 0;
         height: 100%;
     }
     
@@ -1501,7 +1502,7 @@ and (min-width: 320px) {
         margin: 0;
         padding: 0;
         width: 100%;
-        height: 15em;
+        height: 100%;
     }
 
     .topicbar {
@@ -1603,8 +1604,8 @@ and (min-width: 320px) {
     }
 
     .dumbnesslevel {
-        width: 1.7em;
-        height: 1.7em;
+        width: .015em;
+        height: .75em;
     }
 
     .dumbnesslevel:hover {
@@ -1618,9 +1619,11 @@ and (min-width: 320px) {
     .avatarlabel {
         position: relative;
         z-index: 5000;
-        top: 40%;
-        padding: 5% 0;
-        font-size: 8px;
+        top: 50%;
+        padding: 5em;
+        font-size: 4px;
+        white-space: nowrap;
+        
     }
 
     .avatar1 {
@@ -1664,14 +1667,20 @@ and (min-width: 320px) {
     }
 
     .equaltoAI {
-        scale: .8;
+        scale: .4;
         float: right;
-        margin-right: -1.25em;
+        margin-top: -.5em;
+        margin-right: -1.75em;
     }
 
     .bgcontaineranswer {
         width: 40%;
         z-index: 1;
+    }
+
+    .buttoncontainer {
+        margin: 0;
+        scale: 0.65;
     }
 
 }

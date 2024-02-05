@@ -1678,6 +1678,10 @@ and (min-width: 320px) {
         z-index: 1;
     }
 
+    .submithintbuttons {
+        scale: 0.65;
+    }
+
     .buttoncontainer {
         margin: 0;
         scale: 0.65;

@@ -1678,13 +1678,19 @@ and (min-width: 320px) {
         z-index: 1;
     }
 
+    .dumbsplainbutton {
+        border-radius: 50vh;
+        padding: .4em 0.6em;
+        width: 100px;
+    }
+
     .submithintbuttons {
-        scale: 0.65;
+        scale: 0.5;
     }
 
     .buttoncontainer {
         margin: 0;
-        scale: 0.65;
+        scale: 0.5;
     }
 
 }

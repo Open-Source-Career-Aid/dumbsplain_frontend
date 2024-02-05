@@ -92,8 +92,8 @@ function DumbLevel({
               selected: dumbnessLevel == dumbnesslevel,
               // eslint-disable-next-line
               blocked:
-                (dumbnessLevel != dumbnesslevel && explanationrequested == true) ||
-                (newandupdatedApp && dumbnessLevel != dumbnesslevel),
+                (dumbnessLevel !== dumbnesslevel && explanationrequested === true) ||
+                (newandupdatedApp && dumbnessLevel !== dumbnesslevel),
               // eslint-disable-next-line
               passed: dumbnessLevel > dumbnesslevel,
             })}
@@ -145,8 +145,8 @@ function DumbLevel({
                   selected: dumbnessLevel == dumbnesslevel,
                   // eslint-disable-next-line
                   blocked:
-                    (dumbnessLevel != dumbnesslevel && explanationrequested == true) ||
-                    (newandupdatedApp && dumbnessLevel != dumbnesslevel),
+                    (dumbnessLevel !== dumbnesslevel && explanationrequested === true) ||
+                    (newandupdatedApp && dumbnessLevel !== dumbnesslevel),
                   // eslint-disable-next-line
                   passed: dumbnessLevel > dumbnesslevel,
                 })}

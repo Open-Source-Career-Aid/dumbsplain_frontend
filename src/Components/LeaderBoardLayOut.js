@@ -9,20 +9,20 @@ import {ReactComponent as Divider} from '../SVGasComponents/sep.svg';
 import getLeaderBoard  from '../Functions/getLeaderBoardRanks';
 import useForceUpdate from '../Functions/forceUpdate';
 import ReactGA4 from 'react-ga4';
-import checkForStaleData from '../Functions/cacheData';
+// import checkForStaleData from '../Functions/cacheData';
 import { set } from 'react-ga';
 import userAvatarLevel from '../Functions/userAvatarLevel';
 import isLoggedIn from '../Functions/isLoggedIn';
 
 // dummy data for the leaderboard with harvard as university name and 4 as score
-const player = new Map([
-    [0, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [1, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [2, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [3, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [4, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [5, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }]
-]);
+// const player = new Map([
+//     [0, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+//     [1, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+//     [2, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+//     [3, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+//     [4, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
+//     [5, { label: 'User Name', DQ: 4, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }]
+// ]);
 
 const college = new Map([
     [0, { label: 'Dumbsplain University', dq: 5.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
@@ -38,9 +38,9 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
     const [toggleMode, setToggleMode] = useState(false);
     const [changeBgTheme, setChangeBgTheme] = useState("today");
     const [boardType, setBoardType] = useState(1);
-    const displayBoard = {"current": null};
-    const displayBoard2 = useRef(null);
-    let displayBoard3 = null;
+    // const displayBoard = {"current": null};
+    // const displayBoard2 = useRef(null);
+    // let displayBoard3 = null;
     const forceUpdate = useForceUpdate();
     // const isLogged = (async () => await isLoggedIn())(); 
     const [isLoggedInBool, setisLoggedInBool] = useState(false);
@@ -335,14 +335,14 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                 <div id="LeaderBoardNav" className={theme === "light" ? 'light' : 'dark'}>
                     <h1 id="title">{ !toggleMode ? 'Player':'College'} Leaderboard </h1>
                     <nav id='LeaderBoardMenu' >
-                        <a className={currentMode} onClick={LeaderBoardToggle} id="toggleBtn">
+                        <button className={currentMode} onClick={LeaderBoardToggle} id="toggleBtn">
                             <PlayerIcon className="Leadericons"  width="22px" height="22px" fill={!toggleMode ? "#000" : "#FFF"} title='Top DQ Players' id= {!toggleMode  ? 'playerRank' : ''}/> 
                             <Divider className="Leadericons" width="23px" height="19px" fill={!toggleMode ? "#000" : "#FFF"} />
                             <CollegeIcon className='Leadericons' width="20px" height="20px" fill={!toggleMode ? "#000" : "#FFF"} title='Top DQ College Ranks' id= {!toggleMode === false ? 'collegeRank' : ''} />
-                        </a>
-                        <a className={`${currentMode} ${boardType === 1 ? 'active': 'inactive'}`} href='#' onClick={(e) => handleButtonClick(1,'today', e)} title='shows leaderboard today ranks'> Today </a>
-                        <a className={`${currentMode} ${boardType === 2 ? 'active': 'inactive'}`}href='#' onClick={(e) => handleButtonClick(2, 'week', e)} title='show leaderboard ranks for current week'> This Week </a>
-                        <a className={`${currentMode} ${boardType === 3 ? 'active': 'inactive'}`} href='#' onClick={(e) => handleButtonClick(3, 'allTime', e)} title ='show all time leaderboard rank'> All Time </a>
+                        </button>
+                        <button className={`${currentMode} ${boardType === 1 ? 'active': 'inactive'}`}  onClick={(e) => handleButtonClick(1,'today', e)} title='shows leaderboard today ranks'> Today </button>
+                        <button className={`${currentMode} ${boardType === 2 ? 'active': 'inactive'}`} onClick={(e) => handleButtonClick(2, 'week', e)} title='show leaderboard ranks for current week'> This Week </button>
+                        <button className={`${currentMode} ${boardType === 3 ? 'active': 'inactive'}`}  onClick={(e) => handleButtonClick(3, 'allTime', e)} title ='show all time leaderboard rank'> All Time </button>
                     </nav>
                 </div>
                 {/* add datalist to leaderboardbody */}

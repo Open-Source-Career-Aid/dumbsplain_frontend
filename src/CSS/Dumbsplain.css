@@ -973,6 +973,18 @@ and (min-width: 768px) {
         position: relative;
     }
 
+    .contentsection {
+        position: relative;
+        top: 0;
+        z-index: 1;
+    }
+
+    .dumbsplain {
+        position: absolute;
+        bottom: 0;
+        height: 100%;
+    }
+
     .topicbar {
         width: 90%;
         padding: 0;
@@ -1000,8 +1012,19 @@ and (min-width: 768px) {
     }
 
     .interactionsection {
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+        display: flex;
+        height: 180px;
+        flex-direction: column;
+        justify-content: flex-start;
         padding: 0;
     }
+
+    div.answeroptions {
+        width: 100%;
+    }   
 
     .answeroptions {
         padding: 0;
@@ -1012,11 +1035,23 @@ and (min-width: 768px) {
         position: relative;
     }
 
+    .dumbnesslevelscontainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        height: auto;
+        width: 100%;
+    }
+
     .dumbnesslevels {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin: 0;
         width: 100%;
         margin-bottom: .625em;
         flex-wrap: wrap;
@@ -1123,7 +1158,6 @@ and (min-width: 768px) {
         font-weight: 800;
         text-align: center;
     }
-
     
     .carouseldumbnesslevel {
         justify-content: center;

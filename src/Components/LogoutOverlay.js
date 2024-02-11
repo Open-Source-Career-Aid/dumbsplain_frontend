@@ -26,11 +26,8 @@ export default function LogoutOverlay({ showLogoutOverlay, setShowLogoutOverlay,
   const handleLogoutClick = (e) => {
     userLogOut();
     setUser(null);
-    // console.log(user);
+    console.log(user);
     setShowLogoutOverlay(false);
-        // on logout, reload the page to clear the user context
-        window.location.reload();
-    window.location.reload();
   };
 
   return (

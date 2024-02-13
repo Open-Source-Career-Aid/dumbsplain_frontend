@@ -48,7 +48,7 @@ function DumbLevel({
       setLocationofelements(initialloc);
     }
 
-    if (window.innerWidth < 600) {
+    if (window.innerWidth < 575) {
       let temp = 0.8; // tolerance
       setCarouselscale(temp);
     } else {

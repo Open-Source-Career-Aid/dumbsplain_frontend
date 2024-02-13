@@ -324,7 +324,7 @@ button.sign-btn  {
     background-color: var(--msgLight);
     color: var(--dark);
 }
-p.btn-para, a.btn-para{
+p.btn-para, button.btn-para{
     font-size: 1.5em;
     line-height: 1.5em;
     font-weight: bold;
@@ -334,17 +334,22 @@ p.btn-para, a.btn-para{
     height: 25%;
 }
 
-a.btn-para {
+button.btn-para {
+    display: inline;
+    text-decoration: underline;
+    border: none;
+}
+button.btn-para {
     text-decoration: underline;
     padding-top: 0;
     padding-bottom: .5em;
 }
 
-a.btn-para[data-mode="light"] {
+button.btn-para[data-mode="light"] {
     color: var(--light);
 }
 
-a.btn-para[data-mode="dark"] {
+button.btn-para[data-mode="dark"] {
     color: var(--dark);
 }
 

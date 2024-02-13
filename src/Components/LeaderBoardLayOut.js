@@ -299,10 +299,10 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                      }}>&times;</div>
                 <p className='btn-para'> See where you rank! </p> 
                 <aside id='btn-container'>
-                    <button className="sign-btn yes" data-mode={`${theme === 'light' ? 'light' : 'dark' }`} value={true} onClick={handleSignUp} >Sign Up</button>
+                    <button className="sign-btn yes" data-mode={`${theme === 'light' ? 'light' : 'dark' }`} value={false} onClick={handleSignUp} >Sign Up</button>
                     {/* <button className='sign-btn no' value={false} onClick={handleSignUp} >NO</button>  */}
                 </aside>
-                <p className='btn-para'>Already a user? <a className='btn-para' href='#login' data-mode={`${theme === 'light' ? 'light' : 'dark' }`}  value={false} onClick={handleSignUp}>Login</a></p> 
+             <button className='btn-para' data-mode={`${theme === 'light' ? 'light' : 'dark' }`}  value={true} onClick={handleSignUp}> Already a user? Login</button>
             </div>
         );
     }

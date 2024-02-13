@@ -313,7 +313,7 @@ button.sign-btn  {
     font-weight: bolder;
     width: 80%;
     height: 20%;
-    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .msgdark {

@@ -346,11 +346,11 @@ button.btn-para {
     padding-bottom: .5em;
 }
 
-button.btn-para[data-mode="light"] {
+/* button.btn-para[data-mode="light"] {
     color: var(--light);
-}
+} */
 
-button.btn-para[data-mode="dark"] {
+button.btn-para {
     color: var(--dark);
 }
 

@@ -1635,11 +1635,11 @@ and (min-width: 320px) {
     .dumbnesslevels {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        margin: auto;
-        width: 100%;
+        width: auto;
         margin-bottom: .625em;
+        height: auto;
     }
 
     .dumbnesslevel {

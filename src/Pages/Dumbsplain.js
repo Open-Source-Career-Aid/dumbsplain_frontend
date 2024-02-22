@@ -832,104 +832,6 @@ function Dumbsplain({ theme, setTheme }) {
     setLeaderboardoverlay(true);
   };
 
-<<<<<<< HEAD
-  return (
-    <div
-      style={{
-        height: "100%",
-        width: "100%",
-        padding: "0",
-        minheight: "500px",
-      }}
-    >
-      {showRobot && <EmojiSlider showEmoji={showRobot} setShowEmoji={setShowRobot} />}
-      {confetti ? (
-        <Confetti
-          width={width}
-          height={height}
-          recycle={false}
-          numberOfPieces={confettiamount}
-          colors={["#8CA8FF", "#4C7BFE", "#F59E6C", "#32BCA3"]}
-          onConfettiComplete={handleConfetticomplete}
-          gravity={0.2}
-        />
-      ) : null}
-      {showLoginOverlay ? (
-        <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} theme={theme} />
-      ) : null}
-      {showLogoutOverlay ? (
-        <LogoutOverlay
-          showLogoutOverlay={showLogoutOverlay}
-          setShowLogoutOverlay={setShowLogoutOverlay}
-          theme={theme}
-        />
-      ) : null}
-      {/* liza working */}
-      <TopicOverlay
-        topicOverlay={topicOverlay}
-        setTopicOverlay={setTopicOverlay}
-        theme={theme}
-        topic={topic}
-        imageurl={imageurl}
-        setImageurl={setImageurl}
-      />
-      <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
-      <ReportCard
-        scoreModal={scoreModal}
-        setScoreModal={setScoreModal}
-        userdq={userdq}
-        setUserdq={setUserdq}
-        userstreak={userstreak}
-        setUserstreak={setUserstreak}
-        setSpecial_id={setSpecial_id}
-        theme={theme}
-        maxstreak={maxstreak}
-        setMaxstreak={setMaxstreak}
-        mcqrequested={mcqrequested}
-        dqincreaseddecreasedorremained={dqincreaseddecreasedorremained}
-        setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
-        responsesubmitted={responsesubmitted}
-        score={score}
-        setScore={setScore}
-      />
-      <LeaderBoardLayOut
-        overlaybool={leaderboardoverlay}
-        setOverlaybool={setLeaderboardoverlay}
-        theme={theme}
-        setShowLoginOverlay={setShowLoginOverlay}
-        user={user}
-      />
-      <ExplanationOverlay
-        dumbnessLevel={dumbnessLevel}
-        explanationrequested={explanationrequested}
-        setExplanationrequested={setExplanationrequested}
-        theme={theme}
-        setScore={setScore}
-        setUserdq={setUserdq}
-        setSub={setSub}
-      />
-      <section
-        className="headersection"
-        style={{
-          height: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          padding: "0",
-          filter: topicOverlay ? "blur(10px)" : "blur(0px)",
-        }}
-      >
-        <div className="navbar">
-          {width > 900 ? (
-            <div
-              style={{
-                minWidth: "250px",
-                maxWidth: "250px",
-                padding: "0",
-              }}
-=======
     return (
         <div style={{
             height: '100%',
@@ -984,7 +886,6 @@ function Dumbsplain({ theme, setTheme }) {
                 padding: '0',
                 filter: (topicOverlay ? 'blur(10px)' : 'blur(0px)'),
             }}
->>>>>>> e1f883a33b5c86af520c6368e94646f4443ea263
             >
               <PlayerProgress dq={userdq} score={score} add={add} sub={sub} />
             </div>

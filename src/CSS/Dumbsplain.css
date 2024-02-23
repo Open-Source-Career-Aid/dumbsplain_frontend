@@ -1668,8 +1668,7 @@ and (min-width: 320px) {
         z-index: 5000;
         top: 50%;
         padding: 5em;
-        font-size: 4px;
-        white-space: nowrap;
+        font-size: 5px;
         
     }
 
@@ -1740,6 +1739,18 @@ and (min-width: 320px) {
         scale: 0.65 ;
     }
 
+}
+
+@media screen 
+and (max-width: 400px) {
+
+    .dumbnesslevels {
+        transform: scale(0.7);
+    }    
+
+    .submithintbuttons {
+        scale: 0.5 ;
+    }
 }
 
 /* for anything with min width 600px */

@@ -1610,6 +1610,14 @@ and (min-width: 320px) {
         padding: 0;
     } */
 
+    .waitingtext {
+        font-size: 0.35em;
+    }
+    
+    .waitingtime {
+        font-size: 0.9em;
+    }
+
     .optionscontainer {
         display: flex;
         flex-direction: column;

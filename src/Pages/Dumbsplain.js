@@ -446,7 +446,7 @@ function Dumbsplain({ theme, setTheme }) {
       window.location.reload();
     }
     // if special id is 2, set waiting to true
-    else if (special_id === 2 ) {
+    else if (special_id === 2) {
       setWaitfortomorrow(true);
       setDumbnessLevel(null);
       setQuizme(false);
@@ -704,8 +704,8 @@ function Dumbsplain({ theme, setTheme }) {
   }, [confettiamount]);
 
   useEffect(() => {
-    // prev code ensured the user get it right to progrsess -> selectedoption === correctoption &&  
-    // console.log(dumbnessLevel + 1, responsesubmitted) selectedoption === correctoption 
+    // prev code ensured the user get it right to progrsess -> selectedoption === correctoption &&
+    // console.log(dumbnessLevel + 1, responsesubmitted) selectedoption === correctoption
     if (responsesubmitted === true && !gameended && correctoption !== null) {
       const userAnswer = selectedoption === correctoption;
       userAnswer ? setConfettiamount([10, 20, 150, 250, 2000][dumbnessLevel - 1]) : setShowRobot(true);
@@ -1078,7 +1078,7 @@ function Dumbsplain({ theme, setTheme }) {
               {dumbnessLevel !== null && !quizme ? (
                 <div className="buttoncontainer">
                   <div className="dumbsplainbutton" onClick={handleSteppedDumbsplain}>
-                    <div className="dumbsplainbuttontext">Dumbsplain</div>
+                    <div className="dumbsplainbuttontext">Play</div>
                   </div>
                 </div>
               ) : (

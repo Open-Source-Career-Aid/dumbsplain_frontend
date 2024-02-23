@@ -111,8 +111,8 @@ function DumbLevel({
                     position: "absolute",
                     zIndex: 1000,
                     fontSize: "0.5rem",
-                    top: "30%",
-                    right: "5%",
+                    top: "35%",
+                    right: "10%",
                     fontWeight: "bold",
                     // color: 'white'
                   }}

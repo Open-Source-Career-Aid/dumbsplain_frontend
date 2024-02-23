@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /.idea
-
+# ignore C:\Users\marcu\Downloads\unfinite\dumbsplain_frontend\src\config.js
 /src/config.js

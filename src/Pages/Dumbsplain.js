@@ -446,7 +446,7 @@ function Dumbsplain({ theme, setTheme }) {
       window.location.reload();
     }
     // if special id is 2, set waiting to true
-    else if (special_id === 2) {
+    else if (special_id === 2 ) {
       setWaitfortomorrow(true);
       setDumbnessLevel(null);
       setQuizme(false);
@@ -473,6 +473,9 @@ function Dumbsplain({ theme, setTheme }) {
       setMcqloading(false);
       setMcqloaded(true);
     }
+    // else if (!gameended) {
+    //   setWaitfortomorrow(false);
+    // }
 
     // eslint-disable-next-line
   }, [special_id]);
@@ -662,12 +665,15 @@ function Dumbsplain({ theme, setTheme }) {
         });
 
         const answer = await submitAnswer(selectedoption);
+        console.log("answer: ", answer);
         // pseudoGenerator(answer.message, setCurrentext, 0.1);
         setBufferText(answer.message);
         setCorrectoption(answer.correctoption);
         setSpecial_id(answer.special_id);
         setScore(answer.score);
+        console.log("has game ended? answer: ", answer.gameended, waitfortomorrow, gameended);
         setGameended(answer.gameended);
+        console.log(answer.gameended);
         setUserdq(answer.dq);
       }
       fetchAnswer();
@@ -698,8 +704,11 @@ function Dumbsplain({ theme, setTheme }) {
   }, [confettiamount]);
 
   useEffect(() => {
-    if (selectedoption === correctoption && responsesubmitted === true) {
-      setConfettiamount([10, 20, 150, 250, 2000][dumbnessLevel - 1]);
+    // prev code ensured the user get it right to progrsess -> selectedoption === correctoption &&  
+    // console.log(dumbnessLevel + 1, responsesubmitted) selectedoption === correctoption 
+    if (responsesubmitted === true && !gameended && correctoption !== null) {
+      const userAnswer = selectedoption === correctoption;
+      userAnswer ? setConfettiamount([10, 20, 150, 250, 2000][dumbnessLevel - 1]) : setShowRobot(true);
       setAdd(1);
       if (dumbnessLevel + 1 <= 5) {
         // this code makes sure that the user gets the next question if they hit the correct option.
@@ -722,17 +731,18 @@ function Dumbsplain({ theme, setTheme }) {
         });
 
         setGameended(true);
+        // todo task
         pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
       }
-    } else if (selectedoption !== correctoption && responsesubmitted === true && correctoption !== null) {
+    } else if (gameended) {
       ReactGA4.event({
-        action: "Game Ended after Selecting Wrong Option",
-        category: "Game Ended",
-        label: "Game Ended",
+        action: "Wrong Option Selected",
+        category: "Wrong Option Selected",
+        label: "Wrong Option Selected",
       });
-
-      setGameended(true);
-      setDumbnessLevel((prev) => prev - 1);
+      // console.log("game ended?");
+      setGameended(gameended);
+      // setDumbnessLevel((prev) => prev - 1);
       setShowRobot(true);
       pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
     }
@@ -832,60 +842,102 @@ function Dumbsplain({ theme, setTheme }) {
     setLeaderboardoverlay(true);
   };
 
-    return (
-        <div style={{
-            height: '100%',
-            width: '100%',
-            padding: '0',
-            minheight: '500px',
-        }}>
-            { showRobot && <EmojiSlider showEmoji={showRobot} setShowEmoji={setShowRobot} />}
-            { confetti ? <Confetti
-                width={width}
-                height={height}
-                recycle={false}
-                numberOfPieces={confettiamount}
-                colors={['#8CA8FF', '#4C7BFE', '#F59E6C', '#32BCA3']}
-                onConfettiComplete={handleConfetticomplete}
-                gravity={0.2}
-                /> : null }
-            <TopicOverlay topicOverlay={topicOverlay} setTopicOverlay={setTopicOverlay} theme={theme} topic={topic} imageurl={imageurl} setImageurl={setImageurl} />
-            <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
-            <ReportCard
-            scoreModal={scoreModal}
-            setScoreModal={setScoreModal}
-            userdq={userdq}
-            setUserdq={setUserdq}
-            userstreak={userstreak}
-            setUserstreak={setUserstreak}
-            setSpecial_id={setSpecial_id}
-            theme={theme}
-            maxstreak={maxstreak}
-            setMaxstreak={setMaxstreak}
-            mcqrequested={mcqrequested}
-            dqincreaseddecreasedorremained={dqincreaseddecreasedorremained}
-            setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
-            responsesubmitted={responsesubmitted}
-            score={score}
-            setScore={setScore}
-            />
-            {/* <LeaderBoard
-            overlaybool={leaderboardoverlay}
-            setOverlaybool={setLeaderboardoverlay}
-            theme={theme}
-            /> */}
-            <ExplanationOverlay dumbnessLevel={dumbnessLevel} explanationrequested={explanationrequested} setExplanationrequested={setExplanationrequested} theme={theme} setScore={setScore} setUserdq={setUserdq} setSub={setSub} />
-            <section className='headersection'
-            style={{
-                height: 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                padding: '0',
-                filter: (topicOverlay ? 'blur(10px)' : 'blur(0px)'),
-            }}
+  return (
+    <div
+      style={{
+        height: "100%",
+        width: "100%",
+        padding: "0",
+        minheight: "500px",
+      }}
+    >
+      {showRobot && <EmojiSlider showEmoji={showRobot} setShowEmoji={setShowRobot} />}
+      {confetti ? (
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          numberOfPieces={confettiamount}
+          colors={["#8CA8FF", "#4C7BFE", "#F59E6C", "#32BCA3"]}
+          onConfettiComplete={handleConfetticomplete}
+          gravity={0.2}
+        />
+      ) : null}
+      {showLoginOverlay ? (
+        <LoginOverlay showLoginOverlay={showLoginOverlay} setShowLoginOverlay={setShowLoginOverlay} theme={theme} />
+      ) : null}
+      {showLogoutOverlay ? (
+        <LogoutOverlay
+          showLogoutOverlay={showLogoutOverlay}
+          setShowLogoutOverlay={setShowLogoutOverlay}
+          theme={theme}
+        />
+      ) : null}
+      {/* liza working */}
+      <TopicOverlay
+        topicOverlay={topicOverlay}
+        setTopicOverlay={setTopicOverlay}
+        theme={theme}
+        topic={topic}
+        imageurl={imageurl}
+        setImageurl={setImageurl}
+      />
+      <PlayOverlay infoOverlay={infoOverlay} setInfoOverlay={setInfoOverlay} theme={theme} />
+      <ReportCard
+        scoreModal={scoreModal}
+        setScoreModal={setScoreModal}
+        userdq={userdq}
+        setUserdq={setUserdq}
+        userstreak={userstreak}
+        setUserstreak={setUserstreak}
+        setSpecial_id={setSpecial_id}
+        theme={theme}
+        maxstreak={maxstreak}
+        setMaxstreak={setMaxstreak}
+        mcqrequested={mcqrequested}
+        dqincreaseddecreasedorremained={dqincreaseddecreasedorremained}
+        setDqincreaseddecreasedorremained={setDqincreaseddecreasedorremained}
+        responsesubmitted={responsesubmitted}
+        score={score}
+        setScore={setScore}
+      />
+      <LeaderBoardLayOut
+        overlaybool={leaderboardoverlay}
+        setOverlaybool={setLeaderboardoverlay}
+        theme={theme}
+        setShowLoginOverlay={setShowLoginOverlay}
+        user={user}
+      />
+      <ExplanationOverlay
+        dumbnessLevel={dumbnessLevel}
+        explanationrequested={explanationrequested}
+        setExplanationrequested={setExplanationrequested}
+        theme={theme}
+        setScore={setScore}
+        setUserdq={setUserdq}
+        setSub={setSub}
+      />
+      <section
+        className="headersection"
+        style={{
+          height: "auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          padding: "0",
+          filter: topicOverlay ? "blur(10px)" : "blur(0px)",
+        }}
+      >
+        <div className="navbar">
+          {width > 900 ? (
+            <div
+              style={{
+                minWidth: "250px",
+                maxWidth: "250px",
+                padding: "0",
+              }}
             >
               <PlayerProgress dq={userdq} score={score} add={add} sub={sub} />
             </div>

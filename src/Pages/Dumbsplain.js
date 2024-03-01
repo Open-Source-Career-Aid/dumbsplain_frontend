@@ -28,6 +28,7 @@ import LogoutOverlay from "../Components/LogoutOverlay";
 import userLogOut from "../Functions/userLogOut";
 import UserContext from "../userContext";
 import isLoggedIn from "../Functions/isLoggedIn";
+import useForceUpdate from "../Functions/forceUpdate";
 import { set } from "react-ga";
 
 function Dumbsplain({ theme, setTheme }) {
@@ -36,7 +37,7 @@ function Dumbsplain({ theme, setTheme }) {
 
   // double checking the user is correct and useContext is working
   React.useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const { width, height } = useWindowSize();
@@ -49,7 +50,8 @@ function Dumbsplain({ theme, setTheme }) {
   const [dumbnessLevel, setDumbnessLevel] = React.useState(1);
   const [currentext, setCurrentext] = React.useState("explaination text");
   // eslint-disable-next-line
-  const [bufferText, setBufferText] = React.useState("buffer text");
+  // array to store the text and the function to set the text
+  const [bufferText, setBufferText] = React.useState([]);
   const [quizme, setQuizme] = React.useState(false);
   const [explanationloaded, setExplanationloaded] = React.useState(false);
   // eslint-disable-next-line
@@ -92,11 +94,15 @@ function Dumbsplain({ theme, setTheme }) {
   const [gamestarted, setGamestarted] = React.useState(false);
   const [fetchTheme, setFetchTheme] = React.useState(false);
   const [leaderboardoverlay, setLeaderboardoverlay] = React.useState(false);
+  const forceUpdate = useForceUpdate();
 
   // login & logout overlay state - liza working
   const [showLoginOverlay, setShowLoginOverlay] = React.useState(false);
   const [showLogoutOverlay, setShowLogoutOverlay] = React.useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
+  // shows the next question after the user clicks continue
+  const [nextQuestion, setNextQuestion] = React.useState(false);
+
 
   async function findcurrentTime() {
     let date = new Date();
@@ -122,17 +128,17 @@ function Dumbsplain({ theme, setTheme }) {
       contentsectionheighttemp = windowheight - headerheight - 182;
     }
 
-    console.log(
-      "windowheight: ",
-      windowheight,
-      "headerheight: ",
-      headerheight,
-      "interactionheight: ",
-      interactionheight
-    );
+    // console.log(
+    //   "windowheight: ",
+    //   windowheight,
+    //   "headerheight: ",
+    //   headerheight,
+    //   "interactionheight: ",
+    //   interactionheight
+    // );
 
     contentsectionheighttemp = contentsectionheighttemp + "px";
-    console.log("contentsectionheighttemp: ", contentsectionheighttemp);
+    // console.log("contentsectionheighttemp: ", contentsectionheighttemp);
     setContentsectionheight(contentsectionheighttemp);
   };
 
@@ -276,7 +282,7 @@ function Dumbsplain({ theme, setTheme }) {
 
   // if dumbness level is selected, get the explanation if enter is pressed
   useEffect(() => {
-    console.log("dumbnessLevel: ", dumbnessLevel);
+    // console.log("dumbnessLevel: ", dumbnessLevel);
 
     const enterFunction = (event) => {
       if (event.keyCode === 13) {
@@ -361,7 +367,6 @@ function Dumbsplain({ theme, setTheme }) {
   useEffect(() => {
     const keyFunction = (event) => {
       if (!responsesubmitted && !waitfortomorrow && quizme === true && mcqloaded === true) {
-        console.log("somethings happening");
         if (event.keyCode === 49) {
           event.preventDefault();
 
@@ -509,6 +514,9 @@ function Dumbsplain({ theme, setTheme }) {
 
         const mcq = await getQuestion(dumbnessLevel);
         pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
+        setBufferText([mcq.question, setMcq, 0.1, setMcqloading]);
+        //  if bufferText is empty or not, if it is empty then we set nextQuestion to false
+        if (bufferText.length === 0) setNextQuestion(false);
         // setMcq(mcq.question);
         setSpecial_id(mcq.special_id);
       }
@@ -586,7 +594,8 @@ function Dumbsplain({ theme, setTheme }) {
         leaderboardoverlay ? setLeaderboardoverlay(false) : setLeaderboardoverlay(true);
         break;
       default:
-        console.log(e.target, "");
+        // e.target
+        console.log("");
       // LIZA: would like to put the login & logout overlay here but don't want to mess up the code here
     }
   };
@@ -597,7 +606,7 @@ function Dumbsplain({ theme, setTheme }) {
   };
 
   const handleLogoutOverlay = () => {
-    console.log("logout overlay clicked", isUserLoggedIn);
+    // console.log("logout overlay clicked", isUserLoggedIn);
     setShowLogoutOverlay(true);
 
     user ? setIsUserLoggedIn(false) : setIsUserLoggedIn(true);
@@ -606,7 +615,7 @@ function Dumbsplain({ theme, setTheme }) {
   const handleLogout = () => {
     userLogOut();
     setUser(null);
-    console.log(user);
+    // console.log(user);
   };
   // put in "are you sure" overlay
 
@@ -639,7 +648,26 @@ function Dumbsplain({ theme, setTheme }) {
     // eslint-disable-next-line
   }, [theme]);
 
+
+  const handleDumbsplainFeedback = (e) => { 
+    e.preventDefault();
+    ReactGA4.event({ 
+      action: "Game Continued",
+      category: "Game Continued",
+      label: "Game Continued",
+    });
+
+    // we show the next question to the user after they click continue
+    pseudoGenerator(...bufferText);
+    console.log("feedback to user -> bufferText: ", ...bufferText);
+    setNextQuestion(false);
+    setTyping(true);
+    forceUpdate();
+  }
+
+
   const handleAnswersubmit = (e) => {
+    e.preventDefault();
     ReactGA4.event({
       action: "Submit Answer Button Click",
       category: "Submit Answer",
@@ -666,18 +694,27 @@ function Dumbsplain({ theme, setTheme }) {
 
         const answer = await submitAnswer(selectedoption);
         console.log("answer: ", answer);
-        // pseudoGenerator(answer.message, setCurrentext, 0.1);
-        setBufferText(answer.message);
+        // if answer message is not NULL and user clicked continue button then show next level
+        // if (answer.message !== null && answer.message !== "" && nextQuestion === false) {
+        //   // pseudoGenerator(answer.message, setCurrentext, 0.1, setTyping);
+        //   setNextQuestion(true);
+        // }
+        // we show the feedback to the user
+        pseudoGenerator(answer.message, setCurrentext, 0.1, setTyping);
+        // setBufferText(answer.message);
         setCorrectoption(answer.correctoption);
         setSpecial_id(answer.special_id);
-        setScore(answer.score);
-        console.log("has game ended? answer: ", answer.gameended, waitfortomorrow, gameended);
-        setGameended(answer.gameended);
-        console.log(answer.gameended);
+        // setScore(answer.score);
+        // console.log("has game ended? answer: ", answer.gameended, waitfortomorrow, gameended);
+        // setGameended(answer.gameended);
+        // console.log(answer.gameended);
         setUserdq(answer.dq);
       }
       fetchAnswer();
       setResponsesubmitted(true);
+      setNextQuestion(true);
+      forceUpdate();
+      // console.log("nextQuestion: ", nextQuestion);
     }
   };
 
@@ -706,34 +743,40 @@ function Dumbsplain({ theme, setTheme }) {
   useEffect(() => {
     // prev code ensured the user get it right to progrsess -> selectedoption === correctoption &&
     // console.log(dumbnessLevel + 1, responsesubmitted) selectedoption === correctoption
+
+
     if (responsesubmitted === true && !gameended && correctoption !== null) {
+      setAdd(1);
       const userAnswer = selectedoption === correctoption;
       userAnswer ? setConfettiamount([10, 20, 150, 250, 2000][dumbnessLevel - 1]) : setShowRobot(true);
-      setAdd(1);
-      if (dumbnessLevel + 1 <= 5) {
-        // this code makes sure that the user gets the next question if they hit the correct option.
-        setDumbnessLevel(dumbnessLevel + 1);
-        setExplanationloaded(false);
-        setExplanationloading(false);
-        setExplanationrequested(false);
-        setMcqloaded(false);
-        setMcqloading(false);
-        setMcqrequested(false);
-        setResponsesubmitted(false);
-        setCorrectoption(null);
-        setExplanationread(false);
-        setSelectedoption(0);
-      } else {
-        ReactGA4.event({
-          action: "Game Ended after Completing all Levels",
-          category: "Game Ended",
-          label: "Game Ended",
-        });
+      // console.log("bufferText: ", bufferText,"nextQuestion", nextQuestion);
+      // it ensures we show the next question to the user after they click continue regardless of whether they got the answer right or wrong
+      if (nextQuestion) forceUpdate();
+      
+        if (dumbnessLevel + 1 <= 5) {
+          // this code makes sure that the user gets the next question if they hit the correct option.
+          setDumbnessLevel(dumbnessLevel + 1);
+          setExplanationloaded(false);
+          setExplanationloading(false);
+          setExplanationrequested(false);
+          setMcqloaded(false);
+          setMcqloading(false);
+          setMcqrequested(false);
+          setResponsesubmitted(false);
+          setCorrectoption(null);
+          setExplanationread(false);
+          setSelectedoption(0);
+        } else {
+          ReactGA4.event({
+            action: "Game Ended after Completing all Levels",
+            category: "Game Ended",
+            label: "Game Ended",
+          });
 
-        setGameended(true);
-        // todo task
-        pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
-      }
+          setGameended(true);
+          // todo task
+          // pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+        }
     } else if (gameended) {
       ReactGA4.event({
         action: "Wrong Option Selected",
@@ -744,10 +787,11 @@ function Dumbsplain({ theme, setTheme }) {
       setGameended(gameended);
       // setDumbnessLevel((prev) => prev - 1);
       setShowRobot(true);
-      pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
+      // pseudoGenerator(bufferText, setCurrentext, 0.1, setTyping);
     }
 
     if (correctoption === null && responsesubmitted === false && selectedoption === 0 && mcqloaded === false) {
+      // console.log("correctoption: ", correctoption, "responsesubmitted: ", responsesubmitted, "selectedoption: ", selectedoption, "mcqloaded: ", mcqloaded);
       setMcqrequested(true);
       setMcqloading(true);
       async function fetchQuestion() {
@@ -758,20 +802,26 @@ function Dumbsplain({ theme, setTheme }) {
         });
 
         const mcq = await getQuestion(dumbnessLevel);
-        pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
+        // nextquestion is set to false to show the next question
+        setBufferText([mcq.question, setMcq, 0.1, setMcqloading]);
+        // if (nextQuestion === false) pseudoGenerator(mcq.question, setMcq, 0.1, setMcqloading);
         // setMcq(mcq.question);
         setSpecial_id(mcq.special_id);
       }
       fetchQuestion();
       // setMcqloading(false);
       setMcqloaded(true);
+      // quizme && !mcqloading && !responsesubmitted, 
+      // console.log(quizme, mcqloading, responsesubmitted);
+      // if nextQuestion is true, then show the next question
+      if (nextQuestion) forceUpdate();
     }
 
     // eslint-disable-next-line
-  }, [correctoption, responsesubmitted, selectedoption, mcqloaded]);
+  }, [correctoption, responsesubmitted, selectedoption, mcqloaded, nextQuestion]);
 
   useEffect(() => {
-    if (typing === false) {
+    if (typing === false && gameended) {
       setTimeout(() => {
         ReactGA4.event({
           action: "AUTO Score Modal Open at End of Game",
@@ -782,7 +832,7 @@ function Dumbsplain({ theme, setTheme }) {
         setScoreModal(true);
       }, 5000);
     }
-  }, [typing]);
+  }, [typing, gameended]);
 
   const handleSteppedDumbsplain = (e) => {
     e.preventDefault();
@@ -1073,7 +1123,7 @@ function Dumbsplain({ theme, setTheme }) {
                         </div>
                     </div>
                     : null} */}
-          {!gameended ? (
+          {!gameended  ? (
             <>
               {dumbnessLevel !== null && !quizme ? (
                 <div className="buttoncontainer">
@@ -1083,7 +1133,7 @@ function Dumbsplain({ theme, setTheme }) {
                 </div>
               ) : (
                 <>
-                  {quizme && !mcqloading && !responsesubmitted ? (
+                  {quizme && !mcqloading && !responsesubmitted  ? (
                     <div
                       style={{
                         display: "flex",
@@ -1093,16 +1143,16 @@ function Dumbsplain({ theme, setTheme }) {
                       }}
                       class="submithintbuttons"
                     >
-                      <div
+                    <div
                         className="buttoncontainer"
                         style={{
                           marginRight: "0.3125em",
                           scale: "1",
                         }}
                       >
-                        <div className="dumbsplainbutton" onClick={handleAnswersubmit}>
-                          <div className="dumbsplainbuttontext">Submit</div>
-                        </div>
+                          <div className="dumbsplainbutton" onClick={handleAnswersubmit}>
+                            <div className="dumbsplainbuttontext">Submit</div>
+                          </div>
                       </div>
                       <div
                         className="buttoncontainer"
@@ -1152,16 +1202,30 @@ function Dumbsplain({ theme, setTheme }) {
                           </div>
                         </div>
                       </div>
+                      
                     </div>
                   ) : (
-                    <>
+                  !typing ? (                    
+                  <>
                       {/* { responsesubmitted ? 
                     <div className='buttoncontainer'>
                         <div className='dumbsplainbutton' onClick={handleSteppedDumbsplain}>
                             <div className='dumbsplainbuttontext'>Dumbsplain</div>
                         </div>
                     </div> : null} */}
-                    </>
+                    <div className="buttoncontainer"
+                                         style={{
+                          marginRight: "0.3125em",
+                          scale: "1",
+                        }}
+                    > 
+                    {/* disable button below until typing is done */}
+                        <div className="dumbsplainbutton" onClick={handleDumbsplainFeedback} >
+                            <div className="dumbsplainbuttontext">Continue</div>
+                          </div>
+                            
+                    </div> 
+                    </>) : null
                   )}
                 </>
               )}

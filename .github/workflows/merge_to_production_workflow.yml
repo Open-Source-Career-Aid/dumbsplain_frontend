@@ -16,6 +16,7 @@ jobs:
       - name: Merge into production
         run: |
           git remote set-branches --add origin production
+          git remote set-branches --add origin feature
           git fetch
           git checkout production
           git pull origin production

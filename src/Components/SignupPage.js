@@ -345,7 +345,7 @@ export default function SignupPage() {
             </div>
             <div className="tw-flex tw-flex-col tw-mb-1">
               <button
-                className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-full tw-my-2 tw-px-10"
+                className="tw-rounded-xl tw-bg-blue_400 hover:tw-bg-orange_200 tw-text-white tw-border tw-border-white tw-w-fit tw-my-2 tw-px-10"
                 type="submit"
               >
                 Continue
@@ -354,7 +354,7 @@ export default function SignupPage() {
             {signupError && <p className="tw-text-2xs tw-text-red-500">There was an error with your signup.</p>}
             <div className="tw-flex tw-flex-col tw-mb-1">
               <button
-                className="tw-my-2 tw-rounded-xl tw-border tw-w-full tw-px-14 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200"
+                className="tw-my-2 tw-rounded-xl tw-border tw-w-fit tw-px-14 tw-border-blue_400 hover:tw-bg-orange_200 hover:tw-text-white hover:tw-border-orange_200"
                 onClick={handleBack}
               >
                 Back

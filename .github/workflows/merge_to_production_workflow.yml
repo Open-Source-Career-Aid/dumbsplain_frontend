@@ -1,0 +1,44 @@
+name: Merge to Production
+
+on:
+  push:
+    branches:
+      - feature
+
+jobs:
+  merge-to-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Merge into production
+        run: |
+          git remote set-branches --add origin production
+          git remote set-branches --add origin feature
+          git fetch
+          git checkout production
+          git pull origin production
+          git merge --no-ff --no-commit ${{ github.event.ref }}
+          if git diff --quiet; then
+            echo "No conflicts detected. Proceeding with the merge."
+            git commit -m "Merge branch 'feature' into production"
+            git push origin production
+          else
+            echo "Merge conflict detected. Aborting the merge."
+            # Send a notification
+            curl -X POST -H "Content-Type: application/json" -d '{"text": "Merge conflict detected in the GitHub Actions workflow for the feature branch. Please review and resolve conflicts."}' <SLACK_WEBHOOK_URL>
+            exit 1
+          fi
+
+  notifications:
+    runs-on: ubuntu-latest
+    needs: merge-to-production
+    if: failure()
+
+    steps:
+      - name: Notify on failure
+        run: |
+          echo "GitHub Actions workflow failed for the feature branch. Please investigate issues."
+          # curl -X POST -H "Content-Type: application/json" -d '{"text": "GitHub Actions workflow failed for the feature branch. Please investigate."}' <SLACK_WEBHOOK_URL>

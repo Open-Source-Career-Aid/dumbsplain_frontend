@@ -367,16 +367,16 @@ const LeaderBoard = ({ overlaybool , setOverlaybool , theme }) => {
         {school: "", dq: '', rank: '', position: '', selected: false}]
     ]);
 
-    useEffect(() => {
-        const fetchLeaderBoard = async () => {
-            const data = await getLeaderBoard()
-            setUserState(data.data.userstate)
-            setLeaderboard(data.data.leaderboard)
-            setAddSchool(data.addschool)
-        }
-        fetchLeaderBoard()
-    }
-    , [])
+    // useEffect(() => {
+    //     const fetchLeaderBoard = async () => {
+    //         const data = await getLeaderBoard()
+    //         setUserState(data.data.userstate)
+    //         setLeaderboard(data.data.leaderboard)
+    //         setAddSchool(data.addschool)
+    //     }
+    //     fetchLeaderBoard()
+    // }
+    // , [])
 
     const handleClick = (e) => {
         e.preventDefault();

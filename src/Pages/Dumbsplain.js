@@ -704,10 +704,7 @@ function Dumbsplain({ theme, setTheme }) {
         // setBufferText(answer.message);
         setCorrectoption(answer.correctoption);
         setSpecial_id(answer.special_id);
-        // setScore(answer.score);
-        // console.log("has game ended? answer: ", answer.gameended, waitfortomorrow, gameended);
-        // setGameended(answer.gameended);
-        // console.log(answer.gameended);
+        setScore(answer.score);
         setUserdq(answer.dq);
       }
       fetchAnswer();

@@ -25,10 +25,10 @@ const player = new Map([
 ]);
 
 const college = new Map([
-    [0, { label: 'Dumbsplain University', dq: 5.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [1, { label: 'Dumbsplain University', dq: 4.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [2, { label: 'Dumbsplain University', dq: 3.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }],
-    [3, { label: 'Dumbsplain University', dq: 2.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png' }]
+    [0, { label: 'Dumbsplain University', dq: 5.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png', rank: 1 }],
+    [1, { label: 'Dumbsplain University', dq: 4.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png', rank: 2 }],
+    [2, { label: 'Dumbsplain University', dq: 3.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png', rank: 3}],
+    [3, { label: 'Dumbsplain University', dq: 2.0, url: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Dumbsplain_University_shield.png', rank: 3}]
 ]);
 
 
@@ -51,12 +51,24 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
         // const data = await getLeaderBoard(+toggleMode);
         const LITERAL = ['daily', 'weekly', 'lifetime'];
         if (type === 0) {
-            const res = await getLeaderBoard(type);
+            const userData = await getLeaderBoard(type);
             // retrieve the correct data from the response
-            return  new Map(Object.entries(res["data"][LITERAL[mode-1]]));
+            return  new Map(Object.entries(userData["data"][LITERAL[mode-1]]));
         }
         else {
-            return college;
+            try {
+                const collegeData = await getLeaderBoard(type);
+                // retrieve the correct data from the response
+                return  new Map(Object.entries(collegeData["data"][LITERAL[mode-1]]));
+                // return college;
+            } catch (error) {
+                // console.log(error);
+                // show dummy data if the data is not available
+                return college;
+            }
+            // retrieve the correct data from the response
+            // return  new Map(Object.entries(collegeData["data"][LITERAL[mode-1]]));
+            // return college;
         }
       
     } 
@@ -95,7 +107,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                     return (
                         <div key={index} className={`contentBody ${item[1].selected ? 'currentPlayer': ''}`} id={`${index}`} data-mode= {theme === "light" ? "light" : "dark"}>
                             <article className={`leaderCard rank ${item[1].rank === 1 ? 'first': item[1].rank === 2 ? 'second' : item[1].rank === 3 ? 'third' : ''}`} id={`${item[1].rank}`}>   {item[1].rank}<sup>{subScript(item[1].rank)}</sup> </article>
-                            <article className="leaderCard university" id={`${index}`}><img className='LeaderIcons'alt='dumbsplain college or username profile pic' src={userAvatarLevel(item[1].dq)}/> <span className='LeaderLabel'>{item[1].label}</span></article>
+                            <article className="leaderCard university" id={`${index}`}> { type === 0 ? <img className='LeaderIcons'alt='username profile pic' src={userAvatarLevel(item[1].dq)}/> : null } <span className='LeaderLabel'>{item[1].label}</span></article>
                             <article className="leaderCard dq" id={`${index}`}>{item[1].dq}</article>
                         </div>
                     );
@@ -266,7 +278,7 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        const value = e.target.value;
+        const value = e.target.value.toLowerCase();
         switch (value) {
             case 'true':
                 // hide the overlay
@@ -299,10 +311,10 @@ export default function LeaderboardBaseLayOut ({ overlaybool, setOverlaybool, th
                      }}>&times;</div>
                 <p className='btn-para'> See where you rank! </p> 
                 <aside id='btn-container'>
-                    <button className="sign-btn yes" data-mode={`${theme === 'light' ? 'light' : 'dark' }`} value={true} onClick={handleSignUp} >Sign Up</button>
+                    <button className="sign-btn yes" data-mode={`${theme === 'light' ? 'light' : 'dark' }`} value='false' onClick={handleSignUp} >Sign Up</button>
                     {/* <button className='sign-btn no' value={false} onClick={handleSignUp} >NO</button>  */}
                 </aside>
-                <p className='btn-para'>Already a user? <a className='btn-para' href='#login' data-mode={`${theme === 'light' ? 'light' : 'dark' }`}  value={false} onClick={handleSignUp}>Login</a></p> 
+                <p className='btn-para'>Already a user? <button className='btn-para' href='#login' data-mode={`${theme === 'light' ? 'light' : 'dark' }`}  value='true' onClick={handleSignUp}>Login</button></p> 
             </div>
         );
     }
